@@ -7,9 +7,9 @@ Map<String, double> pieData = {
   'Not paid yet': 2,
 };
 
-List<Color> pieColorList = [
+List<Color> pieColorList = const [
   Color.fromARGB(255, 128, 238, 125),
-  const Color.fromARGB(255, 236, 222, 22),
+  Color.fromARGB(255, 236, 222, 22),
   Color.fromARGB(255, 214, 59, 59),
 ];
 

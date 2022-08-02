@@ -14,6 +14,7 @@ class Individual extends StatefulWidget {
 }
 
 class _IndividualState extends State<Individual> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
