@@ -23,4 +23,6 @@ class DateAndTime {
   }
 
   String currentDateAndMonth() => "${now.day} ${months[now.month - 1]}"; //2 Aug
+
+  String monthAndDate() => DateFormat('MMMd').format(DateTime.now()); // Aug 2;
 }
