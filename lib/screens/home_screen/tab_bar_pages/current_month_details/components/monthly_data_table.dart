@@ -17,9 +17,10 @@ class MonthlyDataTable extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
-                  offset: const Offset(-1, 2),
-                  blurRadius: 8,
-                  color: Colors.black.withOpacity(0.5)),
+                offset: const Offset(-1, 2),
+                blurRadius: 8,
+                color: Colors.black.withOpacity(0.5),
+              ),
             ],
             color: Theme.of(context).secondaryHeaderColor,
           ),
@@ -33,6 +34,76 @@ class MonthlyDataTable extends StatelessWidget {
                 columnSpacing: 30,
                 columns: _tableColumns,
                 rows: const [
+                  DataRow(
+                    cells: [
+                      DataCell(
+                        Center(child: Text('1A')),
+                      ),
+                      DataCell(
+                        Center(child: Text('30433')),
+                      ),
+
+                      DataCell(
+                        Center(child: Text('310')),
+                      ),
+                      DataCell(
+                        Center(
+                          child: SizedBox(
+                            width: 100,
+                            child: Text(
+                              'দিদার মজুমদার ',
+                              maxLines: 2,
+                              overflow: TextOverflow.fade,
+                              softWrap: true,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      //phone num
+                      DataCell(
+                        Center(
+                          child: Text('01202223892'),
+                        ),
+                        showEditIcon: true,
+                      ),
+                    ],
+                  ),
+                  DataRow(
+                    cells: [
+                      DataCell(
+                        Center(child: Text('1A')),
+                      ),
+                      DataCell(
+                        Center(child: Text('30433')),
+                      ),
+
+                      DataCell(
+                        Center(child: Text('310')),
+                      ),
+                      DataCell(
+                        Center(
+                          child: SizedBox(
+                            width: 100,
+                            child: Text(
+                              'দিদার মজুমদার ',
+                              maxLines: 2,
+                              overflow: TextOverflow.fade,
+                              softWrap: true,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      //phone num
+                      DataCell(
+                        Center(
+                          child: Text('01202223892'),
+                        ),
+                        showEditIcon: true,
+                      ),
+                    ],
+                  ),
                   DataRow(
                     cells: [
                       DataCell(

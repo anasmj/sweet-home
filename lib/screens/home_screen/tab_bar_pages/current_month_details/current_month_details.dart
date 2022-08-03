@@ -20,10 +20,13 @@ class CurrentMonthDetails extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                SummaryContainer(
-                    txt: 'সম্পূর্ণ দিয়েছেন',
-                    summaryColor: Colors.green.withOpacity(0.8),
-                    num: 5),
+                Material(
+                  elevation: 10.0,
+                  child: SummaryContainer(
+                      txt: 'সম্পূর্ণ দিয়েছেন',
+                      summaryColor: Colors.green.withOpacity(0.8),
+                      num: 5),
+                ),
                 SummaryContainer(
                     txt: 'আংশিক দিয়েছেন',
                     summaryColor: Colors.yellowAccent.withOpacity(0.6),
@@ -42,6 +45,7 @@ class CurrentMonthDetails extends StatelessWidget {
             ),
           ),
 
+          //monthly details tables
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: MonthlyDataTable(
