@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/screens/home_screen/home_page.dart';
+import 'package:rent_home/screens/home_screen/home_screen.dart';
 import 'constants.dart';
 
 void main() {
@@ -18,7 +18,12 @@ class MyApp extends StatelessWidget {
       title: 'Houser Rent',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        //primarySwatch: const Color.fromARGB(255, 148, 196, 236),
+        primaryColor: Colors.black,
+        textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
+        appBarTheme: const AppBarTheme(
+          color: Color.fromARGB(255, 161, 239, 253),
+        ),
       ),
       home: const HomePage(),
     );

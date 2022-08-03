@@ -1,103 +1,102 @@
+//* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:rent_home/models/dummy_renter.dart';
-import 'package:rent_home/models/renter.dart';
-import 'package:rent_home/screens/home_screen/components/payment_chart.dart';
+import 'package:rent_home/screens/home_screen/tab_bar_views/current_month_details/current_month_details.dart';
+import 'package:rent_home/screens/home_screen/tab_bar_views/dues.dart';
+import 'package:rent_home/screens/home_screen/tab_bar_views/expences.dart';
+import 'package:rent_home/screens/home_screen/tab_bar_views/renters.dart';
+import '../app_icons.dart';
+import '../../utils/date_and_time.dart';
 
-import '../user_history/user_history.dart';
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final double _appIconHeight = 20;
+  final double _appIconWidth = 20;
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
-        body: Column(
-      children: [
-        const PaymentChart(),
-        Expanded(
-          child: ListView.builder(
-            itemCount: renters.length,
-            itemBuilder: (context, index) {
-              DummyRenter renter = dummyRenters[index];
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => UserHistory(renter: renter),
-                      )),
-                  child: Card(
-                    color: Colors.white70,
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 22.0,
-                        backgroundColor: renter.isPaid
-                            ? Colors.green
-                            : const Color.fromARGB(255, 214, 59, 59),
-                        child: renter.isPaid
-                            ? const Icon(Icons.check)
-                            : const Text(
-                                'pending..',
-                                style: TextStyle(
-                                    fontSize: 8.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.5),
-                              ),
-                      ),
-                      subtitle: Row(
-                        children: [
-                          Text(
-                            renter.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          renter.isNotified
-                              ? const Text(
-                                  ' (notified)',
-                                  style: TextStyle(fontSize: 12),
-                                )
-                              : const Text(''),
-                        ],
-                      ),
-                      title: Row(
-                        children: [
-                          Text(renter.floor.toString()),
-                          Text(renter.flatNo),
-                        ],
-                      ),
-                      trailing: renter.isPaid
-                          ? const Icon(
-                              Icons.notifications,
-                              color: Colors.grey,
-                              size: 30,
+      drawer: const Drawer(),
+      body: DefaultTabController(
+        initialIndex: 0,
+        length: 4,
+        child: NestedScrollView(
+            headerSliverBuilder: (context, value) {
+              return [
+                SliverAppBar(
+                  //floating: true,
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0, right: 10),
+                      child: RichText(
+                        textAlign: TextAlign.end,
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '${DateAndTime().currentDateAndMonth()} \n',
+                              style: textTheme.headline6!.copyWith(
+                                  color: Colors.black.withOpacity(0.8)),
+                            ),
+                            TextSpan(
+                              text: DateAndTime().weekDay(),
+                              style: textTheme.bodyMedium,
                             )
-                          : renter.isNotified
-                              ? const Icon(
-                                  Icons.notifications_active,
-                                  color: Colors.green,
-                                  size: 30,
-                                )
-                              : const Icon(
-                                  Icons.notifications,
-                                  color: Color.fromARGB(255, 214, 59,
-                                      59), //Color.fromARGB(255, 80, 51, 9),
-                                  size: 30,
-                                ),
+                          ],
+                        ),
+                      ),
                     ),
+                  ],
+                  //pinned: true,
+                  title: Text('আহসান মঞ্জিল ',
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
+                      style: textTheme.headline6),
+                  centerTitle: true,
+                  bottom: TabBar(
+                    tabs: [
+                      Text(
+                        'চলতি মাস',
+                        style: textTheme.subtitle1,
+                      ),
+                      Text(
+                        'বকেয়া',
+                        style: textTheme.subtitle1,
+                      ),
+                      Text(
+                        'সব গ্রাহক',
+                        style: textTheme.subtitle1,
+                      ),
+                      Text(
+                        'খরচ',
+                        style: textTheme.subtitle1,
+                      ),
+                    ],
                   ),
                 ),
-              );
+              ];
             },
-          ),
-        ),
-      ],
-    ));
+            body: const TabBarView(
+              children: [
+                CurrentMonthDetails(),
+                Dues(),
+                Renters(),
+                Expences(),
+              ],
+            )),
+      ),
+    );
   }
+
+  Widget getIcon(String iconUrl) => SizedBox(
+        height: _appIconHeight,
+        width: _appIconWidth,
+        child: Image(
+          image: AssetImage(AppIcons().takaUrl),
+        ),
+      );
+
+  //TODO: make it fancy by puttin comma between digits
+  Widget getAmountText(int amount) => Text(' ${amount.toString()} /-');
 }

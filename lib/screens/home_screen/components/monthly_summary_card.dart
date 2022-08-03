@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/app_icons.dart';
+import 'package:rent_home/screens/app_icons.dart';
 
 class MonthlySummaryCard extends StatelessWidget {
   const MonthlySummaryCard({super.key});
@@ -8,7 +8,6 @@ class MonthlySummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 80, left: 40, right: 40),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
