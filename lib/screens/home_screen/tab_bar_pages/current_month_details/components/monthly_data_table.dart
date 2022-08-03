@@ -14,6 +14,7 @@ class MonthlyDataTable extends StatelessWidget {
         //table container
         Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
                   offset: const Offset(-1, 2),
@@ -22,8 +23,55 @@ class MonthlyDataTable extends StatelessWidget {
             ],
             color: Theme.of(context).secondaryHeaderColor,
           ),
-          height: 200,
-          width: 400,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 22.0, bottom: 40),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
+                headingTextStyle: Theme.of(context).textTheme.subtitle1,
+                showBottomBorder: true,
+                columnSpacing: 30,
+                columns: _tableColumns,
+                rows: const [
+                  DataRow(
+                    cells: [
+                      DataCell(
+                        Center(child: Text('1A')),
+                      ),
+                      DataCell(
+                        Center(child: Text('30433')),
+                      ),
+
+                      DataCell(
+                        Center(child: Text('310')),
+                      ),
+                      DataCell(
+                        Center(
+                          child: SizedBox(
+                            width: 100,
+                            child: Text(
+                              'দিদার মজুমদার ',
+                              maxLines: 2,
+                              overflow: TextOverflow.fade,
+                              softWrap: true,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      //phone num
+                      DataCell(
+                        Center(
+                          child: Text('01202223892'),
+                        ),
+                        showEditIcon: true,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
         Positioned(
           top: -14,
@@ -44,6 +92,8 @@ class MonthlyDataTable extends StatelessWidget {
             child: Text(title),
           ),
         ),
+
+        //date and downloadbuttons
         Positioned(
           right: 10,
           top: 10,
@@ -65,4 +115,12 @@ class MonthlyDataTable extends StatelessWidget {
       ],
     );
   }
+
+  final List<DataColumn> _tableColumns = const [
+    DataColumn(label: Text('ফ্ল্যাট')),
+    DataColumn(label: Text('বুঝে পেয়েছি')),
+    DataColumn(label: Text('বকেয়া')),
+    DataColumn(label: Text('গ্রাহকের নাম')),
+    DataColumn(label: Text('ফোন নম্বর')),
+  ];
 }

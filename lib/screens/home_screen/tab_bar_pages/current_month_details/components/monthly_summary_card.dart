@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rent_home/screens/app_icons.dart';
 
+//*complete
 class MonthlySummaryCard extends StatelessWidget {
   const MonthlySummaryCard({super.key});
   final double _appIconHeight = 20;

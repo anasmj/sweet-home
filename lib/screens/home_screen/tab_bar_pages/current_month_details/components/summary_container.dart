@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//returns summaray in the box
 class SummaryContainer extends StatelessWidget {
   SummaryContainer(
       {super.key,
