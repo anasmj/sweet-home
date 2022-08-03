@@ -1,9 +1,9 @@
 //* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_views/current_month_details/current_month_details.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_views/dues.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_views/expences.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_views/renters.dart';
+import 'package:rent_home/screens/home_screen/tab_bar_pages/current_month_details/current_month_details.dart';
+import 'package:rent_home/screens/home_screen/tab_bar_pages/dues.dart';
+import 'package:rent_home/screens/home_screen/tab_bar_pages/expences.dart';
+import 'package:rent_home/screens/home_screen/tab_bar_pages/renters.dart';
 import '../app_icons.dart';
 import '../../utils/date_and_time.dart';
 

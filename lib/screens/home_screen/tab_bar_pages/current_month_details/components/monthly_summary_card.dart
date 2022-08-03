@@ -12,8 +12,8 @@ class MonthlySummaryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.6),
-            blurRadius: 10,
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 2,
             offset: const Offset(-2, 3),
           ),
         ],

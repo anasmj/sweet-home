@@ -11,27 +11,31 @@ class MonthlyDataTable extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
+        //table container
         Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                  offset: Offset(-1, 2), blurRadius: 8, color: Colors.black),
+                  offset: const Offset(-1, 2),
+                  blurRadius: 8,
+                  color: Colors.black.withOpacity(0.5)),
             ],
-            color: Colors.teal,
+            color: Theme.of(context).secondaryHeaderColor,
           ),
           height: 200,
           width: 400,
         ),
         Positioned(
           top: -14,
-          left: 12,
+          left: 10,
+          //title container
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Colors.blue,
+                color: Theme.of(context).secondaryHeaderColor,
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(-1, 1),
+                    offset: const Offset(-1, 1),
                     color: Colors.black.withOpacity(0.7),
                     blurRadius: 1,
                   )

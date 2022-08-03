@@ -18,12 +18,19 @@ class MyApp extends StatelessWidget {
       title: 'Houser Rent',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        //primarySwatch: const Color.fromARGB(255, 148, 196, 236),
-        primaryColor: Colors.black,
-        textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
-        appBarTheme: const AppBarTheme(
-          color: Color.fromARGB(255, 161, 239, 253),
-        ),
+        primarySwatch: Colors.cyan,
+        secondaryHeaderColor: Colors.cyan[100],
+
+        // colorScheme: ColorScheme.fromSwatch().copyWith(
+        //   primary: Color(0xFF61defa),
+        //   //secondary: Color(0xff95d7e6),
+        // )
+
+        // primaryColor: Colors.black,
+        //textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
+        // appBarTheme: const AppBarTheme(
+        //   color: Color.fromARGB(255, 161, 239, 253),
+        // ),
       ),
       home: const HomePage(),
     );
