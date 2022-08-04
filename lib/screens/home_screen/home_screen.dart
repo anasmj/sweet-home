@@ -1,8 +1,8 @@
 //* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
 import 'package:rent_home/screens/home_screen/tab_bar_pages/current_month_details/current_month_details.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_pages/dues/dues.dart';
 import 'package:rent_home/screens/home_screen/tab_bar_pages/expences.dart';
+import 'package:rent_home/screens/home_screen/tab_bar_pages/pending_page/pending_page.dart';
 import 'package:rent_home/screens/home_screen/tab_bar_pages/renters.dart';
 import '../app_icons.dart';
 import '../../utils/date_and_time.dart';
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
             headerSliverBuilder: (context, value) {
               return [
                 SliverAppBar(
-                  //floating: true,
+                  floating: true,
                   pinned: true,
                   actions: [
                     Padding(
@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
             body: const TabBarView(
               children: [
                 CurrentMonthDetails(),
-                Dues(),
+                PendingPage(),
                 Renters(),
                 Expences(),
               ],

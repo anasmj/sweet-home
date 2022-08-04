@@ -15,7 +15,7 @@ class CurrentMonthDetails extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(),
-          const MonthlySummaryCard(), //TODO: reduce shadow, elevatio 1 might be enouh
+          const MonthlySummaryCard(),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
