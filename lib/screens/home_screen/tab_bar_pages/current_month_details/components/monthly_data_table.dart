@@ -14,16 +14,16 @@ class MonthlyDataTable extends StatelessWidget {
         //table container
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                offset: const Offset(-1, 2),
-                blurRadius: 8,
-                color: Colors.black.withOpacity(0.5),
-              ),
-            ],
-            color: Theme.of(context).secondaryHeaderColor,
-          ),
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(-1, 2),
+                  blurRadius: 8,
+                  color: Colors.black.withOpacity(0.5),
+                ),
+              ],
+              // color: Theme.of(context).secondaryHeaderColor,
+              color: Colors.white),
           child: Padding(
             padding: const EdgeInsets.only(top: 22.0, bottom: 40),
             child: SingleChildScrollView(
@@ -151,7 +151,9 @@ class MonthlyDataTable extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Theme.of(context).secondaryHeaderColor,
+
+                ///color: Theme.of(context).primaryColor,
+                color: Colors.white,
                 boxShadow: [
                   BoxShadow(
                     offset: const Offset(-1, 1),

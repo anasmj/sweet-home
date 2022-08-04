@@ -4,6 +4,8 @@
 
 class AppIcons {
   String takaUrl = "assets/icons/taka.png";
-  String downloadUrl = "assets/icons/download.png";
+  String downloadUrl = "assets/icons/download_bold.svg";
   String binUrl = "assets/icons/bin.png";
+  String notificationUrl = "assets/icons/notification.png";
+  String settingUrl = "assets/icons/settings.svg";
 }

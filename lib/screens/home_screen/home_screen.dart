@@ -1,7 +1,7 @@
 //* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
 import 'package:rent_home/screens/home_screen/tab_bar_pages/current_month_details/current_month_details.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_pages/dues.dart';
+import 'package:rent_home/screens/home_screen/tab_bar_pages/dues/dues.dart';
 import 'package:rent_home/screens/home_screen/tab_bar_pages/expences.dart';
 import 'package:rent_home/screens/home_screen/tab_bar_pages/renters.dart';
 import '../app_icons.dart';
@@ -20,13 +20,14 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       drawer: const Drawer(),
       body: DefaultTabController(
-        initialIndex: 0,
+        initialIndex: 1,
         length: 4,
         child: NestedScrollView(
             headerSliverBuilder: (context, value) {
               return [
                 SliverAppBar(
                   //floating: true,
+                  pinned: true,
                   actions: [
                     Padding(
                       padding: const EdgeInsets.only(top: 15.0, right: 10),
