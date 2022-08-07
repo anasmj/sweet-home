@@ -14,4 +14,6 @@ class AppIcons {
   String homeUrl = "assets/icons/home.svg";
   String waterTapUrl = "assets/icons/water_tap.svg";
   String reportUrl = "assets/icons/report.svg";
+  String calenderUrl = "assets/icons/calender.png";
+  String otherUrl = "assets/icons/other.svg";
 }

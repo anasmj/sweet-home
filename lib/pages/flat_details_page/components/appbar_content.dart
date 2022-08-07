@@ -38,10 +38,6 @@ class AppBarContent extends StatelessWidget {
         ),
       ),
       trailing: reportButton(),
-      // trailing: Container(
-      //   color: Colors.red,
-      //   child: Text('report'),
-      // ),
     );
   }
 
