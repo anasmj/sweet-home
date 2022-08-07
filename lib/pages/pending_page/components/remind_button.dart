@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../app_icons.dart';
+import '../../app_icons.dart';
 
 class RemindButton extends StatelessWidget {
   const RemindButton({

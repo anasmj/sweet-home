@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/screens/home_screen/home_screen.dart';
+import 'package:rent_home/pages/home_page/home_page.dart';
 import 'constants.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Houser Rent',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
+        primarySwatch: Colors.teal,
         secondaryHeaderColor: Colors.cyan[100],
 
         // colorScheme: ColorScheme.fromSwatch().copyWith(

@@ -8,4 +8,9 @@ class AppIcons {
   String binUrl = "assets/icons/bin.png";
   String notificationUrl = "assets/icons/notification.png";
   String settingUrl = "assets/icons/settings.svg";
+  String optionsUrl = "assets/icons/options.svg";
+  String flameUrl = "assets/icons/flame.svg";
+  String electricityUrl = "assets/icons/electricity.svg";
+  String homeUrl = "assets/icons/home.svg";
+  String waterTapUrl = "assets/icons/water_tap.svg";
 }

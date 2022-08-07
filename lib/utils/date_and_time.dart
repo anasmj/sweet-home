@@ -31,7 +31,8 @@ class DateAndTime {
   String previousMonthAndYear() =>
       "${months[now.month - 2]}, " "${now.year}"; //Aug, 2022
 
-  String year() => DateFormat('y').format(DateTime.now()); //2022;
+  String year() =>
+      DateFormat('y').format(DateTime.now()).substring(0, 2); //2022;
 
   String weekDay() =>
       DateFormat('EEEE').format(DateTime.now()).substring(0, 3); // Tue
