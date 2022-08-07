@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/screens/app_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import '../app_icons.dart';
 import 'components/remind_button.dart';
-import 'components/search_box.dart';
+import '../shared_widgets/search_bar.dart';
 
 class PendingPage extends StatelessWidget {
   const PendingPage({super.key});
@@ -23,7 +22,7 @@ class PendingPage extends StatelessWidget {
               height: 15,
             ),
             Text(
-              'গ্রাহকের কাছ থেকে আপনার মোট বকেয়া রয়েছে',
+              'গ্রাহকের কাছ থেকে আপনার মোট বকেয়া',
               style: Theme.of(context)
                   .textTheme
                   .subtitle1!
@@ -68,7 +67,7 @@ class PendingPage extends StatelessWidget {
                 ),
                 const Expanded(
                   //SEARCH BOX
-                  child: SearchBox(),
+                  child: SearchBar(),
                 ),
                 IconButton(
                   onPressed: () {},

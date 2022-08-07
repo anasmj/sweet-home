@@ -1,11 +1,10 @@
 //* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_pages/current_month_details/current_month_details.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_pages/expences.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_pages/pending_page/pending_page.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_pages/renters.dart';
 import '../app_icons.dart';
 import '../../utils/date_and_time.dart';
+import '../current_month_page/current_month_details.dart';
+import '../flat_page/flats.dart';
+import '../pending_page/pending_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -21,7 +20,7 @@ class HomePage extends StatelessWidget {
       drawer: const Drawer(),
       body: DefaultTabController(
         initialIndex: 1,
-        length: 4,
+        length: 3,
         child: NestedScrollView(
             headerSliverBuilder: (context, value) {
               return [
@@ -66,13 +65,13 @@ class HomePage extends StatelessWidget {
                         style: textTheme.subtitle1,
                       ),
                       Text(
-                        'সব গ্রাহক',
+                        'ফ্ল্যাটগুলি',
                         style: textTheme.subtitle1,
                       ),
-                      Text(
-                        'খরচ',
-                        style: textTheme.subtitle1,
-                      ),
+                      // Text(
+                      //   'খরচ',
+                      //   style: textTheme.subtitle1,
+                      // ),
                     ],
                   ),
                 ),
@@ -80,10 +79,10 @@ class HomePage extends StatelessWidget {
             },
             body: const TabBarView(
               children: [
-                CurrentMonthDetails(),
+                CurrentMonthPage(),
                 PendingPage(),
-                Renters(),
-                Expences(),
+                FlatsPage(),
+                //Expences(),
               ],
             )),
       ),

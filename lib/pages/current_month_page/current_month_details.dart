@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/screens/home_screen/tab_bar_pages/current_month_details/components/monthly_summary_card.dart';
 import 'package:rent_home/utils/date_and_time.dart';
-
 import 'components/monthly_data_table.dart';
+import 'components/monthly_summary_card.dart';
 import 'components/summary_container.dart';
 
 //  current month page
-class CurrentMonthDetails extends StatelessWidget {
-  const CurrentMonthDetails({super.key});
+class CurrentMonthPage extends StatelessWidget {
+  const CurrentMonthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
