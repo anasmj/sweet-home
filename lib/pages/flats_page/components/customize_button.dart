@@ -3,8 +3,9 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../app_icons.dart';
 
-class SaveButton extends StatelessWidget {
-  const SaveButton({super.key});
+//THIS BUTTON LETS USER CUSTOMIZE THEIR FLAT INFORMTAION INDIVIDUALLY
+class CustomizeButton extends StatelessWidget {
+  const CustomizeButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class SaveButton extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            'সেভ',
+            'তথ্য নির্ধারণ',
             style: appTextTheme.subtitle1,
           ),
           const SizedBox(
@@ -28,7 +29,7 @@ class SaveButton extends StatelessWidget {
           ),
           SvgPicture.asset(
             AppIcons().settingUrl,
-            height: 18,
+            height: 20,
           )
         ],
       ),

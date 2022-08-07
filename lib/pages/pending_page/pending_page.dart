@@ -32,9 +32,10 @@ class PendingPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image(
+                  color: Colors.red,
                   image: AssetImage(AppIcons().takaUrl),
-                  width: 18,
-                  height: 18,
+                  width: 20,
+                  height: 20,
                 ),
                 const SizedBox(
                   width: 4,

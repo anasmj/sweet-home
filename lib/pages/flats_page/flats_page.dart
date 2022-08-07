@@ -5,7 +5,7 @@ import 'package:rent_home/pages/flats_page/components/custom_container.dart';
 import 'package:rent_home/pages/shared_widgets/search_bar.dart';
 
 import 'components/number_of_flat.dart';
-import 'components/save_button.dart';
+import 'components/customize_button.dart';
 
 class FlatsPage extends StatelessWidget {
   const FlatsPage({super.key});
@@ -37,7 +37,7 @@ class FlatsPage extends StatelessWidget {
               ),
 
               //button
-              SaveButton()
+              CustomizeButton()
             ],
           ),
           const SizedBox(
@@ -46,7 +46,9 @@ class FlatsPage extends StatelessWidget {
           const NumberOfFlat(),
           Expanded(
             child: GridView.count(
-              childAspectRatio: (itemWidth / itemHeight),
+              //childAspectRatio: (itemWidth / itemHeight),
+              childAspectRatio: 3 / 4,
+
               crossAxisCount: 2,
               crossAxisSpacing: 2,
               mainAxisSpacing: 10,
