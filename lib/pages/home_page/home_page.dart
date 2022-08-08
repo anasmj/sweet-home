@@ -7,10 +7,11 @@ import '../flats_page/flats_page.dart';
 import '../pending_page/pending_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   final double _appIconHeight = 20;
   final double _appIconWidth = 20;
+  final TextStyle _tabBarTextStyle = TextStyle(fontSize: 18);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       drawer: const Drawer(),
       body: DefaultTabController(
-        initialIndex: 1,
+        initialIndex: 0,
         length: 3,
         child: NestedScrollView(
             headerSliverBuilder: (context, value) {
@@ -49,24 +50,32 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                   //pinned: true,
-                  title: Text('আহসান মঞ্জিল ',
-                      overflow: TextOverflow.fade,
-                      softWrap: false,
-                      style: textTheme.headline6),
+
+                  // APP BAR
+                  title: Text(
+                    'আহসান মঞ্জিল ',
+                    overflow: TextOverflow.fade,
+                    softWrap: false,
+                    style: textTheme.headline6,
+                  ),
                   centerTitle: true,
+                  //TAB BAR
                   bottom: TabBar(
+                    indicatorColor: Colors.white,
+                    indicatorWeight: 5,
                     tabs: [
                       Text(
                         'চলতি মাস',
-                        style: textTheme.subtitle1,
+                        style: _tabBarTextStyle,
+                      ),
+
+                      Text(
+                        'ফ্ল্যাটগুলি',
+                        style: _tabBarTextStyle,
                       ),
                       Text(
                         'বকেয়া',
-                        style: textTheme.subtitle1,
-                      ),
-                      Text(
-                        'ফ্ল্যাটগুলি',
-                        style: textTheme.subtitle1,
+                        style: _tabBarTextStyle,
                       ),
                       // Text(
                       //   'খরচ',
@@ -80,8 +89,8 @@ class HomePage extends StatelessWidget {
             body: const TabBarView(
               children: [
                 CurrentMonthPage(),
-                PendingPage(),
                 FlatsPage(),
+                PendingPage(),
                 //Expences(),
               ],
             )),

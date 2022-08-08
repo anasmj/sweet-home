@@ -60,8 +60,8 @@ class FlatsPage extends StatelessWidget {
               childAspectRatio: 3 / 4,
 
               crossAxisCount: 2,
-              crossAxisSpacing: 2,
-              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 30,
               children: flatList
                   .map((e) => FlatContainer(
                         flat: e,

@@ -1,3 +1,5 @@
+import 'package:rent_home/models/transaction_model.dart';
+
 class MonthDetails {
   final String monthNmae, noOfDays;
   final int paidAt;
@@ -5,17 +7,19 @@ class MonthDetails {
   double? paidAmount;
   double? usedUnitofElectricity;
   double? gasBill;
-  MonthDetails({
-    required this.monthNmae,
-    required this.noOfDays,
-    this.paidAt = 0,
-    this.paidAmount,
-    this.usedUnitofElectricity,
-    this.gasBill,
-    this.isNotified = false,
-  });
+  List<Transaction>? transactions;
+  MonthDetails(
+      {required this.monthNmae,
+      required this.noOfDays,
+      this.paidAt = 0,
+      this.paidAmount,
+      this.usedUnitofElectricity,
+      this.gasBill,
+      this.isNotified = false,
+      this.transactions});
 }
 
+//!might be used in pie chart
 List<MonthDetails> listOfMonthDetails = [
   MonthDetails(monthNmae: 'Jan', noOfDays: "31", paidAt: 8),
   MonthDetails(monthNmae: 'Feb', noOfDays: "28", paidAt: 5),

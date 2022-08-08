@@ -1,6 +1,7 @@
 import 'package:rent_home/models/year.dart';
 import 'month_details.dart';
 
+//!THIS CLASS IS USED FOR SHOWING PIE CHART
 class DummyRenter {
   String name, flatNo;
   int floor, id;

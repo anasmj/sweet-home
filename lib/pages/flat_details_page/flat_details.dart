@@ -4,8 +4,8 @@ import 'components/monthly_details_page.dart';
 import 'components/transaction_page.dart';
 
 class FlatDetails extends StatelessWidget {
-  const FlatDetails({super.key});
-
+  FlatDetails({super.key});
+  final TextStyle _tabBarTextStyle = TextStyle(fontSize: 18);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -20,11 +20,10 @@ class FlatDetails extends StatelessWidget {
               child: AppBarContent(),
             ),
             bottom: TabBar(
-              labelStyle:
-                  Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 18),
+              labelStyle: _tabBarTextStyle,
               tabs: const [
-                Text('লেনদেন'),
                 Text('মাসিক হিসাব'),
+                Text('লেনদেন'),
               ],
             ),
           ),
@@ -32,10 +31,10 @@ class FlatDetails extends StatelessWidget {
         // body: const MonthlyDetailsPage(),
         body: const TabBarView(
           children: [
-            TransactionPage(),
             Center(
               child: MonthlyDetailsPage(),
             ),
+            TransactionPage(),
           ],
         ),
       ),

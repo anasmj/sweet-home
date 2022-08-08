@@ -4,14 +4,14 @@ import 'others_model.dart';
 
 class Flat {
   String flatName;
-  double rentAmount;
+  int rentAmount;
   double? gasBill, waterBill;
   double? electricityUnitPrice;
   List<OthersExpence>? othersExpences;
   Renter? renter;
   Flat({
     required this.flatName,
-    this.rentAmount = 21500.00,
+    this.rentAmount = 21500,
     this.gasBill = 600,
     this.waterBill = 800,
     this.electricityUnitPrice = 7.50,

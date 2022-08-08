@@ -2,11 +2,16 @@ import 'month_details.dart';
 
 class Renter {
   String name, flatNo;
-
+  int? numOfPerson;
   DateTime? entryDate;
   List<MonthDetails>? records;
   Renter(
-      {required this.name, required this.flatNo, this.entryDate, this.records});
+      {required this.name,
+      required this.flatNo,
+      this.entryDate,
+      this.records,
+      this.numOfPerson,
+      thi});
 }
 
 List<Renter> renters = [
