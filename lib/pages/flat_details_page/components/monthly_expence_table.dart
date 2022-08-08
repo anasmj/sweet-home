@@ -5,8 +5,7 @@ import 'package:rent_home/pages/flat_details_page/components/electricity_table.d
 import 'package:rent_home/pages/flat_details_page/components/others_table.dart';
 
 class MonthlyExpenceTable extends StatelessWidget {
-  const MonthlyExpenceTable({super.key});
-
+  MonthlyExpenceTable({super.key});
   @override
   Widget build(BuildContext context) {
     // ignore: avoid_unnecessary_containers
@@ -41,7 +40,6 @@ class MonthlyExpenceTable extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 purposeTitle(titleIcon: AppIcons().waterTapUrl, title: 'পানি'),
-                Spacer(),
                 Text('800')
               ],
             ),
@@ -54,6 +52,7 @@ class MonthlyExpenceTable extends StatelessWidget {
                 Text('1200')
               ],
             ),
+
             const Padding(
               padding: EdgeInsets.only(left: 40.0),
               child: ElectricityTable(),
@@ -69,9 +68,37 @@ class MonthlyExpenceTable extends StatelessWidget {
               padding: EdgeInsets.only(left: 40.0),
               child: OthersTable(),
             ),
+            const Divider(
+              thickness: 4,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text("মোট"),
+                Text('2400'),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text("আগের বকেয়া"),
+                Text('230'),
+              ],
+            ),
+            const Divider(
+              thickness: 4,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text("সর্বমোট"),
+                Text('2400'),
+              ],
+            ),
           ]
               .map((e) => Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 16),
                     child: e,
                   ))
               .toList(),
@@ -87,7 +114,7 @@ class MonthlyExpenceTable extends StatelessWidget {
             height: 22,
           ),
           const SizedBox(
-            width: 4,
+            width: 8,
           ),
           Text(
             title,

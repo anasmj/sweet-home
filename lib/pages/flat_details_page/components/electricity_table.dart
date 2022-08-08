@@ -5,28 +5,28 @@ class ElectricityTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Table(
-      columnWidths: const {
-        0: FractionColumnWidth(0.32),
-        1: FractionColumnWidth(0.12)
-      },
-      children: [
-        buildRow(
-          ['বর্তমান ইউনিট', '2923'],
-        ),
-        buildRow(['পূর্বের ইউনিট', '2354']),
-        buildRow(['মোট ব্যাবহৃত ইউনিট', '234']),
-        buildRow(['মোট মূল্য', '1245']),
-      ],
+    return SizedBox(
+      width: 180,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [Text("পূর্বের ইউনিট"), Text('2033')],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [Text("বর্তমান ইউনিট"), Text('2065')],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [Text("মোট ব্যাবহৃত ইউনিট"), Text('345')],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [Text("মোট মূল্য"), Text('2033')],
+          ),
+        ],
+      ),
     );
   }
-
-  TableRow buildRow(
-    List<String> cells,
-  ) =>
-      TableRow(
-        children: cells.map((e) {
-          return Text(e);
-        }).toList(),
-      );
 }

@@ -76,7 +76,7 @@ class FlatDetails extends StatelessWidget {
 
             //DATA TABLE
 
-            const MonthlyExpenceTable(),
+            MonthlyExpenceTable(),
           ],
         ),
       ),
