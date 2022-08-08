@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../models/flat_model.dart';
 import '../../app_icons.dart';
 
 class FlatContainer extends StatelessWidget {
-  const FlatContainer({super.key});
+  FlatContainer({
+    required this.flat,
+    super.key,
+  });
+  Flat flat;
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +49,10 @@ class FlatContainer extends StatelessWidget {
             ),
             //bottom name and profile
 
-            const ListTile(
+            ListTile(
               //leading: CircleAvatar(),
               title: Text(
-                'মোঃ মনিরুজ্জামান',
+                flat.renter != null ? flat.renter!.name : 'Empty flat',
                 maxLines: 1,
                 overflow: TextOverflow.fade,
                 softWrap: true,

@@ -1,11 +1,11 @@
-class Others {
+class OthersExpence {
   String purpose;
-  double? amount;
+  double amount;
 
-  Others({required this.purpose, this.amount});
+  OthersExpence({required this.purpose, required this.amount});
 }
 
-List<Others> othersList = [
-  Others(purpose: 'ময়লা', amount: 100.00),
-  Others(purpose: 'সিঁড়ি মোছা', amount: 125.00),
+List<OthersExpence> othersList = [
+  OthersExpence(purpose: 'ময়লা', amount: 100.00),
+  OthersExpence(purpose: 'সিঁড়ি মোছা', amount: 125.00),
 ];

@@ -1,10 +1,18 @@
 class MonthDetails {
   final String monthNmae, noOfDays;
   final int paidAt;
+  bool isNotified;
+  double? paidAmount;
+  double? usedUnitofElectricity;
+  double? gasBill;
   MonthDetails({
     required this.monthNmae,
     required this.noOfDays,
     this.paidAt = 0,
+    this.paidAmount,
+    this.usedUnitofElectricity,
+    this.gasBill,
+    this.isNotified = false,
   });
 }
 

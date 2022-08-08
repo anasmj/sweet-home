@@ -14,7 +14,7 @@ class OthersTable extends StatelessWidget {
     );
   }
 
-  Widget buildRow(Others obj) => Row(
+  Widget buildRow(OthersExpence obj) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [Text(obj.purpose), Text(obj.amount.toString())],
       );

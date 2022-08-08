@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         //   color: Color.fromARGB(255, 161, 239, 253),
         // ),
       ),
-      initialRoute: '/flat_details_page',
+      initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
         '/flat_details_page': (context) => const FlatDetails(),

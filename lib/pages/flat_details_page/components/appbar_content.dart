@@ -10,7 +10,9 @@ class AppBarContent extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme appTextTheme = Theme.of(context).textTheme;
     return ListTile(
-      leading: CircleAvatar(),
+      leading: const CircleAvatar(
+        radius: 25,
+      ),
       title: Text(
         'মিজানুর রহমান',
         style: appTextTheme.headline5!,

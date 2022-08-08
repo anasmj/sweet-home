@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:rent_home/pages/flats_page/components/custom_container.dart';
+import 'package:rent_home/models/flat_model.dart';
+import 'package:rent_home/pages/flats_page/components/flat_container.dart';
 import 'package:rent_home/pages/shared_widgets/search_bar.dart';
-
-import 'components/number_of_flat.dart';
 import 'components/customize_button.dart';
 
 class FlatsPage extends StatelessWidget {
@@ -13,10 +10,10 @@ class FlatsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final double itemHeight =
-        (size.height - kToolbarHeight - 24) / 3; // container height
-    final double itemWidth = size.width / 2;
-    TextTheme appTextTheme = Theme.of(context).textTheme;
+    // final double itemHeight =
+    //     (size.height - kToolbarHeight - 24) / 3; // container height
+    // final double itemWidth = size.width / 2;
+    // TextTheme appTextTheme = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: Column(
@@ -43,7 +40,20 @@ class FlatsPage extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          const NumberOfFlat(),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'ফ্ল্যাট সংখ্যাঃ ',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                TextSpan(
+                  text: flatList.length.toString(),
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: GridView.count(
               //childAspectRatio: (itemWidth / itemHeight),
@@ -52,30 +62,11 @@ class FlatsPage extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 2,
               mainAxisSpacing: 10,
-              children: [
-                const FlatContainer(),
-                Container(
-                  color: Colors.blue,
-                ),
-                Container(
-                  color: Colors.blue,
-                ),
-                Container(
-                  color: Colors.blue,
-                ),
-                Container(
-                  color: Colors.blue,
-                ),
-                Container(
-                  color: Colors.blue,
-                ),
-                Container(
-                  color: Colors.blue,
-                ),
-                Container(
-                  color: Colors.blue,
-                ),
-              ],
+              children: flatList
+                  .map((e) => FlatContainer(
+                        flat: e,
+                      ))
+                  .toList(),
             ),
           ),
         ],
