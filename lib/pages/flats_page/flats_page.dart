@@ -9,7 +9,6 @@ class FlatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     // final double itemHeight =
     //     (size.height - kToolbarHeight - 24) / 3; // container height
     // final double itemWidth = size.width / 2;

@@ -7,11 +7,11 @@ import '../flats_page/flats_page.dart';
 import '../pending_page/pending_page.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   final double _appIconHeight = 20;
   final double _appIconWidth = 20;
-  final TextStyle _tabBarTextStyle = TextStyle(fontSize: 18);
+  final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);
 
   @override
   Widget build(BuildContext context) {

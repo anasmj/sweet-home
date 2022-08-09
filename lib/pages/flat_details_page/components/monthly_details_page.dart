@@ -8,7 +8,7 @@ class MonthlyDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _colTitleText = Theme.of(context).textTheme.headline6!;
+    TextStyle colTitleText = Theme.of(context).textTheme.headline6!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
@@ -38,11 +38,11 @@ class MonthlyDetailsPage extends StatelessWidget {
               children: [
                 Text(
                   'বিবরণ',
-                  style: _colTitleText,
+                  style: colTitleText,
                 ),
                 Text(
                   'টাকার পরিমাণ',
-                  style: _colTitleText,
+                  style: colTitleText,
                 ),
               ],
             ),

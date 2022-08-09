@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../app_icons.dart';
 
 class AppBarContent extends StatelessWidget {
-  const AppBarContent({super.key});
+  AppBarContent({super.key});
 
+  // Renter renter;
   @override
   Widget build(BuildContext context) {
     TextTheme appTextTheme = Theme.of(context).textTheme;

@@ -1,7 +1,6 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rent_home/pages/flat_details_page/flat_details.dart';
 import 'package:rent_home/utils/custom_date_time_formatter.dart';
@@ -29,16 +28,21 @@ class FlatContainer extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
+        //! onTap wont work if renter is not available
         InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              PageTransition(
-                child: FlatDetails(),
-                type: PageTransitionType.rightToLeft,
-              ),
-            );
-          },
+          onTap: flat.renter != null
+              ? () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      child: FlatDetails(
+                        flat: flat,
+                      ),
+                      type: PageTransitionType.rightToLeft,
+                    ),
+                  );
+                }
+              : null,
           onLongPress: () {
             //TODO: _showDeleteModalSheet
           },

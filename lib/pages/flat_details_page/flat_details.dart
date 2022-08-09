@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import '../../models/flat_model.dart';
 import 'components/appbar_content.dart';
 import 'components/monthly_details_page.dart';
 import 'components/transaction_page.dart';
 
 class FlatDetails extends StatelessWidget {
-  FlatDetails({super.key});
-  final TextStyle _tabBarTextStyle = TextStyle(fontSize: 18);
+  FlatDetails({required this.flat, super.key});
+  final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);
+  Flat flat;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -15,8 +17,8 @@ class FlatDetails extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(150),
           child: AppBar(
-            flexibleSpace: const Padding(
-              padding: EdgeInsets.only(top: 50.0, left: 30),
+            flexibleSpace: Padding(
+              padding: const EdgeInsets.only(top: 50.0, left: 30),
               child: AppBarContent(),
             ),
             bottom: TabBar(
