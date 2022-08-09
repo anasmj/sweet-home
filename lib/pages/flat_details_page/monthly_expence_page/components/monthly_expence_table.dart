@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rent_home/pages/app_icons.dart';
-import 'package:rent_home/pages/flat_details_page/components/electricity_table.dart';
-import 'package:rent_home/pages/flat_details_page/components/others_table.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/electricity_table.dart';
+import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/others_table.dart';
+
+import '../../../../models/flat_model.dart';
 
 class MonthlyExpenceTable extends StatelessWidget {
   const MonthlyExpenceTable({super.key});
   @override
   Widget build(BuildContext context) {
+    Flat flatProvider = Provider.of<Flat>(context);
     // ignore: avoid_unnecessary_containers
     return Expanded(
       child: SingleChildScrollView(
@@ -26,21 +30,22 @@ class MonthlyExpenceTable extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 purposeTitle(titleIcon: AppIcons().homeUrl, title: 'ভাড়া'),
-                Text('22500')
+                //Text('hello')
+                Text(flatProvider.rentAmount.toString())
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 purposeTitle(titleIcon: AppIcons().flameUrl, title: 'গ্যাস'),
-                Text('500')
+                Text(flatProvider.gasbill.toString())
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 purposeTitle(titleIcon: AppIcons().waterTapUrl, title: 'পানি'),
-                Text('800')
+                Text(flatProvider.waterBill.toString())
               ],
             ),
 

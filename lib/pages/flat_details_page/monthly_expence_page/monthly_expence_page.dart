@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'monthly_expence_table.dart';
+import 'components/monthly_expence_table.dart';
 
-class MonthlyDetailsPage extends StatelessWidget {
-  const MonthlyDetailsPage({
+class MonthlyExpencePage extends StatelessWidget {
+  const MonthlyExpencePage({
     Key? key,
   }) : super(key: key);
 

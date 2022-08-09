@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../models/flat_model.dart';
+import '../../../models/renter.dart';
 import '../../app_icons.dart';
 
 class AppBarContent extends StatelessWidget {
-  AppBarContent({super.key});
-
+  AppBarContent({required this.renter, super.key});
+  Renter? renter;
   // Renter renter;
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class AppBarContent extends StatelessWidget {
         radius: 25,
       ),
       title: Text(
-        'মিজানুর রহমান',
+        renter!.name,
         style: appTextTheme.headline5!,
       ),
       subtitle: RichText(

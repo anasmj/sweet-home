@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'calender_button.dart';
-import 'input_textfield.dart';
+import 'components/calender_button.dart';
+import 'components/input_textfield.dart';
 
 class TransactionPage extends StatelessWidget {
   const TransactionPage({super.key});
