@@ -1,6 +1,10 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rent_home/pages/flat_details_page/flat_details.dart';
+import 'package:rent_home/utils/custom_date_time_formatter.dart';
 import '../../../models/flat_model.dart';
 import '../../app_icons.dart';
 
@@ -11,19 +15,22 @@ class FlatContainer extends StatelessWidget {
     super.key,
   });
   Flat flat;
+  final String _editOption = "তথ্য পরিবর্তন";
+  final String _deleteOption = "গ্রাহক মুছুন";
+  final String _newOption = "নতুন গ্রাহক";
 
-  String FlatDetailsPageLocation = '/flat_details_page';
+  String flatDetailsPageLocation = '/flat_details_page';
 
   @override
   Widget build(BuildContext context) {
     TextTheme appTextTheme = Theme.of(context).textTheme;
+    // print(DateAndTime().monthYear(flat.renter!.entryDate));
+
     return Stack(
       clipBehavior: Clip.none,
       children: [
         InkWell(
           onTap: () {
-            // Navigator.pushNamed(context, FlatDetailsPageLocation);
-            // Navigator.push(context, PageTransition());
             Navigator.push(
               context,
               PageTransition(
@@ -71,48 +78,23 @@ class FlatContainer extends StatelessWidget {
                         ),
 
                         //MENU THAT LEADS TO MODAL SHEET
-                        PopupMenuButton<int>(
-                          tooltip: 'মেন্যু',
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          itemBuilder: (BuildContext context) => [
-                            menuItem(
-                              popUpValue: 1,
-                              title: "তথ্য পরিবর্তন'",
-                              popUpIcon: Icons.edit,
-                            ),
-                            menuItem(
-                              popUpValue: 2,
-                              title: "গ্রাহক মুছুন",
-                              popUpIcon: Icons.delete,
-                            ),
-                            menuItem(
-                              popUpValue: 3,
-                              title: "নতুন গ্রাহক",
-                              popUpIcon: Icons.person,
-                            ),
-                          ],
-                          onSelected: (value) {
-                            switch (value) {
-                              case 1:
-                                print('1');
-                                break; //_showModalSheet(),
-                              case 2:
-                                print('2');
-                                break; //_showModalSheet(),
-                              case 3:
-                                print('3');
-                                break; //_showModalSheet(),
-
-                            }
-                          },
-                        )
+                        optionsButton()
                       ],
                     ),
 
                     //BOTTOM INFORMATION ABOUT FLAT
-                    flatStatus()
+                    ListTile(
+                      //leading: CircleAvatar(),
+                      title: Text(
+                        flat.renter != null ? flat.renter!.name : 'খালি আছে',
+                        maxLines: 1,
+                        overflow: TextOverflow.fade,
+                        softWrap: true,
+                      ),
+                      subtitle: Text(flat.renter != null
+                          ? '${CustomFormatter().monthYear(flat.renter!.entryDate)} থেকে আছেন'
+                          : ''),
+                    ),
                   ],
                 ),
               ),
@@ -134,30 +116,37 @@ class FlatContainer extends StatelessWidget {
     );
   }
 
-  PopupMenuItem<int> menuItem(
-      {required int popUpValue, required String title, IconData? popUpIcon}) {
-    return PopupMenuItem(
-      value: popUpValue,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(popUpIcon),
-          Text(title),
-        ],
+  PopupMenuButton<String> optionsButton() {
+    return PopupMenuButton<String>(
+      tooltip: 'মেন্যু',
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
-    );
-  }
+      itemBuilder: (BuildContext context) => [
+        PopupMenuItem(
+          value: _editOption,
+          child: Text(_editOption),
+        ),
+        PopupMenuItem(
+          value: _deleteOption,
+          child: Text(_deleteOption),
+        ),
+        PopupMenuItem(
+          value: _newOption, //value can be int or any type
+          child: Text(_newOption),
+        ),
+      ],
+      onSelected: (value) {
+        switch (value) {
+          case 'তথ্য পরিবর্তন':
+            break; //_showModalSheet(),
+          case 'গ্রাহক মুছুন':
+            break; //_showModalSheet(),
+          case 'নতুন গ্রাহক':
+            break; //_showModalSheet(),
 
-  ListTile flatStatus() {
-    return ListTile(
-      //leading: CircleAvatar(),
-      title: Text(
-        flat.renter != null ? flat.renter!.name : 'খালি আছে',
-        maxLines: 1,
-        overflow: TextOverflow.fade,
-        softWrap: true,
-      ),
-      subtitle: Text("2 Jun, 22 থেকে"),
+        }
+      },
     );
   }
 }

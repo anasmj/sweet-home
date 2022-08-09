@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/utils/date_and_time.dart';
+import 'package:rent_home/utils/custom_date_time_formatter.dart';
 import 'components/monthly_data_table.dart';
 import 'components/monthly_summary_card.dart';
 import 'components/summary_container.dart';
@@ -49,14 +49,14 @@ class CurrentMonthPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: MonthlyDataTable(
               title: 'চলতি মাসের হিসাব',
-              date: DateAndTime().monthAndYear(),
+              date: CustomFormatter().monthAndYear(),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: MonthlyDataTable(
               title: "আগের মাসের হিসাব",
-              date: DateAndTime().previousMonthAndYear(),
+              date: CustomFormatter().previousMonthAndYear(),
             ),
           ),
         ]

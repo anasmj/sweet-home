@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
-class DateAndTime {
+//*TAKES DATETIME OBJECT AND RETURN IN EXPECTED FORMAT
+class CustomFormatter {
   var months = [
     "Jan",
     "Feb",
@@ -28,6 +29,7 @@ class DateAndTime {
 
   String monthAndYear() =>
       "${months[now.month - 1]}, " "${now.year}"; //Aug, 2022
+
   String previousMonthAndYear() =>
       "${months[now.month - 2]}, " "${now.year}"; //Aug, 2022
 
@@ -36,4 +38,10 @@ class DateAndTime {
 
   String weekDay() =>
       DateFormat('EEEE').format(DateTime.now()).substring(0, 3); // Tue
+
+  // String monthYear(DateTime dateTime) =>
+  //     DateFormat('yMMMM').format(dateTime).toString().substring(0, 3);
+
+  String monthYear(DateTime date) => "${months[date.month - 1]} "
+      "'${date.year.toString().substring(2, 4)}"; //Oct '22
 }

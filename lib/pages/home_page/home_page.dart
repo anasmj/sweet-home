@@ -1,7 +1,7 @@
 //* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
 import '../app_icons.dart';
-import '../../utils/date_and_time.dart';
+import '../../utils/custom_date_time_formatter.dart';
 import '../current_month_page/current_month_details.dart';
 import '../flats_page/flats_page.dart';
 import '../pending_page/pending_page.dart';
@@ -36,12 +36,13 @@ class HomePage extends StatelessWidget {
                         text: TextSpan(
                           children: <TextSpan>[
                             TextSpan(
-                              text: '${DateAndTime().currentDateAndMonth()} \n',
+                              text:
+                                  '${CustomFormatter().currentDateAndMonth()} \n',
                               style: textTheme.headline6!.copyWith(
                                   color: Colors.black.withOpacity(0.8)),
                             ),
                             TextSpan(
-                              text: DateAndTime().weekDay(),
+                              text: CustomFormatter().weekDay(),
                               style: textTheme.bodyMedium,
                             )
                           ],

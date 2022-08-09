@@ -1,45 +1,43 @@
-import 'month_details.dart';
+import 'package:rent_home/models/year.dart';
 
 class Renter {
-  String name, flatNo;
+  String name;
   int? numOfPerson;
-  DateTime? entryDate;
-  List<MonthDetails>? records;
-  Renter(
-      {required this.name,
-      required this.flatNo,
-      this.entryDate,
-      this.records,
-      this.numOfPerson,
-      thi});
+  DateTime entryDate;
+  List<Year>? records;
+  Renter({
+    required this.name,
+    required this.entryDate,
+    this.records,
+    this.numOfPerson,
+  });
 }
 
-List<Renter> renters = [
-  Renter(
-    name: 'Ashraful Islam',
-    flatNo: '1A',
-  ),
-  Renter(
-    name: 'Rafia Sultana',
-    flatNo: '1B',
-  ),
-  Renter(
-    name: 'Rifat Merhaj',
-    flatNo: '2A',
-  ),
-  Renter(
-    name: 'Rabiul Alam',
-    flatNo: '2B',
-  ),
-  Renter(
-    name: 'Monirul  Hoque',
-    flatNo: '3A',
-  ),
-  Renter(
-    name: 'Jinia Alam',
-    flatNo: '3C',
-  ),
-];
+// List<Renter> renters = [
+//   Renter(
+//     name: 'Ashraful Islam',
+    
+//   ),
+//   Renter(
+//     name: 'Rafia Sultana',
+    
+//   ),
+//   Renter(
+//     name: 'Rifat Merhaj',
+    
+//   ),
+//   Renter(
+    
+//   ),
+//   Renter(
+//     name: 'Monirul  Hoque',
+    
+//   ),
+//   Renter(
+//     name: 'Jinia Alam',
+    
+//   ),
+// ];
 
 
 

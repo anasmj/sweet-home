@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/models/flat_model.dart';
 import 'package:rent_home/pages/flats_page/components/flat_container.dart';
 import 'package:rent_home/pages/shared_widgets/search_bar.dart';
+import '../../models/demo_database.dart';
 import 'components/customize_button.dart';
 
 class FlatsPage extends StatelessWidget {
