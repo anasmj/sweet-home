@@ -1,12 +1,35 @@
+import 'package:flutter/cupertino.dart';
 import 'package:rent_home/models/renter.dart';
 import 'package:rent_home/models/transaction_model.dart';
 import 'package:rent_home/models/year.dart';
-
 import 'flat_model.dart';
 import 'month_details.dart';
 import 'others_model.dart';
+import 'home_model.dart';
 
-//database built for ui purpose
+//*THIS WILL WORK AS DATABASE WHILE BUILDING THE APP
+
+class Database extends ChangeNotifier {
+  List<Home> homes = [
+    Home(
+      homeName: 'হাসনাত ভিলা',
+      flatRentAmount: 8500.00,
+      electricityUnitPrice: 7.50,
+      gasbill: 600,
+      waterBill: 0.00,
+      flats: [], //flatList,
+      otherExpences: [],
+
+      //FLATS AND OTHERBILL IS INITIALLISED IN CONSTRUCTOR
+    )
+  ];
+}
+
+List<OthersExpence> othersList = [
+  OthersExpence(purpose: 'ময়লা', amount: 100.00),
+  OthersExpence(purpose: 'সিঁড়ি মোছা', amount: 125.00),
+];
+
 List<Flat> flatList = [
   Flat(
     flatName: '1A',

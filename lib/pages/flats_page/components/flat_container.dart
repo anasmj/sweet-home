@@ -76,7 +76,7 @@ class FlatContainer extends StatelessWidget {
                         SizedBox(
                           width: 70,
                           child: Text(
-                            flat.rentAmount.toString(),
+                            flat.flatRentAmount.toString(),
                             style: appTextTheme.headline6,
                           ),
                         ),

@@ -28,28 +28,28 @@ class HomePage extends StatelessWidget {
                 SliverAppBar(
                   floating: true,
                   pinned: true,
-                  actions: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15.0, right: 10),
-                      child: RichText(
-                        textAlign: TextAlign.end,
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text:
-                                  '${CustomFormatter().currentDateAndMonth()} \n',
-                              style: textTheme.headline6!.copyWith(
-                                  color: Colors.black.withOpacity(0.8)),
-                            ),
-                            TextSpan(
-                              text: CustomFormatter().weekDay(),
-                              style: textTheme.bodyMedium,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                  // actions: [
+                  //   Padding(
+                  //     padding: const EdgeInsets.only(top: 15.0, right: 10),
+                  //     child: RichText(
+                  //       textAlign: TextAlign.end,
+                  //       text: TextSpan(
+                  //         children: <TextSpan>[
+                  //           TextSpan(
+                  //             text:
+                  //                 '${CustomFormatter().currentDateAndMonth()} \n',
+                  //             style: textTheme.headline6!.copyWith(
+                  //                 color: Colors.black.withOpacity(0.8)),
+                  //           ),
+                  //           TextSpan(
+                  //             text: CustomFormatter().weekDay(),
+                  //             style: textTheme.bodyMedium,
+                  //           )
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ],
                   //pinned: true,
 
                   // APP BAR
@@ -87,11 +87,11 @@ class HomePage extends StatelessWidget {
                 ),
               ];
             },
-            body: const TabBarView(
+            body: TabBarView(
               children: [
-                CurrentMonthPage(),
+                const CurrentMonthPage(),
                 FlatsPage(),
-                PendingPage(),
+                const PendingPage(),
                 //Expences(),
               ],
             )),

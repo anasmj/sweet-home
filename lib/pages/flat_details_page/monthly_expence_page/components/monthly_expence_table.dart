@@ -31,7 +31,7 @@ class MonthlyExpenceTable extends StatelessWidget {
               children: [
                 purposeTitle(titleIcon: AppIcons().homeUrl, title: 'ভাড়া'),
                 //Text('hello')
-                Text(flatProvider.rentAmount.toString())
+                Text(flatProvider.flatRentAmount.toString())
               ],
             ),
             Row(
@@ -69,8 +69,8 @@ class MonthlyExpenceTable extends StatelessWidget {
                 const Text('1200')
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 40.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 40.0),
               child: OthersTable(),
             ),
             transactionDivider(),

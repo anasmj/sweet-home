@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../models/flat_model.dart';
 import '../../../models/renter.dart';
 import '../../app_icons.dart';
 
@@ -11,37 +10,44 @@ class AppBarContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme appTextTheme = Theme.of(context).textTheme;
-    return ListTile(
-      leading: const CircleAvatar(
-        radius: 25,
-      ),
-      title: Text(
-        renter!.name,
-        style: appTextTheme.headline5!,
-      ),
-      subtitle: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(text: 'পাবো ', style: appTextTheme.subtitle1),
-            WidgetSpan(
-              child: Image(
-                height: 18,
-                width: 18,
-                color: Colors.red[700],
-                image: AssetImage(AppIcons().takaUrl),
-              ),
-            ),
-            TextSpan(
-              text: '10400\n',
-              style: appTextTheme.headline6!.copyWith(
-                  color: Colors.red[700], fontWeight: FontWeight.w600),
-            ),
-            TextSpan(
-                text: 'সর্বশেষঃ 12 Aug, 22', style: appTextTheme.bodyText2),
-          ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 40.0),
+      child: ListTile(
+        // leading: const CircleAvatar(
+        //   radius: 25,
+        // ),
+        title: Text(
+          renter!.name,
+          style: appTextTheme.headline5!,
+          maxLines: 1,
+          overflow: TextOverflow.fade,
+          // softWrap: true,
         ),
+        subtitle: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(text: 'পাবো ', style: appTextTheme.subtitle1),
+              WidgetSpan(
+                child: Image(
+                  height: 18,
+                  width: 18,
+                  color: Colors.red[700],
+                  image: AssetImage(AppIcons().takaUrl),
+                ),
+              ),
+              TextSpan(
+                text: '10400\n',
+                style: appTextTheme.headline6!.copyWith(
+                    color: Colors.red[700], fontWeight: FontWeight.w600),
+              ),
+              TextSpan(
+                  text: 'সর্বশেষ লেনদেনঃ 12 Aug, 22',
+                  style: appTextTheme.caption!.copyWith(fontSize: 14)),
+            ],
+          ),
+        ),
+        trailing: reportButton(),
       ),
-      trailing: reportButton(),
     );
   }
 
