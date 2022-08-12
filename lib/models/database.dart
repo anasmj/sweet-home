@@ -10,22 +10,35 @@ import 'home_model.dart';
 //*THIS WILL WORK AS DATABASE WHILE BUILDING THE APP
 
 class Database extends ChangeNotifier {
-  List<Home> homes = [
-    Home(
-      homeName: 'হাসনাত ভিলা',
-      flatRentAmount: 8500.00,
-      electricityUnitPrice: 7.50,
-      gasbill: 600,
-      waterBill: 0.00,
-      flats: [], //flatList,
-      otherExpences: [],
+  late List<Home> homes;
 
-      //FLATS AND OTHERBILL IS INITIALLISED IN CONSTRUCTOR
-    )
-  ];
+  Database() {
+    initHome();
+  }
+  void initHome() {
+    homes = [
+      Home(
+        homeName: 'ভিলা',
+        globalRentAmount: 30500, //!value not responding
+        electricityUnitPrice: 7.50,
+        globalGasBill: 600,
+        waterBill: 0.00,
+        // flats: flatList, //!flats are created on default 0 value even before the Home object is created.
+        //globalOtherExpences: otherExpenceList,
+
+        //FLATS AND OTHERBILL IS INITIALLISED IN CONSTRUCTOR
+      )
+    ];
+    print('home is creted with rent amount ${homes[0].globalRentAmount}');
+
+    homes[0].flats = flatList;
+    print('flat rent amount is ${homes[0].flats![0].flatRentAmount}');
+
+    homes[0].globalOtherExpences = otherExpenceList;
+  }
 }
 
-List<OthersExpence> othersList = [
+List<OthersExpence> otherExpenceList = [
   OthersExpence(purpose: 'ময়লা', amount: 100.00),
   OthersExpence(purpose: 'সিঁড়ি মোছা', amount: 125.00),
 ];
@@ -206,44 +219,20 @@ List<Flat> flatList = [
   ),
   Flat(
     flatName: '3A',
-    othersExpences: [
-      OthersExpence(purpose: 'ময়লা', amount: 100),
-      OthersExpence(purpose: 'সিঁড়ি', amount: 125)
-    ],
   ),
   Flat(
     flatName: '3B',
-    othersExpences: [
-      OthersExpence(purpose: 'ময়লা', amount: 100),
-      OthersExpence(purpose: 'সিঁড়ি', amount: 125)
-    ],
   ),
   Flat(
     flatName: '4A',
-    othersExpences: [
-      OthersExpence(purpose: 'ময়লা', amount: 100),
-      OthersExpence(purpose: 'সিঁড়ি', amount: 125)
-    ],
   ),
   Flat(
     flatName: '4B',
-    othersExpences: [
-      OthersExpence(purpose: 'ময়লা', amount: 100),
-      OthersExpence(purpose: 'সিঁড়ি', amount: 125)
-    ],
   ),
   Flat(
     flatName: '5A',
-    othersExpences: [
-      OthersExpence(purpose: 'ময়লা', amount: 100),
-      OthersExpence(purpose: 'সিঁড়ি', amount: 125)
-    ],
   ),
   Flat(
     flatName: '5B',
-    othersExpences: [
-      OthersExpence(purpose: 'ময়লা', amount: 100),
-      OthersExpence(purpose: 'সিঁড়ি', amount: 125)
-    ],
   ),
 ];

@@ -1,17 +1,41 @@
 import 'package:rent_home/models/transaction_model.dart';
 
-class MonthDetails {
+import 'home_model.dart';
+import 'others_model.dart';
+
+class MonthDetails extends Home {
   final String monthNmae; //? it is needed ?
 
+  //! almost every parameter present is home is needed to copy here
+  //! for the sake of keeping monthly history of a renter
   bool isNotified;
   double currentUnitofElectricity;
+  int? myFlatRent;
+  double? electricUnitUsed;
+
+  double? gasbill; //can be set flatwise
+  double? myWaterBill; //managed globally from home class
+  double? myElectricityUnitPrice; //managed globally from home class
+  double? usedUnitOfElectricity; //it will go in month parameter
+  List<OthersExpence>? myOthersExpences;
+
   List<Transaction>? transactions;
   MonthDetails({
     required this.monthNmae,
     required this.currentUnitofElectricity,
+    this.myFlatRent,
+    this.myOthersExpences,
+    this.gasbill,
     this.isNotified = false,
     this.transactions,
-  });
+  }) {
+    //for null variable take global value from Home class
+    myFlatRent ??= super.globalRentAmount;
+    gasbill ??= super.globalGasBill;
+    myWaterBill ??= super.waterBill;
+    myElectricityUnitPrice ??= super.electricityUnitPrice;
+    myOthersExpences ??= super.globalOtherExpences;
+  }
 }
 
 // List<MonthDetails> listOfMonthDetails = [

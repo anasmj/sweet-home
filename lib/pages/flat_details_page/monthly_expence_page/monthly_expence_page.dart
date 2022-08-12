@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import '../../../models/renter.dart';
 import 'components/monthly_expence_table.dart';
 
 class MonthlyExpencePage extends StatelessWidget {
-  const MonthlyExpencePage({
+  MonthlyExpencePage({
+    required this.renter,
     Key? key,
   }) : super(key: key);
 
+  Renter renter;
   @override
   Widget build(BuildContext context) {
     TextStyle colTitleText = Theme.of(context).textTheme.headline6!;
@@ -50,7 +53,7 @@ class MonthlyExpencePage extends StatelessWidget {
 
           //DATA TABLE
 
-          const MonthlyExpenceTable(),
+          MonthlyExpenceTable(renter: renter),
         ],
       ),
     );

@@ -1,5 +1,4 @@
 import 'dart:core';
-
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rent_home/pages/flat_details_page/flat_details.dart';
@@ -22,9 +21,23 @@ class FlatContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme appTextTheme = Theme.of(context).textTheme;
-    // print(DateAndTime().monthYear(flat.renter!.entryDate));
+    // int? flatRentAmount;
 
+    // Home home = Provider.of<Database>(context).homes[0];
+    TextTheme appTextTheme = Theme.of(context).textTheme;
+
+    // print(DateAndTime().monthYear(flat.renter!.entryDate));
+    // if (flat.renter != null) {
+    //   //assign rent amount from MonthDetails class
+    //   Year currentYear = flat.renter!.records[
+    //       flat.renter!.records.length - 1]; //last element of List<year>
+    //   flatRentAmount = currentYear.months[currentYear.months.length - 1]
+    //       .myFlatRent!; //! basically the variable is nullable in its origin class
+
+    // } else {
+    //   //assign global rent amount from Home class
+    //   flatRentAmount = home.globalRentAmount;
+    // }
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -36,7 +49,7 @@ class FlatContainer extends StatelessWidget {
                     context,
                     PageTransition(
                       child: FlatDetails(
-                        flat: flat,
+                        renter: flat.renter!,
                       ),
                       type: PageTransitionType.rightToLeft,
                     ),
@@ -76,7 +89,10 @@ class FlatContainer extends StatelessWidget {
                         SizedBox(
                           width: 70,
                           child: Text(
+                            //TODO: make visible local value instead
+                            //home.globalRentAmount.toString(),
                             flat.flatRentAmount.toString(),
+                            //flatRentAmount.toString(),
                             style: appTextTheme.headline6,
                           ),
                         ),

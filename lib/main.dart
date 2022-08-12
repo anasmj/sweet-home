@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/models/demo_database.dart';
+import 'package:rent_home/models/database.dart';
 import 'package:rent_home/pages/home_page/home_page.dart';
 import 'constants.dart';
-import 'models/flat_model.dart';
-import 'models/home_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,13 +14,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    initApp(context);
-
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => Flat(),
-        ),
         ChangeNotifierProvider(create: ((context) => Database())),
       ],
       child: MaterialApp(

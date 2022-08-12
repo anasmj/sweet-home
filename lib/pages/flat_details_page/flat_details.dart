@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/flat_model.dart';
+import '../../models/renter.dart';
 import 'components/appbar_content.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
 import 'transaction_page/transaction_page.dart';
@@ -8,9 +9,9 @@ import 'transaction_page/transaction_page.dart';
 //*PROVIDES TWO TAB BAR 1.MONTHLY EXPENCE, 2.TRANSACTIONS
 
 class FlatDetails extends StatelessWidget {
-  FlatDetails({required this.flat, super.key});
+  FlatDetails({required this.renter, super.key});
   final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);
-  Flat flat;
+  Renter renter;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class FlatDetails extends StatelessWidget {
             flexibleSpace: Padding(
               padding: const EdgeInsets.only(top: 50.0, left: 30),
               child: AppBarContent(
-                renter: flat.renter,
+                renter: renter,
               ),
             ),
             bottom: TabBar(
@@ -37,12 +38,12 @@ class FlatDetails extends StatelessWidget {
           ),
         ),
         // body: const MonthlyExpencePage(),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
             Center(
-              child: MonthlyExpencePage(),
+              child: MonthlyExpencePage(renter: renter),
             ),
-            TransactionPage(),
+            const TransactionPage(),
           ],
         ),
       ),

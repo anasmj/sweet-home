@@ -1,54 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rent_home/pages/app_icons.dart';
-import 'package:provider/provider.dart';
 import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/electricity_table.dart';
 import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/others_table.dart';
-
-import '../../../../models/flat_model.dart';
+import '../../../../models/month_details.dart';
+import '../../../../models/renter.dart';
+import '../../../../models/year.dart';
 
 class MonthlyExpenceTable extends StatelessWidget {
-  const MonthlyExpenceTable({super.key});
+  MonthlyExpenceTable({required this.renter, super.key});
+  Renter renter;
+
   @override
   Widget build(BuildContext context) {
-    Flat flatProvider = Provider.of<Flat>(context);
-    // ignore: avoid_unnecessary_containers
+    Year currentYear =
+        renter.records[renter.records.length - 1]; //last element of List<year>
+    MonthDetails currentMonth = currentYear.months[
+        currentYear.months.length - 1]; //last element of List<MonthDetails>
+    // print(flat.gasbill.toString());
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //heading
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: const [
-            //     Text('বিবরণ'),
-            //     Text('টাকার পরিমাণ'),
-            //   ],
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 purposeTitle(titleIcon: AppIcons().homeUrl, title: 'ভাড়া'),
                 //Text('hello')
-                Text(flatProvider.flatRentAmount.toString())
+                Text(currentMonth.myFlatRent.toString())
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 purposeTitle(titleIcon: AppIcons().flameUrl, title: 'গ্যাস'),
-                Text(flatProvider.gasbill.toString())
+                Text(currentMonth.gasbill.toString())
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 purposeTitle(titleIcon: AppIcons().waterTapUrl, title: 'পানি'),
-                Text(flatProvider.waterBill.toString())
+                Text(currentMonth.waterBill.toString())
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -57,7 +53,6 @@ class MonthlyExpenceTable extends StatelessWidget {
                 Text('1200')
               ],
             ),
-
             const Padding(
               padding: EdgeInsets.only(left: 40.0),
               child: ElectricityTable(),
@@ -74,7 +69,6 @@ class MonthlyExpenceTable extends StatelessWidget {
               child: OthersTable(),
             ),
             transactionDivider(),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [

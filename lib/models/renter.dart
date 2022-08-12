@@ -4,41 +4,14 @@ class Renter {
   String name;
   int? numOfPerson;
   DateTime entryDate;
-  List<Year>? records;
+  List<Year> records;
   Renter({
     required this.name,
     required this.entryDate,
-    this.records,
+    required this.records,
     this.numOfPerson,
   });
 }
-
-// List<Renter> renters = [
-//   Renter(
-//     name: 'Ashraful Islam',
-    
-//   ),
-//   Renter(
-//     name: 'Rafia Sultana',
-    
-//   ),
-//   Renter(
-//     name: 'Rifat Merhaj',
-    
-//   ),
-//   Renter(
-    
-//   ),
-//   Renter(
-//     name: 'Monirul  Hoque',
-    
-//   ),
-//   Renter(
-//     name: 'Jinia Alam',
-    
-//   ),
-// ];
-
 
 
 //! do not delete without thinking 
