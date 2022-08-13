@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_home/pages/flats_page/components/flat_container.dart';
 import 'package:rent_home/pages/shared_widgets/search_bar.dart';
-import '../../models/database.dart';
-import '../../models/home_model.dart';
+import 'package:rent_home/providers/home_provider.dart';
 import 'components/customize_button.dart';
 
 class FlatsPage extends StatelessWidget {
@@ -11,13 +10,8 @@ class FlatsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // List<Flat>? flatsInHome = Provider.of<Database>(context).homes[0].flats;
-    Home home = Provider.of<Database>(context).homes[0];
-    // print('global rent: ${home.globalRentAmount}');
+    final home = context.watch<HomeProvider>();
 
-    // List<Flat>? flatsInHome = Database().homes[0].flats;
-    // final double itemHeight =
-    //     (size.height - kToolbarHeight - 24) / 3; // container height
-    // final double itemWidth = size.width / 2;
     TextTheme appTextTheme = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -53,9 +47,7 @@ class FlatsPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 TextSpan(
-                  text: home.flats != null
-                      ? home.flats!.length.toString()
-                      : 'No flat available',
+                  text: home.flats.length.toString(),
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ],
@@ -63,28 +55,26 @@ class FlatsPage extends StatelessWidget {
           ),
 
           Expanded(
-            child: home.flats != null
-                ? home.flats!.isNotEmpty
-                    ? GridView.count(
-                        //childAspectRatio: (itemWidth / itemHeight),
-                        childAspectRatio: 3 / 4,
+            child: home.flats.isNotEmpty
+                ? GridView.count(
+                    //childAspectRatio: (itemWidth / itemHeight),
+                    childAspectRatio: 3 / 4,
 
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 30,
-                        children: home.flats!
-                            .map((e) => FlatContainer(
-                                  flat: e,
-                                ))
-                            .toList(),
-                      )
-                    : Center(
-                        child: Text(
-                          'এখনও কোনও ফ্ল্যাট যুক্ত করা হয়নি',
-                          style: appTextTheme.subtitle1,
-                        ), //TODO: SHOW AN ADD BUTTON INSTEAD
-                      )
-                : Text('No flats to show'),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 30,
+                    children: home.flats
+                        .map((e) => FlatContainer(
+                              flat: e,
+                            ))
+                        .toList(),
+                  )
+                : Center(
+                    child: Text(
+                      'এখনও কোনও ফ্ল্যাট যুক্ত করা হয়নি',
+                      style: appTextTheme.subtitle1,
+                    ), //TODO: SHOW AN ADD BUTTON INSTEAD
+                  ),
           ),
         ],
       ),

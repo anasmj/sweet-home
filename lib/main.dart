@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/models/database.dart';
 import 'package:rent_home/pages/home_page/home_page.dart';
+import 'package:rent_home/providers/home_provider.dart';
 import 'constants.dart';
 
 void main() {
@@ -16,7 +16,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: ((context) => Database())),
+        // ChangeNotifierProvider(
+        //   create: (context) => Database(),
+        // ),
+        ChangeNotifierProvider(
+          create: (context) => HomeProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Houser Rent',

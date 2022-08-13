@@ -1,8 +1,7 @@
 import 'package:rent_home/models/renter.dart';
+import '../providers/home_provider.dart';
 
-import 'home_model.dart';
-
-class Flat extends Home {
+class Flat {
   String flatName;
   int? flatRentAmount;
 
@@ -14,10 +13,9 @@ class Flat extends Home {
 
   Flat({
     required this.flatName,
-    this.flatRentAmount,
     this.renter,
+    this.flatRentAmount,
   }) {
-    flatRentAmount ??= globalRentAmount;
-    print('flat constructor rent amount $flatRentAmount ');
+    flatRentAmount ??= HomeProvider().homeRentAmount;
   }
 }

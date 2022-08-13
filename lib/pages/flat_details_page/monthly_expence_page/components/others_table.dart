@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_home/models/database.dart';
 import 'package:rent_home/models/others_model.dart';
+import 'package:rent_home/providers/home_provider.dart';
 
 class OthersTable extends StatelessWidget {
   OthersTable({super.key});
@@ -9,7 +10,7 @@ class OthersTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<OthersExpence>? othersList =
-        Provider.of<Database>(context).homes[0].globalOtherExpences;
+        Provider.of<HomeProvider>(context).homeOtherExpences;
     return SizedBox(
       width: 180,
       child: Column(
