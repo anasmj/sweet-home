@@ -21,23 +21,7 @@ class FlatContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // int? flatRentAmount;
-
-    // Home home = Provider.of<Database>(context).homes[0];
     TextTheme appTextTheme = Theme.of(context).textTheme;
-
-    // print(DateAndTime().monthYear(flat.renter!.entryDate));
-    // if (flat.renter != null) {
-    //   //assign rent amount from MonthDetails class
-    //   Year currentYear = flat.renter!.records[
-    //       flat.renter!.records.length - 1]; //last element of List<year>
-    //   flatRentAmount = currentYear.months[currentYear.months.length - 1]
-    //       .myFlatRent!; //! basically the variable is nullable in its origin class
-
-    // } else {
-    //   //assign global rent amount from Home class
-    //   flatRentAmount = home.globalRentAmount;
-    // }
     return Stack(
       clipBehavior: Clip.none,
       children: [

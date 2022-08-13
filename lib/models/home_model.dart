@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:rent_home/models/others_model.dart';
 import 'flat_model.dart';
 

@@ -9,7 +9,6 @@ class FlatsPage extends StatelessWidget {
   FlatsPage({super.key});
   @override
   Widget build(BuildContext context) {
-    // List<Flat>? flatsInHome = Provider.of<Database>(context).homes[0].flats;
     final home = context.watch<HomeProvider>();
 
     TextTheme appTextTheme = Theme.of(context).textTheme;

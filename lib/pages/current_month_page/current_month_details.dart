@@ -4,7 +4,7 @@ import 'components/monthly_data_table.dart';
 import 'components/monthly_summary_card.dart';
 import 'components/summary_container.dart';
 
-//  current month page
+// Ongoing month summary
 class CurrentMonthPage extends StatelessWidget {
   const CurrentMonthPage({super.key});
 

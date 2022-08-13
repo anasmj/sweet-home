@@ -12,14 +12,14 @@ class HomeProvider extends ChangeNotifier {
   final String _ownerName = '';
   final String _address = '';
 
-  final int _homeRentAmount = 32;
-  List<OthersExpence>? _otherExpenceList;
-  final double _homeGasBill = 0;
+  final int _homeRentAmount = 8500;
+  // List<OthersExpence>? _otherExpenceList; //!this line gives error
+  final double _homeGasBill = 600;
 
   final double _homeWaterBill = 0;
-  final double _electricityUnitPrice = 0;
+  final double _electricityUnitPrice = 7.50;
 
-  // final List<Flat>? _flats = flatList;
+  // List<Flat>? _flats = flatList;
 
   String get homeName => _homeName;
   String get ownerName => ownerName;
@@ -28,11 +28,12 @@ class HomeProvider extends ChangeNotifier {
   List<Flat> get flats => flatList;
   double get electricityUnitPrice => _electricityUnitPrice;
   int get homeRentAmount => _homeRentAmount;
-  List<OthersExpence>? get homeOtherExpences => _otherExpenceList;
+  List<OthersExpence>? get homeOtherExpences => otherExpenceList;
   double? get homeGasbill => _homeGasBill;
   double? get homewaterBill => _homeWaterBill;
 }
 
+//some demo list of other expences and flats
 List<OthersExpence> otherExpenceList = [
   OthersExpence(purpose: 'ময়লা', amount: 100.00),
   OthersExpence(purpose: 'সিঁড়ি মোছা', amount: 125.00),
@@ -40,7 +41,7 @@ List<OthersExpence> otherExpenceList = [
 
 List<Flat> flatList = [
   Flat(
-    flatRentAmount: 30,
+    flatRentAmount: 7500,
     flatName: '1A',
     renter: Renter(
       name: 'আশরাফুল আলম',
@@ -54,7 +55,7 @@ List<Flat> flatList = [
           months: <MonthDetails>[
             MonthDetails(
               monthNmae: 'Apr',
-              currentUnitofElectricity: 7458.00, //random electricity unit
+              readingOfElecctricMeter: 7458.00, //random electricity unit
               transactions: [
                 Transaction(
                   transactionDate: DateTime.parse("2022-04-03"),
@@ -65,7 +66,7 @@ List<Flat> flatList = [
             ),
             MonthDetails(
               monthNmae: 'May',
-              currentUnitofElectricity: 7338.39, //first month usage is zero
+              readingOfElecctricMeter: 7338.39, //first month usage is zero
               transactions: [
                 Transaction(
                   transactionDate: DateTime.parse("2022-05-07"),
@@ -75,7 +76,7 @@ List<Flat> flatList = [
             ),
             MonthDetails(
               monthNmae: 'Jun',
-              currentUnitofElectricity: 7450.00,
+              readingOfElecctricMeter: 7450.00,
               transactions: [
                 Transaction(
                   transactionDate: DateTime.parse("2022-06-06"),
@@ -104,7 +105,7 @@ List<Flat> flatList = [
           months: <MonthDetails>[
             MonthDetails(
               monthNmae: 'Nov',
-              currentUnitofElectricity: 7458.00, //random electricity unit
+              readingOfElecctricMeter: 7458.00, //random electricity unit
               transactions: [
                 Transaction(
                   transactionDate: DateTime.parse("2022-11-05"),
@@ -115,7 +116,7 @@ List<Flat> flatList = [
             ),
             MonthDetails(
               monthNmae: 'Dec',
-              currentUnitofElectricity: 7338.39,
+              readingOfElecctricMeter: 7338.39,
               transactions: [
                 Transaction(
                   transactionDate: DateTime.parse("2022-12-10"),
@@ -127,38 +128,44 @@ List<Flat> flatList = [
         ),
 
         //2nd year
-        Year(yearNo: 2023, months: <MonthDetails>[
-          MonthDetails(
-            monthNmae: 'Jan',
-            currentUnitofElectricity: 7450.00,
-            transactions: [
-              Transaction(
-                transactionDate: DateTime.parse("2022-10-04"),
-                takenAmount: 8760.00,
-              ),
-            ],
-          ),
-          MonthDetails(
-            monthNmae: 'Feb',
-            currentUnitofElectricity: 7450.00,
-            transactions: [
-              Transaction(
-                transactionDate: DateTime.parse("2022-10-04"),
-                takenAmount: 8760.00,
-              ),
-            ],
-          ),
-          MonthDetails(
-            monthNmae: 'Mar',
-            currentUnitofElectricity: 7450.00,
-            transactions: [
-              Transaction(
-                transactionDate: DateTime.parse("2022-10-04"),
-                takenAmount: 8760.00,
-              ),
-            ],
-          ),
-        ])
+        Year(
+          yearNo: 2023,
+          months: <MonthDetails>[
+            MonthDetails(
+              monthNmae: 'Jan',
+              readingOfElecctricMeter: 7450.00,
+              transactions: [
+                Transaction(
+                  transactionDate: DateTime.parse("2022-10-04"),
+                  takenAmount: 8760.00,
+                ),
+              ],
+            ),
+            MonthDetails(
+              monthNmae: 'Feb',
+              readingOfElecctricMeter: 7450.00,
+              transactions: [
+                Transaction(
+                  transactionDate: DateTime.parse("2022-10-04"),
+                  takenAmount: 8760.00,
+                ),
+              ],
+            ),
+            MonthDetails(
+              monthNmae: 'Mar',
+              readingOfElecctricMeter: 8450.00,
+              transactions: [
+                Transaction(
+                  transactionDate: DateTime.parse("2022-10-04"),
+                  takenAmount: 8760.00,
+                ),
+              ],
+            ),
+          ],
+        ),
+
+        //TODO: make sure
+        //!if electric bill functions from december to january
       ],
     ),
   ),
@@ -176,7 +183,7 @@ List<Flat> flatList = [
           months: <MonthDetails>[
             MonthDetails(
               monthNmae: 'Aug',
-              currentUnitofElectricity: 7458.00, //random electricity unit
+              readingOfElecctricMeter: 7458.00, //random electricity unit
               transactions: [
                 Transaction(
                   transactionDate: DateTime.parse("2022-08-05"),
@@ -187,7 +194,7 @@ List<Flat> flatList = [
             ),
             MonthDetails(
               monthNmae: 'Sep',
-              currentUnitofElectricity: 7338.39,
+              readingOfElecctricMeter: 7338.39,
               transactions: [
                 Transaction(
                   transactionDate: DateTime.parse("2022-09-10"),
@@ -197,7 +204,7 @@ List<Flat> flatList = [
             ),
             MonthDetails(
               monthNmae: 'Oct',
-              currentUnitofElectricity: 7450.00,
+              readingOfElecctricMeter: 7450.00,
               transactions: [
                 Transaction(
                   transactionDate: DateTime.parse("2022-10-02"),

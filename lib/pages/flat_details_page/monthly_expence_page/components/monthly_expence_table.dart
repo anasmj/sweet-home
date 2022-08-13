@@ -42,7 +42,7 @@ class MonthlyExpenceTable extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 purposeTitle(titleIcon: AppIcons().waterTapUrl, title: 'পানি'),
-                Text(currentMonth.waterBill.toString())
+                Text(currentMonth.myWaterBill.toString())
               ],
             ),
             Row(
@@ -53,9 +53,11 @@ class MonthlyExpenceTable extends StatelessWidget {
                 Text('1200')
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 40.0),
-              child: ElectricityTable(),
+            Padding(
+              padding: const EdgeInsets.only(left: 40.0),
+              child: ElectricityTable(
+                renter: renter,
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,7 +68,9 @@ class MonthlyExpenceTable extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 40.0),
-              child: OthersTable(),
+              child: OthersTable(
+                othersList: currentMonth.myOthersExpences,
+              ),
             ),
             transactionDivider(),
             Row(
