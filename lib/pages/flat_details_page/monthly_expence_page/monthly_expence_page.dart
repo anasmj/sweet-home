@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rent_home/utils/custom_date_time_formatter.dart';
 import '../../../models/renter.dart';
+import 'components/bottom_banner.dart';
 import 'components/monthly_expence_table.dart';
 
 class MonthlyExpencePage extends StatelessWidget {
@@ -13,12 +15,19 @@ class MonthlyExpencePage extends StatelessWidget {
   Widget build(BuildContext context) {
     TextStyle colTitleText = Theme.of(context).textTheme.headline6!;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         children: [
           //BUTTON
           Row(
             children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Text(
+                  CustomFormatter().currentMonthYear(),
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ),
               const Spacer(),
               TextButton(
                 onPressed: () {},
@@ -36,7 +45,7 @@ class MonthlyExpencePage extends StatelessWidget {
           ),
 
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 0, 4),
+            padding: const EdgeInsets.fromLTRB(20, 10, 0, 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -54,8 +63,17 @@ class MonthlyExpencePage extends StatelessWidget {
 
           //DATA TABLE
           Expanded(
-            child: SingleChildScrollView(
-              child: MonthlyExpenceTable(renter: renter),
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                SingleChildScrollView(
+                  child: MonthlyExpenceTable(renter: renter),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: BottomBanner(),
+                ),
+              ],
             ),
           ),
         ],

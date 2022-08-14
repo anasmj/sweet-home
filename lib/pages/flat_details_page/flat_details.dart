@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rent_home/utils/bills.dart';
 import '../../models/renter.dart';
 import '../app_icons.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
@@ -32,7 +33,7 @@ class FlatDetails extends StatelessWidget {
               labelStyle: _tabBarTextStyle,
               tabs: const [
                 Text('মাসিক হিসাব'),
-                Text('লেনদেন'),
+                Text('হিসাব এন্ট্রি'),
               ],
             ),
           ),
@@ -71,7 +72,8 @@ class FlatDetails extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: '10400\n', //TODO: fix
+              text:
+                  '${Bill.setRenter(renter: renter).totalBill.toStringAsFixed(1)} \n',
               style: appTextTheme.headline6!.copyWith(
                   color: Colors.red[900], fontWeight: FontWeight.w600),
             ),

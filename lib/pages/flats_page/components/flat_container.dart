@@ -16,6 +16,7 @@ class FlatContainer extends StatelessWidget {
   final String _editOption = "তথ্য পরিবর্তন";
   final String _deleteOption = "গ্রাহক মুছুন";
   final String _newOption = "নতুন গ্রাহক";
+  final String _flatDetailOption = "ফ্ল্যাটের বিস্তারিত";
 
   String flatDetailsPageLocation = '/flat_details_page';
 
@@ -139,6 +140,10 @@ class FlatContainer extends StatelessWidget {
           value: _newOption, //value can be int or any type
           child: Text(_newOption),
         ),
+        PopupMenuItem(
+          value: _flatDetailOption, //value can be int or any type
+          child: Text(_flatDetailOption),
+        ),
       ],
       onSelected: (value) {
         switch (value) {
@@ -148,7 +153,8 @@ class FlatContainer extends StatelessWidget {
             break; //_showModalSheet(),
           case 'নতুন গ্রাহক':
             break; //_showModalSheet(),
-
+          case 'ফ্ল্যাটের বিস্তারিত':
+            break; //_showModalSheet(),
         }
       },
     );

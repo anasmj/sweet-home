@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import '../../../app_icons.dart';
 
 class InputTextField extends StatelessWidget {
-  const InputTextField({super.key});
+  InputTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 140,
+      width: 150,
+      height: 50,
       child: TextField(
         keyboardType: TextInputType.number,
         style: Theme.of(context)
@@ -16,14 +17,18 @@ class InputTextField extends StatelessWidget {
             .headline5!
             .copyWith(fontWeight: FontWeight.bold),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(
-            left: 10,
-          ), //TODO: content padding not working
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(width: 1.6),
+          contentPadding: const EdgeInsets.only(bottom: 25),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 1.0,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(width: 1.6),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 1.2,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
           prefixIconConstraints: const BoxConstraints(
             minHeight: 20,
@@ -32,7 +37,8 @@ class InputTextField extends StatelessWidget {
             maxWidth: 30,
           ),
           prefixIcon: Image(
-            height: 12,
+            color: Colors.black.withOpacity(0.9),
+            height: 10,
             image: AssetImage(
               AppIcons().takaUrl,
             ),

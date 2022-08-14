@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../app_icons.dart';
 import 'components/calender_button.dart';
 import 'components/input_textfield.dart';
 
@@ -9,10 +10,13 @@ class TransactionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 30.0),
-          child: InputTextField(),
+        const SizedBox(
+          height: 20,
         ),
+        const SizedBox(
+          width: 10,
+        ),
+        InputTextField(),
         const CalenderButton(),
         const Spacer(),
         Padding(

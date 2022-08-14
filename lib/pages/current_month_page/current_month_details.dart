@@ -49,14 +49,14 @@ class CurrentMonthPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: MonthlyDataTable(
               title: 'চলতি মাসের হিসাব',
-              date: CustomFormatter().monthAndYear(),
+              date: CustomFormatter().currentMonthYear(),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: MonthlyDataTable(
               title: "আগের মাসের হিসাব",
-              date: CustomFormatter().previousMonthAndYear(),
+              date: CustomFormatter().previousMonthYear(),
             ),
           ),
         ]

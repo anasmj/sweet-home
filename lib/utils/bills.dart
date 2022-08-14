@@ -4,6 +4,7 @@ import 'package:rent_home/models/others_model.dart';
 import '../models/renter.dart';
 import '../models/year.dart';
 
+// PROVIDES ALL KIND OF BILLING INFORMATION
 class Bill {
   Renter renter;
 

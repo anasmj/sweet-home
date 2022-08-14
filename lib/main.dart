@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_home/pages/dismiss_keyboard.dart';
 import 'package:rent_home/pages/home_page/home_page.dart';
 import 'package:rent_home/providers/home_provider.dart';
 import 'constants.dart';
@@ -23,31 +24,34 @@ class MyApp extends StatelessWidget {
           create: (context) => HomeProvider(),
         ),
       ],
-      child: MaterialApp(
-        title: 'Houser Rent',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.teal,
-          secondaryHeaderColor: Colors.cyan[100],
+      child: DismissKeyboard(
+        //customised class for dismissing keyboard with outside touch
+        child: MaterialApp(
+          title: 'Houser Rent',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.teal,
+            secondaryHeaderColor: Colors.cyan[100],
 
-          // colorScheme: ColorScheme.fromSwatch().copyWith(
-          //   primary: Color(0xFF61defa),
-          //   //secondary: Color(0xff95d7e6),
-          // )
+            // colorScheme: ColorScheme.fromSwatch().copyWith(
+            //   primary: Color(0xFF61defa),
+            //   //secondary: Color(0xff95d7e6),
+            // )
 
-          // primaryColor: Colors.black,
-          //textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
-          // appBarTheme: const AppBarTheme(
-          //   color: Color.fromARGB(255, 161, 239, 253),
-          // ),
+            // primaryColor: Colors.black,
+            //textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
+            // appBarTheme: const AppBarTheme(
+            //   color: Color.fromARGB(255, 161, 239, 253),
+            // ),
+          ),
+          // initialRoute: '/',
+          // routes: {
+          //   '/': (context) => HomePage(),
+          //   '/flat_details_page': (context) => FlatDetails(),
+          // },
+
+          home: const HomePage(),
         ),
-        // initialRoute: '/',
-        // routes: {
-        //   '/': (context) => HomePage(),
-        //   '/flat_details_page': (context) => FlatDetails(),
-        // },
-
-        home: const HomePage(),
       ),
     );
   }
