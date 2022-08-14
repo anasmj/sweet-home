@@ -7,7 +7,7 @@ class OthersTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 180,
+      width: 200,
       child: Column(
         children: othersList != null
             ? othersList!.map((e) => buildRow(e)).toList()
@@ -18,6 +18,11 @@ class OthersTable extends StatelessWidget {
 
   Widget buildRow(OthersExpence obj) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Text(obj.purpose), Text(obj.amount.toString())],
+        children: [
+          Text(obj.purpose),
+          Text(
+            obj.amount.toString(),
+          ),
+        ],
       );
 }

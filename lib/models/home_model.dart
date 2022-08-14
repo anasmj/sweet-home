@@ -1,66 +1,69 @@
-import 'package:rent_home/models/others_model.dart';
-import 'flat_model.dart';
+// import 'package:rent_home/models/others_model.dart';
+// import 'flat_model.dart';
 
-class Home {
-  String homeName;
-  String? ownerName;
-  String? address;
 
-  //THESE VARIABLE MAY DIFFER BY FLATS
-  //which are to be controlled from FLAT class
-  int globalRentAmount;
-  List<OthersExpence>? globalOtherExpences;
-  double globalGasBill;
+//!HomeProvider is being used instead 
 
-  //FOR EVERY FALT THESE VARIABLE REMAINSF SAME
-  double waterBill;
-  double electricityUnitPrice;
+// class Home {
+//   String homeName;
+//   String? ownerName;
+//   String? address;
 
-  List<Flat>? flats;
+//   //THESE VARIABLE MAY DIFFER BY FLATS
+//   //which are to be controlled from FLAT class
+//   int globalRentAmount;
+//   List<OthersExpence>? globalOtherExpences;
+//   double globalGasBill;
 
-  Home({
-    this.homeName = '',
-    this.globalRentAmount = 0,
-    this.electricityUnitPrice = 0.00,
-    this.flats,
-    this.ownerName,
-    this.address,
-    this.globalGasBill = 0.00,
-    this.waterBill = 0.00,
-    this.globalOtherExpences,
-  }) {
-    // print('home model created with rent $globalRentAmount');
-  }
+//   //FOR EVERY FALT THESE VARIABLE REMAINSF SAME
+//   double waterBill;
+//   double electricityUnitPrice;
 
-  set setHomeName(String name) {
-    homeName = homeName;
-  }
+//   List<Flat>? flats;
 
-  set rentAmount(int amount) {
-    globalRentAmount = amount;
-  }
+//   Home({
+//     this.homeName = '',
+//     this.globalRentAmount = 0,
+//     this.electricityUnitPrice = 0.00,
+//     this.flats,
+//     this.ownerName,
+//     this.address,
+//     this.globalGasBill = 0.00,
+//     this.waterBill = 0.00,
+//     this.globalOtherExpences,
+//   }) {
+//     // print('home model created with rent $globalRentAmount');
+//   }
 
-  set assignFlats(List<Flat> flats) {
-    this.flats = flats;
-  }
+//   set setHomeName(String name) {
+//     homeName = homeName;
+//   }
 
-  set setOwnerName(String name) {
-    ownerName = name;
-  }
+//   set rentAmount(int amount) {
+//     globalRentAmount = amount;
+//   }
 
-  set setAddress(String add) {
-    address = add;
-  }
+//   set assignFlats(List<Flat> flats) {
+//     this.flats = flats;
+//   }
 
-  set setGasBill(double bill) {
-    globalGasBill = bill;
-  }
+//   set setOwnerName(String name) {
+//     ownerName = name;
+//   }
 
-  set setWaterBill(double bill) {
-    waterBill = bill;
-  }
+//   set setAddress(String add) {
+//     address = add;
+//   }
 
-  set setOtherExpences(List<OthersExpence> expences) {
-    globalOtherExpences = expences;
-  }
-}
+//   set setGasBill(double bill) {
+//     globalGasBill = bill;
+//   }
+
+//   set setWaterBill(double bill) {
+//     waterBill = bill;
+//   }
+
+//   set setOtherExpences(List<OthersExpence> expences) {
+//     globalOtherExpences = expences;
+//   }
+// }

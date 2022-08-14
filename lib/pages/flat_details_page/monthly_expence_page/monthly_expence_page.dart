@@ -34,6 +34,7 @@ class MonthlyExpencePage extends StatelessWidget {
               )
             ],
           ),
+
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 0, 4),
             child: Row(
@@ -52,8 +53,11 @@ class MonthlyExpencePage extends StatelessWidget {
           ),
 
           //DATA TABLE
-
-          MonthlyExpenceTable(renter: renter),
+          Expanded(
+            child: SingleChildScrollView(
+              child: MonthlyExpenceTable(renter: renter),
+            ),
+          ),
         ],
       ),
     );

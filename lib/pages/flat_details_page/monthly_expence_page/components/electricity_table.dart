@@ -11,6 +11,7 @@ class ElectricityTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: keep it to the kitchen
     Year currentYear =
         renter.records[renter.records.length - 1]; //last element of List<year>
     MonthDetails currentMonth =
@@ -22,45 +23,43 @@ class ElectricityTable extends StatelessWidget {
             previousMonth.readingOfElecctricMeter)
         .toStringAsFixed(1));
 
-    double electricBill = Bill.ElectricBill(
-      currentMonth: currentMonth,
-      previousMonth: previousMonth,
-      electricUnitPrice: currentMonth.electricityUnitPrice!,
-    ).calculateElectricBill(); //this method is written in 'Bill' class
+    String electricBill = Bill.setRenter(renter: renter).getElectricBill;
 
-    // print(electricBill.toString());
     return SizedBox(
-      width: 180,
+      width: 200,
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("পূর্বের ইউনিট"),
+              const Text("আগের মাসের ইউনিট"),
               Text(
-                previousMonth.readingOfElecctricMeter.toStringAsFixed(1),
+                Bill.setRenter(renter: renter).previousMonthReading,
               )
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("বর্তমান ইউনিট"),
-              Text(currentMonth.readingOfElecctricMeter.toStringAsFixed(1)),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("মোট ব্যাবহৃত ইউনিট"),
-              Text(usedUnit.toString()),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+              const Text("এ মাসের ইউনিট"),
               Text(
-                  "মোট মূল্য ($usedUnit * ${currentMonth.electricityUnitPrice!})"),
+                Bill.setRenter(renter: renter).currentMonthReading,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("ব্যাবহৃত ইউনিট"),
+              Text(
+                Bill.setRenter(renter: renter).usedUnitOfElectricity,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("মূল্য ($usedUnit * ${currentMonth.electricityUnitPrice!})"),
               Text(electricBill.toString()),
             ],
           ),

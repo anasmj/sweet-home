@@ -3,9 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rent_home/pages/app_icons.dart';
 import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/electricity_table.dart';
 import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/others_table.dart';
-import '../../../../models/month_details.dart';
 import '../../../../models/renter.dart';
-import '../../../../models/year.dart';
+import '../../../../utils/bills.dart';
 
 class MonthlyExpenceTable extends StatelessWidget {
   MonthlyExpenceTable({required this.renter, super.key});
@@ -13,98 +12,116 @@ class MonthlyExpenceTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Year currentYear =
-        renter.records[renter.records.length - 1]; //last element of List<year>
-    MonthDetails currentMonth = currentYear.months[
-        currentYear.months.length - 1]; //last element of List<MonthDetails>
-    // print(flat.gasbill.toString());
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    print('total: ${Bill.setRenter(renter: renter).totalBill}');
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                purposeTitle(titleIcon: AppIcons().homeUrl, title: 'ভাড়া'),
-                //Text('hello')
-                Text(currentMonth.myFlatRent.toString())
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                purposeTitle(titleIcon: AppIcons().flameUrl, title: 'গ্যাস'),
-                Text(currentMonth.gasbill.toString())
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                purposeTitle(titleIcon: AppIcons().waterTapUrl, title: 'পানি'),
-                Text(currentMonth.myWaterBill.toString())
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                purposeTitle(
-                    titleIcon: AppIcons().electricityUrl, title: 'বিদ্যুৎ'),
-                Text('1200')
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 40.0),
-              child: ElectricityTable(
-                renter: renter,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                purposeTitle(titleIcon: AppIcons().otherUrl, title: 'অন্যান্য'),
-                const Text('1200')
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 40.0),
-              child: OthersTable(
-                othersList: currentMonth.myOthersExpences,
-              ),
-            ),
-            transactionDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text("মোট"),
-                Text('2400'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text("আগের বকেয়া"),
-                Text('230'),
-              ],
-            ),
-            transactionDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text("সর্বমোট"),
-                Text('2400'),
-              ],
-            ),
-            const SizedBox(),
-          ]
-              .map((e) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    child: e,
-                  ))
-              .toList(),
+            purposeTitle(titleIcon: AppIcons().homeUrl, title: 'ভাড়া'),
+            Text(Bill.setRenter(renter: renter).rent),
+          ],
         ),
-      ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            purposeTitle(titleIcon: AppIcons().flameUrl, title: 'গ্যাস'),
+            Text(Bill.setRenter(renter: renter).gasBill)
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            purposeTitle(titleIcon: AppIcons().waterTapUrl, title: 'পানি'),
+            Text(Bill.setRenter(renter: renter).waterBill),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            purposeTitle(
+                titleIcon: AppIcons().electricityUrl, title: 'বিদ্যুৎ'),
+            Text(
+              Bill.setRenter(renter: renter).getElectricBill,
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 40.0),
+          child: ElectricityTable(
+            renter: renter,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            purposeTitle(titleIcon: AppIcons().otherUrl, title: 'অন্যান্য'),
+            Text(Bill.setRenter(renter: renter).sumOfOtherBills)
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 40.0),
+          child: OthersTable(
+            othersList:
+                Bill.setRenter(renter: renter).otherExpenceListForThisMonth,
+          ),
+        ),
+        transactionDivider(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "মোট",
+              style: textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              Bill.setRenter(renter: renter).totalBill.toStringAsFixed(1),
+              style: textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "আগের বকেয়া",
+              style: textTheme.subtitle1,
+            ),
+            Text(
+              '3434(tst)',
+              style: textTheme.subtitle1!.copyWith(
+                  fontWeight: FontWeight.bold, color: Colors.red[900]),
+            ),
+          ],
+        ),
+        transactionDivider(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "সর্বমোট",
+              style: textTheme.subtitle1!.copyWith(fontWeight: FontWeight.w500),
+            ),
+            Text(
+              '2400',
+              style: textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 100,
+        ),
+      ]
+          .map((e) => Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: e,
+              ))
+          .toList(),
     );
   }
 
@@ -119,7 +136,7 @@ class MonthlyExpenceTable extends StatelessWidget {
           ),
           Text(
             title,
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18),
           )
         ],
       );

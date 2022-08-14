@@ -66,14 +66,14 @@ class FlatDetails extends StatelessWidget {
               child: Image(
                 height: 18,
                 width: 18,
-                color: Colors.red[700],
+                color: Colors.red[900],
                 image: AssetImage(AppIcons().takaUrl),
               ),
             ),
             TextSpan(
               text: '10400\n', //TODO: fix
               style: appTextTheme.headline6!.copyWith(
-                  color: Colors.red[700], fontWeight: FontWeight.w600),
+                  color: Colors.red[900], fontWeight: FontWeight.w600),
             ),
             TextSpan(
                 text: 'সর্বশেষ লেনদেনঃ 12 Aug, 22', //TODO: fix
