@@ -3,21 +3,21 @@ import '../../app_icons.dart';
 import 'components/calender_button.dart';
 import 'components/input_textfield.dart';
 
-class TransactionPage extends StatelessWidget {
-  const TransactionPage({super.key});
+class EntryPage extends StatelessWidget {
+  const EntryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const SizedBox(
-          height: 20,
-        ),
-        const SizedBox(
-          width: 10,
+          height: 30,
         ),
         InputTextField(),
-        const CalenderButton(),
+        const Padding(
+          padding: EdgeInsets.only(top: 10.0),
+          child: CalenderButton(),
+        ),
         const Spacer(),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0),

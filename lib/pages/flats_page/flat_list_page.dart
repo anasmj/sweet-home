@@ -5,8 +5,8 @@ import 'package:rent_home/pages/shared_widgets/search_bar.dart';
 import 'package:rent_home/providers/home_provider.dart';
 import 'components/customize_button.dart';
 
-class FlatsPage extends StatelessWidget {
-  FlatsPage({super.key});
+class FlatListPage extends StatelessWidget {
+  FlatListPage({super.key});
   @override
   Widget build(BuildContext context) {
     final home = context.watch<HomeProvider>();

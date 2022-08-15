@@ -27,6 +27,10 @@ class CustomFormatter {
   String currentMonthYear() => "${months[DateTime.now().month - 1]} "
       "'${DateTime.now().year.toString().substring(2, 4)}"; //Oct '22
 
+  //23 Jan '22 03:20pm
+  String transactionTime(DateTime timeStamp) =>
+      "${timeStamp.day} ${months[timeStamp.month - 1]}";
+
   //for understanding purpose
   // String formattedDateTime() {
   //   return "${now.day} ${months[now.month - 1]} ${now.year} ${now.hour}:${now.minute}:${now.second}";

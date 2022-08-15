@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rent_home/utils/bills.dart';
 import '../../models/renter.dart';
 import '../app_icons.dart';
+import 'transactoin_list_page/transaction_list_page.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
-import 'transaction_page/transaction_page.dart';
+import 'transaction_entry_page/transaction_entry_page.dart';
 
 //*SHOWS SUMMARY OF A USER IN APP BAR
 //*PROVIDES TWO TAB BAR 1.MONTHLY EXPENCE, 2.TRANSACTIONS
@@ -12,6 +13,8 @@ import 'transaction_page/transaction_page.dart';
 class FlatDetails extends StatelessWidget {
   FlatDetails({required this.renter, super.key});
   final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);
+
+  List<String> menuTitles = ['লেনদেনসমূহ', 'রিপোর্ট', 'তাগাদা দিন'];
 
   Renter renter;
 
@@ -25,6 +28,36 @@ class FlatDetails extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(150),
           child: AppBar(
+            actions: [
+              PopupMenuButton(
+                itemBuilder: (BuildContext context) {
+                  return menuTitles
+                      .map((title) => PopupMenuItem(
+                            value: title,
+                            child: Text(title),
+                          ))
+                      .toList();
+                },
+                onSelected: (value) {
+                  switch (value) {
+                    case 'লেনদেনসমূহ':
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          //comes from a package
+                          child: TransactionListPage(renter: renter),
+                          type: PageTransitionType.fade,
+                        ),
+                      );
+                      break;
+                    case 'রিপোর্ট':
+                      break;
+                    case 'তাগাদা দিন':
+                      break;
+                  }
+                },
+              ),
+            ],
             flexibleSpace: Padding(
               padding: const EdgeInsets.only(top: 50.0, left: 70),
               child: appBarContent(appTextTheme),
@@ -43,7 +76,7 @@ class FlatDetails extends StatelessWidget {
             Center(
               child: MonthlyExpencePage(renter: renter),
             ),
-            const TransactionPage(),
+            const EntryPage(),
           ],
         ),
       ),
@@ -83,27 +116,27 @@ class FlatDetails extends StatelessWidget {
           ],
         ),
       ),
-      trailing: reportButton(),
+      //trailing: reportButton(),
     );
   }
 
-  Widget reportButton() => SizedBox(
-        width: 100,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(),
-          onPressed: () {},
-          child: Row(
-            children: [
-              SvgPicture.asset(
-                AppIcons().reportUrl,
-                height: 18,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 6.0, top: 4),
-                child: Text('রিপোর্ট'),
-              ),
-            ],
-          ),
-        ),
-      );
+  // Widget reportButton() => SizedBox(
+  //       width: 100,
+  //       child: ElevatedButton(
+  //         style: ElevatedButton.styleFrom(),
+  //         onPressed: () {},
+  //         child: Row(
+  //           children: [
+  //             SvgPicture.asset(
+  //               AppIcons().reportUrl,
+  //               height: 18,
+  //             ),
+  //             const Padding(
+  //               padding: EdgeInsets.only(left: 6.0, top: 4),
+  //               child: Text('রিপোর্ট'),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     );
 }

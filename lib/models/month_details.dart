@@ -14,7 +14,7 @@ class MonthDetails {
   double? myWaterBill;
   List<OthersExpence>? myOthersExpences;
 
-  List<Transaction>? transactions;
+  List<Transaction>? transactions = [];
 
   MonthDetails({
     required this.monthNmae,
@@ -34,6 +34,7 @@ class MonthDetails {
     myWaterBill ??= homeProvider.homewaterBill;
     electricityUnitPrice = homeProvider.electricityUnitPrice;
     myOthersExpences ??= homeProvider.homeOtherExpences;
+    transactions ??= []; // it can't be null
   }
 }
 

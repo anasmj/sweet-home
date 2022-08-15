@@ -1,9 +1,8 @@
 //* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
 import '../app_icons.dart';
-import '../../utils/custom_date_time_formatter.dart';
 import '../current_month_page/current_month_details.dart';
-import '../flats_page/flats_page.dart';
+import '../flats_page/flat_list_page.dart';
 import '../pending_page/pending_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -90,7 +89,7 @@ class HomePage extends StatelessWidget {
             body: TabBarView(
               children: [
                 const CurrentMonthPage(),
-                FlatsPage(),
+                FlatListPage(),
                 const PendingPage(),
                 //Expences(),
               ],

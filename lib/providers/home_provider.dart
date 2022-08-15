@@ -58,10 +58,11 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 7458.00, //random electricity unit
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-04-03"),
-                  takenAmount: 8000.00,
-                  isAdvance: true,
-                ),
+                    timeStamp: DateTime.parse("2022-04-03 20:18:04Z"),
+                    takenAmount: 8000.00,
+                    transactionBy: 'আশরাফুল আলম',
+                    isAdvance: true,
+                    due: 0),
               ],
             ),
             MonthDetails(
@@ -69,9 +70,10 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 7338.39, //first month usage is zero
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-05-07"),
-                  takenAmount: 8450.00,
-                ),
+                    timeStamp: DateTime.parse("2022-05-07 20:18:04Z"),
+                    transactionBy: 'আশরাফুল আলম',
+                    takenAmount: 8450.00,
+                    due: -230),
               ],
             ),
             MonthDetails(
@@ -79,9 +81,10 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 7450.00,
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-06-06"),
-                  takenAmount: 8760.00,
-                ),
+                    timeStamp: DateTime.parse("2022-06-06 20:18:04Z"),
+                    transactionBy: 'আশরাফুল আলম',
+                    takenAmount: 8760.00,
+                    due: 12),
               ],
             ),
           ],
@@ -108,7 +111,7 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 7458.00, //random electricity unit
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-11-05"),
+                  timeStamp: DateTime.parse("2022-11-05"),
                   takenAmount: 16000.00,
                   isAdvance: true,
                 ),
@@ -119,7 +122,7 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 7338.39,
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-12-10"),
+                  timeStamp: DateTime.parse("2022-12-10"),
                   takenAmount: 8450.00,
                 ),
               ],
@@ -136,7 +139,7 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 7450.00,
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-10-04"),
+                  timeStamp: DateTime.parse("2022-10-04"),
                   takenAmount: 8760.00,
                 ),
               ],
@@ -146,7 +149,7 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 7450.00,
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-10-04"),
+                  timeStamp: DateTime.parse("2022-10-04"),
                   takenAmount: 8760.00,
                 ),
               ],
@@ -156,7 +159,7 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 8450.00,
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-10-04"),
+                  timeStamp: DateTime.parse("2022-10-04"),
                   takenAmount: 8760.00,
                 ),
               ],
@@ -186,7 +189,7 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 7458.00, //random electricity unit
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-08-05"),
+                  timeStamp: DateTime.parse("2022-08-05"),
                   takenAmount: 16000.00,
                   isAdvance: true,
                 ),
@@ -197,7 +200,7 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 7338.39,
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-09-10"),
+                  timeStamp: DateTime.parse("2022-09-10"),
                   takenAmount: 8450.00,
                 ),
               ],
@@ -207,7 +210,7 @@ List<Flat> flatList = [
               readingOfElecctricMeter: 7450.00,
               transactions: [
                 Transaction(
-                  transactionDate: DateTime.parse("2022-10-02"),
+                  timeStamp: DateTime.parse("2022-10-02"),
                   takenAmount: 8760.00,
                 ),
               ],

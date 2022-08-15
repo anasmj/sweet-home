@@ -22,7 +22,7 @@ class PendingPage extends StatelessWidget {
               height: 15,
             ),
             Text(
-              'গ্রাহকের কাছ থেকে আপনার মোট বকেয়া',
+              'গ্রাহকদের কাছ থেকে আপনার মোট বকেয়া',
               style: Theme.of(context)
                   .textTheme
                   .subtitle1!
