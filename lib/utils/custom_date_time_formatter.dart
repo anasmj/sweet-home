@@ -1,6 +1,8 @@
 // import 'package:intl/intl.dart';
 
 //*TAKES DATETIME OBJECT AND RETURN IN EXPECTED FORMAT
+import 'package:intl/intl.dart';
+
 class CustomFormatter {
   var months = [
     "Jan",
@@ -19,17 +21,24 @@ class CustomFormatter {
 
   DateTime now = DateTime.now();
 
+  //Oct '22
   String monthYear(DateTime date) => "${months[date.month - 1]} "
-      "'${date.year.toString().substring(2, 4)}"; //Oct '22
+      "'${date.year.toString().substring(2, 4)}";
 
+  //Oct '22
   String previousMonthYear() => "${months[DateTime.now().month - 2]} "
-      "'${DateTime.now().year.toString().substring(2, 4)}"; //Oct '22
+      "'${DateTime.now().year.toString().substring(2, 4)}";
+
+  //Oct '22
   String currentMonthYear() => "${months[DateTime.now().month - 1]} "
-      "'${DateTime.now().year.toString().substring(2, 4)}"; //Oct '22
+      "'${DateTime.now().year.toString().substring(2, 4)}";
 
   //23 Jan '22 03:20pm
   String transactionTime(DateTime timeStamp) =>
-      "${timeStamp.day} ${months[timeStamp.month - 1]}";
+      '${timeStamp.day} ${months[timeStamp.month - 1]} ${DateTime.now().year.toString().substring(2, 4)} ${DateFormat.jm().format(timeStamp)}';
+
+  // String transactionTime(DateTime timeStamp) =>
+  //     "${timeStamp.day} ${months[timeStamp.month - 1]}";
 
   //for understanding purpose
   // String formattedDateTime() {

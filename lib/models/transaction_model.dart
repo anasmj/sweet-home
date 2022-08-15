@@ -4,7 +4,7 @@ class Transaction {
   double takenAmount;
   double? payable;
   bool isAdvance;
-  double? due; // it can be positive or negative value
+  double? due;
 
   Transaction({
     required this.timeStamp,

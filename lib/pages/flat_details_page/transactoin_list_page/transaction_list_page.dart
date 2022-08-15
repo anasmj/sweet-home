@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rent_home/models/renter.dart';
 import 'package:rent_home/pages/app_icons.dart';
 import 'package:rent_home/utils/custom_date_time_formatter.dart';
@@ -101,31 +102,9 @@ class TransactionCard extends StatelessWidget {
               : const Text(''),
 
           //DUE
-          trailing: RichText(
-            text: TextSpan(
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                    color: Colors.red[900],
-                    fontWeight: FontWeight.bold,
-                  ),
-              children: [
-                const TextSpan(text: '-'),
-                WidgetSpan(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 4.0, vertical: 2),
-                    child: Image(
-                      height: 16,
-                      color: Colors.red[900],
-                      image: AssetImage(AppIcons().takaUrl),
-                    ),
-                  ),
-                ),
-                TextSpan(
-                  text: transaction.takenAmount.toStringAsFixed(1),
-                ),
-              ],
-            ),
-          ),
+          trailing: transaction.due == 0
+              ? checkMark()
+              : DueWidget(transaction: transaction),
         ),
 
         //TIME STAMP
@@ -144,6 +123,71 @@ class TransactionCard extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Padding checkMark() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12.0),
+      child: SvgPicture.asset(
+        AppIcons().checmarkUrl,
+        // color: Colors.green,
+        width: 36,
+      ),
+    );
+  }
+}
+
+class DueWidget extends StatelessWidget {
+  DueWidget({
+    Key? key,
+    required this.transaction,
+  }) : super(key: key);
+
+  final Transaction transaction;
+  final Color? red = Colors.red[900];
+  final Color? green = Colors.green[900];
+  final String plus = '+';
+  final String minus = '-';
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              color: transaction.due != null
+                  ? transaction.due! > 0
+                      ? green
+                      : red
+                  : Colors.transparent,
+              fontWeight: FontWeight.bold,
+            ),
+        children: [
+          TextSpan(
+            text: transaction.due != null
+                ? transaction.due! > 0
+                    ? plus
+                    : minus
+                : '',
+          ),
+          WidgetSpan(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2),
+              child: Image(
+                height: 16,
+                color: transaction.due != null
+                    ? transaction.due! > 0
+                        ? green
+                        : red
+                    : Colors.transparent,
+                image: AssetImage(AppIcons().takaUrl),
+              ),
+            ),
+          ),
+          TextSpan(
+            text: transaction.takenAmount.toStringAsFixed(1),
+          ),
+        ],
+      ),
     );
   }
 }

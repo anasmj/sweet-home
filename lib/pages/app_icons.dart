@@ -16,4 +16,5 @@ class AppIcons {
   String reportUrl = "assets/icons/report.svg";
   String calenderUrl = "assets/icons/calender.png";
   String otherUrl = "assets/icons/other.svg";
+  String checmarkUrl = "assets/icons/checkmark.svg";
 }
