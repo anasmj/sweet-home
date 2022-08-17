@@ -12,6 +12,7 @@ class MonthlyExpenceTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print(renter.entryDate);
     TextTheme textTheme = Theme.of(context).textTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

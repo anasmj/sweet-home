@@ -17,32 +17,53 @@ class TransactionListPage extends StatelessWidget {
     List<Transaction> transactionList =
         TransactionHelper(renter: renter).ListOfAllTransactions();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('লেনদেনসমূহ'),
-        centerTitle: true,
-      ),
-      body: transactionList.isNotEmpty
-          ? ListView.builder(
-              itemCount: transactionList.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 10),
-                  child: TransactionCard(
-                    transaction: transactionList[index],
-                  ),
-                );
-              },
-            )
-          : Center(
-              child: Text(
-                'দুঃক্ষিত!\nগ্রাহকের কোনও লেনদেন নেই',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline6,
-              ),
+    return transactionList.isNotEmpty
+        ? ListView.builder(
+            itemCount: transactionList.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10),
+                child: TransactionCard(
+                  transaction: transactionList[index],
+                ),
+              );
+            },
+          )
+        : Center(
+            child: Text(
+              'দুঃক্ষিত!\nগ্রাহকের কোনও লেনদেন নেই',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline6,
             ),
-    );
+          );
+
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: const Text('লেনদেনসমূহ'),
+    //     centerTitle: true,
+    //   ),
+    //   body: transactionList.isNotEmpty
+    //       ? ListView.builder(
+    //           itemCount: transactionList.length,
+    //           itemBuilder: (context, index) {
+    //             return Padding(
+    //               padding: const EdgeInsets.symmetric(
+    //                   vertical: 16.0, horizontal: 10),
+    //               child: TransactionCard(
+    //                 transaction: transactionList[index],
+    //               ),
+    //             );
+    //           },
+    //         )
+    //       : Center(
+    //           child: Text(
+    //             'দুঃক্ষিত!\nগ্রাহকের কোনও লেনদেন নেই',
+    //             textAlign: TextAlign.center,
+    //             style: Theme.of(context).textTheme.headline6,
+    //           ),
+    //         ),
+    // );
   }
 }
 

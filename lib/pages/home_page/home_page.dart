@@ -27,28 +27,6 @@ class HomePage extends StatelessWidget {
                 SliverAppBar(
                   floating: true,
                   pinned: true,
-                  // actions: [
-                  //   Padding(
-                  //     padding: const EdgeInsets.only(top: 15.0, right: 10),
-                  //     child: RichText(
-                  //       textAlign: TextAlign.end,
-                  //       text: TextSpan(
-                  //         children: <TextSpan>[
-                  //           TextSpan(
-                  //             text:
-                  //                 '${CustomFormatter().currentDateAndMonth()} \n',
-                  //             style: textTheme.headline6!.copyWith(
-                  //                 color: Colors.black.withOpacity(0.8)),
-                  //           ),
-                  //           TextSpan(
-                  //             text: CustomFormatter().weekDay(),
-                  //             style: textTheme.bodyMedium,
-                  //           )
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ],
                   //pinned: true,
 
                   // APP BAR
@@ -68,7 +46,6 @@ class HomePage extends StatelessWidget {
                         'চলতি মাস',
                         style: _tabBarTextStyle,
                       ),
-
                       Text(
                         'ফ্ল্যাটগুলি',
                         style: _tabBarTextStyle,
@@ -78,7 +55,7 @@ class HomePage extends StatelessWidget {
                         style: _tabBarTextStyle,
                       ),
                       // Text(
-                      //   'খরচ',
+                      //   'সকল গ্রাহক',
                       //   style: textTheme.subtitle1,
                       // ),
                     ],

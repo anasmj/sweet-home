@@ -1,22 +1,31 @@
-import 'package:flutter/cupertino.dart';
+import 'package:rent_home/models/others_model.dart';
 import 'package:rent_home/models/renter.dart';
 import '../providers/home_provider.dart';
 
 class Flat {
-  String flatName;
-  int? flatRentAmount;
-
   //detail info of flat
+  String flatName;
+  int?
+      flatRentAmount; // if not given, taken global value from HomeProvider class
   int? noOfBed, bath, varanda;
   bool? drawingRoom, diningRoom;
 
   Renter? renter;
 
+  //These values can vary flat to flat. if not given, take global value from HomeProvider
+  //every month these values will be used in MonthDetails class to determine bills
+  //for that month.
+  int? flatRent;
+  double? flatGasBill;
+  double? flatWaterBill;
+  List<OthersExpence>? flatOtherExpences;
+
   Flat({
-    required this.flatName,
+    this.flatName = '',
     this.renter,
     this.flatRentAmount,
   }) {
-    flatRentAmount ??= HomeProvider().homeRentAmount;
+    flatRentAmount ??= HomeProvider().globalRentAmount;
+    flatOtherExpences ??= HomeProvider().globalOtherExpences;
   }
 }
