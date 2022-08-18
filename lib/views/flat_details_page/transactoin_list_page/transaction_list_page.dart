@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rent_home/models/renter.dart';
-import 'package:rent_home/pages/app_icons.dart';
-import 'package:rent_home/utils/custom_date_time_formatter.dart';
-import 'package:rent_home/utils/transaction_helper.dart';
+import 'package:rent_home/views/app_icons.dart';
+import 'package:rent_home/controllers/custom_date_time_formatter.dart';
+import 'package:rent_home/controllers/transaction_helper.dart';
 
 import '../../../models/transaction_model.dart';
 

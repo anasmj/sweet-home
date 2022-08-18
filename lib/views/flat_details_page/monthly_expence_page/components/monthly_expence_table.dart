@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/pages/app_icons.dart';
-import 'package:rent_home/pages/flat_details_page/components/bottom_button.dart';
-import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/electricity_table.dart';
-import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/others_table.dart';
+import 'package:rent_home/views/app_icons.dart';
+import 'package:rent_home/views/flat_details_page/components/bottom_button.dart';
+import 'package:rent_home/views/flat_details_page/monthly_expence_page/components/electricity_table.dart';
+import 'package:rent_home/views/flat_details_page/monthly_expence_page/components/others_table.dart';
 import 'package:rent_home/providers/flat_info_provider.dart';
 import '../../../../models/renter.dart';
-import '../../../../utils/bills.dart';
+import '../../../../controllers/bills.dart';
 
 class MonthlyExpenceTable extends StatelessWidget {
   MonthlyExpenceTable({required this.renter, super.key});

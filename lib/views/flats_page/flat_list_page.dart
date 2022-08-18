@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_home/models/database.dart';
-import 'package:rent_home/pages/flats_page/components/flat_container.dart';
-import 'package:rent_home/pages/shared_widgets/search_bar.dart';
+import 'package:rent_home/views/flats_page/components/flat_container.dart';
+import 'package:rent_home/views/shared_widgets/search_bar.dart';
 import 'package:rent_home/providers/home_provider.dart';
 import 'components/customize_button.dart';
 

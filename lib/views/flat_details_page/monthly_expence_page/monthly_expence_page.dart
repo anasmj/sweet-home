@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/utils/custom_date_time_formatter.dart';
+import 'package:rent_home/controllers/custom_date_time_formatter.dart';
 import '../../../models/renter.dart';
 import 'components/bottom_banner.dart';
 import 'components/monthly_expence_table.dart';

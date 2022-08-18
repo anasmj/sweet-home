@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/utils/bills.dart';
+import 'package:rent_home/controllers/bills.dart';
 import '../../models/renter.dart';
 import '../app_icons.dart';
 import 'transactoin_list_page/transaction_list_page.dart';

@@ -2,9 +2,9 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/pages/flat_details_page/flat_details.dart';
+import 'package:rent_home/views/flat_details_page/flat_details.dart';
 import 'package:rent_home/providers/flat_info_provider.dart';
-import 'package:rent_home/utils/custom_date_time_formatter.dart';
+import 'package:rent_home/controllers/custom_date_time_formatter.dart';
 import '../../../models/flat_model.dart';
 import '../../app_icons.dart';
 

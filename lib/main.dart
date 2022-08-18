@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/pages/dismiss_keyboard.dart';
-import 'package:rent_home/pages/home_page/home_page.dart';
+import 'package:rent_home/views/dismiss_keyboard.dart';
+import 'package:rent_home/views/home_page/home_page.dart';
 import 'package:rent_home/providers/flat_info_provider.dart';
 import 'package:rent_home/providers/home_provider.dart';
+import 'package:rent_home/views/steppers/new_renter_stepper.dart';
 import 'constants.dart';
 
 void main() {
@@ -54,7 +55,8 @@ class MyApp extends StatelessWidget {
           //   '/flat_details_page': (context) => FlatDetails(),
           // },
 
-          home: const HomePage(),
+          //home: const HomePage(),
+          home: NewRenterStepper(),
         ),
       ),
     );
