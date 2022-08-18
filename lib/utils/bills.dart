@@ -35,7 +35,7 @@ class Bill {
           previousMonth.readingOfElecctricMeter)
       .toStringAsFixed(1);
 
-  String get rent => currentMonth.myFlatRent.toString();
+  String get rent => currentMonth.renterFlatRent.toString();
   String get gasBill => currentMonth.gasbill.toString();
   String get waterBill => currentMonth.myWaterBill.toString();
   String get getElectricBill {

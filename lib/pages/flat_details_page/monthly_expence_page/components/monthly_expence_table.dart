@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_home/pages/app_icons.dart';
 import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/electricity_table.dart';
 import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/others_table.dart';
+import 'package:rent_home/providers/flat_info_provider.dart';
 import '../../../../models/renter.dart';
 import '../../../../utils/bills.dart';
 
@@ -12,7 +14,9 @@ class MonthlyExpenceTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(renter.entryDate);
+    CurrentFlatInfoProvider currentFlat =
+        Provider.of<CurrentFlatInfoProvider>(context);
+    print(currentFlat.flatName);
     TextTheme textTheme = Theme.of(context).textTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -3,10 +3,10 @@ import 'package:rent_home/models/transaction_model.dart';
 import 'package:rent_home/providers/home_provider.dart';
 import 'others_model.dart';
 
-class MonthDetails extends Flat {
+class MonthDetails {
   final String monthNmae; //? it is needed ?
   bool isNotified;
-  int? myFlatRent;
+  int? renterFlatRent;
 
   double? electricityUnitPrice;
   double readingOfElecctricMeter;
@@ -23,7 +23,7 @@ class MonthDetails extends Flat {
     // this.electricityUnitPrice, //*Always take global value from HmeProvider with help of constructor
 
     //values that can vary flat to flat
-    this.myFlatRent,
+    // this.renterFlatRent, //always take value from corresponding flat
     this.myOthersExpences,
     this.gasbill,
     this.isNotified = false,
@@ -32,19 +32,13 @@ class MonthDetails extends Flat {
     HomeProvider homeProvider = HomeProvider();
 
     //now values should be fetched from Flat class to be used in every month
-    myFlatRent ??= homeProvider.globalRentAmount;
+    renterFlatRent ??=
+        HomeProvider().globalRentAmount; //homeProvider.globalRentAmount;
     gasbill ??= homeProvider.globalGasbill;
     myWaterBill ??= homeProvider.globalWaterBill;
     electricityUnitPrice = homeProvider.electricityUnitPrice;
     myOthersExpences ??= homeProvider.globalOtherExpences;
     transactions ??= []; //later transaction will be added to the list
-
-    // myFlatRent ??= homeProvider.homeRentAmount;
-    // gasbill ??= homeProvider.homeGasbill;
-    // myWaterBill ??= homeProvider.homewaterBill;
-    // electricityUnitPrice = homeProvider.electricityUnitPrice;
-    // myOthersExpences ??= homeProvider.homeOtherExpences;
-    // transactions ??= []; //later transaction will be added to the list
   }
 }
 

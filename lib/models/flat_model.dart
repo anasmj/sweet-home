@@ -15,9 +15,10 @@ class Flat {
   //These values can vary flat to flat. if not given, take global value from HomeProvider
   //every month these values will be used in MonthDetails class to determine bills
   //for that month.
-  int? flatRent;
   double? flatGasBill;
   double? flatWaterBill;
+  double? electricityUnitPrice; //always takes global value
+
   List<OthersExpence>? flatOtherExpences;
 
   Flat({
@@ -27,5 +28,6 @@ class Flat {
   }) {
     flatRentAmount ??= HomeProvider().globalRentAmount;
     flatOtherExpences ??= HomeProvider().globalOtherExpences;
+    electricityUnitPrice ??= HomeProvider().electricityUnitPrice;
   }
 }

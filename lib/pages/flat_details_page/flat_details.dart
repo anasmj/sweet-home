@@ -9,7 +9,7 @@ import 'transaction_entry_page/transaction_entry_page.dart';
 //*SHOWS SUMMARY OF A USER IN APP BAR
 //*PROVIDES TWO TAB BAR 1.MONTHLY EXPENCE, 2.TRANSACTIONS
 
-//CALLED FROM pages/flats_page/components/flat_container.dart
+//called from flat list page
 class FlatDetails extends StatelessWidget {
   FlatDetails({required this.renter, super.key});
   final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);
@@ -21,6 +21,7 @@ class FlatDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme appTextTheme = Theme.of(context).textTheme;
+
     return DefaultTabController(
       initialIndex: 0,
       length: 3,

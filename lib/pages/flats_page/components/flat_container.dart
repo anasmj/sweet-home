@@ -1,7 +1,9 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_home/pages/flat_details_page/flat_details.dart';
+import 'package:rent_home/providers/flat_info_provider.dart';
 import 'package:rent_home/utils/custom_date_time_formatter.dart';
 import '../../../models/flat_model.dart';
 import '../../app_icons.dart';
@@ -22,6 +24,9 @@ class FlatContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CurrentFlatInfoProvider currentFlatProvider =
+        Provider.of<CurrentFlatInfoProvider>(context, listen: false);
+
     TextTheme appTextTheme = Theme.of(context).textTheme;
     return Stack(
       clipBehavior: Clip.none,
@@ -30,6 +35,7 @@ class FlatContainer extends StatelessWidget {
         InkWell(
           onTap: flat.renter != null
               ? () {
+                  currentFlatProvider.updateFlatInfo(currentFlat: flat);
                   Navigator.push(
                     context,
                     PageTransition(

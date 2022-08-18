@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_home/pages/dismiss_keyboard.dart';
 import 'package:rent_home/pages/home_page/home_page.dart';
+import 'package:rent_home/providers/flat_info_provider.dart';
 import 'package:rent_home/providers/home_provider.dart';
 import 'constants.dart';
 
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
         // ),
         ChangeNotifierProvider(
           create: (context) => HomeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CurrentFlatInfoProvider(),
         ),
       ],
       child: DismissKeyboard(

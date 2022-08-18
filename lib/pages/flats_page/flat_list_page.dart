@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_home/models/database.dart';
 import 'package:rent_home/pages/flats_page/components/flat_container.dart';
 import 'package:rent_home/pages/shared_widgets/search_bar.dart';
 import 'package:rent_home/providers/home_provider.dart';
@@ -9,7 +10,13 @@ class FlatListPage extends StatelessWidget {
   FlatListPage({super.key});
   @override
   Widget build(BuildContext context) {
-    final home = context.watch<HomeProvider>();
+    // final home = context.watch<HomeProvider>();
+    final home = Provider.of<HomeProvider>(context);
+
+    // home.setFlatList =
+    //     databaseFlatList; //initializing list of flat in HomeProvider
+    // home.flats[0].renter = ashraful;
+    // print('flat List page : ${ashraful.records[0].months[2].renterFlatRent}');
 
     TextTheme appTextTheme = Theme.of(context).textTheme;
     return Padding(
@@ -63,9 +70,11 @@ class FlatListPage extends StatelessWidget {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 30,
                     children: home.flats
-                        .map((e) => FlatContainer(
-                              flat: e,
-                            ))
+                        .map(
+                          (e) => FlatContainer(
+                            flat: e,
+                          ),
+                        )
                         .toList(),
                   )
                 : Center(
