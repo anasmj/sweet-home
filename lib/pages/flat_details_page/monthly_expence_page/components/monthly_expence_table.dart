@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_home/pages/app_icons.dart';
+import 'package:rent_home/pages/flat_details_page/components/bottom_button.dart';
 import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/electricity_table.dart';
 import 'package:rent_home/pages/flat_details_page/monthly_expence_page/components/others_table.dart';
 import 'package:rent_home/providers/flat_info_provider.dart';
@@ -14,9 +15,12 @@ class MonthlyExpenceTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //*use this to show data .
+    //*after confirmed by user, make a month detail object which will
+    //*be later used to show previous month details
     CurrentFlatInfoProvider currentFlat =
         Provider.of<CurrentFlatInfoProvider>(context);
-    print(currentFlat.flatName);
+
     TextTheme textTheme = Theme.of(context).textTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,21 +29,24 @@ class MonthlyExpenceTable extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             purposeTitle(titleIcon: AppIcons().homeUrl, title: 'ভাড়া'),
-            Text(Bill.setRenter(renter: renter).rent),
+            Text(currentFlat.flatRentAmount.toString()),
+            // Text(Bill.setRenter(renter: renter).rent), //! THIS WILL NEEDED TO SHOW ALL MONTHE DETAIL OBJECTS
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             purposeTitle(titleIcon: AppIcons().flameUrl, title: 'গ্যাস'),
-            Text(Bill.setRenter(renter: renter).gasBill)
+            Text(currentFlat.flatGasBill.toStringAsFixed(1)),
+            // Text(Bill.setRenter(renter: renter).gasBill)
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             purposeTitle(titleIcon: AppIcons().waterTapUrl, title: 'পানি'),
-            Text(Bill.setRenter(renter: renter).waterBill),
+            Text(currentFlat.flatWaterBill.toStringAsFixed(1)),
+            // Text(Bill.setRenter(renter: renter).waterBill),
           ],
         ),
         Row(
@@ -48,6 +55,9 @@ class MonthlyExpenceTable extends StatelessWidget {
             purposeTitle(
                 titleIcon: AppIcons().electricityUrl, title: 'বিদ্যুৎ'),
             Text(
+              // Bill.setRenter(renter: currentFlat.renter!)
+              //     .getElectricBill
+              //     .toString(),
               Bill.setRenter(renter: renter).getElectricBill,
             ),
           ],
@@ -113,6 +123,10 @@ class MonthlyExpenceTable extends StatelessWidget {
               style: textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
             ),
           ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Center(child: BottomButton(text: 'নিশ্চিত করছি ')),
         ),
         const SizedBox(
           height: 100,

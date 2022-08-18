@@ -33,11 +33,12 @@ List<Flat> databaseFlatList = [
 
               transactions: [
                 Transaction(
-                    timeStamp: DateTime.parse("2022-04-03 20:18:04Z"),
-                    takenAmount: 8000.00,
-                    transactionBy: 'আশরাফুল আলম',
-                    isAdvance: true,
-                    due: 0),
+                  timeStamp: DateTime.parse("2022-04-03 20:18:04Z"),
+                  takenAmount: 8000.00,
+                  transactionBy: 'আশরাফুল আলম',
+                  isAdvance: true,
+                  due: 0,
+                ),
               ],
             ),
             MonthDetails(

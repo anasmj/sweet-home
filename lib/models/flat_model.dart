@@ -29,5 +29,7 @@ class Flat {
     flatRentAmount ??= HomeProvider().globalRentAmount;
     flatOtherExpences ??= HomeProvider().globalOtherExpences;
     electricityUnitPrice ??= HomeProvider().electricityUnitPrice;
+    flatGasBill ??= HomeProvider().globalGasbill;
+    flatWaterBill ??= HomeProvider().globalWaterBill;
   }
 }

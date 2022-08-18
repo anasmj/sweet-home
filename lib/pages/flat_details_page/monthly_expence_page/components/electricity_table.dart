@@ -23,7 +23,8 @@ class ElectricityTable extends StatelessWidget {
             previousMonth.readingOfElecctricMeter)
         .toStringAsFixed(1));
 
-    String electricBill = Bill.setRenter(renter: renter).getElectricBill;
+    String electricBill = Bill.setRenter(renter: renter)
+        .getElectricBill; //returns current electeric bill
 
     return SizedBox(
       width: 200,

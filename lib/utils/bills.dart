@@ -70,6 +70,7 @@ class Bill {
         double.parse(waterBill) +
         double.parse(getElectricBill) +
         double.parse(sumOfOtherBills);
+
     return total;
   }
 

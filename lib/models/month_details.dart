@@ -1,5 +1,6 @@
 import 'package:rent_home/models/flat_model.dart';
 import 'package:rent_home/models/transaction_model.dart';
+import 'package:rent_home/providers/flat_info_provider.dart';
 import 'package:rent_home/providers/home_provider.dart';
 import 'others_model.dart';
 
@@ -29,9 +30,19 @@ class MonthDetails {
     this.isNotified = false,
     this.transactions,
   }) {
+    //CurrentFlatInfoProvider usersFlat = CurrentFlatInfoProvider();
+
+    // renterFlatRent ??=
+    //     usersFlat.flatRentAmount; //homeProvider.globalRentAmount;
+
+    // gasbill ??= usersFlat.flatGasBill;
+    // myWaterBill ??= usersFlat.flatWaterBill;
+    // electricityUnitPrice = usersFlat.electricityUnitPrice;
+    // myOthersExpences ??= usersFlat.flatOtherExpences;
+    // transactions ??= []; //later transaction will be added to the list
+
     HomeProvider homeProvider = HomeProvider();
 
-    //now values should be fetched from Flat class to be used in every month
     renterFlatRent ??=
         HomeProvider().globalRentAmount; //homeProvider.globalRentAmount;
     gasbill ??= homeProvider.globalGasbill;
@@ -41,34 +52,3 @@ class MonthDetails {
     transactions ??= []; //later transaction will be added to the list
   }
 }
-
-// List<MonthDetails> listOfMonthDetails = [
-//   MonthDetails(monthNmae: 'Jan', noOfDays: 31, paidAt: 8),
-//   MonthDetails(monthNmae: 'Feb', noOfDays: 28, paidAt: 5),
-//   MonthDetails(monthNmae: 'Mar', noOfDays: 31, paidAt: 2),
-//   MonthDetails(monthNmae: 'Apr', noOfDays: 30, paidAt: 6),
-//   MonthDetails(monthNmae: 'May', noOfDays: 31, paidAt: 15),
-//   MonthDetails(monthNmae: 'Jun', noOfDays: 30, paidAt: 31),
-//   MonthDetails(monthNmae: 'Jul', noOfDays: 31, paidAt: 8),
-//   MonthDetails(monthNmae: 'Aug', noOfDays: 30, paidAt: 15),
-//   MonthDetails(monthNmae: 'Sep', noOfDays: 31, paidAt: 3),
-//   MonthDetails(monthNmae: 'Oct', noOfDays: 30, paidAt: 30),
-//   MonthDetails(monthNmae: 'Nov', noOfDays: 31, paidAt: 12),
-//   MonthDetails(monthNmae: 'Dec', noOfDays: 30, paidAt: 16),
-// ];
-
-//!might be used in pie chart
-// List<MonthDetails> listOfMonthDetails = [
-//   MonthDetails(monthNmae: 'Jan', noOfDays: "31", paidAt: 8),
-//   MonthDetails(monthNmae: 'Feb', noOfDays: "28", paidAt: 5),
-//   MonthDetails(monthNmae: 'Mar', noOfDays: "31", paidAt: 2),
-//   MonthDetails(monthNmae: 'Apr', noOfDays: "30", paidAt: 6),
-//   MonthDetails(monthNmae: 'May', noOfDays: "31", paidAt: 15),
-//   MonthDetails(monthNmae: 'Jun', noOfDays: "30", paidAt: 31),
-//   MonthDetails(monthNmae: 'Jul', noOfDays: "31", paidAt: 8),
-//   MonthDetails(monthNmae: 'Aug', noOfDays: "30", paidAt: 15),
-//   MonthDetails(monthNmae: 'Sep', noOfDays: "31", paidAt: 3),
-//   MonthDetails(monthNmae: 'Oct', noOfDays: "30", paidAt: 30),
-//   MonthDetails(monthNmae: 'Nov', noOfDays: "31", paidAt: 12),
-//   MonthDetails(monthNmae: 'Dec', noOfDays: "30", paidAt: 16),
-// ];

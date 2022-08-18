@@ -15,6 +15,7 @@ class HomeProvider extends ChangeNotifier {
 
   final double _homeWaterBill = 0;
   final double _electricityUnitPrice = 7.50;
+  final double _electricityBill = 0; //TODO: needs to get updated
 
   List<Flat>? _flats;
 

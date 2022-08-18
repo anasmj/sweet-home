@@ -24,7 +24,7 @@ class FlatContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CurrentFlatInfoProvider currentFlatProvider =
+    late CurrentFlatInfoProvider currentFlatProvider =
         Provider.of<CurrentFlatInfoProvider>(context, listen: false);
 
     TextTheme appTextTheme = Theme.of(context).textTheme;
@@ -35,7 +35,10 @@ class FlatContainer extends StatelessWidget {
         InkWell(
           onTap: flat.renter != null
               ? () {
+                  // print(flat.flatRentAmount); ok
                   currentFlatProvider.updateFlatInfo(currentFlat: flat);
+
+                  ///gets updated
                   Navigator.push(
                     context,
                     PageTransition(
