@@ -55,8 +55,8 @@ class MyApp extends StatelessWidget {
           //   '/flat_details_page': (context) => FlatDetails(),
           // },
 
-          //home: const HomePage(),
-          home: NewRenterStepper(),
+          home: const HomePage(),
+          // home: NewRenterStepper(),
         ),
       ),
     );

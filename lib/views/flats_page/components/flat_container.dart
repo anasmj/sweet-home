@@ -7,6 +7,7 @@ import 'package:rent_home/providers/flat_info_provider.dart';
 import 'package:rent_home/controllers/custom_date_time_formatter.dart';
 import '../../../models/flat_model.dart';
 import '../../app_icons.dart';
+import '../../steppers/new_renter_stepper.dart';
 
 //ELEMENT OF GRIDVIEW
 class FlatContainer extends StatelessWidget {
@@ -92,7 +93,7 @@ class FlatContainer extends StatelessWidget {
                         ),
 
                         //MENU THAT LEADS TO MODAL SHEET
-                        optionsButton()
+                        optionsButton(context: context),
                       ],
                     ),
 
@@ -130,7 +131,7 @@ class FlatContainer extends StatelessWidget {
     );
   }
 
-  PopupMenuButton<String> optionsButton() {
+  PopupMenuButton<String> optionsButton({required BuildContext context}) {
     return PopupMenuButton<String>(
       tooltip: 'মেন্যু',
       shape: RoundedRectangleBorder(
@@ -161,6 +162,14 @@ class FlatContainer extends StatelessWidget {
           case 'গ্রাহক মুছুন':
             break; //_showModalSheet(),
           case 'নতুন গ্রাহক':
+            Navigator.push(
+              context,
+              PageTransition(
+                child: const NewRenterStepper(),
+                type: PageTransitionType.fade,
+              ),
+            );
+
             break; //_showModalSheet(),
           case 'ফ্ল্যাটের বিস্তারিত':
             break; //_showModalSheet(),
