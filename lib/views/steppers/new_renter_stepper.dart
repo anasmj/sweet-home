@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:rent_home/views/steppers/new_renter_stepper/address_stepper.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/nid_stepper.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/renter_info_stepper.dart';
+import 'package:rent_home/providers/new_renter_info_provider.dart';
+import 'package:provider/provider.dart';
 
 class NewRenterStepper extends StatefulWidget {
   const NewRenterStepper({super.key});
@@ -15,8 +16,11 @@ class NewRenterStepper extends StatefulWidget {
 class _AddNewRenterStepperState extends State<NewRenterStepper> {
   int _currentStep = 0;
   bool isCompletedd = false;
+  bool isValidInfo = false;
   @override
   Widget build(BuildContext context) {
+    final renterInfoProvider = Provider.of<NewRenterInfoProvider>(
+        context); //used to validate state of form
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
     return Scaffold(
@@ -35,9 +39,13 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
                   });
                   print('completed');
                 } else {
-                  setState(() {
-                    _currentStep += 1;
-                  });
+                  if (renterInfoProvider.firstPageFormKey!.currentState!
+                      .validate()) {
+                    //false if textfield value of first pagd is not valied.
+                    setState(() {
+                      _currentStep += 1;
+                    });
+                  }
                 }
               },
               onStepCancel: () => _currentStep == 0
@@ -53,60 +61,14 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
                   children: [
                     if (_currentStep != 0)
                       Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            backgroundColor: Colors.grey,
-                          ),
-                          onPressed: details.onStepCancel,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(
-                                Icons.arrow_back_rounded,
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Text(
-                                'পেছনে',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ),
+                        child: backNavigationButton(details),
                       ),
                     if (_currentStep != 0)
                       const SizedBox(
                         width: 20,
                       ),
                     Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        onPressed: details.onStepContinue,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              isLastStep ? 'যুক্ত করি' : 'সামনে যাই',
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            if (!isLastStep)
-                              const Icon(
-                                Icons.arrow_forward_rounded,
-                              ),
-                          ],
-                        ),
-                      ),
+                      child: forwardNavigationButton(details, isLastStep),
                     ),
                   ],
                 ),
@@ -115,6 +77,83 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
           : const Center(
               child: Text('successful'),
             ),
+    );
+  }
+
+  Padding navigateButton(ControlsDetails details, bool isLastStep) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 100.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (_currentStep != 0)
+            Expanded(
+              child: backNavigationButton(details),
+            ),
+          if (_currentStep != 0)
+            const SizedBox(
+              width: 20,
+            ),
+          Expanded(
+            child: forwardNavigationButton(details, isLastStep),
+          ),
+        ],
+      ),
+    );
+  }
+
+  ElevatedButton forwardNavigationButton(
+      ControlsDetails details, bool isLastStep) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+      onPressed: details.onStepContinue,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            isLastStep ? 'যুক্ত করি' : 'সামনে যাই',
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          if (!isLastStep)
+            const Icon(
+              Icons.arrow_forward_rounded,
+            ),
+        ],
+      ),
+    );
+  }
+
+  ElevatedButton backNavigationButton(ControlsDetails details) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        backgroundColor: Colors.grey,
+      ),
+      onPressed: details.onStepCancel,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Icon(
+            Icons.arrow_back_rounded,
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Text(
+            'পেছনে',
+            style: TextStyle(fontSize: 16),
+          ),
+        ],
+      ),
     );
   }
 

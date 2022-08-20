@@ -9,60 +9,62 @@ class AddressStepper extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   int numOfMember = 2;
-
+  final addressFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
           color: Colors.black.withOpacity(0.8),
         );
     var occupationDropdown = OccupationDropdown();
-    return Column(
-      children: [
-        StepperTextField(
-          label: "পূর্বের ঠিকানা",
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'স্থায়ী ঠিকানা',
-            style: Theme.of(context).textTheme.bodyText1,
+    return Form(
+      child: Column(
+        children: [
+          StepperTextField(
+            label: "পূর্বের ঠিকানা",
           ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        StepperTextField(
-          label: 'গ্রাম',
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          children: [
-            const LocationRadio(),
-            const SizedBox(
-              width: 10,
+          const SizedBox(
+            height: 10,
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'স্থায়ী ঠিকানা',
+              style: Theme.of(context).textTheme.bodyText1,
             ),
-            Expanded(
-              child: StepperTextField(),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        StepperTextField(label: 'উপজেলা'),
-        const SizedBox(
-          height: 10,
-        ),
-        StepperTextField(label: 'জেলা'),
-      ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          StepperTextField(
+            label: 'গ্রাম',
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              const LocationRadio(),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: StepperTextField(),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          StepperTextField(label: 'উপজেলা'),
+          const SizedBox(
+            height: 10,
+          ),
+          StepperTextField(label: 'জেলা'),
+        ],
+      ),
     );
   }
 
