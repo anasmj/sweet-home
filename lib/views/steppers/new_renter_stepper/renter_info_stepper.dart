@@ -4,32 +4,30 @@ import 'package:rent_home/providers/new_renter_info_provider.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/components/occupation_dropdown.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/components/stepper_textfield.dart';
 
+import '../../../controllers/validator.dart';
+
 class RenterInfoStepper extends StatelessWidget {
   RenterInfoStepper({
     Key? key,
   }) : super(key: key);
   int numOfMember = 2;
 
-  // Function? f;
-
   final firstPageFormKey = GlobalKey<FormState>();
+
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final alternatePhoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final renterInfoProvider = Provider.of<NewRenterInfoProvider>(context);
-    //initializing value in provider which by default is null
+    nameController.text = renterInfoProvider.renterName;
     renterInfoProvider.firstPageFormKey = firstPageFormKey;
 
     TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
           color: Colors.black.withOpacity(0.8),
         );
     var occupationDropdown = const OccupationDropdown();
-
-    nameValidation(String? value) {
-      // needs to pass into validator
-      if (value!.isEmpty) return 'cant be empty';
-
-      return null; // null -> no problem
-    }
 
     return Form(
       //key needs to exposed to its parent which is NewRenterStepper
@@ -39,7 +37,10 @@ class RenterInfoStepper extends StatelessWidget {
           StepperTextField(
             label: "গ্রাহকের নাম",
             isAstrics: true,
-            validationFunciton: nameValidation,
+            textEditingController: nameController,
+
+            validationFunciton: Validator
+                .checkRenterName, // validation is a class which contains
           ),
           const SizedBox(
             height: 10,
@@ -51,6 +52,8 @@ class RenterInfoStepper extends StatelessWidget {
                   isPhoneNumber: true,
                   label: 'ফোন নম্বর',
                   isAstrics: true,
+                  textEditingController: phoneController,
+                  validationFunciton: Validator.checkPhoneNumber,
                 ),
               ),
               const SizedBox(
@@ -60,6 +63,8 @@ class RenterInfoStepper extends StatelessWidget {
                 child: StepperTextField(
                   isPhoneNumber: true,
                   label: "বিকল্প ফোন নম্বর",
+                  textEditingController: alternatePhoneController,
+                  validationFunciton: Validator.checkPhoneNumber,
                 ),
               ),
             ],
@@ -91,23 +96,28 @@ class RenterInfoStepper extends StatelessWidget {
                 'সদস্য সংখ্যা',
                 style: formTextStyle,
               ),
+              //increment or decrement
               Column(
                 children: [
                   IconButton(
                     iconSize: 22,
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<NewRenterInfoProvider>().incrementMember();
+                    },
                     icon: Icon(
                       Icons.add,
                       color: Colors.black.withOpacity(0.6),
                     ),
                   ),
                   Text(
-                    '2',
+                    renterInfoProvider.memberNo,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   IconButton(
                     iconSize: 22,
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<NewRenterInfoProvider>().decrementMember();
+                    },
                     icon: Icon(
                       Icons.remove,
                       color: Colors.black.withOpacity(0.6),

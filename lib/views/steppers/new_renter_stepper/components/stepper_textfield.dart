@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class StepperTextField extends StatelessWidget {
   StepperTextField(
@@ -7,6 +6,7 @@ class StepperTextField extends StatelessWidget {
       this.isAstrics = false,
       this.isPhoneNumber = false,
       this.validationFunciton,
+      required this.textEditingController,
       super.key});
 
   String? Function(String?)? validationFunciton;
@@ -14,43 +14,49 @@ class StepperTextField extends StatelessWidget {
   String label;
   bool isAstrics, isPhoneNumber;
   final double _cursorHeight = 22;
-  final double _textFieldHeight = 50;
+  TextEditingController textEditingController;
   @override
   Widget build(BuildContext context) {
     TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
           color: Colors.black.withOpacity(0.8),
         );
-    return SizedBox(
-      height: _textFieldHeight,
-      child: isAstrics
-          ? TextFormField(
-              validator: validationFunciton,
-              cursorHeight: _cursorHeight,
-              keyboardType:
-                  isPhoneNumber ? TextInputType.number : TextInputType.name,
-              decoration: InputDecoration(
-                label: getLabelWithAstrics(
-                  label: label,
-                  textStyle: formTextStyle,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+    return isAstrics
+        ? TextFormField(
+            controller: textEditingController,
+            validator: validationFunciton,
+            cursorHeight: _cursorHeight,
+            keyboardType:
+                isPhoneNumber ? TextInputType.number : TextInputType.name,
+            decoration: InputDecoration(
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              label: getLabelWithAstrics(
+                label: label,
+                textStyle: formTextStyle,
               ),
-            )
-          : TextFormField(
-              cursorHeight: _cursorHeight,
-              decoration: InputDecoration(
-                label: Text(
-                  label,
-                  style: formTextStyle,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-    );
+          )
+        : TextFormField(
+            controller: textEditingController,
+            validator: validationFunciton,
+            cursorHeight: _cursorHeight,
+            keyboardType:
+                isPhoneNumber ? TextInputType.number : TextInputType.name,
+            decoration: InputDecoration(
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              label: Text(
+                label,
+                style: formTextStyle,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          );
   }
 
   RichText getLabelWithAstrics(

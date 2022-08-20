@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_home/providers/new_renter_info_provider.dart';
 
 class OccupationDropdown extends StatefulWidget {
   const OccupationDropdown({super.key});
@@ -6,21 +8,25 @@ class OccupationDropdown extends StatefulWidget {
   @override
   State<OccupationDropdown> createState() => _OccupationDropdownState();
 }
+//    Provider.of<NewRenterInfoProvider>(context).setOccupation = value!;
 
-String? value;
+// String? value;
 String? dropDownValue = 'চাকরিজীবি';
 
 class _OccupationDropdownState extends State<OccupationDropdown> {
   @override
   Widget build(BuildContext context) {
+    Provider.of<NewRenterInfoProvider>(context).setOccupation = dropDownValue!;
+
     TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
           color: Colors.black.withOpacity(0.8),
         );
     return DropdownButton(
+      borderRadius: BorderRadius.circular(10),
       value: dropDownValue,
-      elevation: 2,
+      elevation: 10,
       onChanged: (String? newValue) => setState(() {
-        value = newValue;
+        // value = newValue;
         dropDownValue = newValue;
       }),
       items: ['চাকরিজীবি', 'ব্যাবসায়ী', 'অন্যান্য']

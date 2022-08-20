@@ -10,6 +10,14 @@ class AddressStepper extends StatelessWidget {
   }) : super(key: key);
   int numOfMember = 2;
   final addressFormKey = GlobalKey<FormState>();
+
+  final previousAddressController = TextEditingController();
+  final permanentAddressController = TextEditingController();
+  final vilageController = TextEditingController();
+  final unionController = TextEditingController();
+  final subDistrictController = TextEditingController();
+  final districtController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
@@ -21,6 +29,7 @@ class AddressStepper extends StatelessWidget {
         children: [
           StepperTextField(
             label: "পূর্বের ঠিকানা",
+            textEditingController: previousAddressController,
           ),
           const SizedBox(
             height: 10,
@@ -37,6 +46,7 @@ class AddressStepper extends StatelessWidget {
           ),
           StepperTextField(
             label: 'গ্রাম',
+            textEditingController: vilageController,
           ),
           const SizedBox(
             width: 10,
@@ -51,18 +61,26 @@ class AddressStepper extends StatelessWidget {
                 width: 10,
               ),
               Expanded(
-                child: StepperTextField(),
+                child: StepperTextField(
+                  textEditingController: unionController,
+                ),
               ),
             ],
           ),
           const SizedBox(
             height: 10,
           ),
-          StepperTextField(label: 'উপজেলা'),
+          StepperTextField(
+            label: 'উপজেলা',
+            textEditingController: subDistrictController,
+          ),
           const SizedBox(
             height: 10,
           ),
-          StepperTextField(label: 'জেলা'),
+          StepperTextField(
+            label: 'জেলা',
+            textEditingController: districtController,
+          ),
         ],
       ),
     );
