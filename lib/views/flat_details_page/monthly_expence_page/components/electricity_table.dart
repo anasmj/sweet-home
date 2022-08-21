@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/controllers/bills.dart';
+import 'package:rent_home/controllers/calculate_bills.dart';
 
 import '../../../../models/month_details.dart';
 import '../../../../models/renter.dart';
@@ -23,7 +23,7 @@ class ElectricityTable extends StatelessWidget {
             previousMonth.readingOfElecctricMeter)
         .toStringAsFixed(1));
 
-    String electricBill = Bill.setRenter(renter: renter)
+    String electricBill = CalculateBill.setRenter(renter: renter)
         .getElectricBill; //returns current electeric bill
 
     return SizedBox(
@@ -35,7 +35,7 @@ class ElectricityTable extends StatelessWidget {
             children: [
               const Text("আগের মাসের ইউনিট"),
               Text(
-                Bill.setRenter(renter: renter).previousMonthReading,
+                CalculateBill.setRenter(renter: renter).previousMonthReading,
               )
             ],
           ),
@@ -44,7 +44,7 @@ class ElectricityTable extends StatelessWidget {
             children: [
               const Text("এ মাসের ইউনিট"),
               Text(
-                Bill.setRenter(renter: renter).currentMonthReading,
+                CalculateBill.setRenter(renter: renter).currentMonthReading,
               ),
             ],
           ),
@@ -53,7 +53,7 @@ class ElectricityTable extends StatelessWidget {
             children: [
               const Text("ব্যাবহৃত ইউনিট"),
               Text(
-                Bill.setRenter(renter: renter).usedUnitOfElectricity,
+                CalculateBill.setRenter(renter: renter).usedUnitOfElectricity,
               ),
             ],
           ),

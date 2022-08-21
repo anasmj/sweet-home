@@ -7,7 +7,7 @@ import 'package:rent_home/providers/flat_info_provider.dart';
 import 'package:rent_home/controllers/custom_date_time_formatter.dart';
 import '../../../models/flat_model.dart';
 import '../../app_icons.dart';
-import '../../steppers/new_renter_stepper.dart';
+import '../../steppers/new_renter_stepper/new_renter_stepper.dart';
 
 //ELEMENT OF GRIDVIEW
 class FlatContainer extends StatelessWidget {

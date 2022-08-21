@@ -5,8 +5,6 @@ import 'package:rent_home/views/dismiss_keyboard.dart';
 import 'package:rent_home/views/home_page/home_page.dart';
 import 'package:rent_home/providers/flat_info_provider.dart';
 import 'package:rent_home/providers/home_provider.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper.dart';
-import 'constants.dart';
 
 void main() {
   runApp(const MyApp());
@@ -64,10 +62,5 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  initApp(BuildContext context) async {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
   }
 }

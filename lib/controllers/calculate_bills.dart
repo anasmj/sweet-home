@@ -5,7 +5,7 @@ import '../models/renter.dart';
 import '../models/year.dart';
 
 // PROVIDES ALL KIND OF BILLING INFORMATION
-class Bill {
+class CalculateBill {
   Renter renter;
 
   late MonthDetails previousMonth;
@@ -15,7 +15,7 @@ class Bill {
 
   double? electricBill = 0;
 
-  Bill.setRenter({required this.renter}) {
+  CalculateBill.setRenter({required this.renter}) {
     Year currentYear =
         renter.records[renter.records.length - 1]; //last element of List<year>
     currentMonth = currentYear.months[currentYear.months.length - 1];

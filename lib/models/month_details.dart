@@ -1,6 +1,4 @@
-import 'package:rent_home/models/flat_model.dart';
 import 'package:rent_home/models/transaction_model.dart';
-import 'package:rent_home/providers/flat_info_provider.dart';
 import 'package:rent_home/providers/home_provider.dart';
 import 'others_model.dart';
 

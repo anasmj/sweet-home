@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_home/providers/new_renter_info_provider.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/components/occupation_dropdown.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/components/stepper_textfield.dart';
+import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/components/occupation_dropdown.dart';
+import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/components/stepper_textfield.dart';
 
-import '../../../controllers/validator.dart';
+import '../../../../controllers/validator.dart';
+import 'components/flat_choice_chip.dart';
 
-class RenterInfoStepper extends StatelessWidget {
-  RenterInfoStepper({
+class RenterInfoStep extends StatelessWidget {
+  RenterInfoStep({
     Key? key,
   }) : super(key: key);
   int numOfMember = 2;
@@ -137,47 +138,9 @@ class RenterInfoStepper extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          buildChips(),
+          const FlatChoicieChips(),
         ],
       ),
     );
   }
-
-  Widget buildChips() => Wrap(
-        children: const [
-          ChoiceChip(
-            selected: true,
-            elevation: 3,
-            avatar: CircleAvatar(
-              backgroundColor: Colors.green,
-              child: Text('1A'),
-            ),
-            label: Text('আশরাফুল আলম'),
-          ),
-          Chip(
-            elevation: 3,
-            avatar: CircleAvatar(
-              backgroundColor: Colors.green,
-              child: Text('1B'),
-            ),
-            label: Text('রবিউল ইসলাম'),
-          ),
-          Chip(
-            elevation: 3,
-            avatar: CircleAvatar(
-              backgroundColor: Colors.green,
-              child: Text('2A'),
-            ),
-            label: Text('মাইনুল হোসেন'),
-          ),
-          Chip(
-            elevation: 3,
-            avatar: CircleAvatar(
-              backgroundColor: Colors.green,
-              child: Text('2B'),
-            ),
-            label: Text('সাইফুল'),
-          ),
-        ],
-      );
 }

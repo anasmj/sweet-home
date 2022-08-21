@@ -4,8 +4,8 @@ import 'package:rent_home/views/app_icons.dart';
 import 'components/advance_payment_checkbox.dart';
 import 'components/nid_Image_containers.dart';
 
-class NidStepper extends StatelessWidget {
-  const NidStepper({super.key});
+class NidStep extends StatelessWidget {
+  const NidStep({super.key});
 
   @override
   Widget build(BuildContext context) {

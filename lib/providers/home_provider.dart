@@ -6,7 +6,7 @@ import '../models/others_model.dart';
 //VALUE IN THIS CLASSS ARE PROVIDED INTO FLATS GLOBALLY
 class HomeProvider extends ChangeNotifier {
   final String _homeName = '';
-  final String _ownerName = '';
+  final String ownerName = '';
   final String _address = '';
 
   final int _globalRentAmount = 8500;
@@ -15,12 +15,12 @@ class HomeProvider extends ChangeNotifier {
 
   final double _homeWaterBill = 0;
   final double _electricityUnitPrice = 7.50;
-  final double _electricityBill = 0; //TODO: needs to get updated
+  final double electricityBill = 0; //TODO: needs to get updated
 
-  List<Flat>? _flats;
+  // List<Flat>? _flats;
 
   String get homeName => _homeName;
-  String get ownerName => ownerName;
+  // String get ownerName => ownerName;
   String get address => _address;
 
   double get electricityUnitPrice => _electricityUnitPrice;

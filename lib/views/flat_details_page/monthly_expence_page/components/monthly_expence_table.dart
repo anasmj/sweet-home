@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_home/controllers/calculate_bills.dart';
 import 'package:rent_home/views/app_icons.dart';
 import 'package:rent_home/views/flat_details_page/components/bottom_button.dart';
 import 'package:rent_home/views/flat_details_page/monthly_expence_page/components/electricity_table.dart';
 import 'package:rent_home/views/flat_details_page/monthly_expence_page/components/others_table.dart';
 import 'package:rent_home/providers/flat_info_provider.dart';
 import '../../../../models/renter.dart';
-import '../../../../controllers/bills.dart';
 
 class MonthlyExpenceTable extends StatelessWidget {
   MonthlyExpenceTable({required this.renter, super.key});
@@ -58,7 +58,7 @@ class MonthlyExpenceTable extends StatelessWidget {
               // Bill.setRenter(renter: currentFlat.renter!)
               //     .getElectricBill
               //     .toString(),
-              Bill.setRenter(renter: renter).getElectricBill,
+              CalculateBill.setRenter(renter: renter).getElectricBill,
             ),
           ],
         ),
@@ -72,14 +72,14 @@ class MonthlyExpenceTable extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             purposeTitle(titleIcon: AppIcons().otherUrl, title: 'অন্যান্য'),
-            Text(Bill.setRenter(renter: renter).sumOfOtherBills)
+            Text(CalculateBill.setRenter(renter: renter).sumOfOtherBills)
           ],
         ),
         Padding(
           padding: const EdgeInsets.only(left: 40.0),
           child: OthersTable(
-            othersList:
-                Bill.setRenter(renter: renter).otherExpenceListForThisMonth,
+            othersList: CalculateBill.setRenter(renter: renter)
+                .otherExpenceListForThisMonth,
           ),
         ),
         transactionDivider(),
@@ -91,7 +91,9 @@ class MonthlyExpenceTable extends StatelessWidget {
               style: textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
             ),
             Text(
-              Bill.setRenter(renter: renter).totalBill.toStringAsFixed(1),
+              CalculateBill.setRenter(renter: renter)
+                  .totalBill
+                  .toStringAsFixed(1),
               style: textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
             ),
           ],

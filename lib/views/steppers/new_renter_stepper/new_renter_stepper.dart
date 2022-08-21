@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:rent_home/views/steppers/new_renter_stepper/address_stepper.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/nid_stepper.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/renter_info_stepper.dart';
+import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/address_step.dart';
+import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/nid_step.dart';
+import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/renter_info_step.dart';
 import 'package:rent_home/providers/new_renter_info_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -55,10 +55,11 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
                     }),
               steps: getSteps(),
               controlsBuilder: (context, ControlsDetails details) => Padding(
-                padding: const EdgeInsets.only(top: 100.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    //dont show back button at first step
                     if (_currentStep != 0)
                       Expanded(
                         child: backNavigationButton(details),
@@ -74,31 +75,10 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
                 ),
               ),
             )
+          //user added a new renter into the flat.
           : const Center(
               child: Text('successful'),
             ),
-    );
-  }
-
-  Padding navigateButton(ControlsDetails details, bool isLastStep) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 100.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (_currentStep != 0)
-            Expanded(
-              child: backNavigationButton(details),
-            ),
-          if (_currentStep != 0)
-            const SizedBox(
-              width: 20,
-            ),
-          Expanded(
-            child: forwardNavigationButton(details, isLastStep),
-          ),
-        ],
-      ),
     );
   }
 
@@ -162,19 +142,19 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
           state: _currentStep > 0 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 0,
           title: const Text('তথ্য'),
-          content: RenterInfoStepper(),
+          content: RenterInfoStep(),
         ),
         Step(
           state: _currentStep > 1 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 1,
           title: const Text('ঠিকানা'),
-          content: AddressStepper(),
+          content: AddressStep(),
         ),
         Step(
           state: _currentStep > 2 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 2,
           title: const Text('ছবি'),
-          content: const NidStepper(),
+          content: const NidStep(),
         ),
       ];
 }

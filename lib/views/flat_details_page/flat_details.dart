@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/controllers/bills.dart';
+import 'package:rent_home/controllers/calculate_bills.dart';
 import '../../models/renter.dart';
 import '../app_icons.dart';
 import 'transactoin_list_page/transaction_list_page.dart';
@@ -99,7 +99,7 @@ class FlatDetails extends StatelessWidget {
             ),
             TextSpan(
               text:
-                  '${Bill.setRenter(renter: renter).totalBill.toStringAsFixed(1)} \n',
+                  '${CalculateBill.setRenter(renter: renter).totalBill.toStringAsFixed(1)} \n',
               style: appTextTheme.headline6!.copyWith(
                   color: Colors.red[900], fontWeight: FontWeight.w600),
             ),
