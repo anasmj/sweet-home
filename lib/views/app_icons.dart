@@ -3,18 +3,18 @@
 //*int the asset folder
 
 class AppIcons {
-  String takaUrl = "assets/icons/taka.png";
-  String downloadUrl = "assets/icons/download_bold.svg";
-  String binUrl = "assets/icons/bin.png";
-  String notificationUrl = "assets/icons/notification.png";
-  String settingUrl = "assets/icons/settings.svg";
-  String optionsUrl = "assets/icons/options.svg";
-  String flameUrl = "assets/icons/flame.svg";
-  String electricityUrl = "assets/icons/electricity.svg";
-  String homeUrl = "assets/icons/home.svg";
-  String waterTapUrl = "assets/icons/water_tap.svg";
-  String reportUrl = "assets/icons/report.svg";
-  String calenderUrl = "assets/icons/calender.png";
-  String otherUrl = "assets/icons/other.svg";
-  String checmarkUrl = "assets/icons/checkmark.svg";
+  static String takaUrl = "assets/icons/taka.png";
+  static String downloadUrl = "assets/icons/download_bold.svg";
+  static String binUrl = "assets/icons/bin.png";
+  static String notificationUrl = "assets/icons/notification.png";
+  static String settingUrl = "assets/icons/settings.svg";
+  static String optionsUrl = "assets/icons/options.svg";
+  static String flameUrl = "assets/icons/flame.svg";
+  static String electricityUrl = "assets/icons/electricity.svg";
+  static String homeUrl = "assets/icons/home.svg";
+  static String waterTapUrl = "assets/icons/water_tap.svg";
+  static String reportUrl = "assets/icons/report.svg";
+  static String calenderUrl = "assets/icons/calender.png";
+  static String otherUrl = "assets/icons/other.svg";
+  static String checmarkUrl = "assets/icons/checkmark.svg";
 }

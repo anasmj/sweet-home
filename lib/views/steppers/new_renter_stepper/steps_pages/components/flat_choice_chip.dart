@@ -1,74 +1,90 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_home/models/flat_model.dart';
+import 'package:rent_home/providers/home_provider.dart';
 
 class FlatChoicieChips extends StatefulWidget {
   const FlatChoicieChips({super.key});
-
   @override
   State<FlatChoicieChips> createState() => _FlatChoicieChipsState();
 }
 
 class _FlatChoicieChipsState extends State<FlatChoicieChips> {
-  int? _defaultChoiceIndex;
+  int? _chosenByUser;
   bool selected = false;
+
+  final Color _occupiedFlatChoiceChipColor = Colors.green.withOpacity(.20);
+  final Color _occupiedFlatSelectedColor = Colors.green.withOpacity(.40);
+  final Color _emptyFlatSelectedColor = Colors.red.withOpacity(.40);
+  final Color _occupiedFlatCircleAvatarColor = Colors.green.withOpacity(0.6);
+  final Color _emptyFaltCircleAvatarColor = Colors.red.withOpacity(0.8);
+  final Color _flatNameColor = Colors.white;
+  final Color _emptyFlatChoiceChipColor = Colors.red.withOpacity(.20);
+
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 10,
-      runSpacing: 6,
-      children: List.generate(
-        choiceChips.length,
-        (index) => ChoiceChip(
-          elevation: 4,
-          backgroundColor: choiceChips[index].name != null
-              ? Colors.green.withOpacity(.20)
-              : Colors.red.withOpacity(.20),
-          labelStyle: Theme.of(context).textTheme.subtitle1,
-          labelPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-          label: choiceChips[index].name != null
-              ? Text(choiceChips[index].name!)
-              : const Text('empty flat'),
-          avatar: CircleAvatar(
-            backgroundColor: choiceChips[index].name != null
-                ? Colors.green.withOpacity(0.8)
-                : Colors.red.withOpacity(.80),
-            radius: 14,
-            child: Text(
-              choiceChips[index].flatName,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+    List<Flat> flatList = Provider.of<HomeProvider>(context).flats;
+    return SingleChildScrollView(
+      child: Wrap(
+        spacing: 10,
+        runSpacing: 6,
+        children: List.generate(
+          flatList.length,
+          (flatNo) => ChoiceChip(
+            elevation: 4,
+            backgroundColor: flatList[flatNo].renter != null
+                ? _occupiedFlatChoiceChipColor
+                : _emptyFlatChoiceChipColor,
+            labelStyle: Theme.of(context).textTheme.subtitle1,
+            labelPadding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+            label: flatList[flatNo].renter != null
+                ? Text(flatList[flatNo].renter!.name)
+                : const Text('খালি আছে'),
+            avatar: CircleAvatar(
+              backgroundColor: flatList[flatNo].renter != null
+                  ? _occupiedFlatCircleAvatarColor
+                  : _emptyFaltCircleAvatarColor,
+              radius: 14,
+              child: Text(
+                flatList[flatNo].flatName,
+                style: TextStyle(
+                  color: _flatNameColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
-          ),
-          selected: _defaultChoiceIndex == index,
-          onSelected: ((bool selected) => setState(
+            selected: _chosenByUser == flatNo,
+            onSelected: ((bool selected) {
+              setState(
                 () {
-                  _defaultChoiceIndex = selected &&
-                          choiceChips[index].name ==
+                  _chosenByUser = selected &&
+                          flatList[flatNo].renter ==
                               null //cant be selected where already a rente
-                      ? index
+                      ? flatNo
                       : null;
                 },
-              )),
-          selectedColor: choiceChips[index].name != null
-              ? Colors.green.withOpacity(.40)
-              : Colors.red.withOpacity(.40),
+              );
+              if (selected && flatList[flatNo].renter != null) {
+                showToast();
+              }
+            }),
+            selectedColor: flatList[flatNo].renter != null
+                ? _occupiedFlatSelectedColor
+                : _emptyFlatSelectedColor,
+          ),
         ),
       ),
     );
   }
-}
 
-List<ChipData> choiceChips = [
-  ChipData(flatName: '1A', name: 'Andrew'),
-  ChipData(flatName: '1B', name: 'philip'),
-  ChipData(flatName: '2A'),
-  ChipData(flatName: '2B'),
-  ChipData(flatName: '3A'),
-  ChipData(flatName: '3B'),
-];
-
-class ChipData {
-  String flatName;
-  String? name;
-  Color chipColor = Colors.red.withOpacity(.20);
-  ChipData({required this.flatName, this.name});
+  void showToast() => Fluttertoast.showToast(
+        msg: "ফ্ল্যাটটি খালি নেই",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.grey.shade50,
+        textColor: Colors.black,
+        fontSize: 14.0,
+      );
 }

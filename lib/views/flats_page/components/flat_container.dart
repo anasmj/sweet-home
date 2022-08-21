@@ -76,7 +76,7 @@ class FlatContainer extends StatelessWidget {
                       children: [
                         Image(
                           width: 20,
-                          image: AssetImage(AppIcons().takaUrl),
+                          image: AssetImage(AppIcons.takaUrl),
                         ),
                         const SizedBox(
                           width: 6,

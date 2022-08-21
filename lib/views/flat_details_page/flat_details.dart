@@ -94,7 +94,7 @@ class FlatDetails extends StatelessWidget {
                 height: 18,
                 width: 18,
                 color: Colors.red[900],
-                image: AssetImage(AppIcons().takaUrl),
+                image: AssetImage(AppIcons.takaUrl),
               ),
             ),
             TextSpan(

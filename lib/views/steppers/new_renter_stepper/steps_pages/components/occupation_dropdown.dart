@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/providers/new_renter_info_provider.dart';
+import 'package:rent_home/providers/newrenter_step_provider.dart';
 
 class OccupationDropdown extends StatefulWidget {
   const OccupationDropdown({super.key});
@@ -16,7 +16,7 @@ String? dropDownValue = 'চাকরিজীবি';
 class _OccupationDropdownState extends State<OccupationDropdown> {
   @override
   Widget build(BuildContext context) {
-    Provider.of<NewRenterInfoProvider>(context).setOccupation = dropDownValue!;
+    Provider.of<NewRenterStepProvider>(context).setOccupation = dropDownValue!;
 
     TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
           color: Colors.black.withOpacity(0.8),

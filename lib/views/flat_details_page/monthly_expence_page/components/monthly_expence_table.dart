@@ -28,7 +28,7 @@ class MonthlyExpenceTable extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            purposeTitle(titleIcon: AppIcons().homeUrl, title: 'ভাড়া'),
+            purposeTitle(titleIcon: AppIcons.homeUrl, title: 'ভাড়া'),
             Text(currentFlat.flatRentAmount.toString()),
             // Text(Bill.setRenter(renter: renter).rent), //! THIS WILL NEEDED TO SHOW ALL MONTHE DETAIL OBJECTS
           ],
@@ -36,7 +36,7 @@ class MonthlyExpenceTable extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            purposeTitle(titleIcon: AppIcons().flameUrl, title: 'গ্যাস'),
+            purposeTitle(titleIcon: AppIcons.flameUrl, title: 'গ্যাস'),
             Text(currentFlat.flatGasBill.toStringAsFixed(1)),
             // Text(Bill.setRenter(renter: renter).gasBill)
           ],
@@ -44,7 +44,7 @@ class MonthlyExpenceTable extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            purposeTitle(titleIcon: AppIcons().waterTapUrl, title: 'পানি'),
+            purposeTitle(titleIcon: AppIcons.waterTapUrl, title: 'পানি'),
             Text(currentFlat.flatWaterBill.toStringAsFixed(1)),
             // Text(Bill.setRenter(renter: renter).waterBill),
           ],
@@ -52,8 +52,7 @@ class MonthlyExpenceTable extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            purposeTitle(
-                titleIcon: AppIcons().electricityUrl, title: 'বিদ্যুৎ'),
+            purposeTitle(titleIcon: AppIcons.electricityUrl, title: 'বিদ্যুৎ'),
             Text(
               // Bill.setRenter(renter: currentFlat.renter!)
               //     .getElectricBill
@@ -71,7 +70,7 @@ class MonthlyExpenceTable extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            purposeTitle(titleIcon: AppIcons().otherUrl, title: 'অন্যান্য'),
+            purposeTitle(titleIcon: AppIcons.otherUrl, title: 'অন্যান্য'),
             Text(CalculateBill.setRenter(renter: renter).sumOfOtherBills)
           ],
         ),

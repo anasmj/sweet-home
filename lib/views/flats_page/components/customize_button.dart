@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../app_icons.dart';
 
@@ -17,7 +18,7 @@ class CustomizeButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      onPressed: () {},
+      onPressed: null,
       child: Row(
         children: [
           Text(
@@ -28,7 +29,7 @@ class CustomizeButton extends StatelessWidget {
             width: 8,
           ),
           SvgPicture.asset(
-            AppIcons().settingUrl,
+            AppIcons.settingUrl,
             height: 20,
           )
         ],

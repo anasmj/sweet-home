@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../app_icons.dart';
 
 class RemindButton extends StatelessWidget {
@@ -9,7 +10,7 @@ class RemindButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: null,
       style: ElevatedButton.styleFrom(
           textStyle: Theme.of(context).textTheme.subtitle1,
           elevation: 8,
@@ -26,7 +27,7 @@ class RemindButton extends StatelessWidget {
             width: 20,
             height: 20,
             image: AssetImage(
-              AppIcons().notificationUrl,
+              AppIcons.notificationUrl,
             ),
           )
         ],

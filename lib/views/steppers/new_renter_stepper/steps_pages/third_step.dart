@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_home/views/app_icons.dart';
 
+import '../../../../providers/newrenter_step_provider.dart';
 import 'components/advance_payment_checkbox.dart';
 import 'components/nid_Image_containers.dart';
 
-class NidStep extends StatelessWidget {
-  const NidStep({super.key});
+class ThirdStepPage extends StatelessWidget {
+  const ThirdStepPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    NewRenterStepProvider provider =
+        Provider.of<NewRenterStepProvider>(context);
+
     return Column(
       children: [
         const Align(
@@ -33,7 +38,10 @@ class NidStep extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const AdvancePaymentCheckbox(),
+            Checkbox(
+              value: provider.advanceStatus,
+              onChanged: (value) => provider.setAdvanceStatus(value!),
+            ),
             const Text('অগ্রীম'),
             const SizedBox(
               width: 20,
@@ -46,11 +54,12 @@ class NidStep extends StatelessWidget {
   }
 
   Widget getAdvanceTextField(BuildContext context) {
+    final provider = context.watch<NewRenterStepProvider>();
     return SizedBox(
       width: 120,
       height: 40,
       child: TextFormField(
-        // enabled: false, //! enable only when checkbox is selected
+        enabled: provider.advanceStatus,
         style: Theme.of(context)
             .textTheme
             .headline6!
@@ -64,9 +73,11 @@ class NidStep extends StatelessWidget {
           prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 4),
             child: Image(
-              color: Colors.black.withOpacity(0.80),
+              color: provider.advanceStatus
+                  ? Colors.black.withOpacity(0.80)
+                  : Colors.black.withOpacity(0.40),
               image: AssetImage(
-                AppIcons().takaUrl,
+                AppIcons.takaUrl,
               ),
             ),
           ),

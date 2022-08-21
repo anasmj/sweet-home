@@ -106,7 +106,7 @@ class TransactionCard extends StatelessWidget {
                     child: Image(
                       height: 20,
                       color: Colors.green[900],
-                      image: AssetImage(AppIcons().takaUrl),
+                      image: AssetImage(AppIcons.takaUrl),
                     ),
                   ),
                 ),
@@ -151,7 +151,7 @@ class TransactionCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: SvgPicture.asset(
-        AppIcons().checmarkUrl,
+        AppIcons.checmarkUrl,
         // color: Colors.green,
         width: 36,
       ),
@@ -200,7 +200,7 @@ class DueWidget extends StatelessWidget {
                         ? green
                         : red
                     : Colors.transparent,
-                image: AssetImage(AppIcons().takaUrl),
+                image: AssetImage(AppIcons.takaUrl),
               ),
             ),
           ),

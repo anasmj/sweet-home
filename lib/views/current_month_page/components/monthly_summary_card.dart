@@ -53,7 +53,7 @@ class MonthlySummaryCard extends StatelessWidget {
                 DataCell(
                   Row(
                     children: [
-                      getIcon(AppIcons().takaUrl),
+                      getIcon(AppIcons.takaUrl),
                       getAmountText(56000),
                     ],
                   ),
@@ -61,7 +61,7 @@ class MonthlySummaryCard extends StatelessWidget {
                 DataCell(
                   Row(
                     children: [
-                      getIcon(AppIcons().takaUrl),
+                      getIcon(AppIcons.takaUrl),
                       getAmountText(12000),
                     ],
                   ),
@@ -78,7 +78,7 @@ class MonthlySummaryCard extends StatelessWidget {
         height: _appIconHeight,
         width: _appIconWidth,
         child: Image(
-          image: AssetImage(AppIcons().takaUrl),
+          image: AssetImage(AppIcons.takaUrl),
         ),
       );
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/providers/new_renter_info_provider.dart';
+import 'package:rent_home/providers/newrenter_step_provider.dart';
 import 'package:rent_home/views/dismiss_keyboard.dart';
 import 'package:rent_home/views/home_page/home_page.dart';
 import 'package:rent_home/providers/flat_info_provider.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           create: (context) => CurrentFlatInfoProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => NewRenterInfoProvider(),
+          create: (context) => NewRenterStepProvider(),
         ),
       ],
       child: DismissKeyboard(

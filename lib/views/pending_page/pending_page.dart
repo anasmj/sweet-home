@@ -33,7 +33,7 @@ class PendingPage extends StatelessWidget {
               children: [
                 Image(
                   color: Colors.red,
-                  image: AssetImage(AppIcons().takaUrl),
+                  image: AssetImage(AppIcons.takaUrl),
                   width: 20,
                   height: 20,
                 ),
@@ -73,7 +73,7 @@ class PendingPage extends StatelessWidget {
                 IconButton(
                   onPressed: () {},
                   icon: SvgPicture.asset(
-                    AppIcons().downloadUrl,
+                    AppIcons.downloadUrl,
                     height: 20,
                     width: 20,
                   ),
@@ -131,7 +131,7 @@ class PendingPage extends StatelessWidget {
                             Image(
                               width: 15,
                               height: 15,
-                              image: AssetImage(AppIcons().takaUrl),
+                              image: AssetImage(AppIcons.takaUrl),
                             ),
                             const SizedBox(
                               width: 2,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/providers/new_renter_info_provider.dart';
+import 'package:rent_home/providers/newrenter_step_provider.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/components/occupation_dropdown.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/components/stepper_textfield.dart';
 
@@ -21,7 +21,7 @@ class RenterInfoStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final renterInfoProvider = Provider.of<NewRenterInfoProvider>(context);
+    final renterInfoProvider = Provider.of<NewRenterStepProvider>(context);
     nameController.text = renterInfoProvider.renterName;
     renterInfoProvider.firstPageFormKey = firstPageFormKey;
 
@@ -40,8 +40,8 @@ class RenterInfoStep extends StatelessWidget {
             isAstrics: true,
             textEditingController: nameController,
 
-            validationFunciton: Validator
-                .checkRenterName, // validation is a class which contains
+            // validationFunciton: Validator
+            // .checkRenterName, // validation is a class which contains
           ),
           const SizedBox(
             height: 10,
@@ -54,7 +54,7 @@ class RenterInfoStep extends StatelessWidget {
                   label: 'ফোন নম্বর',
                   isAstrics: true,
                   textEditingController: phoneController,
-                  validationFunciton: Validator.checkPhoneNumber,
+                  // validationFunciton: Validator.checkPhoneNumber,
                 ),
               ),
               const SizedBox(
@@ -65,7 +65,7 @@ class RenterInfoStep extends StatelessWidget {
                   isPhoneNumber: true,
                   label: "বিকল্প ফোন নম্বর",
                   textEditingController: alternatePhoneController,
-                  validationFunciton: Validator.checkPhoneNumber,
+                  // validationFunciton: Validator.checkPhoneNumber,
                 ),
               ),
             ],
@@ -103,7 +103,7 @@ class RenterInfoStep extends StatelessWidget {
                   IconButton(
                     iconSize: 22,
                     onPressed: () {
-                      context.read<NewRenterInfoProvider>().incrementMember();
+                      context.read<NewRenterStepProvider>().incrementMember();
                     },
                     icon: Icon(
                       Icons.add,
@@ -117,7 +117,7 @@ class RenterInfoStep extends StatelessWidget {
                   IconButton(
                     iconSize: 22,
                     onPressed: () {
-                      context.read<NewRenterInfoProvider>().decrementMember();
+                      context.read<NewRenterStepProvider>().decrementMember();
                     },
                     icon: Icon(
                       Icons.remove,

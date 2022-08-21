@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:rent_home/models/database.dart';
 import '../models/flat_model.dart';
 import '../models/others_model.dart';
+import '../models/renter.dart';
 
 //VALUE IN THIS CLASSS ARE PROVIDED INTO FLATS GLOBALLY
 class HomeProvider extends ChangeNotifier {
@@ -30,4 +31,9 @@ class HomeProvider extends ChangeNotifier {
   double? get globalGasbill => _globalGasBill;
   double? get globalWaterBill => _homeWaterBill;
   List<Flat> get flats => databaseFlatList;
+
+  //addds assign a renter into a flat.
+  void addRenter(int flatIndex, Renter newRenter) {
+    flats[flatIndex].renter = newRenter;
+  }
 }

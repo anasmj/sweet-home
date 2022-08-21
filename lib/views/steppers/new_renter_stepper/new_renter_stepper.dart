@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/address_step.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/nid_step.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/renter_info_step.dart';
-import 'package:rent_home/providers/new_renter_info_provider.dart';
+import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/second_step.dart';
+import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/third_step.dart';
+import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/first_step.dart';
+import 'package:rent_home/providers/newrenter_step_provider.dart';
 import 'package:provider/provider.dart';
 
 class NewRenterStepper extends StatefulWidget {
@@ -19,7 +19,7 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
   bool isValidInfo = false;
   @override
   Widget build(BuildContext context) {
-    final renterInfoProvider = Provider.of<NewRenterInfoProvider>(
+    final renterInfoProvider = Provider.of<NewRenterStepProvider>(
         context); //used to validate state of form
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
@@ -154,7 +154,7 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
           state: _currentStep > 2 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 2,
           title: const Text('ছবি'),
-          content: const NidStep(),
+          content: const ThirdStepPage(),
         ),
       ];
 }

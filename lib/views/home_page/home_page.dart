@@ -79,7 +79,7 @@ class HomePage extends StatelessWidget {
         height: _appIconHeight,
         width: _appIconWidth,
         child: Image(
-          image: AssetImage(AppIcons().takaUrl),
+          image: AssetImage(AppIcons.takaUrl),
         ),
       );
 

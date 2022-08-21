@@ -40,7 +40,7 @@ class InputTextField extends StatelessWidget {
             color: Colors.black.withOpacity(0.9),
             height: 10,
             image: AssetImage(
-              AppIcons().takaUrl,
+              AppIcons.takaUrl,
             ),
           ),
         ),
