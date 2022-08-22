@@ -23,6 +23,7 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
   Widget build(BuildContext context) {
     final renterInfoProvider = Provider.of<NewRenterStepProvider>(
         context); //used to validate state of form
+
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
     return Scaffold(
@@ -99,13 +100,14 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      // onPressed: details.onStepContinue,
-      onPressed: () {
-        print('pressed');
-        provider.selectedFlatNo != null
-            ? details.onStepContinue
-            : AppWidget.showToast('একটি ফ্ল্যাট বাছাই করুন');
-      },
+      // onPressed: () => details.onStepContinue,
+
+      onPressed:
+          provider.selectedFlatNo != null ? details.onStepContinue : null,
+
+      // onPressed: provider.selectedFlatNo != null
+      //     ? details.onStepContinue
+      //     : () => AppWidget.showToast('ফ্ল্যাট বাছাই করুন'),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

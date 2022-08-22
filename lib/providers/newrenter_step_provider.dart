@@ -54,4 +54,9 @@ class NewRenterStepProvider extends ChangeNotifier {
   }
 
   int? selectedFlatNo;
+
+  void changeSelectedInfo(int? value) {
+    selectedFlatNo = value;
+    notifyListeners();
+  }
 }

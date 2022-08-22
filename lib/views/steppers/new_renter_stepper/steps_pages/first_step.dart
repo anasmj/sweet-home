@@ -137,7 +137,7 @@ class RenterInfoStep extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const FlatChoicieChips(),
+          FlatChoicieChips(),
         ],
       ),
     );

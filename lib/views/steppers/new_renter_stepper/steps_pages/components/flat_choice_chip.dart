@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_home/models/flat_model.dart';
 import 'package:rent_home/providers/home_provider.dart';
-
 import '../../../../../providers/newrenter_step_provider.dart';
 import '../../../../app_widgets.dart';
 
-class FlatChoicieChips extends StatefulWidget {
-  const FlatChoicieChips({super.key});
-  @override
-  State<FlatChoicieChips> createState() => _FlatChoicieChipsState();
-}
+class FlatChoicieChips extends StatelessWidget {
+  FlatChoicieChips({super.key});
 
-class _FlatChoicieChipsState extends State<FlatChoicieChips> {
-  int? _chosenByUser;
   bool selected = false;
 
   final Color _occupiedFlatChoiceChipColor = Colors.green.withOpacity(.20);
@@ -29,7 +22,6 @@ class _FlatChoicieChipsState extends State<FlatChoicieChips> {
   Widget build(BuildContext context) {
     List<Flat> flatList = Provider.of<HomeProvider>(context).flats;
     final provider = Provider.of<NewRenterStepProvider>(context);
-    provider.selectedFlatNo = _chosenByUser;
 
     return SingleChildScrollView(
       child: Wrap(
@@ -61,18 +53,11 @@ class _FlatChoicieChipsState extends State<FlatChoicieChips> {
                 ),
               ),
             ),
-            selected: _chosenByUser == flatNo,
-            // selected: _chosenByUser == flatNo,
+            selected: provider.selectedFlatNo == flatNo,
             onSelected: ((bool selected) {
-              setState(
-                () {
-                  _chosenByUser = selected &&
-                          flatList[flatNo].renter ==
-                              null //cant be selected where already a rente
-                      ? flatNo
-                      : null;
-                },
-              );
+              provider.changeSelectedInfo(
+                  selected && flatList[flatNo].renter == null ? flatNo : null);
+
               if (selected && flatList[flatNo].renter != null) {
                 AppWidget.showToast("ফ্ল্যাটটি খালি নেই");
               }
