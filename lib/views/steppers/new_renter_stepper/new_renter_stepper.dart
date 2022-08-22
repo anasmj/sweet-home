@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rent_home/views/app_widgets.dart';
+import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/confirmation_page.dart';
 
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/second_step.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/third_step.dart';
@@ -30,6 +31,9 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
       appBar: AppBar(
         title: const Text('নতুন গ্রাহক যুক্ত'),
         centerTitle: true,
+        automaticallyImplyLeading: _currentStep != 0
+            ? false
+            : true, //disable back button when user not in first page
       ),
       body: !isCompletedd
           ? Stepper(
@@ -40,7 +44,6 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
                   setState(() {
                     isCompletedd = true;
                   });
-                  print('completed');
                 } else {
                   if (renterInfoProvider.firstPageFormKey!.currentState!
                       .validate()) {
@@ -82,9 +85,7 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
               ),
             )
           //user added a new renter into the flat.
-          : const Center(
-              child: Text('successful'),
-            ),
+          : const ConfirmationPage(),
     );
   }
 
@@ -100,29 +101,26 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      // onPressed: () => details.onStepContinue,
-
       onPressed:
           provider.selectedFlatNo != null ? details.onStepContinue : null,
-
-      // onPressed: provider.selectedFlatNo != null
-      //     ? details.onStepContinue
-      //     : () => AppWidget.showToast('ফ্ল্যাট বাছাই করুন'),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            isLastStep ? 'যুক্ত করি' : 'সামনে যাই',
-            style: const TextStyle(fontSize: 16),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          if (!isLastStep)
-            const Icon(
-              Icons.arrow_forward_rounded,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              isLastStep ? 'যুক্ত করি' : 'সামনে যাই',
+              style: const TextStyle(fontSize: 18),
             ),
-        ],
+            const SizedBox(
+              width: 6,
+            ),
+            if (!isLastStep)
+              const Icon(
+                Icons.arrow_forward_rounded,
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -136,20 +134,23 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
         backgroundColor: Colors.grey,
       ),
       onPressed: details.onStepCancel,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Icon(
-            Icons.arrow_back_rounded,
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Text(
-            'পেছনে',
-            style: TextStyle(fontSize: 16),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(
+              Icons.arrow_back_rounded,
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            Text(
+              'পেছনে',
+              style: TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
       ),
     );
   }

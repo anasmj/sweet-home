@@ -5,6 +5,7 @@ import 'package:rent_home/providers/home_provider.dart';
 import '../../../../../providers/newrenter_step_provider.dart';
 import '../../../../app_widgets.dart';
 
+// ignore: must_be_immutable
 class FlatChoicieChips extends StatelessWidget {
   FlatChoicieChips({super.key});
 
