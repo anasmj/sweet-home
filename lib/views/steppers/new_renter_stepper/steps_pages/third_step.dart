@@ -7,8 +7,8 @@ import 'components/advance_payment_checkbox.dart';
 import 'components/nid_Image_containers.dart';
 
 class ThirdStepPage extends StatelessWidget {
-  const ThirdStepPage({super.key});
-
+  ThirdStepPage({super.key});
+  final advanceAmountTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     NewRenterStepProvider provider =
@@ -46,19 +46,21 @@ class ThirdStepPage extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            getAdvanceTextField(context),
+            getAdvanceTextField(context, advanceAmountTextController),
           ],
         ),
       ],
     );
   }
 
-  Widget getAdvanceTextField(BuildContext context) {
+  Widget getAdvanceTextField(
+      BuildContext context, TextEditingController controller) {
     final provider = context.watch<NewRenterStepProvider>();
     return SizedBox(
       width: 120,
       height: 40,
       child: TextFormField(
+        controller: controller,
         enabled: provider.advanceStatus,
         style: Theme.of(context)
             .textTheme

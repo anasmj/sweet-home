@@ -83,6 +83,6 @@ class HomePage extends StatelessWidget {
         ),
       );
 
-  //TODO: make it fancy by puttin comma between digits
+  //TODO: make it fancy by puttin comma between digitsz
   Widget getAmountText(int amount) => Text(' ${amount.toString()} /-');
 }

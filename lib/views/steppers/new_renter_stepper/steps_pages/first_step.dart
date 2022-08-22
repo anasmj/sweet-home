@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_home/providers/home_provider.dart';
 import 'package:rent_home/providers/newrenter_step_provider.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/components/occupation_dropdown.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/components/stepper_textfield.dart';
-import 'components/flat_choice_chip.dart';
+import '../../../../controllers/validator.dart';
 
 class RenterInfoStep extends StatelessWidget {
   RenterInfoStep({
@@ -20,6 +21,8 @@ class RenterInfoStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<NewRenterStepProvider>(context);
+    String flatName =
+        context.watch<HomeProvider>().flats[provider.selectedFlatNo].flatName;
 
     nameController.text = provider.renterName;
     provider.firstPageFormKey = firstPageFormKey;
@@ -34,13 +37,17 @@ class RenterInfoStep extends StatelessWidget {
       key: provider.firstPageFormKey,
       child: Column(
         children: [
+          flatNameChip(context, flatName),
+          const SizedBox(
+            height: 10,
+          ),
           StepperTextField(
             label: "গ্রাহকের নাম",
             isAstrics: true,
             textEditingController: nameController,
 
             // validationFunciton: Validator
-            // .checkRenterName, // validation is a class which contains
+            //     .checkRenterName, //cant pass the textfield without name
           ),
           const SizedBox(
             height: 10,
@@ -110,7 +117,7 @@ class RenterInfoStep extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    provider.memberNo,
+                    provider.memberNo.toString(),
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   IconButton(
@@ -127,19 +134,40 @@ class RenterInfoStep extends StatelessWidget {
               ),
             ],
           ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Text(
-              'ফ্ল্যাট বাছাই করুনঃ',
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          FlatChoicieChips(),
+          // Align(
+          //   alignment: Alignment.bottomLeft,
+          //   child: Text(
+          //     'ফ্ল্যাট বাছাই করুনঃ',
+          //     style: Theme.of(context).textTheme.subtitle1,
+          //   ),
+          // ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
+          //FlatChoicieChips(),
         ],
       ),
+    );
+  }
+
+  Chip flatNameChip(BuildContext context, String flatName) {
+    return Chip(
+      label: RichText(
+        text: TextSpan(children: [
+          TextSpan(
+            text: 'ফ্ল্যাট ',
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          TextSpan(
+            text: flatName,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1!
+                .copyWith(fontWeight: FontWeight.bold),
+          ),
+        ]),
+      ),
+      backgroundColor: Theme.of(context).secondaryHeaderColor,
     );
   }
 }

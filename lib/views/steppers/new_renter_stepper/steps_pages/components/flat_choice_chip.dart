@@ -56,7 +56,7 @@ class FlatChoicieChips extends StatelessWidget {
             ),
             selected: provider.selectedFlatNo == flatNo,
             onSelected: ((bool selected) {
-              provider.changeSelectedInfo(
+              provider.setSelectedFlatNo(
                   selected && flatList[flatNo].renter == null ? flatNo : null);
 
               if (selected && flatList[flatNo].renter != null) {

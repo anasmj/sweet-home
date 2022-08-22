@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rent_home/views/app_widgets.dart';
+import 'package:rent_home/models/renter.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/confirmation_page.dart';
-
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/second_step.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/third_step.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/first_step.dart';
 import 'package:rent_home/providers/newrenter_step_provider.dart';
 import 'package:provider/provider.dart';
 
-class NewRenterStepper extends StatefulWidget {
-  const NewRenterStepper({super.key});
+import '../../../controllers/renter_management.dart';
 
+class AddRenterStepper extends StatefulWidget {
+  AddRenterStepper({super.key});
   @override
-  State<NewRenterStepper> createState() => _AddNewRenterStepperState();
+  State<AddRenterStepper> createState() => _AddAddRenterStepperState();
 }
 
-class _AddNewRenterStepperState extends State<NewRenterStepper> {
+class _AddAddRenterStepperState extends State<AddRenterStepper> {
   int _currentStep = 0;
   bool isCompletedd = false;
   bool isValidInfo = false;
@@ -43,6 +42,9 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
                 if (isLastStep) {
                   setState(() {
                     isCompletedd = true;
+                    //logic to make a new renter object and add to lists
+                    RenterManagement.addRenterToFlat(
+                        context: context); //flat no is up to dated in provider
                   });
                 } else {
                   if (renterInfoProvider.firstPageFormKey!.currentState!
@@ -172,7 +174,7 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
           state: _currentStep > 2 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 2,
           title: const Text('ছবি'),
-          content: const ThirdStepPage(),
+          content: ThirdStepPage(),
         ),
       ];
 }

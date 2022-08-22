@@ -3,20 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_home/providers/home_provider.dart';
 import 'package:rent_home/views/flat_details_page/flat_details.dart';
 import 'package:rent_home/providers/flat_info_provider.dart';
 import 'package:rent_home/controllers/custom_date_time_formatter.dart';
 import '../../../models/flat_model.dart';
+import '../../../providers/newrenter_step_provider.dart';
 import '../../app_icons.dart';
-import '../../steppers/new_renter_stepper/new_renter_stepper.dart';
+import '../../steppers/new_renter_stepper/add_renter_stepper.dart';
 
 //ELEMENT OF GRIDVIEW
 class FlatContainer extends StatelessWidget {
   FlatContainer({
-    required this.flat,
+    required this.flatNo,
     super.key,
   });
-  Flat flat;
+  int flatNo;
   final String _editOption = "তথ্য পরিবর্তন";
   final String _deleteOption = "গ্রাহক মুছুন";
   final String _newOption = "নতুন গ্রাহক";
@@ -32,30 +34,37 @@ class FlatContainer extends StatelessWidget {
           type: PageTransitionType.rightToLeft,
         ),
       );
-  void gotoNewRenterStepper(BuildContext context) => Navigator.push(
-        context,
-        PageTransition(
-          child: const NewRenterStepper(),
-          type: PageTransitionType.fade,
-        ),
-      );
+  void gotoNewRenterStepper(
+      {required BuildContext context, required int flatNo}) {
+    Navigator.push(
+      context,
+      PageTransition(
+        child: AddRenterStepper(),
+        type: PageTransitionType.fade,
+      ),
+    );
+    context.read<NewRenterStepProvider>().setSelectedFlatNo(flatNo);
+  }
+
   @override
   Widget build(BuildContext context) {
     late CurrentFlatInfoProvider currentFlatProvider =
         Provider.of<CurrentFlatInfoProvider>(context, listen: false);
+    final flatList = Provider.of<HomeProvider>(context).flats;
 
     TextTheme appTextTheme = Theme.of(context).textTheme;
     return Stack(
       clipBehavior: Clip.none,
       children: [
         InkWell(
-          onTap: flat.renter != null
+          onTap: flatList[flatNo].renter != null
               ? () {
                   ///gets updated
-                  currentFlatProvider.updateFlatInfo(currentFlat: flat);
-                  gotoFlatDetail(context, flat);
+                  currentFlatProvider.updateFlatInfo(
+                      currentFlat: flatList[flatNo]);
+                  gotoFlatDetail(context, flatList[flatNo]);
                 }
-              : () => gotoNewRenterStepper(context),
+              : () => gotoNewRenterStepper(context: context, flatNo: flatNo),
           onLongPress: () {
             //TODO: _showDeleteModalSheet
           },
@@ -89,7 +98,7 @@ class FlatContainer extends StatelessWidget {
                         SizedBox(
                           width: 70,
                           child: Text(
-                            flat.flatRentAmount.toString(),
+                            flatList[flatNo].flatRentAmount.toString(),
                             style: appTextTheme.headline6,
                           ),
                         ),
@@ -98,7 +107,7 @@ class FlatContainer extends StatelessWidget {
                         optionsButton(context: context),
                       ],
                     ),
-                    flat.renter == null
+                    flatList[flatNo].renter == null
                         ? SvgPicture.asset(
                             AppIcons.personAddUrl,
                             height: 40,
@@ -107,16 +116,16 @@ class FlatContainer extends StatelessWidget {
                           )
                         : const Text(''),
                     //BOTTOM INFORMATION ABOUT FLAT
-                    flat.renter != null
+                    flatList[flatNo].renter != null
                         ? ListTile(
                             title: Text(
-                              flat.renter!.name,
+                              flatList[flatNo].renter!.name,
                               maxLines: 1,
                               overflow: TextOverflow.fade,
                               softWrap: true,
                             ),
-                            subtitle: Text(flat.renter != null
-                                ? '${CustomFormatter().monthYear(flat.renter!.entryDate)} থেকে আছেন'
+                            subtitle: Text(flatList[flatNo].renter != null
+                                ? '${CustomFormatter().monthYear(flatList[flatNo].renter!.entryDate)} থেকে আছেন'
                                 : ''),
                           )
                         : const Padding(
@@ -138,7 +147,7 @@ class FlatContainer extends StatelessWidget {
           child: CircleAvatar(
             radius: 20,
             child: Text(
-              flat.flatName,
+              flatList[flatNo].flatName,
               style: const TextStyle(fontWeight: FontWeight.w500),
             ),
           ),
@@ -181,7 +190,7 @@ class FlatContainer extends StatelessWidget {
             Navigator.push(
               context,
               PageTransition(
-                child: const NewRenterStepper(),
+                child: AddRenterStepper(),
                 type: PageTransitionType.fade,
               ),
             );

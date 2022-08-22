@@ -18,7 +18,7 @@ class NewRenterStepProvider extends ChangeNotifier {
 
   String get renterName => _renterName;
   String get occupation => _occupation;
-  String get memberNo => _noOfMember.toString();
+  int get memberNo => _noOfMember;
 
   void incrementMember() {
     _noOfMember += 1;
@@ -53,10 +53,10 @@ class NewRenterStepProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int? selectedFlatNo;
-
-  void changeSelectedInfo(int? value) {
-    selectedFlatNo = value;
+  int? _selectedFlatNo;
+  get selectedFlatNo => _selectedFlatNo;
+  void setSelectedFlatNo(int? value) {
+    _selectedFlatNo = value;
     notifyListeners();
   }
 }
