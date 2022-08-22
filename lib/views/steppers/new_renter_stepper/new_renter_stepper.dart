@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rent_home/views/app_widgets.dart';
 
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/second_step.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/third_step.dart';
@@ -69,7 +71,10 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
                         width: 20,
                       ),
                     Expanded(
-                      child: forwardNavigationButton(details, isLastStep),
+                      child: forwardNavigationButton(
+                          context: context,
+                          details: details,
+                          isLastStep: isLastStep),
                     ),
                   ],
                 ),
@@ -83,14 +88,24 @@ class _AddNewRenterStepperState extends State<NewRenterStepper> {
   }
 
   ElevatedButton forwardNavigationButton(
-      ControlsDetails details, bool isLastStep) {
+      {required BuildContext context,
+      required ControlsDetails details,
+      required bool isLastStep}) {
+    final provider = Provider.of<NewRenterStepProvider>(context);
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      onPressed: details.onStepContinue,
+      // onPressed: details.onStepContinue,
+      onPressed: () {
+        print('pressed');
+        provider.selectedFlatNo != null
+            ? details.onStepContinue
+            : AppWidget.showToast('একটি ফ্ল্যাট বাছাই করুন');
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

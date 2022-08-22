@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:rent_home/providers/newrenter_step_provider.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/components/occupation_dropdown.dart';
 import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/components/stepper_textfield.dart';
-
-import '../../../../controllers/validator.dart';
 import 'components/flat_choice_chip.dart';
 
 class RenterInfoStep extends StatelessWidget {
@@ -21,9 +19,10 @@ class RenterInfoStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final renterInfoProvider = Provider.of<NewRenterStepProvider>(context);
-    nameController.text = renterInfoProvider.renterName;
-    renterInfoProvider.firstPageFormKey = firstPageFormKey;
+    final provider = Provider.of<NewRenterStepProvider>(context);
+
+    nameController.text = provider.renterName;
+    provider.firstPageFormKey = firstPageFormKey;
 
     TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
           color: Colors.black.withOpacity(0.8),
@@ -32,7 +31,7 @@ class RenterInfoStep extends StatelessWidget {
 
     return Form(
       //key needs to exposed to its parent which is NewRenterStepper
-      key: renterInfoProvider.firstPageFormKey,
+      key: provider.firstPageFormKey,
       child: Column(
         children: [
           StepperTextField(
@@ -111,7 +110,7 @@ class RenterInfoStep extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    renterInfoProvider.memberNo,
+                    provider.memberNo,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   IconButton(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rent_home/views/app_widgets.dart';
 import '../app_icons.dart';
 import 'components/remind_button.dart';
-import '../shared_widgets/search_bar.dart';
 
 class PendingPage extends StatelessWidget {
   const PendingPage({super.key});
@@ -66,9 +66,9 @@ class PendingPage extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                const Expanded(
+                Expanded(
                   //SEARCH BOX
-                  child: SearchBar(),
+                  child: AppWidget.appSearchBar(),
                 ),
                 IconButton(
                   onPressed: () {},

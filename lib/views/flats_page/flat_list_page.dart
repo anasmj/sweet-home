@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/models/database.dart';
 import 'package:rent_home/views/flats_page/components/flat_container.dart';
-import 'package:rent_home/views/shared_widgets/search_bar.dart';
+import 'package:rent_home/views/app_widgets.dart';
 import 'package:rent_home/providers/home_provider.dart';
 import 'components/customize_button.dart';
 
@@ -30,16 +29,16 @@ class FlatListPage extends StatelessWidget {
           ),
           //upper part of container
           Row(
-            children: const [
+            children: [
               Expanded(
-                child: SearchBar(),
+                child: AppWidget.appSearchBar(),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
 
               //button
-              CustomizeButton()
+              const CustomizeButton()
             ],
           ),
           const SizedBox(

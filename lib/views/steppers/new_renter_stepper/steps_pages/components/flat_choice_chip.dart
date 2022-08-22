@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:rent_home/models/flat_model.dart';
 import 'package:rent_home/providers/home_provider.dart';
 
+import '../../../../../providers/newrenter_step_provider.dart';
+import '../../../../app_widgets.dart';
+
 class FlatChoicieChips extends StatefulWidget {
   const FlatChoicieChips({super.key});
   @override
@@ -25,6 +28,9 @@ class _FlatChoicieChipsState extends State<FlatChoicieChips> {
   @override
   Widget build(BuildContext context) {
     List<Flat> flatList = Provider.of<HomeProvider>(context).flats;
+    final provider = Provider.of<NewRenterStepProvider>(context);
+    provider.selectedFlatNo = _chosenByUser;
+
     return SingleChildScrollView(
       child: Wrap(
         spacing: 10,
@@ -56,6 +62,7 @@ class _FlatChoicieChipsState extends State<FlatChoicieChips> {
               ),
             ),
             selected: _chosenByUser == flatNo,
+            // selected: _chosenByUser == flatNo,
             onSelected: ((bool selected) {
               setState(
                 () {
@@ -67,7 +74,7 @@ class _FlatChoicieChipsState extends State<FlatChoicieChips> {
                 },
               );
               if (selected && flatList[flatNo].renter != null) {
-                showToast();
+                AppWidget.showToast("ফ্ল্যাটটি খালি নেই");
               }
             }),
             selectedColor: flatList[flatNo].renter != null
@@ -78,13 +85,4 @@ class _FlatChoicieChipsState extends State<FlatChoicieChips> {
       ),
     );
   }
-
-  void showToast() => Fluttertoast.showToast(
-        msg: "ফ্ল্যাটটি খালি নেই",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.grey.shade50,
-        textColor: Colors.black,
-        fontSize: 14.0,
-      );
 }
