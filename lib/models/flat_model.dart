@@ -1,5 +1,5 @@
-import 'package:rent_home/models/others_model.dart';
-import 'package:rent_home/models/renter.dart';
+import 'package:sweet_home/models/others_model.dart';
+import 'package:sweet_home/models/renter.dart';
 import '../providers/home_provider.dart';
 
 class Flat {

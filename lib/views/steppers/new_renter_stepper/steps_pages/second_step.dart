@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/components/occupation_dropdown.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/components/stepper_textfield.dart';
+import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/components/occupation_dropdown.dart';
+import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/components/stepper_textfield.dart';
 
 import 'components/location_radio.dart';
 

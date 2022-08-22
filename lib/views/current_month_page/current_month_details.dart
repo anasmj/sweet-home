@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/controllers/custom_date_time_formatter.dart';
+import 'package:sweet_home/controllers/custom_date_time_formatter.dart';
 import 'components/monthly_data_table.dart';
 import 'components/monthly_summary_card.dart';
 import 'components/summary_container.dart';

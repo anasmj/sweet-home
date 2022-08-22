@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/models/others_model.dart';
+import 'package:sweet_home/models/others_model.dart';
 
 class OthersTable extends StatelessWidget {
   OthersTable({this.othersList, super.key});

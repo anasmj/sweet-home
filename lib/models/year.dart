@@ -1,4 +1,4 @@
-import 'package:rent_home/models/month_details.dart';
+import 'package:sweet_home/models/month_details.dart';
 
 class Year {
   int yearNo;

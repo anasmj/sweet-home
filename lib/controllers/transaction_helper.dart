@@ -1,5 +1,5 @@
-import 'package:rent_home/models/month_details.dart';
-import 'package:rent_home/models/renter.dart';
+import 'package:sweet_home/models/month_details.dart';
+import 'package:sweet_home/models/renter.dart';
 
 import '../models/transaction_model.dart';
 import '../models/year.dart';

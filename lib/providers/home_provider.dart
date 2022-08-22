@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rent_home/models/database.dart';
+import 'package:sweet_home/models/database.dart';
 import '../models/flat_model.dart';
 import '../models/others_model.dart';
 import '../models/renter.dart';

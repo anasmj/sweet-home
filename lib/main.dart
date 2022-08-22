@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/providers/newrenter_step_provider.dart';
-import 'package:rent_home/views/dismiss_keyboard.dart';
-import 'package:rent_home/views/home_page/home_page.dart';
-import 'package:rent_home/providers/flat_info_provider.dart';
-import 'package:rent_home/providers/home_provider.dart';
+import 'package:sweet_home/providers/newrenter_step_provider.dart';
+import 'package:sweet_home/views/dismiss_keyboard.dart';
+import 'package:sweet_home/views/home_page/home_page.dart';
+import 'package:sweet_home/providers/flat_info_provider.dart';
+import 'package:sweet_home/providers/home_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -18,9 +21,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // ChangeNotifierProvider(
-        //   create: (context) => Database(),
-        // ),
         ChangeNotifierProvider(
           create: (context) => HomeProvider(),
         ),

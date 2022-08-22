@@ -1,5 +1,5 @@
-import 'package:rent_home/models/transaction_model.dart';
-import 'package:rent_home/providers/home_provider.dart';
+import 'package:sweet_home/models/transaction_model.dart';
+import 'package:sweet_home/providers/home_provider.dart';
 import 'others_model.dart';
 
 class MonthDetails {

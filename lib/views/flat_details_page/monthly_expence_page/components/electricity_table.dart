@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/controllers/calculate_bills.dart';
+import 'package:sweet_home/controllers/calculate_bills.dart';
 
 import '../../../../models/month_details.dart';
 import '../../../../models/renter.dart';

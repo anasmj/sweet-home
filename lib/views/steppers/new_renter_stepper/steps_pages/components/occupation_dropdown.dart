@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/providers/newrenter_step_provider.dart';
+import 'package:sweet_home/providers/newrenter_step_provider.dart';
 
 class OccupationDropdown extends StatefulWidget {
   const OccupationDropdown({super.key});

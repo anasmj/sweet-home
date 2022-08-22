@@ -1,4 +1,4 @@
-import 'package:rent_home/models/year.dart';
+import 'package:sweet_home/models/year.dart';
 
 class Renter {
   String name;

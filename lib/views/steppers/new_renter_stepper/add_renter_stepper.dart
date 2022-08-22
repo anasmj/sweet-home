@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rent_home/models/renter.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/confirmation_page.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/second_step.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/third_step.dart';
-import 'package:rent_home/views/steppers/new_renter_stepper/steps_pages/first_step.dart';
-import 'package:rent_home/providers/newrenter_step_provider.dart';
+import 'package:sweet_home/models/renter.dart';
+import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/confirmation_page.dart';
+import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/second_step.dart';
+import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/third_step.dart';
+import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/first_step.dart';
+import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controllers/renter_management.dart';

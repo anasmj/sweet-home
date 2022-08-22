@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_home/providers/home_provider.dart';
+import 'package:sweet_home/providers/home_provider.dart';
 
 import '../models/flat_model.dart';
 import '../models/renter.dart';
