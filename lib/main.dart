@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
-import 'package:sweet_home/test_purpose.dart';
+import 'package:sweet_home/views/steppers/new_renter_stepper/test_firebase/test_purpose.dart';
 import 'package:sweet_home/views/dismiss_keyboard.dart';
 import 'package:sweet_home/views/home_page/home_page.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';

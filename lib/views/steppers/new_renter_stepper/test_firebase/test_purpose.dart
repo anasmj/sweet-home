@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sweet_home/services/firebase_crud.dart';
 
 class TestClass extends StatelessWidget {
   TestClass({super.key});
@@ -32,9 +33,13 @@ class TestClass extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () {
-                createUser();
-                print('uploaded');
+              onPressed: () async {
+                var response = await FirebaseCrud.addEmoloyee(
+                  name: 'Anika',
+                  position: 'software engineer',
+                  contactNo: 'Gulshan',
+                );
+                print(response.code);
               },
               child: const Text('Upload'),
             )
