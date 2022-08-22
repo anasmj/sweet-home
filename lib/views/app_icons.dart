@@ -17,6 +17,7 @@ class AppIcons {
   static String calenderUrl = "assets/icons/calender.png";
   static String otherUrl = "assets/icons/other.svg";
   static String checmarkUrl = "assets/icons/checkmark.svg";
+  static String personAddUrl = "assets/icons/person_add.svg";
 
   static String doneLottie = 'assets/lotties/done.json';
 }

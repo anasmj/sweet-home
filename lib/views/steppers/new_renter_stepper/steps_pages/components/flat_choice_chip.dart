@@ -14,7 +14,7 @@ class FlatChoicieChips extends StatelessWidget {
   final Color _occupiedFlatChoiceChipColor = Colors.green.withOpacity(.20);
   final Color _occupiedFlatSelectedColor = Colors.green.withOpacity(.40);
   final Color _emptyFlatSelectedColor = Colors.red.withOpacity(.40);
-  final Color _occupiedFlatCircleAvatarColor = Colors.green.withOpacity(0.6);
+  final Color _occupiedFlatCircleAvatarColor = Colors.green.withOpacity(0.8);
   final Color _emptyFaltCircleAvatarColor = Colors.red.withOpacity(0.8);
   final Color _flatNameColor = Colors.white;
   final Color _emptyFlatChoiceChipColor = Colors.red.withOpacity(.20);

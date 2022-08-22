@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_home/views/flat_details_page/flat_details.dart';
@@ -22,7 +23,22 @@ class FlatContainer extends StatelessWidget {
   final String _flatDetailOption = "ফ্ল্যাটের বিস্তারিত";
 
   String flatDetailsPageLocation = '/flat_details_page';
-
+  void gotoFlatDetail(BuildContext context, Flat flat) => Navigator.push(
+        context,
+        PageTransition(
+          child: FlatDetails(
+            renter: flat.renter!,
+          ),
+          type: PageTransitionType.rightToLeft,
+        ),
+      );
+  void gotoNewRenterStepper(BuildContext context) => Navigator.push(
+        context,
+        PageTransition(
+          child: const NewRenterStepper(),
+          type: PageTransitionType.fade,
+        ),
+      );
   @override
   Widget build(BuildContext context) {
     late CurrentFlatInfoProvider currentFlatProvider =
@@ -32,25 +48,14 @@ class FlatContainer extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        //! onTap wont work if renter is not available
         InkWell(
           onTap: flat.renter != null
               ? () {
-                  // print(flat.flatRentAmount); ok
-                  currentFlatProvider.updateFlatInfo(currentFlat: flat);
-
                   ///gets updated
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      child: FlatDetails(
-                        renter: flat.renter!,
-                      ),
-                      type: PageTransitionType.rightToLeft,
-                    ),
-                  );
+                  currentFlatProvider.updateFlatInfo(currentFlat: flat);
+                  gotoFlatDetail(context, flat);
                 }
-              : null,
+              : () => gotoNewRenterStepper(context),
           onLongPress: () {
             //TODO: _showDeleteModalSheet
           },
@@ -84,10 +89,7 @@ class FlatContainer extends StatelessWidget {
                         SizedBox(
                           width: 70,
                           child: Text(
-                            //TODO: make visible local value instead
-                            //home.globalRentAmount.toString(),
                             flat.flatRentAmount.toString(),
-                            //flatRentAmount.toString(),
                             style: appTextTheme.headline6,
                           ),
                         ),
@@ -96,20 +98,34 @@ class FlatContainer extends StatelessWidget {
                         optionsButton(context: context),
                       ],
                     ),
-
+                    flat.renter == null
+                        ? SvgPicture.asset(
+                            AppIcons.personAddUrl,
+                            height: 40,
+                            // width: 90,
+                            color: Colors.black.withOpacity(0.6),
+                          )
+                        : const Text(''),
                     //BOTTOM INFORMATION ABOUT FLAT
-                    ListTile(
-                      //leading: CircleAvatar(),
-                      title: Text(
-                        flat.renter != null ? flat.renter!.name : 'খালি আছে',
-                        maxLines: 1,
-                        overflow: TextOverflow.fade,
-                        softWrap: true,
-                      ),
-                      subtitle: Text(flat.renter != null
-                          ? '${CustomFormatter().monthYear(flat.renter!.entryDate)} থেকে আছেন'
-                          : ''),
-                    ),
+                    flat.renter != null
+                        ? ListTile(
+                            title: Text(
+                              flat.renter!.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                              softWrap: true,
+                            ),
+                            subtitle: Text(flat.renter != null
+                                ? '${CustomFormatter().monthYear(flat.renter!.entryDate)} থেকে আছেন'
+                                : ''),
+                          )
+                        : const Padding(
+                            padding: EdgeInsets.only(bottom: 10.0),
+                            child: Text(
+                              'খালি আছে',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
                   ],
                 ),
               ),
