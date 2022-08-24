@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
+import 'package:sweet_home/providers/theme_provider.dart';
+import 'package:sweet_home/views/app_theme.dart';
 import 'package:sweet_home/views/steppers/new_renter_stepper/test_firebase/test_purpose.dart';
 import 'package:sweet_home/views/dismiss_keyboard.dart';
 import 'package:sweet_home/views/home_page/home_page.dart';
@@ -11,7 +13,9 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -31,37 +35,84 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => NewRenterStepProvider(),
         ),
-      ],
-      child: DismissKeyboard(
-        //customised class for dismissing keyboard with outside touch
-        child: MaterialApp(
-          title: 'Houser Rent',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.teal,
-            secondaryHeaderColor: Colors.cyan[100],
-
-            // colorScheme: ColorScheme.fromSwatch().copyWith(
-            //   primary: Color(0xFF61defa),
-            //   //secondary: Color(0xff95d7e6),
-            // )
-
-            // primaryColor: Colors.black,
-            //textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
-            // appBarTheme: const AppBarTheme(
-            //   color: Color.fromARGB(255, 161, 239, 253),
-            // ),
-          ),
-          // initialRoute: '/',
-          // routes: {
-          //   '/': (context) => HomePage(),
-          //   '/flat_details_page': (context) => FlatDetails(),
-          // },
-
-          home: TestClass(),
-          // home: const HomePage(),
-          // home: NewRenterStepper(),
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
         ),
+      ],
+      child: const SweetHome(),
+    );
+  }
+}
+
+class SweetHome extends StatelessWidget {
+  const SweetHome({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DismissKeyboard(
+      //dismiss keyboard with outer touch located anywhere in the app
+      child: MaterialApp(
+        title: 'Sweet Home',
+        debugShowCheckedModeBanner: false,
+        themeMode: context.watch<ThemeProvider>().themeMode,
+        //add these two lines after testing
+        // theme: AppTheme.lightTheme,
+        // darkTheme: AppTheme.darkTheme,
+        theme: !context.watch<ThemeProvider>().isDarkMode
+            //light mode theme data
+            ? ThemeData(
+                secondaryHeaderColor: Colors.blue[100],
+                appBarTheme: AppBarTheme(
+                  color: Colors.blue.shade400,
+                  titleTextStyle: TextStyle(
+                    color: Colors.grey.shade50,
+                  ),
+                  iconTheme: IconThemeData(
+                    color: Colors.grey.shade50,
+                  ),
+                ),
+                textTheme: TextTheme(
+                  bodyText2: TextStyle(
+                    color: Colors.grey.shade800,
+                  ),
+                ),
+              )
+            //dark mode theme data
+            : ThemeData(
+                colorScheme: const ColorScheme.light(),
+                primaryColor: Colors.grey.shade900,
+                secondaryHeaderColor: Colors.grey.shade700,
+                appBarTheme: AppBarTheme(
+                  color: Colors.grey.shade900,
+                  titleTextStyle: TextStyle(
+                    color: Colors.grey.shade500,
+                  ),
+                  iconTheme: IconThemeData(
+                    color: Colors.grey.shade500,
+                  ),
+                ),
+                scaffoldBackgroundColor: Colors.grey.shade800,
+
+                //text Theme
+                textTheme: const TextTheme(
+                  bodyText2: TextStyle(
+                    color: Colors.white70,
+                    // color: Colors.grey.shade900,
+                  ),
+                  subtitle1: TextStyle(
+                    color: Colors.white70,
+                  ),
+                  headline5: TextStyle(
+                    color: Colors.white70,
+                  ),
+                  headline6: TextStyle(
+                    color: Colors.white70,
+                  ),
+                ),
+              ),
+
+        home: const HomePage(),
+        // home: NewRenterStepper(),
       ),
     );
   }

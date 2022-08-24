@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../providers/theme_provider.dart';
+
+// ignore: must_be_immutable
 class MonthlyDataTable extends StatelessWidget {
   MonthlyDataTable({Key? key, required this.title, this.date = 'Unknow Date'})
       : super(key: key);
@@ -8,138 +12,143 @@ class MonthlyDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mode = context.watch<ThemeProvider>();
     return Stack(
       clipBehavior: Clip.none,
       children: [
         //table container
-        Container(
-          decoration: BoxDecoration(
+        Material(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          color: Theme.of(context).secondaryHeaderColor,
+          elevation: 10,
+          child: Container(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(-1, 2),
-                  blurRadius: 8,
-                  color: Colors.black.withOpacity(0.5),
-                ),
-              ],
+
               // color: Theme.of(context).secondaryHeaderColor,
-              color: Colors.white),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 22.0, bottom: 40),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: DataTable(
-                headingTextStyle: Theme.of(context).textTheme.subtitle1,
-                showBottomBorder: true,
-                columnSpacing: 30,
-                columns: _tableColumns,
-                rows: const [
-                  DataRow(
-                    cells: [
-                      DataCell(
-                        Center(child: Text('1A')),
-                      ),
-                      DataCell(
-                        Center(child: Text('30433')),
-                      ),
+              color: mode.isDarkMode
+                  ? Theme.of(context).secondaryHeaderColor.withOpacity(0.8)
+                  : Theme.of(context).secondaryHeaderColor,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 22.0, bottom: 40),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  headingTextStyle: Theme.of(context).textTheme.subtitle1,
+                  showBottomBorder: true,
+                  columnSpacing: 30,
+                  columns: _tableColumns,
+                  rows: const [
+                    DataRow(
+                      cells: [
+                        DataCell(
+                          Center(child: Text('1A')),
+                        ),
+                        DataCell(
+                          Center(child: Text('30433')),
+                        ),
 
-                      DataCell(
-                        Center(child: Text('310')),
-                      ),
-                      DataCell(
-                        Center(
-                          child: SizedBox(
-                            width: 100,
-                            child: Text(
-                              'দিদার মজুমদার ',
-                              maxLines: 2,
-                              overflow: TextOverflow.fade,
-                              softWrap: true,
+                        DataCell(
+                          Center(child: Text('310')),
+                        ),
+                        DataCell(
+                          Center(
+                            child: SizedBox(
+                              width: 100,
+                              child: Text(
+                                'দিদার মজুমদার ',
+                                maxLines: 2,
+                                overflow: TextOverflow.fade,
+                                softWrap: true,
+                              ),
                             ),
                           ),
                         ),
-                      ),
 
-                      //phone num
-                      DataCell(
-                        Center(
-                          child: Text('01202223892'),
+                        //phone num
+                        DataCell(
+                          Center(
+                            child: Text('01202223892'),
+                          ),
+                          showEditIcon: true,
                         ),
-                        showEditIcon: true,
-                      ),
-                    ],
-                  ),
-                  DataRow(
-                    cells: [
-                      DataCell(
-                        Center(child: Text('1A')),
-                      ),
-                      DataCell(
-                        Center(child: Text('30433')),
-                      ),
+                      ],
+                    ),
+                    DataRow(
+                      cells: [
+                        DataCell(
+                          Center(child: Text('1A')),
+                        ),
+                        DataCell(
+                          Center(child: Text('30433')),
+                        ),
 
-                      DataCell(
-                        Center(child: Text('310')),
-                      ),
-                      DataCell(
-                        Center(
-                          child: SizedBox(
-                            width: 100,
-                            child: Text(
-                              'দিদার মজুমদার ',
-                              maxLines: 2,
-                              overflow: TextOverflow.fade,
-                              softWrap: true,
+                        DataCell(
+                          Center(child: Text('310')),
+                        ),
+                        DataCell(
+                          Center(
+                            child: SizedBox(
+                              width: 100,
+                              child: Text(
+                                'দিদার মজুমদার ',
+                                maxLines: 2,
+                                overflow: TextOverflow.fade,
+                                softWrap: true,
+                              ),
                             ),
                           ),
                         ),
-                      ),
 
-                      //phone num
-                      DataCell(
-                        Center(
-                          child: Text('01202223892'),
+                        //phone num
+                        DataCell(
+                          Center(
+                            child: Text('01202223892'),
+                          ),
+                          showEditIcon: true,
                         ),
-                        showEditIcon: true,
-                      ),
-                    ],
-                  ),
-                  DataRow(
-                    cells: [
-                      DataCell(
-                        Center(child: Text('1A')),
-                      ),
-                      DataCell(
-                        Center(child: Text('30433')),
-                      ),
+                      ],
+                    ),
+                    DataRow(
+                      cells: [
+                        DataCell(
+                          Center(child: Text('1A')),
+                        ),
+                        DataCell(
+                          Center(child: Text('30433')),
+                        ),
 
-                      DataCell(
-                        Center(child: Text('310')),
-                      ),
-                      DataCell(
-                        Center(
-                          child: SizedBox(
-                            width: 100,
-                            child: Text(
-                              'দিদার মজুমদার ',
-                              maxLines: 2,
-                              overflow: TextOverflow.fade,
-                              softWrap: true,
+                        DataCell(
+                          Center(child: Text('310')),
+                        ),
+                        DataCell(
+                          Center(
+                            child: SizedBox(
+                              width: 100,
+                              child: Text(
+                                'দিদার মজুমদার ',
+                                maxLines: 2,
+                                overflow: TextOverflow.fade,
+                                softWrap: true,
+                              ),
                             ),
                           ),
                         ),
-                      ),
 
-                      //phone num
-                      DataCell(
-                        Center(
-                          child: Text('01202223892'),
+                        //phone num
+                        DataCell(
+                          Center(
+                            child: Text('01202223892'),
+                          ),
+                          showEditIcon: true,
                         ),
-                        showEditIcon: true,
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -153,7 +162,9 @@ class MonthlyDataTable extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
 
                 ///color: Theme.of(context).primaryColor,
-                color: Colors.white,
+                color: mode.isDarkMode
+                    ? Colors.grey.shade800
+                    : Theme.of(context).secondaryHeaderColor,
                 boxShadow: [
                   BoxShadow(
                     offset: const Offset(-1, 1),
@@ -162,7 +173,7 @@ class MonthlyDataTable extends StatelessWidget {
                   )
                 ]),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: Text(title),
+            child: Text(title, style: Theme.of(context).textTheme.subtitle1),
           ),
         ),
 

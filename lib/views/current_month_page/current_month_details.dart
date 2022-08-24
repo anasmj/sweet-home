@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_home/controllers/custom_date_time_formatter.dart';
+import 'package:sweet_home/providers/theme_provider.dart';
 import 'components/monthly_data_table.dart';
 import 'components/monthly_summary_card.dart';
 import 'components/summary_container.dart';
@@ -10,61 +12,64 @@ class CurrentMonthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mode = context.watch<ThemeProvider>();
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(),
-          const MonthlySummaryCard(),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                Material(
-                  elevation: 10.0,
-                  child: SummaryContainer(
-                      txt: 'সম্পূর্ণ দিয়েছেন',
-                      summaryColor: Colors.green.withOpacity(0.8),
-                      num: 5),
-                ),
-                SummaryContainer(
-                    txt: 'আংশিক দিয়েছেন',
-                    summaryColor: Colors.yellowAccent.withOpacity(0.6),
-                    num: 1),
-                SummaryContainer(
-                    txt: 'বাকি আছেন',
-                    summaryColor: Colors.redAccent.withOpacity(0.8),
-                    num: 1),
-              ]
-                  .map((e) => Padding(
-                        //horizontal space
-                        padding: const EdgeInsets.symmetric(horizontal: 3),
-                        child: e,
-                      ))
-                  .toList(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        child: Column(
+          children: [
+            const MonthlySummaryCard(),
+            const SizedBox(height: 40),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SummaryContainer(
+                    txt: 'সম্পূর্ণ দিয়েছেন',
+                    summaryColor: mode.isDarkMode
+                        ? Colors.green.shade300
+                        : Colors.green.shade400,
+                    num: 5,
+                  ),
+                  SummaryContainer(
+                      txt: 'আংশিক দিয়েছেন',
+                      summaryColor: mode.isDarkMode
+                          ? Colors.yellow.shade300
+                          : Colors.yellow.shade400,
+                      num: 1),
+                  SummaryContainer(
+                      txt: 'বাকি আছেন',
+                      summaryColor: mode.isDarkMode
+                          ? Colors.red.shade300
+                          : Colors.red.shade400,
+                      num: 1),
+                ]
+                    .map((e) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: e,
+                        ))
+                    .toList(),
+              ),
             ),
-          ),
-
-          //monthly details tables
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: MonthlyDataTable(
-              title: 'চলতি মাসের হিসাব',
-              date: CustomFormatter().currentMonthYear(),
+            const SizedBox(height: 40),
+            //monthly details tables
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: MonthlyDataTable(
+                title: 'চলতি মাসের হিসাব',
+                date: CustomFormatter().currentMonthYear(),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: MonthlyDataTable(
-              title: "আগের মাসের হিসাব",
-              date: CustomFormatter().previousMonthYear(),
+            const SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: MonthlyDataTable(
+                title: "আগের মাসের হিসাব",
+                date: CustomFormatter().previousMonthYear(),
+              ),
             ),
-          ),
-        ]
-            .map((e) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: e,
-                ))
-            .toList(),
+          ],
+        ),
       ),
     );
   }

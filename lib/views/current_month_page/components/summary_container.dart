@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/theme_provider.dart';
 
 //returns summaray in the box
+// ignore: must_be_immutable
 class SummaryContainer extends StatelessWidget {
   SummaryContainer(
       {super.key,
@@ -12,6 +16,7 @@ class SummaryContainer extends StatelessWidget {
   int num;
   @override
   Widget build(BuildContext context) {
+    final mode = context.watch<ThemeProvider>();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
@@ -21,19 +26,32 @@ class SummaryContainer extends StatelessWidget {
       //height: 100,
       child: Center(
         child: Builder(
-            builder: (context) => Column(
-                  children: [
-                    Text(txt, style: Theme.of(context).textTheme.subtitle1),
-                    Text(
-                      num.toString(),
-                      style: Theme.of(context).textTheme.headline5,
+          builder: (context) => Column(
+            children: [
+              Text(
+                txt,
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade900,
                     ),
-                    Text(
-                      "জন",
-                      style: Theme.of(context).textTheme.subtitle2,
+              ),
+              Text(
+                num.toString(),
+                style: Theme.of(context).textTheme.headline5!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                  ],
-                )),
+              ),
+              Text(
+                "জন",
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle2!
+                    .copyWith(fontSize: 16),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

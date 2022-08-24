@@ -4,6 +4,7 @@ import '../app_icons.dart';
 import '../current_month_page/current_month_details.dart';
 import '../flats_page/flat_list_page.dart';
 import '../pending_page/pending_page.dart';
+import 'components/change_theme_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -30,12 +31,15 @@ class HomePage extends StatelessWidget {
                   //pinned: true,
 
                   // APP BAR
-                  title: Text(
+                  title: const Text(
                     'আহসান মঞ্জিল ',
                     overflow: TextOverflow.fade,
                     softWrap: false,
-                    style: textTheme.headline6,
+                    style: TextStyle(fontSize: 20),
                   ),
+                  actions: const [
+                    ChangeThemeButton(),
+                  ],
                   centerTitle: true,
                   //TAB BAR
                   bottom: TabBar(

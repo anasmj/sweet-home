@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/theme_provider.dart';
 
 import '../../app_icons.dart';
 
 //*complete
 class MonthlySummaryCard extends StatelessWidget {
   const MonthlySummaryCard({super.key});
-  final double _appIconHeight = 20;
-  final double _appIconWidth = 20;
+  final double _appIconHeight = 22;
+  final double _appIconWidth = 22;
   @override
   Widget build(BuildContext context) {
+    final currentTheme = context.watch<ThemeProvider>();
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -19,9 +23,11 @@ class MonthlySummaryCard extends StatelessWidget {
             offset: const Offset(-2, 3),
           ),
         ],
-        color: Colors.white,
+        // color:
+        // currentTheme.isDarkMode ? Colors.grey.shade600 : Colors.blue[200],
+        color: Theme.of(context).secondaryHeaderColor,
       ),
-      height: 160,
+      height: 150,
       //width: 50,
       child: Column(
         children: <Widget>[
@@ -31,7 +37,7 @@ class MonthlySummaryCard extends StatelessWidget {
           ),
           const Text(
             'এক নজরে',
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           DataTable(
             dividerThickness: 3,
@@ -40,12 +46,24 @@ class MonthlySummaryCard extends StatelessWidget {
                 .textTheme
                 .subtitle1!
                 .copyWith(fontWeight: FontWeight.w600),
-            columns: const <DataColumn>[
+            columns: <DataColumn>[
               DataColumn(
-                label: Text('মোট পাবো'),
+                label: Text(
+                  'মোট পাবো',
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
               ),
               DataColumn(
-                label: Text('বুঝে পেয়েছি'),
+                label: Text(
+                  'বুঝে পেয়েছি',
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
               )
             ],
             rows: [
@@ -54,7 +72,7 @@ class MonthlySummaryCard extends StatelessWidget {
                   Row(
                     children: [
                       getIcon(AppIcons.takaUrl),
-                      getAmountText(56000),
+                      getAmountText(context, 56000),
                     ],
                   ),
                 ),
@@ -62,7 +80,7 @@ class MonthlySummaryCard extends StatelessWidget {
                   Row(
                     children: [
                       getIcon(AppIcons.takaUrl),
-                      getAmountText(12000),
+                      getAmountText(context, 12000),
                     ],
                   ),
                 ),
@@ -78,10 +96,18 @@ class MonthlySummaryCard extends StatelessWidget {
         height: _appIconHeight,
         width: _appIconWidth,
         child: Image(
+          color: Colors.red[900],
           image: AssetImage(AppIcons.takaUrl),
         ),
       );
 
   //TODO: make it fancy by puttin comma between digits
-  Widget getAmountText(int amount) => Text(' ${amount.toString()} /-');
+  Widget getAmountText(context, int amount) => Text(
+        ' ${amount.toString()}', style: Theme.of(context).textTheme.headline6,
+        // style: TextStyle(
+        //   fontWeight: FontWeight.bold,
+        //   color: Colors.grey.shade900,
+        //   fontSize: 22,
+        // ),
+      );
 }
