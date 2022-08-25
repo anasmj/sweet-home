@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/controllers/shared_pref.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/views/app_theme.dart';
@@ -13,6 +14,7 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await SettingPrefence.init();
   runApp(
     const MyApp(),
   );
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => NewRenterStepProvider(),
         ),
-        ChangeNotifierProvider(
+        ListenableProvider(
           create: (context) => ThemeProvider(),
         ),
       ],
@@ -54,62 +56,59 @@ class SweetHome extends StatelessWidget {
       child: MaterialApp(
         title: 'Sweet Home',
         debugShowCheckedModeBanner: false,
-        themeMode: context.watch<ThemeProvider>().themeMode,
-        //add these two lines after testing
-        // theme: AppTheme.lightTheme,
-        // darkTheme: AppTheme.darkTheme,
-        theme: !context.watch<ThemeProvider>().isDarkMode
-            //light mode theme data
-            ? ThemeData(
-                secondaryHeaderColor: Colors.blue[100],
-                appBarTheme: AppBarTheme(
-                  color: Colors.blue.shade400,
-                  titleTextStyle: TextStyle(
-                    color: Colors.grey.shade50,
-                  ),
-                  iconTheme: IconThemeData(
-                    color: Colors.grey.shade50,
-                  ),
-                ),
-                textTheme: TextTheme(
-                  bodyText2: TextStyle(
-                    color: Colors.grey.shade800,
-                  ),
-                ),
-              )
-            //dark mode theme data
-            : ThemeData(
-                colorScheme: const ColorScheme.light(),
-                primaryColor: Colors.grey.shade900,
-                secondaryHeaderColor: Colors.grey.shade700,
-                appBarTheme: AppBarTheme(
-                  color: Colors.grey.shade900,
-                  titleTextStyle: TextStyle(
-                    color: Colors.grey.shade500,
-                  ),
-                  iconTheme: IconThemeData(
-                    color: Colors.grey.shade500,
-                  ),
-                ),
-                scaffoldBackgroundColor: Colors.grey.shade800,
+        themeMode: context.watch<ThemeProvider>().isDarkMode
+            ? ThemeMode.dark
+            : ThemeMode.light,
 
-                //text Theme
-                textTheme: const TextTheme(
-                  bodyText2: TextStyle(
-                    color: Colors.white70,
-                    // color: Colors.grey.shade900,
-                  ),
-                  subtitle1: TextStyle(
-                    color: Colors.white70,
-                  ),
-                  headline5: TextStyle(
-                    color: Colors.white70,
-                  ),
-                  headline6: TextStyle(
-                    color: Colors.white70,
-                  ),
-                ),
-              ),
+        theme: ThemeData(
+          secondaryHeaderColor: Colors.blue[100],
+          appBarTheme: AppBarTheme(
+            color: Colors.blue.shade400,
+            titleTextStyle: TextStyle(
+              color: Colors.grey.shade50,
+            ),
+            iconTheme: IconThemeData(
+              color: Colors.grey.shade50,
+            ),
+          ),
+          textTheme: TextTheme(
+            bodyText2: TextStyle(
+              color: Colors.grey.shade800,
+            ),
+          ),
+        ),
+        darkTheme: ThemeData(
+          colorScheme: const ColorScheme.light(),
+          primaryColor: Colors.grey.shade900,
+          secondaryHeaderColor: Colors.grey.shade700,
+          appBarTheme: AppBarTheme(
+            color: Colors.grey.shade900,
+            titleTextStyle: TextStyle(
+              color: Colors.grey.shade500,
+            ),
+            iconTheme: IconThemeData(
+              color: Colors.grey.shade500,
+            ),
+          ),
+          scaffoldBackgroundColor: Colors.grey.shade800,
+
+          //text Theme
+          textTheme: const TextTheme(
+            bodyText2: TextStyle(
+              color: Colors.white70,
+              // color: Colors.grey.shade900,
+            ),
+            subtitle1: TextStyle(
+              color: Colors.white70,
+            ),
+            headline5: TextStyle(
+              color: Colors.white70,
+            ),
+            headline6: TextStyle(
+              color: Colors.white70,
+            ),
+          ),
+        ),
 
         home: const HomePage(),
         // home: NewRenterStepper(),

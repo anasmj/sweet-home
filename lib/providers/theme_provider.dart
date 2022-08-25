@@ -1,12 +1,16 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import '../controllers/shared_pref.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  ThemeMode themeMode = ThemeMode.dark;
+  //takig from user preference
+  bool _isDarkMode = SettingPrefence.getDarkMode() ?? false;
 
-  bool get isDarkMode => themeMode == ThemeMode.dark;
+  bool get isDarkMode => _isDarkMode;
 
-  void toogleTheme(bool isDarkMode) {
-    themeMode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
+  void toogleThemeMode(bool value) {
+    _isDarkMode = value;
+    SettingPrefence.setDarkMode(_isDarkMode);
     notifyListeners();
   }
 }
