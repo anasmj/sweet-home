@@ -1,6 +1,6 @@
 //* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
-import '../app_icons.dart';
+import 'package:sweet_home/views/styling/app_icons.dart';
 import '../current_month_page/current_month_details.dart';
 import '../flats_page/flat_list_page.dart';
 import '../pending_page/pending_page.dart';
@@ -69,9 +69,9 @@ class HomePage extends StatelessWidget {
             },
             body: TabBarView(
               children: [
-                const CurrentMonthPage(),
+                CurrentMonthPage(),
                 FlatListPage(),
-                const PendingPage(),
+                PendingPage(),
                 //Expences(),
               ],
             )),

@@ -1,72 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/views/flats_page/components/flat_container.dart';
 import 'package:sweet_home/views/app_widgets.dart';
 import 'package:sweet_home/providers/home_provider.dart';
+import '../styling/app_icons.dart';
 import 'components/customize_button.dart';
 
 class FlatListPage extends StatelessWidget {
   FlatListPage({super.key});
+  bool isInitialState = true;
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     final home = Provider.of<HomeProvider>(context);
     TextTheme appTextTheme = Theme.of(context).textTheme;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 40,
-          ),
-          //upper part of container
-          Row(
+    return isInitialState
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Expanded(
-                child: AppWidget.appSearchBar(),
+              SvgPicture.asset(
+                AppIcons.noData2Url,
+                height: 210,
               ),
-              const SizedBox(
-                width: 10,
-              ),
-
-              //button
-              const CustomizeButton()
-            ],
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          noOfFlatText(context, home),
-          const SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            child: home.flats.isNotEmpty
-                ? GridView.builder(
-                    //childAspectRatio: (itemWidth / itemHeight),
-                    itemCount: home.flats.length,
-                    itemBuilder: (context, index) {
-                      return FlatContainer(flatNo: index);
-                    },
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 40,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 0.76,
-                    ),
-                  )
-                : Center(
-                    child: Text(
-                      'কোনও ফ্ল্যাট যুক্ত নেই',
-                      style: appTextTheme.subtitle1,
-                    ), //TODO: SHOW AN ADD BUTTON INSTEAD
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(180, 40),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-          ),
-        ],
-      ),
-    );
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: () {},
+                child: const Text('ফ্ল্যাট যুক্ত করি'),
+              )
+            ],
+          )
+        : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 40,
+                ),
+                //upper part of container
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppWidget.appSearchBar(),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+
+                    //button
+                    const CustomizeButton()
+                  ],
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                noOfFlatText(context, home),
+                const SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                  child: home.flats.isNotEmpty
+                      ? GridView.builder(
+                          //childAspectRatio: (itemWidth / itemHeight),
+                          itemCount: home.flats.length,
+                          itemBuilder: (context, index) {
+                            return FlatContainer(flatNo: index);
+                          },
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 40,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 0.76,
+                          ),
+                        )
+                      : Center(
+                          child: Text(
+                            'কোনও ফ্ল্যাট যুক্ত নেই',
+                            style: appTextTheme.subtitle1,
+                          ), //TODO: SHOW AN ADD BUTTON INSTEAD
+                        ),
+                ),
+              ],
+            ),
+          );
   }
 
   RichText noOfFlatText(BuildContext context, HomeProvider home) {

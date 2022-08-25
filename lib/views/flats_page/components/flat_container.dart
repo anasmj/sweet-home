@@ -9,7 +9,7 @@ import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/controllers/custom_date_time_formatter.dart';
 import '../../../models/flat_model.dart';
 import '../../../providers/newrenter_step_provider.dart';
-import '../../app_icons.dart';
+import 'package:sweet_home/views/styling/app_icons.dart';
 import '../../steppers/new_renter_stepper/add_renter_stepper.dart';
 
 //ELEMENT OF GRIDVIEW

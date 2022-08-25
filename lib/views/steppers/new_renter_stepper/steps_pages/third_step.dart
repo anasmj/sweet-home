@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/views/app_icons.dart';
+import 'package:sweet_home/views/styling/app_icons.dart';
 
 import '../../../../providers/newrenter_step_provider.dart';
 import 'components/advance_payment_checkbox.dart';

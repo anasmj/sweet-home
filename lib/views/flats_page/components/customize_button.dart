@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../app_icons.dart';
+import 'package:sweet_home/views/styling/app_icons.dart';
 
 //THIS BUTTON LETS USER CUSTOMIZE THEIR FLAT INFORMTAION INDIVIDUALLY
 class CustomizeButton extends StatelessWidget {

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 
-import '../../app_icons.dart';
+import '../../styling/app_icons.dart';
+import 'package:sweet_home/views/styling/app_icons.dart';
 
 //*complete
 class MonthlySummaryCard extends StatelessWidget {

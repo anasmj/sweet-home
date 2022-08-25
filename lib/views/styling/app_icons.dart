@@ -18,6 +18,9 @@ class AppIcons {
   static String otherUrl = "assets/icons/other.svg";
   static String checmarkUrl = "assets/icons/checkmark.svg";
   static String personAddUrl = "assets/icons/person_add.svg";
+  static String noDataUrl = "assets/icons/no_data.svg";
+  static String noData2Url = "assets/icons/no_data_2.svg";
+  static String noListUrl = "assets/icons/no_list.svg";
 
   static String doneLottie = 'assets/lotties/done.json';
 }

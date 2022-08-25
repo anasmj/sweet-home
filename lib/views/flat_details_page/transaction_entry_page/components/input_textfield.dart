@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../app_icons.dart';
+import 'package:sweet_home/views/styling/app_icons.dart';
 
 class InputTextField extends StatelessWidget {
   InputTextField({super.key});

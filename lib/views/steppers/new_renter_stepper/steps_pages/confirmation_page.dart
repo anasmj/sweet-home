@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/home_provider.dart';
-import 'package:sweet_home/views/app_icons.dart';
 
 import '../../../../providers/newrenter_step_provider.dart';
+import 'package:sweet_home/views/styling/app_icons.dart';
 
 class ConfirmationPage extends StatelessWidget {
   const ConfirmationPage({super.key});

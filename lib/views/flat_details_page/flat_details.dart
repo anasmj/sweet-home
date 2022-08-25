@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/controllers/calculate_bills.dart';
 import '../../models/renter.dart';
-import '../app_icons.dart';
+import 'package:sweet_home/views/styling/app_icons.dart';
 import 'transactoin_list_page/transaction_list_page.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
 import 'transaction_entry_page/transaction_entry_page.dart';
