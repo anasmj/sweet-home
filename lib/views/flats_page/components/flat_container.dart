@@ -77,8 +77,7 @@ class FlatContainer extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.blue.withOpacity(0.4),
-                // boxShadow: [BoxShadow(blurRadius: 2.0, spreadRadius: 1.0)]
+                color: Theme.of(context).primaryColor,
               ),
               child: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -145,10 +144,14 @@ class FlatContainer extends StatelessWidget {
           top: -20,
           // left: ,
           child: CircleAvatar(
+            backgroundColor: Theme.of(context).secondaryHeaderColor,
             radius: 20,
             child: Text(
               flatList[flatNo].flatName,
-              style: const TextStyle(fontWeight: FontWeight.w500),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
         ),

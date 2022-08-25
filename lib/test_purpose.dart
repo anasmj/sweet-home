@@ -69,6 +69,9 @@ class TestClass extends StatelessWidget {
 }
 
 class Record {
+  int floorRange = 5;
+  int flatRange = 6;
+
   String name;
   int age;
   bool isCriminal;

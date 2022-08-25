@@ -9,7 +9,7 @@ import 'components/customize_button.dart';
 
 class FlatListPage extends StatelessWidget {
   FlatListPage({super.key});
-  bool isInitialState = true;
+  bool isInitialState = false;
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -50,7 +50,7 @@ class FlatListPage extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: AppWidget.appSearchBar(),
+                      child: AppWidget.appSearchBar(context: context),
                     ),
                     const SizedBox(
                       width: 10,

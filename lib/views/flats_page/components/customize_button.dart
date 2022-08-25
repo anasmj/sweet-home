@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/theme_provider.dart';
 
 import 'package:sweet_home/views/styling/app_icons.dart';
 
@@ -13,9 +14,13 @@ class CustomizeButton extends StatelessWidget {
     TextTheme appTextTheme = Theme.of(context).textTheme;
 
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+      style: ButtonStyle(
+        backgroundColor:
+            MaterialStateProperty.all(Theme.of(context).primaryColor),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
         ),
       ),
       onPressed: null,
@@ -30,6 +35,9 @@ class CustomizeButton extends StatelessWidget {
           ),
           SvgPicture.asset(
             AppIcons.settingUrl,
+            color: context.watch<ThemeProvider>().isDarkMode
+                ? Colors.white
+                : Colors.black,
             height: 20,
           )
         ],

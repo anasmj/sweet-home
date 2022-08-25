@@ -11,7 +11,7 @@ class PendingPage extends StatelessWidget {
   final double _upperContainerVerticalPadding = 10;
   final double _lowerContainerVerticalPadding = 8;
 
-  bool isInitialState = true;
+  bool isInitialState = false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class PendingPage extends StatelessWidget {
                       ),
                       Expanded(
                         //SEARCH BOX
-                        child: AppWidget.appSearchBar(),
+                        child: AppWidget.appSearchBar(context: context),
                       ),
                       IconButton(
                         onPressed: () {},

@@ -60,9 +60,10 @@ class SweetHome extends StatelessWidget {
             : ThemeMode.light,
 
         theme: ThemeData(
-          secondaryHeaderColor: Colors.blue[100],
+          primaryColor: Colors.blue.shade100,
+          secondaryHeaderColor: Colors.blue[50],
           appBarTheme: AppBarTheme(
-            color: Colors.blue.shade400,
+            color: Colors.blue.shade300,
             titleTextStyle: TextStyle(
               color: Colors.grey.shade50,
             ),
@@ -70,18 +71,19 @@ class SweetHome extends StatelessWidget {
               color: Colors.grey.shade50,
             ),
           ),
-          textTheme: TextTheme(
+          textTheme: const TextTheme(
             bodyText2: TextStyle(
-              color: Colors.grey.shade800,
+              color: Colors.white,
             ),
           ),
         ),
+
         darkTheme: ThemeData(
           colorScheme: const ColorScheme.light(),
-          primaryColor: Colors.grey.shade900,
+          primaryColor: Colors.grey.shade800,
           secondaryHeaderColor: Colors.grey.shade700,
           appBarTheme: AppBarTheme(
-            color: Colors.grey.shade900,
+            color: Colors.grey.shade800,
             titleTextStyle: TextStyle(
               color: Colors.grey.shade500,
             ),
@@ -89,22 +91,30 @@ class SweetHome extends StatelessWidget {
               color: Colors.grey.shade500,
             ),
           ),
-          scaffoldBackgroundColor: Colors.grey.shade800,
+          scaffoldBackgroundColor: Colors.grey.shade900,
 
           //text Theme
-          textTheme: const TextTheme(
+          textTheme: TextTheme(
             bodyText2: TextStyle(
-              color: Colors.white70,
+              color: Colors.grey.shade300,
               // color: Colors.grey.shade900,
             ),
             subtitle1: TextStyle(
-              color: Colors.white70,
+              color: Colors.grey.shade300,
             ),
             headline5: TextStyle(
-              color: Colors.white70,
+              color: Colors.grey.shade300,
             ),
             headline6: TextStyle(
-              color: Colors.white70,
+              color: Colors.grey.shade300,
+            ),
+          ),
+
+          inputDecorationTheme: InputDecorationTheme(
+            fillColor: Colors.grey.shade600,
+            prefixIconColor: Colors.grey.shade300,
+            hintStyle: TextStyle(
+              color: Colors.grey.shade200,
             ),
           ),
         ),
