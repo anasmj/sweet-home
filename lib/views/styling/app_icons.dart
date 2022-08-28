@@ -21,6 +21,8 @@ class AppIcons {
   static String noDataUrl = "assets/icons/no_data.svg";
   static String noData2Url = "assets/icons/no_data_2.svg";
   static String noListUrl = "assets/icons/no_list.svg";
+  static String homeLogoUrl = "assets/icons/landing_logo.jpeg";
 
   static String doneLottie = 'assets/lotties/done.json';
+  static String tranparentLoad = 'assets/lotties/transparent_load.json';
 }

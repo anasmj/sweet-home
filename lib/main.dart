@@ -139,7 +139,9 @@ class SweetHome extends StatelessWidget {
 
       // home: TestClass(),
       // home: const HomePage(),
-      home: const Wrapper(),
+      home: const DismissKeyboard(
+        child: Wrapper(),
+      ),
     );
   }
 }

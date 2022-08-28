@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sweet_home/models/response.dart';
 import 'package:sweet_home/views/app_widgets.dart';
 
 import '../../services/auth_service.dart';
+import '../styling/app_icons.dart';
+import 'components/custom_textfield.dart';
 
 class RegistrationPage extends StatefulWidget {
   final Function toggleView;
@@ -20,98 +23,141 @@ class RegisterScreenState extends State<RegistrationPage> {
   String _email = '';
   String _password = '';
 
+  bool _isLoading = false;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[100],
-      appBar: AppBar(
-        backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-        title: const Text('Register'),
-        centerTitle: true,
-        actions: [
-          TextButton.icon(
-            onPressed: () {
-              widget.toggleView();
-            },
-            icon: const Icon(Icons.person),
-            label: const Text('Sign In'),
-          )
-        ],
-      ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                TextFormField(
-                  validator: (val) {
-                    return val!.isEmpty ? 'Enter a valid email' : null;
-                  },
-                  onChanged: (val) => setState(() {
-                    _email = val;
-                  }),
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.done,
-                  decoration: inputDecoration(label: 'Email'),
+      backgroundColor: Colors.white,
+      body: _isLoading
+          ? Center(
+              child: Lottie.asset(
+                AppIcons.tranparentLoad,
+                height: 150,
+                repeat: true,
+              ),
+            )
+          : Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Image(
+                      height: 150,
+                      width: 150,
+                      image: AssetImage(AppIcons.homeLogoUrl),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    CustomTextField(
+                      label: 'ইমেইল',
+                      textEditingController: _emailController,
+                      validationFunciton: emailValidator,
+                      inputType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomTextField(
+                      textEditingController: _passController,
+                      label: 'পাসওয়ার্ড',
+                      validationFunciton: passwordValidator,
+                      inputType: TextInputType.visiblePassword,
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      errorMsg,
+                      style: const TextStyle(fontSize: 14, color: Colors.red),
+                    ),
+                    const SizedBox(
+                      height: 100,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              Response response = await AuthService()
+                                  .registerWithEmailAndPass(_email, _password);
+                              if (response.code != 200) {
+                                // ignore: use_build_context_synchronously
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  AppWidget.snackBarContent(
+                                      msg: response.body ??
+                                          'Unknown error occured '),
+                                );
+                              }
+                            }
+                            setState(() {
+                              _isLoading = false;
+                            });
+                          },
+                          child: const Text(
+                            'রেজিস্ট্রেশন',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    loginButton(),
+                  ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: (val) {
-                    return val != null
-                        ? val.length < 6
-                            ? 'password at least have 6 characters'
-                            : null
-                        : null;
-                  },
-                  onChanged: (val) => setState(() {
-                    _password = val;
-                  }),
-                  decoration: inputDecoration(label: 'Password'),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  errorMsg,
-                  style: const TextStyle(fontSize: 14, color: Colors.red),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      Response response = await AuthService()
-                          .registerWithEmailAndPass(_email, _password);
-                      if (response.code != 200) {
-                        // ignore: use_build_context_synchronously
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          AppWidget.snackBarContent(
-                              msg: response.body ?? 'Unknown error occured '),
-                        );
-                      }
-                    }
-                  },
-                  child: const Text('Register'),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 
-  InputDecoration inputDecoration({required String label}) {
-    return InputDecoration(
-        labelText: label,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+  Row loginButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          'একাউন্ট খোলা আছে?  ',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
+          ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-        ));
+        TextButton(
+          onPressed: () {
+            widget.toggleView();
+          },
+          child: const Text(
+            'লগ ইন',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ],
+    );
+  }
+
+  String? emailValidator(String? val) {
+    return val!.isEmpty ? 'ইমেইল দেওয়া হয়নি' : null;
+  }
+
+  String? passwordValidator(String? val) {
+    return val != null
+        ? val.length < 6
+            ? 'পাসওয়ার্ড অন্তত ৬ অক্ষরের দিন'
+            : null
+        : null;
   }
 }
