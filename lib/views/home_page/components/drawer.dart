@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/views/app_widgets.dart';
 import 'package:sweet_home/views/steppers/add_home_stepper/add_home_stepper.dart';
 
@@ -114,7 +115,8 @@ class AppDrawer extends StatelessWidget {
       onSelected: (value) {
         switch (value) {
           case 'লগ আউট':
-            AppWidget.showToast('কাজ চলছে');
+            AuthService().signOut();
+            // AppWidget.showToast('কাজ চলছে');
             break; //_showModalSheet()
           case 'নতুন একাউন্ট':
             AppWidget.showToast('কাজ চলছে');

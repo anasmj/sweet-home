@@ -20,10 +20,10 @@ class FirebaseService {
 
     var result = await documentReferencer.set(json).whenComplete(() {
       response.code = 200;
-      response.message = 'Added Successfully';
+      response.body = 'Added Successfully';
     }).catchError((e) {
       response.code = 500;
-      response.message = e.toString();
+      response.body = e.toString();
     });
     return response;
   }

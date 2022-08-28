@@ -23,10 +23,10 @@ class FirebaseCrud {
 
     var result = await documentReferencer.set(data).whenComplete(() {
       response.code = 200;
-      response.message = 'Successfully addad to database';
+      response.body = 'Successfully addad to database';
     }).catchError((e) {
       response.code = 500;
-      response.message = e;
+      response.body = e;
     });
     return response;
   }
@@ -56,10 +56,10 @@ class FirebaseCrud {
 
     await documentReferencer.set(data).whenComplete(() {
       response.code = 200;
-      response.message = 'updated';
+      response.body = 'updated';
     }).catchError((e) {
       response.code = 500;
-      response.message = 'occured some problem ';
+      response.body = 'occured some problem ';
     });
     return response;
   }

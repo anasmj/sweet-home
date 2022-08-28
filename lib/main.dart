@@ -4,12 +4,13 @@ import 'package:sweet_home/controllers/shared_pref.dart';
 import 'package:sweet_home/providers/new_home_step_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
-import 'package:sweet_home/test_purpose.dart';
+import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/views/dismiss_keyboard.dart';
 import 'package:sweet_home/views/home_page/home_page.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/providers/home_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sweet_home/views/wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
         ListenableProvider(
           create: (context) => ThemeProvider(),
         ),
+        Provider<AuthService>(
+          create: (context) => AuthService(),
+        )
       ],
       child: const SweetHome(),
     );
@@ -50,92 +54,92 @@ class MyApp extends StatelessWidget {
 }
 
 class SweetHome extends StatelessWidget {
-  const SweetHome({super.key});
+  const SweetHome({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return DismissKeyboard(
-      //dismiss keyboard with outer touch located anywhere in the app
-      child: MaterialApp(
-        title: 'Sweet Home',
-        debugShowCheckedModeBanner: false,
-        themeMode: context.watch<ThemeProvider>().isDarkMode
-            ? ThemeMode.dark
-            : ThemeMode.light,
+    return MaterialApp(
+      title: 'Sweet Home',
+      debugShowCheckedModeBanner: false,
+      themeMode: context.watch<ThemeProvider>().isDarkMode
+          ? ThemeMode.dark
+          : ThemeMode.light,
 
-        theme: ThemeData(
-          primaryColor: Colors.blue.shade100,
-          secondaryHeaderColor: Colors.blue[50],
-          appBarTheme: AppBarTheme(
-            color: Colors.blue.shade400,
-            titleTextStyle: TextStyle(
-              color: Colors.grey.shade50,
-            ),
-            iconTheme: IconThemeData(
-              color: Colors.grey.shade50,
-            ),
+      theme: ThemeData(
+        primaryColor: Colors.blue.shade100,
+        secondaryHeaderColor: Colors.blue[50],
+        appBarTheme: AppBarTheme(
+          color: Colors.blue.shade400,
+          titleTextStyle: TextStyle(
+            color: Colors.grey.shade50,
           ),
-          textTheme: TextTheme(
-            bodyText2: TextStyle(
-              color: Colors.grey.shade900,
-              // color: Colors.grey.shade900,
-            ),
-            subtitle1: TextStyle(
-              color: Colors.grey.shade900,
-            ),
-            headline5: TextStyle(
-              color: Colors.grey.shade900,
-            ),
-            headline6: TextStyle(
-              color: Colors.grey.shade900,
-            ),
+          iconTheme: IconThemeData(
+            color: Colors.grey.shade50,
           ),
         ),
-
-        darkTheme: ThemeData(
-          colorScheme: const ColorScheme.light(),
-          primaryColor: Colors.grey.shade800,
-          secondaryHeaderColor: Colors.grey.shade700,
-          appBarTheme: AppBarTheme(
-            color: Colors.grey.shade800,
-            titleTextStyle: TextStyle(
-              color: Colors.grey.shade500,
-            ),
-            iconTheme: IconThemeData(
-              color: Colors.grey.shade500,
-            ),
+        textTheme: TextTheme(
+          bodyText2: TextStyle(
+            color: Colors.grey.shade900,
+            // color: Colors.grey.shade900,
           ),
-          scaffoldBackgroundColor: Colors.grey.shade900,
-
-          //text Theme
-          textTheme: TextTheme(
-            bodyText2: TextStyle(
-              color: Colors.grey.shade300,
-              // color: Colors.grey.shade900,
-            ),
-            subtitle1: TextStyle(
-              color: Colors.grey.shade300,
-            ),
-            headline5: TextStyle(
-              color: Colors.grey.shade300,
-            ),
-            headline6: TextStyle(
-              color: Colors.grey.shade300,
-            ),
+          subtitle1: TextStyle(
+            color: Colors.grey.shade900,
           ),
-
-          inputDecorationTheme: InputDecorationTheme(
-            fillColor: Colors.grey.shade600,
-            prefixIconColor: Colors.grey.shade300,
-            hintStyle: TextStyle(
-              color: Colors.grey.shade200,
-            ),
+          headline5: TextStyle(
+            color: Colors.grey.shade900,
+          ),
+          headline6: TextStyle(
+            color: Colors.grey.shade900,
           ),
         ),
-
-        // home: TestClass(),
-        home: const HomePage(),
       ),
+
+      darkTheme: ThemeData(
+        colorScheme: const ColorScheme.light(),
+        primaryColor: Colors.grey.shade800,
+        secondaryHeaderColor: Colors.grey.shade700,
+        appBarTheme: AppBarTheme(
+          color: Colors.grey.shade800,
+          titleTextStyle: TextStyle(
+            color: Colors.grey.shade500,
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.grey.shade500,
+          ),
+        ),
+        scaffoldBackgroundColor: Colors.grey.shade900,
+
+        //text Theme
+        textTheme: TextTheme(
+          bodyText2: TextStyle(
+            color: Colors.grey.shade300,
+            // color: Colors.grey.shade900,
+          ),
+          subtitle1: TextStyle(
+            color: Colors.grey.shade300,
+          ),
+          headline5: TextStyle(
+            color: Colors.grey.shade300,
+          ),
+          headline6: TextStyle(
+            color: Colors.grey.shade300,
+          ),
+        ),
+
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: Colors.grey.shade600,
+          prefixIconColor: Colors.grey.shade300,
+          hintStyle: TextStyle(
+            color: Colors.grey.shade200,
+          ),
+        ),
+      ),
+
+      // home: TestClass(),
+      // home: const HomePage(),
+      home: const Wrapper(),
     );
   }
 }
