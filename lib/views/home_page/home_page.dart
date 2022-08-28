@@ -5,6 +5,7 @@ import '../current_month_page/current_month_details.dart';
 import '../flats_page/flat_list_page.dart';
 import '../pending_page/pending_page.dart';
 import 'components/change_theme_button.dart';
+import 'components/drawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,7 +19,7 @@ class HomePage extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      drawer: const Drawer(),
+      drawer: const AppDrawer(),
       body: DefaultTabController(
         initialIndex: 0,
         length: 3,
@@ -58,10 +59,6 @@ class HomePage extends StatelessWidget {
                         'বকেয়া',
                         style: _tabBarTextStyle,
                       ),
-                      // Text(
-                      //   'সকল গ্রাহক',
-                      //   style: textTheme.subtitle1,
-                      // ),
                     ],
                   ),
                 ),

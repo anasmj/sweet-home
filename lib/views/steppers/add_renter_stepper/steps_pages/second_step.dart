@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/components/occupation_dropdown.dart';
-import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/components/stepper_textfield.dart';
+import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/components/occupation_dropdown.dart';
+import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/components/stepper_textfield.dart';
 
+import '../../shared_components/stepper_textfield.dart';
 import 'components/location_radio.dart';
 
 class AddressStep extends StatelessWidget {

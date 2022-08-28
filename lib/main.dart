@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/controllers/shared_pref.dart';
+import 'package:sweet_home/providers/new_home_step_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/test_purpose.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => NewRenterStepProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => NewHomeStepProvider(),
+        ),
         ListenableProvider(
           create: (context) => ThemeProvider(),
         ),
@@ -63,7 +67,7 @@ class SweetHome extends StatelessWidget {
           primaryColor: Colors.blue.shade100,
           secondaryHeaderColor: Colors.blue[50],
           appBarTheme: AppBarTheme(
-            color: Colors.blue.shade300,
+            color: Colors.blue.shade400,
             titleTextStyle: TextStyle(
               color: Colors.grey.shade50,
             ),
@@ -71,9 +75,19 @@ class SweetHome extends StatelessWidget {
               color: Colors.grey.shade50,
             ),
           ),
-          textTheme: const TextTheme(
+          textTheme: TextTheme(
             bodyText2: TextStyle(
-              color: Colors.white,
+              color: Colors.grey.shade900,
+              // color: Colors.grey.shade900,
+            ),
+            subtitle1: TextStyle(
+              color: Colors.grey.shade900,
+            ),
+            headline5: TextStyle(
+              color: Colors.grey.shade900,
+            ),
+            headline6: TextStyle(
+              color: Colors.grey.shade900,
             ),
           ),
         ),
@@ -121,7 +135,6 @@ class SweetHome extends StatelessWidget {
 
         // home: TestClass(),
         home: const HomePage(),
-        // home: NewRenterStepper(),
       ),
     );
   }

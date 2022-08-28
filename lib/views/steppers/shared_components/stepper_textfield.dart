@@ -4,7 +4,7 @@ class StepperTextField extends StatelessWidget {
   StepperTextField(
       {this.label = '',
       this.isAstrics = false,
-      this.isPhoneNumber = false,
+      this.isNumber = false,
       this.validationFunciton,
       required this.textEditingController,
       super.key});
@@ -12,7 +12,7 @@ class StepperTextField extends StatelessWidget {
   String? Function(String?)? validationFunciton;
 
   String label;
-  bool isAstrics, isPhoneNumber;
+  bool isAstrics, isNumber;
   final double _cursorHeight = 22;
   TextEditingController textEditingController;
   @override
@@ -25,8 +25,7 @@ class StepperTextField extends StatelessWidget {
             controller: textEditingController,
             validator: validationFunciton,
             cursorHeight: _cursorHeight,
-            keyboardType:
-                isPhoneNumber ? TextInputType.number : TextInputType.name,
+            keyboardType: isNumber ? TextInputType.number : TextInputType.name,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -43,8 +42,7 @@ class StepperTextField extends StatelessWidget {
             controller: textEditingController,
             validator: validationFunciton,
             cursorHeight: _cursorHeight,
-            keyboardType:
-                isPhoneNumber ? TextInputType.number : TextInputType.name,
+            keyboardType: isNumber ? TextInputType.number : TextInputType.name,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

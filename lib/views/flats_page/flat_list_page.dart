@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/controllers/routes.dart';
 import 'package:sweet_home/views/flats_page/components/flat_container.dart';
 import 'package:sweet_home/views/app_widgets.dart';
 import 'package:sweet_home/providers/home_provider.dart';
@@ -9,7 +10,7 @@ import 'components/customize_button.dart';
 
 class FlatListPage extends StatelessWidget {
   FlatListPage({super.key});
-  bool isInitialState = false;
+  bool isInitialState = true;
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

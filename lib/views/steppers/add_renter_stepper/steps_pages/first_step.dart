@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/home_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
-import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/components/occupation_dropdown.dart';
-import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/components/stepper_textfield.dart';
+import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/components/occupation_dropdown.dart';
+import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/components/stepper_textfield.dart';
 import '../../../../controllers/validator.dart';
+import '../../shared_components/stepper_textfield.dart';
 
 class RenterInfoStep extends StatelessWidget {
   RenterInfoStep({
@@ -56,7 +57,7 @@ class RenterInfoStep extends StatelessWidget {
             children: [
               Expanded(
                 child: StepperTextField(
-                  isPhoneNumber: true,
+                  isNumber: true,
                   label: 'ফোন নম্বর',
                   isAstrics: true,
                   textEditingController: phoneController,
@@ -68,7 +69,7 @@ class RenterInfoStep extends StatelessWidget {
               ),
               Expanded(
                 child: StepperTextField(
-                  isPhoneNumber: true,
+                  isNumber: true,
                   label: "বিকল্প ফোন নম্বর",
                   textEditingController: alternatePhoneController,
                   // validationFunciton: Validator.checkPhoneNumber,

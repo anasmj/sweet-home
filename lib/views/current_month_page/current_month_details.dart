@@ -13,7 +13,7 @@ import 'components/summary_container.dart';
 class CurrentMonthPage extends StatelessWidget {
   CurrentMonthPage({super.key});
 
-  bool isInitialState = false;
+  bool isInitialState = true;
 
   @override
   Widget build(BuildContext context) {

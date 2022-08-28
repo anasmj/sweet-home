@@ -7,10 +7,11 @@ import 'package:sweet_home/providers/home_provider.dart';
 import 'package:sweet_home/views/flat_details_page/flat_details.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/controllers/custom_date_time_formatter.dart';
+import '../../../controllers/routes.dart';
 import '../../../models/flat_model.dart';
 import '../../../providers/newrenter_step_provider.dart';
 import 'package:sweet_home/views/styling/app_icons.dart';
-import '../../steppers/new_renter_stepper/add_renter_stepper.dart';
+import '../../steppers/add_renter_stepper/add_renter_stepper.dart';
 
 //ELEMENT OF GRIDVIEW
 class FlatContainer extends StatelessWidget {
@@ -25,26 +26,6 @@ class FlatContainer extends StatelessWidget {
   final String _flatDetailOption = "ফ্ল্যাটের বিস্তারিত";
 
   String flatDetailsPageLocation = '/flat_details_page';
-  void gotoFlatDetail(BuildContext context, Flat flat) => Navigator.push(
-        context,
-        PageTransition(
-          child: FlatDetails(
-            renter: flat.renter!,
-          ),
-          type: PageTransitionType.rightToLeft,
-        ),
-      );
-  void gotoNewRenterStepper(
-      {required BuildContext context, required int flatNo}) {
-    Navigator.push(
-      context,
-      PageTransition(
-        child: AddRenterStepper(),
-        type: PageTransitionType.fade,
-      ),
-    );
-    context.read<NewRenterStepProvider>().setSelectedFlatNo(flatNo);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +43,10 @@ class FlatContainer extends StatelessWidget {
                   ///gets updated
                   currentFlatProvider.updateFlatInfo(
                       currentFlat: flatList[flatNo]);
-                  gotoFlatDetail(context, flatList[flatNo]);
+                  AppRoute.flatDetail(context, flatList[flatNo]);
                 }
-              : () => gotoNewRenterStepper(context: context, flatNo: flatNo),
+              : () =>
+                  AppRoute.newRenterStepper(context: context, flatNo: flatNo),
           onLongPress: () {
             //TODO: _showDeleteModalSheet
           },
@@ -190,6 +172,7 @@ class FlatContainer extends StatelessWidget {
           case 'গ্রাহক মুছুন':
             break; //_showModalSheet(),
           case 'নতুন গ্রাহক':
+            //TODO: find out wahat happes here
             Navigator.push(
               context,
               PageTransition(

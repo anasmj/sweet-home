@@ -59,7 +59,7 @@ class MonthlyDataTable extends StatelessWidget {
                             child: SizedBox(
                               width: 100,
                               child: Text(
-                                'দিদার মজুমদার ',
+                                'আশরাফ জামিল',
                                 maxLines: 2,
                                 overflow: TextOverflow.fade,
                                 softWrap: true,
@@ -94,7 +94,7 @@ class MonthlyDataTable extends StatelessWidget {
                             child: SizedBox(
                               width: 100,
                               child: Text(
-                                'দিদার মজুমদার ',
+                                'মনজরুল আলম ',
                                 maxLines: 2,
                                 overflow: TextOverflow.fade,
                                 softWrap: true,
@@ -129,7 +129,7 @@ class MonthlyDataTable extends StatelessWidget {
                             child: SizedBox(
                               width: 100,
                               child: Text(
-                                'দিদার মজুমদার ',
+                                'দিদার হোসেন ',
                                 maxLines: 2,
                                 overflow: TextOverflow.fade,
                                 softWrap: true,

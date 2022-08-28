@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/models/renter.dart';
-import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/confirmation_page.dart';
-import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/second_step.dart';
-import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/third_step.dart';
-import 'package:sweet_home/views/steppers/new_renter_stepper/steps_pages/first_step.dart';
+import 'package:sweet_home/views/steppers/add_home_stepper/steps_pages/first_page.dart';
+import 'package:sweet_home/views/steppers/add_home_stepper/steps_pages/second_page.dart';
+import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/confirmation_page.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controllers/renter_management.dart';
+import '../../../providers/new_home_step_provider.dart';
 
-class AddRenterStepper extends StatefulWidget {
-  AddRenterStepper({super.key});
+class AddHomeStepper extends StatefulWidget {
+  AddHomeStepper({super.key});
   @override
-  State<AddRenterStepper> createState() => _AddAddRenterStepperState();
+  State<AddHomeStepper> createState() => _AddHomeStepperState();
 }
 
-class _AddAddRenterStepperState extends State<AddRenterStepper> {
+class _AddHomeStepperState extends State<AddHomeStepper> {
   int _currentStep = 0;
   bool isCompletedd = false;
   bool isValidInfo = false;
+
   @override
   Widget build(BuildContext context) {
-    final renterInfoProvider = Provider.of<NewRenterStepProvider>(
+    //needs to be changed
+    final homeProvier = Provider.of<NewHomeStepProvider>(
         context); //used to validate state of form
 
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('নতুন গ্রাহক যুক্ত'),
+        title: const Text('নতুন বাড়ি যুক্ত'),
         centerTitle: true,
-        automaticallyImplyLeading: _currentStep != 0
-            ? false
-            : true, //disable back button when user not in first page
+        //disable back button when user not in first page
+        // automaticallyImplyLeading: _currentStep != 0
+        //     ? false
+        //     : true,
       ),
       body: !isCompletedd
           ? Stepper(
@@ -47,8 +49,8 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
                         context: context); //flat no is up to dated in provider
                   });
                 } else {
-                  if (renterInfoProvider.firstPageFormKey!.currentState!
-                      .validate()) {
+                  if (true) {
+                    //renterInfoProvider.firstPageFormKey!.currentState.validate()
                     //false if textfield value of first pagd is not valied.
                     setState(() {
                       _currentStep += 1;
@@ -103,8 +105,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      onPressed:
-          provider.selectedFlatNo != null ? details.onStepContinue : null,
+      onPressed: details.onStepContinue,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Row(
@@ -161,20 +162,14 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
         Step(
           state: _currentStep > 0 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 0,
-          title: const Text('তথ্য'),
-          content: RenterInfoStep(),
+          title: const Text('বাড়ীর তথ্যাবলী'),
+          content: FristPage(),
         ),
         Step(
           state: _currentStep > 1 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 1,
-          title: const Text('ঠিকানা'),
-          content: AddressStep(),
-        ),
-        Step(
-          state: _currentStep > 2 ? StepState.complete : StepState.indexed,
-          isActive: _currentStep >= 2,
-          title: const Text('ছবি'),
-          content: ThirdStepPage(),
+          title: const Text('বিলসমূহ'),
+          content: SecondPage(),
         ),
       ];
 }
