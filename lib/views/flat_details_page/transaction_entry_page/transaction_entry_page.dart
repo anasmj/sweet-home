@@ -13,7 +13,7 @@ class EntryPage extends StatelessWidget {
         const SizedBox(
           height: 30,
         ),
-        InputTextField(),
+        const InputTextField(),
         const Padding(
           padding: EdgeInsets.only(top: 10.0),
           child: CalenderButton(),

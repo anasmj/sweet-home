@@ -1,5 +1,5 @@
 class AppUser {
   String? userId;
-
-  AppUser({this.userId});
+  String? userEmail;
+  AppUser({this.userId, this.userEmail});
 }

@@ -3,10 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/home_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/components/occupation_dropdown.dart';
-import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/components/stepper_textfield.dart';
-import '../../../../controllers/validator.dart';
 import '../../shared_components/stepper_textfield.dart';
 
+// ignore: must_be_immutable
 class RenterInfoStep extends StatelessWidget {
   RenterInfoStep({
     Key? key,
@@ -25,7 +24,7 @@ class RenterInfoStep extends StatelessWidget {
     String flatName =
         context.watch<HomeProvider>().flats[provider.selectedFlatNo].flatName;
 
-    nameController.text = provider.renterName;
+    nameController.text = provider.getRenterName;
     provider.firstPageFormKey = firstPageFormKey;
 
     TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(

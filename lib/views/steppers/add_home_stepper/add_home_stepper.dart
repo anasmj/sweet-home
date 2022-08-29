@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_home/views/steppers/add_home_stepper/steps_pages/confirmation_home_page.dart';
 import 'package:sweet_home/views/steppers/add_home_stepper/steps_pages/first_page.dart';
 import 'package:sweet_home/views/steppers/add_home_stepper/steps_pages/second_page.dart';
-import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/confirmation_page.dart';
-import 'package:sweet_home/providers/newrenter_step_provider.dart';
-import 'package:provider/provider.dart';
-
-import '../../../controllers/renter_management.dart';
-import '../../../providers/new_home_step_provider.dart';
 
 class AddHomeStepper extends StatefulWidget {
-  AddHomeStepper({super.key});
+  const AddHomeStepper({super.key});
   @override
   State<AddHomeStepper> createState() => _AddHomeStepperState();
 }
@@ -22,14 +17,13 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
   @override
   Widget build(BuildContext context) {
     //needs to be changed
-    final homeProvier = Provider.of<NewHomeStepProvider>(
-        context); //used to validate state of form
-
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('নতুন বাড়ি যুক্ত'),
+        title: const Text(
+          'নতুন বাড়ি যুক্ত',
+        ),
         centerTitle: true,
         //disable back button when user not in first page
         // automaticallyImplyLeading: _currentStep != 0
@@ -44,9 +38,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                 if (isLastStep) {
                   setState(() {
                     isCompletedd = true;
-                    //logic to make a new renter object and add to lists
-                    RenterManagement.addRenterToFlat(
-                        context: context); //flat no is up to dated in provider
+                    //logic to make a new home
                   });
                 } else {
                   if (true) {
@@ -88,8 +80,8 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                 ),
               ),
             )
-          //user added a new renter into the flat.
-          : const ConfirmationPage(),
+          //confirm user that home is addeed
+          : const ConfirmHomePage(),
     );
   }
 
@@ -97,8 +89,6 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
       {required BuildContext context,
       required ControlsDetails details,
       required bool isLastStep}) {
-    final provider = Provider.of<NewRenterStepProvider>(context);
-
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(

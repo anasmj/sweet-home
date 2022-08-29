@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../models/response.dart';
+import '../../services/auth_service.dart';
+import '../app_widgets.dart';
 import '../styling/app_icons.dart';
 import 'components/custom_textfield.dart';
 
-class LoginPage extends StatefulWidget {
+class SignInPage extends StatefulWidget {
   final Function toggleView;
-  const LoginPage({required this.toggleView, key}) : super(key: key);
+  const SignInPage({required this.toggleView, key}) : super(key: key);
 
   @override
-  _SignInState createState() => _SignInState();
+  SignInPageState createState() => SignInPageState();
 }
 
-class _SignInState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  String _email = '';
-  String _password = '';
+class SignInPageState extends State<SignInPage> {
+  final _signInFormKey = GlobalKey<FormState>();
+  // final String _email = '';
+  // final String _password = '';
 
   bool _isLoading = false;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passController = TextEditingController();
+  final TextEditingController _signInEmailController = TextEditingController();
+  final TextEditingController _signInPassController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +52,7 @@ class _SignInState extends State<LoginPage> {
               padding:
                   const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
               child: Form(
-                key: _formKey,
+                key: _signInFormKey,
                 child: ListView(
                   children: [
                     const SizedBox(
@@ -65,7 +68,7 @@ class _SignInState extends State<LoginPage> {
                     ),
                     CustomTextField(
                       label: 'ইমেইল',
-                      textEditingController: _emailController,
+                      textEditingController: _signInEmailController,
                       validationFunciton: emailValidator,
                       inputType: TextInputType.emailAddress,
                     ),
@@ -73,7 +76,7 @@ class _SignInState extends State<LoginPage> {
                       height: 20,
                     ),
                     CustomTextField(
-                      textEditingController: _passController,
+                      textEditingController: _signInPassController,
                       label: 'পাসওয়ার্ড',
                       validationFunciton: passwordValidator,
                       inputType: TextInputType.visiblePassword,
@@ -90,24 +93,26 @@ class _SignInState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(30),
                         child: ElevatedButton(
                           onPressed: () async {
-                            // if (_formKey.currentState!.validate()) {
-                            //   setState(() {
-                            //     _isLoading = true;
-                            //   });
-                            //   Response response = await AuthService()
-                            //       .registerWithEmailAndPass(_email, _password);
-                            //   if (response.code != 200) {
-                            //     // ignore: use_build_context_synchronously
-                            //     ScaffoldMessenger.of(context).showSnackBar(
-                            //       AppWidget.snackBarContent(
-                            //           msg: response.body ??
-                            //               'Unknown error occured '),
-                            //     );
-                            //   }
-                            // }
-                            // setState(() {
-                            //   _isLoading = false;
-                            // });
+                            if (_signInFormKey.currentState!.validate()) {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              Response response = await AuthService()
+                                  .signInWithEmailAndPass(
+                                      _signInEmailController.text,
+                                      _signInPassController.text);
+                              if (response.code != 200) {
+                                // ignore: use_build_context_synchronously
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  AppWidget.snackBarContent(
+                                      msg: response.body ??
+                                          'Unknown error occured '),
+                                );
+                              }
+                            }
+                            setState(() {
+                              _isLoading = false;
+                            });
                           },
                           child: const Text(
                             'লগ ইন করুন',

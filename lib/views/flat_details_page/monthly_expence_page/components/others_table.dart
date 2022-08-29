@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/models/others_model.dart';
 
+// ignore: must_be_immutable
 class OthersTable extends StatelessWidget {
   OthersTable({this.othersList, super.key});
   List<OthersExpence>? othersList;

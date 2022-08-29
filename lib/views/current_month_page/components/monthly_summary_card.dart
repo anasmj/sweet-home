@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sweet_home/providers/theme_provider.dart';
-
 import '../../styling/app_icons.dart';
-import 'package:sweet_home/views/styling/app_icons.dart';
 
 //*complete
 class MonthlySummaryCard extends StatelessWidget {
@@ -12,8 +8,6 @@ class MonthlySummaryCard extends StatelessWidget {
   final double _appIconWidth = 22;
   @override
   Widget build(BuildContext context) {
-    final currentTheme = context.watch<ThemeProvider>();
-    TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

@@ -4,7 +4,6 @@ import 'package:sweet_home/views/styling/app_icons.dart';
 import '../current_month_page/current_month_details.dart';
 import '../flats_page/flat_list_page.dart';
 import '../pending_page/pending_page.dart';
-import 'components/change_theme_button.dart';
 import 'components/drawer.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,8 +15,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
       drawer: const AppDrawer(),
       body: DefaultTabController(
@@ -36,11 +33,9 @@ class HomePage extends StatelessWidget {
                     'আহসান মঞ্জিল ',
                     overflow: TextOverflow.fade,
                     softWrap: false,
-                    style: TextStyle(fontSize: 20),
+                    // style: TextStyle(fontSize: 20),
                   ),
-                  actions: const [
-                    ChangeThemeButton(),
-                  ],
+
                   centerTitle: true,
                   //TAB BAR
                   bottom: TabBar(

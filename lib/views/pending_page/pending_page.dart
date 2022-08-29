@@ -5,6 +5,7 @@ import 'package:sweet_home/views/app_widgets.dart';
 import 'package:sweet_home/views/styling/app_icons.dart';
 import 'components/remind_button.dart';
 
+// ignore: must_be_immutable
 class PendingPage extends StatelessWidget {
   PendingPage({super.key});
   final double _hozontalPadding = 10;
@@ -15,8 +16,6 @@ class PendingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return isInitialState
         ? Padding(
             padding: const EdgeInsets.all(60),

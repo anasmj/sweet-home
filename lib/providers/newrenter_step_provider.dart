@@ -16,7 +16,7 @@ class NewRenterStepProvider extends ChangeNotifier {
   set setOccupation(String occupation) => _occupation = occupation;
   set setMemberNo(int no) => _noOfMember = no;
 
-  String get renterName => _renterName;
+  String get getRenterName => _renterName;
   String get occupation => _occupation;
   int get memberNo => _noOfMember;
 

@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/providers/new_home_step_provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/views/steppers/shared_components/stepper_textfield.dart';
 

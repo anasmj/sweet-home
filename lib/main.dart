@@ -6,7 +6,6 @@ import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/views/dismiss_keyboard.dart';
-import 'package:sweet_home/views/home_page/home_page.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/providers/home_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -46,7 +45,7 @@ class MyApp extends StatelessWidget {
         ),
         Provider<AuthService>(
           create: (context) => AuthService(),
-        )
+        ),
       ],
       child: const SweetHome(),
     );
@@ -68,12 +67,16 @@ class SweetHome extends StatelessWidget {
           : ThemeMode.light,
 
       theme: ThemeData(
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         primaryColor: Colors.blue.shade100,
         secondaryHeaderColor: Colors.blue[50],
         appBarTheme: AppBarTheme(
           color: Colors.blue.shade400,
           titleTextStyle: TextStyle(
             color: Colors.grey.shade50,
+            fontSize: 18,
           ),
           iconTheme: IconThemeData(
             color: Colors.grey.shade50,
@@ -97,14 +100,16 @@ class SweetHome extends StatelessWidget {
       ),
 
       darkTheme: ThemeData(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+
         colorScheme: const ColorScheme.light(),
         primaryColor: Colors.grey.shade800,
         secondaryHeaderColor: Colors.grey.shade700,
         appBarTheme: AppBarTheme(
           color: Colors.grey.shade800,
-          titleTextStyle: TextStyle(
-            color: Colors.grey.shade500,
-          ),
+          titleTextStyle: TextStyle(color: Colors.grey.shade500, fontSize: 18),
           iconTheme: IconThemeData(
             color: Colors.grey.shade500,
           ),

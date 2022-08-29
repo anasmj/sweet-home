@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/parser.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/controllers/custom_date_time_formatter.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
@@ -10,10 +9,11 @@ import 'components/monthly_summary_card.dart';
 import 'components/summary_container.dart';
 
 // Ongoing month summary
+// ignore: must_be_immutable
 class CurrentMonthPage extends StatelessWidget {
   CurrentMonthPage({super.key});
 
-  bool isInitialState = true;
+  bool isInitialState = false;
 
   @override
   Widget build(BuildContext context) {

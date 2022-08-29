@@ -1,19 +1,18 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:page_transition/page_transition.dart';
+
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/home_provider.dart';
-import 'package:sweet_home/views/flat_details_page/flat_details.dart';
+
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/controllers/custom_date_time_formatter.dart';
 import '../../../controllers/routes.dart';
-import '../../../models/flat_model.dart';
-import '../../../providers/newrenter_step_provider.dart';
+
 import 'package:sweet_home/views/styling/app_icons.dart';
-import '../../steppers/add_renter_stepper/add_renter_stepper.dart';
 
 //ELEMENT OF GRIDVIEW
+// ignore: must_be_immutable
 class FlatContainer extends StatelessWidget {
   FlatContainer({
     required this.flatNo,
@@ -22,7 +21,6 @@ class FlatContainer extends StatelessWidget {
   int flatNo;
   final String _editOption = "তথ্য পরিবর্তন";
   final String _deleteOption = "গ্রাহক মুছুন";
-  final String _newOption = "নতুন গ্রাহক";
   final String _flatDetailOption = "ফ্ল্যাটের বিস্তারিত";
 
   String flatDetailsPageLocation = '/flat_details_page';
@@ -157,10 +155,6 @@ class FlatContainer extends StatelessWidget {
           child: Text(_deleteOption),
         ),
         PopupMenuItem(
-          value: _newOption, //value can be int or any type
-          child: Text(_newOption),
-        ),
-        PopupMenuItem(
           value: _flatDetailOption, //value can be int or any type
           child: Text(_flatDetailOption),
         ),
@@ -171,17 +165,7 @@ class FlatContainer extends StatelessWidget {
             break; //_showModalSheet(),
           case 'গ্রাহক মুছুন':
             break; //_showModalSheet(),
-          case 'নতুন গ্রাহক':
-            //TODO: find out wahat happes here
-            Navigator.push(
-              context,
-              PageTransition(
-                child: AddRenterStepper(),
-                type: PageTransitionType.fade,
-              ),
-            );
 
-            break; //_showModalSheet(),
           case 'ফ্ল্যাটের বিস্তারিত':
             break; //_showModalSheet(),
         }

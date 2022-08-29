@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sweet_home/views/styling/app_icons.dart';
 
 class InputTextField extends StatelessWidget {
-  InputTextField({super.key});
+  const InputTextField({super.key});
 
   @override
   Widget build(BuildContext context) {

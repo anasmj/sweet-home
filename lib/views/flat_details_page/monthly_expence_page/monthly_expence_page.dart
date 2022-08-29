@@ -4,6 +4,7 @@ import '../../../models/renter.dart';
 import 'components/bottom_banner.dart';
 import 'components/monthly_expence_table.dart';
 
+// ignore: must_be_immutable
 class MonthlyExpencePage extends StatelessWidget {
   MonthlyExpencePage({
     required this.renter,

@@ -20,12 +20,10 @@ class RegistrationPage extends StatefulWidget {
 class RegisterScreenState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
   String errorMsg = '';
-  String _email = '';
-  String _password = '';
 
   bool _isLoading = false;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +91,9 @@ class RegisterScreenState extends State<RegistrationPage> {
                                 _isLoading = true;
                               });
                               Response response = await AuthService()
-                                  .registerWithEmailAndPass(_email, _password);
+                                  .registerWithEmailAndPass(
+                                      _emailController.text,
+                                      _passController.text);
                               if (response.code != 200) {
                                 // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -130,7 +130,7 @@ class RegisterScreenState extends State<RegistrationPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text(
-          'একাউন্ট খোলা আছে?  ',
+          'একাউন্ট আছে?',
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w800,

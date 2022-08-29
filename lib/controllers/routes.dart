@@ -25,7 +25,7 @@ class AppRoute {
     Navigator.push(
       context,
       PageTransition(
-        child: AddHomeStepper(),
+        child: const AddHomeStepper(),
         type: PageTransitionType.fade,
       ),
     );
@@ -37,7 +37,7 @@ class AppRoute {
     Navigator.push(
       context,
       PageTransition(
-        child: AddRenterStepper(),
+        child: const AddRenterStepper(),
         type: PageTransitionType.fade,
       ),
     );

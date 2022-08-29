@@ -10,6 +10,7 @@ import 'transaction_entry_page/transaction_entry_page.dart';
 //*PROVIDES TWO TAB BAR 1.MONTHLY EXPENCE, 2.TRANSACTIONS
 
 //called from flat list page
+// ignore: must_be_immutable
 class FlatDetails extends StatelessWidget {
   FlatDetails({required this.renter, super.key});
   final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);

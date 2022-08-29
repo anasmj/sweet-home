@@ -18,7 +18,7 @@ class FirebaseService {
       'noOfFlat': numOfFlat,
     };
 
-    var result = await documentReferencer.set(json).whenComplete(() {
+    await documentReferencer.set(json).whenComplete(() {
       response.code = 200;
       response.body = 'Added Successfully';
     }).catchError((e) {

@@ -9,6 +9,7 @@ import 'package:sweet_home/providers/flat_info_provider.dart';
 import '../../../../models/renter.dart';
 import 'package:sweet_home/views/styling/app_icons.dart';
 
+// ignore: must_be_immutable
 class MonthlyExpenceTable extends StatelessWidget {
   MonthlyExpenceTable({required this.renter, super.key});
   Renter renter;

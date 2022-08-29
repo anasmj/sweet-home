@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import '../../../controllers/renter_management.dart';
 
 class AddRenterStepper extends StatefulWidget {
-  AddRenterStepper({super.key});
+  const AddRenterStepper({super.key});
   @override
   State<AddRenterStepper> createState() => _AddAddRenterStepperState();
 }

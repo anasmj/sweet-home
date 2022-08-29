@@ -5,6 +5,7 @@ import '../../../../models/month_details.dart';
 import '../../../../models/renter.dart';
 import '../../../../models/year.dart';
 
+// ignore: must_be_immutable
 class ElectricityTable extends StatelessWidget {
   ElectricityTable({required this.renter, super.key});
   Renter renter;

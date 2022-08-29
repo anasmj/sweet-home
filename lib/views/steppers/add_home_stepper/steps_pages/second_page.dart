@@ -1,14 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/controllers/user_flat.dart';
-import 'package:sweet_home/providers/new_home_step_provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
-import 'package:sweet_home/views/steppers/add_home_stepper/components/flat_options.dart';
 import 'package:sweet_home/views/steppers/shared_components/stepper_textfield.dart';
-
-import '../components/counter.dart';
 
 class SecondPage extends StatelessWidget {
   SecondPage({super.key});

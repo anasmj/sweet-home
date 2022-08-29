@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../../providers/theme_provider.dart';
 
 //returns summaray in the box
 // ignore: must_be_immutable
@@ -16,7 +13,6 @@ class SummaryContainer extends StatelessWidget {
   int num;
   @override
   Widget build(BuildContext context) {
-    final mode = context.watch<ThemeProvider>();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(

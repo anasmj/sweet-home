@@ -21,7 +21,7 @@ class FirebaseCrud {
       'contact_no': contactNo
     };
 
-    var result = await documentReferencer.set(data).whenComplete(() {
+    await documentReferencer.set(data).whenComplete(() {
       response.code = 200;
       response.body = 'Successfully addad to database';
     }).catchError((e) {

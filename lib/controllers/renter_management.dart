@@ -13,7 +13,7 @@ class RenterManagement {
 
     //making renter object
     final newRenterInfo = context.read<NewRenterStepProvider>();
-    String renterName = newRenterInfo.renterName;
+    String renterName = newRenterInfo.getRenterName;
     DateTime dateOfEntry = DateTime.parse('2022-03-12');
 
     int noOfPerson = newRenterInfo.memberNo;
@@ -27,8 +27,8 @@ class RenterManagement {
       records: [],
       numOfPerson: noOfPerson,
     );
-    if (flatList[flatNo].renter != null) {
-      print(flatList[flatNo].renter!.name);
-    }
+    // if (flatList[flatNo].renter != null) {
+    //   print(flatList[flatNo].renter!.name);
+    // }
   }
 }

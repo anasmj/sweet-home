@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_home/providers/current_user_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/views/app_widgets.dart';
-import 'package:sweet_home/views/steppers/add_home_stepper/add_home_stepper.dart';
-
 import '../../../controllers/routes.dart';
+import 'change_theme_button.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({
@@ -24,7 +24,6 @@ class AppDrawer extends StatelessWidget {
           height: 200,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,14 +38,21 @@ class AppDrawer extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      Text('নাজিম নূর', style: TextStyle(fontSize: 18)),
+                      //show name here
+                      // Text(
+                      //   Profile.email ?? 'Unknown',
+                      //   style: const TextStyle(fontSize: 18),
+                      // ),
                     ],
                   ),
                 ],
               ),
               Row(
                 children: [
-                  const Text('najimnour@gmail.com'),
+                  //show email
+                  Text(
+                    Profile.email ?? 'no email',
+                  ),
                   const Spacer(),
                   optionsButton(context: context),
                 ],
@@ -64,15 +70,36 @@ class AppDrawer extends StatelessWidget {
           leading: const Icon(Icons.settings),
           title: const Text('সেটিংস'),
         ),
+        const ListTile(
+          leading: Icon(Icons.dark_mode),
+          title: Text('ডার্ক মোড'),
+          trailing: ChangeThemeButton(),
+        ),
         ListTile(
           onTap: () => AppRoute.newHomeStepper(context: context),
           leading: const Icon(Icons.home_filled),
           title: const Text('বাড়ী যোগ করুন'),
         ),
         const Spacer(),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: SizedBox(
+            height: 40,
+            width: 100,
+            child: TextButton(
+              onPressed: () {
+                AuthService().signOut();
+              },
+              child: const Text(
+                'লগ আউট',
+                style: TextStyle(fontSize: 14),
+              ),
+            ),
+          ),
+        ),
         const ListTile(
           leading: FlutterLogo(),
-          title: Text('build with flutter 3.3.0 '),
+          title: Text('built with flutter 3.3.0 '),
         ),
       ],
     ));

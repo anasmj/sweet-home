@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../providers/new_home_step_provider.dart';
 
+// ignore: must_be_immutable
 class FlatFloorCounter extends StatelessWidget {
   FlatFloorCounter({
     this.isFlatCounter = false,
@@ -25,9 +26,8 @@ class FlatFloorCounter extends StatelessWidget {
                     ? context.read<NewHomeStepProvider>().decreaseFlat()
                     : context.read<NewHomeStepProvider>().decreaseFloor();
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.remove,
-                color: Colors.black.withOpacity(0.6),
               ),
             ),
             CircleAvatar(
@@ -49,9 +49,8 @@ class FlatFloorCounter extends StatelessWidget {
                     ? context.read<NewHomeStepProvider>().increaseFlat()
                     : context.read<NewHomeStepProvider>().increaseFloor();
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.add,
-                color: Colors.black.withOpacity(0.6),
               ),
             ),
           ],

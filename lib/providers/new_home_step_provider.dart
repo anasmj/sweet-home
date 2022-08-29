@@ -36,7 +36,7 @@ class NewHomeStepProvider extends ChangeNotifier {
   void increaseFlat() {
     if (_noOfFlat < 6) {
       _noOfFlat += 1;
-      ;
+
       notifyListeners();
     }
   }
@@ -58,6 +58,6 @@ class NewHomeStepProvider extends ChangeNotifier {
   String? district;
 
   //THIRD STEP
-  bool _advanceSelected = false;
-  double _advanceAmount = 0.00;
+  // bool _advanceSelected = false;
+  // double _advanceAmount = 0.00;
 }

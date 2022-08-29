@@ -10,12 +10,12 @@ class AuthService {
   //create user object
   AppUser? toAppUserModel(User? user) {
     if (user != null) {
-      return AppUser(userId: user.uid);
+      return AppUser(userId: user.uid, userEmail: user.email);
     }
     return null;
   }
 
-  //stream
+  //stream //*being called from wrapper
   Stream<AppUser?> get appUserStream {
     return _auth.userChanges().map(toAppUserModel);
     // return _auth.userChanges().map((User? user) => toAppUserModel(user));
@@ -44,7 +44,23 @@ class AuthService {
     }
     return response;
   }
+
   //sign in with email and pass
+  Future<Response> signInWithEmailAndPass(String email, String password) async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+
+      User? firebaseUser = userCredential.user;
+      response.code = 200;
+      response.body = 'New user created ';
+      response.user = toAppUserModel(firebaseUser);
+    } catch (e) {
+      response.code = 400;
+      response.body = e.toString();
+    }
+    return response;
+  }
 
   //register with email and pass
   Future<Response> registerWithEmailAndPass(

@@ -7,6 +7,7 @@ import 'package:sweet_home/controllers/transaction_helper.dart';
 import '../../../models/transaction_model.dart';
 import 'package:sweet_home/views/styling/app_icons.dart';
 
+// ignore: must_be_immutable
 class TransactionListPage extends StatelessWidget {
   TransactionListPage({required this.renter, super.key});
 
@@ -37,36 +38,10 @@ class TransactionListPage extends StatelessWidget {
               style: Theme.of(context).textTheme.headline6,
             ),
           );
-
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: const Text('লেনদেনসমূহ'),
-    //     centerTitle: true,
-    //   ),
-    //   body: transactionList.isNotEmpty
-    //       ? ListView.builder(
-    //           itemCount: transactionList.length,
-    //           itemBuilder: (context, index) {
-    //             return Padding(
-    //               padding: const EdgeInsets.symmetric(
-    //                   vertical: 16.0, horizontal: 10),
-    //               child: TransactionCard(
-    //                 transaction: transactionList[index],
-    //               ),
-    //             );
-    //           },
-    //         )
-    //       : Center(
-    //           child: Text(
-    //             'দুঃক্ষিত!\nগ্রাহকের কোনও লেনদেন নেই',
-    //             textAlign: TextAlign.center,
-    //             style: Theme.of(context).textTheme.headline6,
-    //           ),
-    //         ),
-    // );
   }
 }
 
+// ignore: must_be_immutable
 class TransactionCard extends StatelessWidget {
   TransactionCard({
     required this.transaction,

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/components/occupation_dropdown.dart';
-import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/components/stepper_textfield.dart';
 
 import '../../shared_components/stepper_textfield.dart';
 import 'components/location_radio.dart';
 
+// ignore: must_be_immutable
 class AddressStep extends StatelessWidget {
   AddressStep({
     Key? key,
@@ -21,10 +20,6 @@ class AddressStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          color: Colors.black.withOpacity(0.8),
-        );
-    var occupationDropdown = OccupationDropdown();
     return Form(
       child: Column(
         children: [
