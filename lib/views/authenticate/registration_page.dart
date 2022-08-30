@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sweet_home/models/response.dart';
-import 'package:sweet_home/views/app_widgets.dart';
+import 'package:sweet_home/views/shared_widgets.dart';
 
 import '../../services/auth_service.dart';
 import '../styling/app_icons.dart';
@@ -22,6 +22,7 @@ class RegisterScreenState extends State<RegistrationPage> {
   String errorMsg = '';
 
   bool _isLoading = false;
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
 
@@ -51,6 +52,15 @@ class RegisterScreenState extends State<RegistrationPage> {
                       height: 150,
                       width: 150,
                       image: AssetImage(AppIcons.homeLogoUrl),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    CustomTextField(
+                      label: 'নাম',
+                      textEditingController: _nameController,
+                      validationFunciton: nameValidator,
+                      inputType: TextInputType.emailAddress,
                     ),
                     const SizedBox(
                       height: 30,
@@ -90,10 +100,12 @@ class RegisterScreenState extends State<RegistrationPage> {
                               setState(() {
                                 _isLoading = true;
                               });
-                              Response response = await AuthService()
-                                  .registerWithEmailAndPass(
-                                      _emailController.text,
-                                      _passController.text);
+                              Response response =
+                                  await AuthService().registerWithEmailAndPass(
+                                email: _emailController.text,
+                                password: _passController.text,
+                                userName: _nameController.text,
+                              );
                               if (response.code != 200) {
                                 // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -151,6 +163,13 @@ class RegisterScreenState extends State<RegistrationPage> {
 
   String? emailValidator(String? val) {
     return val!.isEmpty ? 'ইমেইল দেওয়া হয়নি' : null;
+  }
+
+  String? nameValidator(String? val) {
+    // TODO: more logc neededed
+
+    return val!.isEmpty ? 'নাম দেওয়া হয়নি' : null;
+    //more logic
   }
 
   String? passwordValidator(String? val) {

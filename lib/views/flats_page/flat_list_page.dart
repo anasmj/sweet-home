@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/views/flats_page/components/flat_container.dart';
-import 'package:sweet_home/views/app_widgets.dart';
+import 'package:sweet_home/views/shared_widgets.dart';
 import 'package:sweet_home/providers/home_provider.dart';
 import '../styling/app_icons.dart';
 import 'components/customize_button.dart';

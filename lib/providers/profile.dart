@@ -2,4 +2,5 @@
 class Profile {
   static String? userId;
   static String? email;
+  static String? userName;
 }

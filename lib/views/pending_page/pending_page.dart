@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sweet_home/views/app_widgets.dart';
+import 'package:sweet_home/views/shared_widgets.dart';
 
 import 'package:sweet_home/views/styling/app_icons.dart';
 import 'components/remind_button.dart';

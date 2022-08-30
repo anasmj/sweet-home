@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/providers/current_user_provider.dart';
+import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/services/auth_service.dart';
-import 'package:sweet_home/views/app_widgets.dart';
+import 'package:sweet_home/views/shared_widgets.dart';
 import '../../../controllers/routes.dart';
 import 'change_theme_button.dart';
 
@@ -30,19 +30,19 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      CircleAvatar(
+                    children: [
+                      const CircleAvatar(
                         radius: 30,
                         child: FlutterLogo(),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       //show name here
-                      // Text(
-                      //   Profile.email ?? 'Unknown',
-                      //   style: const TextStyle(fontSize: 18),
-                      // ),
+                      Text(
+                        Profile.userName ?? 'Name not found',
+                        style: const TextStyle(fontSize: 18),
+                      ),
                     ],
                   ),
                 ],
@@ -81,20 +81,14 @@ class AppDrawer extends StatelessWidget {
           title: const Text('বাড়ী যোগ করুন'),
         ),
         const Spacer(),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: SizedBox(
-            height: 40,
-            width: 100,
-            child: TextButton(
-              onPressed: () {
-                AuthService().signOut();
-              },
-              child: const Text(
-                'লগ আউট',
-                style: TextStyle(fontSize: 14),
-              ),
-            ),
+        ListTile(
+          onTap: () => AuthService().signOut(),
+          leading: const Icon(
+            Icons.logout_outlined,
+          ),
+          title: const Text(
+            'লগ আউট ',
+            style: TextStyle(fontSize: 16),
           ),
         ),
         const ListTile(
@@ -141,8 +135,8 @@ class AppDrawer extends StatelessWidget {
       ],
       onSelected: (value) {
         switch (value) {
-          case 'লগ আউট':
-            AuthService().signOut();
+          case 'অন্যান্য একাউন্ট':
+
             // AppWidget.showToast('কাজ চলছে');
             break; //_showModalSheet()
           case 'নতুন একাউন্ট':

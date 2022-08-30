@@ -3,7 +3,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../models/response.dart';
 import '../../services/auth_service.dart';
-import '../app_widgets.dart';
+import '../shared_widgets.dart';
 import '../styling/app_icons.dart';
 import 'components/custom_textfield.dart';
 

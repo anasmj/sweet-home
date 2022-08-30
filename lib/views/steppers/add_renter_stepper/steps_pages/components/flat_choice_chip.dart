@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/models/flat_model.dart';
 import 'package:sweet_home/providers/home_provider.dart';
 import '../../../../../providers/newrenter_step_provider.dart';
-import '../../../../app_widgets.dart';
+import '../../../../shared_widgets.dart';
 
 // ignore: must_be_immutable
 class FlatChoicieChips extends StatelessWidget {

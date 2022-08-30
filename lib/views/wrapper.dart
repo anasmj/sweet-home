@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/providers/current_user_provider.dart';
+import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/views/authenticate/authenticate.dart';
 import 'package:sweet_home/views/home_page/home_page.dart';
@@ -19,6 +19,7 @@ class Wrapper extends StatelessWidget {
             //set current user info in profile class
             Profile.email = appUser.userEmail;
             Profile.userId = appUser.userId;
+            Profile.userName = appUser.userName;
           }
           return appUser == null ? const Authenticate() : const HomePage();
         } else {
