@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/views/authenticate/registration_page.dart';
-import 'package:sweet_home/views/authenticate/sign_in_page.dart';
+import 'package:sweet_home/views/authenticate/login_page.dart';
 
 class Authenticate extends StatefulWidget {
   const Authenticate({super.key});
@@ -20,6 +20,6 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) => showSignIn
-      ? SignInPage(toggleView: toggleView)
+      ? LoginPage(toggleView: toggleView)
       : RegistrationPage(toggleView: toggleView);
 }

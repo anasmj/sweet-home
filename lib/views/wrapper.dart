@@ -17,6 +17,7 @@ class Wrapper extends StatelessWidget {
           final AppUser? appUser = snapshot.data;
           if (appUser != null) {
             //set current user info in profile class
+
             Profile.email = appUser.userEmail;
             Profile.userId = appUser.userId;
             Profile.userName = appUser.userName;

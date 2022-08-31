@@ -93,18 +93,6 @@ class SecondPage extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const Text(
-          'যেসব ফ্ল্যাটের হিসাব রাখতে চাই',
-          style: TextStyle(fontSize: 18),
-        ),
-        Row(
-          children: const [
-            Spacer(),
-            Text('সবগুলি বাছাই করি'),
-            Checkbox(value: false, onChanged: null),
-          ],
-        ),
-        //TODO: fix this //FlatSelector(),
       ],
     );
   }

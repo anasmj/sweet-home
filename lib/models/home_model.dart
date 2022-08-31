@@ -1,6 +1,36 @@
 // import 'package:rent_home/models/others_model.dart';
 // import 'flat_model.dart';
 
+class Home {
+  String homeId;
+  String homeName;
+  final double rentAmount;
+  final String location;
+  final double? gasBill;
+  final double? waterBill;
+
+  Home({
+    this.homeId = '',
+    required this.homeName,
+    required this.rentAmount,
+    required this.location,
+    this.gasBill,
+    this.waterBill,
+  });
+
+  //returns a map
+  Map<String, dynamic> toJson() => {
+        'Home Id': homeId,
+        'Home Name': homeName,
+        'Location': location,
+        'Rent Amount': rentAmount,
+        'Gas Bill': gasBill ?? 0,
+        'Water Bill': waterBill ?? 0,
+      };
+}
+
+
+
 
 //!HomeProvider is being used instead 
 

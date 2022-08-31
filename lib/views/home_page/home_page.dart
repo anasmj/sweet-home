@@ -1,5 +1,7 @@
 //* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
+import 'package:sweet_home/models/response.dart';
+import 'package:sweet_home/services/home_crud.dart';
 import 'package:sweet_home/views/styling/app_icons.dart';
 import '../current_month_page/current_month_details.dart';
 import '../flats_page/flat_list_page.dart';
@@ -16,7 +18,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(),
+      drawer: AppDrawer(),
       body: DefaultTabController(
         initialIndex: 0,
         length: 3,
@@ -24,6 +26,20 @@ class HomePage extends StatelessWidget {
             headerSliverBuilder: (context, value) {
               return [
                 SliverAppBar(
+                  actions: [
+                    IconButton(
+                      onPressed: () async {
+                        Response res = await HomeCrud().addHome(
+                          homeName: 'sweet home',
+                          location: 'Agrabad',
+                          rentAmount: 34000,
+                          gasBill: 200,
+                        );
+                        print(res.code);
+                      },
+                      icon: const Icon(Icons.add),
+                    )
+                  ],
                   floating: true,
                   pinned: true,
                   //pinned: true,

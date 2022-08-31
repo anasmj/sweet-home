@@ -26,10 +26,10 @@ class ConfirmHomePage extends StatelessWidget {
               repeat: false,
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             Text(
-              'বাড়ি বানানো সম্পন্ন হয়েছে',
+              'বাড়ীটি আপননার একাউন্টে যুক্ত করা হয়েছে',
               style: Theme.of(context).textTheme.headline6,
             ),
             Spacer(),

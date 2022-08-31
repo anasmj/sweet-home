@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/models/response.dart';
 
@@ -7,6 +8,7 @@ import '../models/app_user.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
   Response response = Response();
 
   //create user object
@@ -26,7 +28,7 @@ class AuthService {
     // return _auth.userChanges().map((User? user) => toAppUserModel(user));
   }
 
-  // register with email and pass
+  // register with email and pass and set up firestore
 
   Future<Response> registerWithEmailAndPass({
     required String email,
@@ -37,11 +39,18 @@ class AuthService {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
       User? firebaseUser = userCredential.user;
-      firebaseUser!.updateDisplayName(userName);
-      String? name = await firebaseUser.displayName;
-      response.code = 200;
-      response.body = 'New user created ';
-      response.user = toAppUserModel(firebaseUser);
+
+      //setting up firestore for the new users
+      await _db.collection('users').doc(firebaseUser!.uid).set({
+        'UserName': userName,
+        'Email': email,
+        'Password': password,
+      }).then((value) {
+        firebaseUser.updateDisplayName(userName);
+        response.code = 200;
+        response.body = 'User created successfully';
+        response.user = toAppUserModel(firebaseUser);
+      });
     } catch (e) {
       response.code = 400;
       response.body = e.toString();
@@ -49,6 +58,28 @@ class AuthService {
 
     return response;
   }
+
+  //!keep it as an example
+  // Future<Response> registerWithEmailAndPass({
+  //   required String email,
+  //   required String password,
+  //   required String userName,
+  // }) async {
+  //   try {
+  //     UserCredential userCredential = await _auth
+  //         .createUserWithEmailAndPassword(email: email, password: password);
+  //     User? firebaseUser = userCredential.user;
+  //     firebaseUser!.updateDisplayName(userName);
+  //     response.code = 200;
+  //     response.body = 'New user created ';
+  //     response.user = toAppUserModel(firebaseUser);
+  //   } catch (e) {
+  //     response.code = 400;
+  //     response.body = e.toString();
+  //   }
+
+  //   return response;
+  // }
 
   //sign in ann
 
@@ -90,26 +121,6 @@ class AuthService {
     }
     return response;
   }
-
-  //register with email and pass
-
-  // Future<Response> registerWithEmailAndPass(
-  //     String email, String password) async {
-  //   try {
-  //     UserCredential userCredential = await _auth
-  //         .createUserWithEmailAndPassword(email: email, password: password);
-  //     User? firebaseUser = userCredential.user;
-  //     response.code = 200;
-  //     response.body = 'New user created ';
-  //     response.user = toAppUserModel(firebaseUser);
-  //   } catch (e) {
-  //     response.code = 400;
-  //     response.body = e.toString();
-  //   }
-
-  //   return response;
-
-  // }
 
   //sign out
 

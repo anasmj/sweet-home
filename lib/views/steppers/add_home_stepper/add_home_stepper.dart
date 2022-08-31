@@ -102,7 +102,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              isLastStep ? 'যুক্ত করি' : 'সামনে যাই',
+              isLastStep ? 'যুক্ত করি' : 'পরবর্তী',
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(

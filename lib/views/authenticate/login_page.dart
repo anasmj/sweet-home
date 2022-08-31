@@ -7,15 +7,15 @@ import '../shared_widgets.dart';
 import '../styling/app_icons.dart';
 import 'components/custom_textfield.dart';
 
-class SignInPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   final Function toggleView;
-  const SignInPage({required this.toggleView, key}) : super(key: key);
+  const LoginPage({required this.toggleView, key}) : super(key: key);
 
   @override
   SignInPageState createState() => SignInPageState();
 }
 
-class SignInPageState extends State<SignInPage> {
+class SignInPageState extends State<LoginPage> {
   final _signInFormKey = GlobalKey<FormState>();
   // final String _email = '';
   // final String _password = '';
@@ -124,6 +124,7 @@ class SignInPageState extends State<SignInPage> {
                     const SizedBox(
                       height: 20,
                     ),
+                    const Center(child: Text('কোনও একাউন্ট নেই? ')),
                     SizedBox(
                       height: 50,
                       child: OutlinedButton(
@@ -140,7 +141,7 @@ class SignInPageState extends State<SignInPage> {
                           widget.toggleView();
                         },
                         child: const Text(
-                          'রেজিস্ট্রেশন',
+                          'একাউন্ট খুলুন',
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
