@@ -31,8 +31,10 @@ class HomePage extends StatelessWidget {
                       onPressed: () async {
                         Response res = await HomeCrud().addHome(
                           homeName: 'sweet home',
-                          location: 'Agrabad',
+                          location: 'Uttara',
                           rentAmount: 34000,
+                          numOfFloor: 4,
+                          flatPerFloor: 2,
                           gasBill: 200,
                         );
                         print(res.code);

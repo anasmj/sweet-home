@@ -38,6 +38,8 @@ class HomeCrud {
       required String homeName,
       required double rentAmount,
       required String location,
+      required int numOfFloor,
+      required int flatPerFloor,
       double? gasBill,
       double? waterBill}) async {
     //!make user id requried later
@@ -52,23 +54,24 @@ class HomeCrud {
 
     CollectionReference users = _db.collection('users');
     DocumentReference docReferencer = users.doc(_auth.currentUser!.uid);
-    CollectionReference homeCollectionReferencer =
-        docReferencer.collection('homes');
-    String homeId = docReferencer.collection('homes').doc().id;
+    DocumentReference homeDocRef =
+        docReferencer.collection('homes').doc(); //auto generated doc id
     //adding new home to the collection
 
     //converting data to map
     final data = Home(
-      homeId: homeId, //will assign genereted id while creating the doc
+      homeId: homeDocRef.id, //auto generated doc id
       homeName: homeName,
       rentAmount: rentAmount,
+      floor: numOfFloor,
+      flatPerFloor: flatPerFloor,
       location: location,
       gasBill: gasBill,
       waterBill: waterBill,
     );
     final json = data.toJson();
 
-    await homeCollectionReferencer.add(json).whenComplete(() {
+    await homeDocRef.set(json).whenComplete(() {
       response.code = 200;
       response.body = 'homes collection created';
     }).catchError((e) {

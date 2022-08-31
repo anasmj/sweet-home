@@ -21,18 +21,17 @@ class ConfirmHomePage extends StatelessWidget {
         child: Column(
           children: [
             Lottie.asset(
-              AppIcons.doneLottie,
-              height: 150,
-              repeat: false,
-            ),
-            const SizedBox(
-              height: 30,
+              AppIcons.createHome,
+              height: 350,
+              repeat: true,
             ),
             Text(
               'বাড়ীটি আপননার একাউন্টে যুক্ত করা হয়েছে',
               style: Theme.of(context).textTheme.headline6,
             ),
-            Spacer(),
+            const SizedBox(
+              height: 60,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

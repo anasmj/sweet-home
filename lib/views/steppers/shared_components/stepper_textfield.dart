@@ -5,17 +5,19 @@ class StepperTextField extends StatelessWidget {
   StepperTextField(
       {this.label = '',
       this.isAstrics = false,
-      this.isNumber = false,
+      this.isNumeric = false,
       this.validationFunciton,
+      this.isDisabled = true,
       required this.textEditingController,
       super.key});
 
   String? Function(String?)? validationFunciton;
 
   String label;
-  bool isAstrics, isNumber;
+  bool isAstrics, isNumeric;
   final double _cursorHeight = 22;
   TextEditingController textEditingController;
+  bool isDisabled;
   @override
   Widget build(BuildContext context) {
     TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
@@ -23,10 +25,11 @@ class StepperTextField extends StatelessWidget {
         );
     return isAstrics
         ? TextFormField(
+            enabled: isDisabled,
             controller: textEditingController,
             validator: validationFunciton,
             cursorHeight: _cursorHeight,
-            keyboardType: isNumber ? TextInputType.number : TextInputType.name,
+            keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -40,10 +43,11 @@ class StepperTextField extends StatelessWidget {
             ),
           )
         : TextFormField(
+            enabled: isDisabled,
             controller: textEditingController,
             validator: validationFunciton,
             cursorHeight: _cursorHeight,
-            keyboardType: isNumber ? TextInputType.number : TextInputType.name,
+            keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

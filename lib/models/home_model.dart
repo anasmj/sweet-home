@@ -3,7 +3,9 @@
 
 class Home {
   String homeId;
-  String homeName;
+  final String homeName;
+  final int floor;
+  final int flatPerFloor;
   final double rentAmount;
   final String location;
   final double? gasBill;
@@ -14,6 +16,8 @@ class Home {
     required this.homeName,
     required this.rentAmount,
     required this.location,
+    required this.floor,
+    required this.flatPerFloor,
     this.gasBill,
     this.waterBill,
   });
@@ -23,6 +27,8 @@ class Home {
         'Home Id': homeId,
         'Home Name': homeName,
         'Location': location,
+        'Floor': floor,
+        'Flat Per Floor': flatPerFloor,
         'Rent Amount': rentAmount,
         'Gas Bill': gasBill ?? 0,
         'Water Bill': waterBill ?? 0,

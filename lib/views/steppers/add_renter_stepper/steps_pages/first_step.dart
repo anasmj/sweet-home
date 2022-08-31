@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/home_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/views/steppers/add_renter_stepper/steps_pages/components/occupation_dropdown.dart';
+import '../../../../controllers/form_validators.dart';
 import '../../shared_components/stepper_textfield.dart';
 
 // ignore: must_be_immutable
@@ -35,6 +36,7 @@ class RenterInfoStep extends StatelessWidget {
     return Form(
       //key needs to exposed to its parent which is NewRenterStepper
       key: provider.firstPageFormKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
           flatNameChip(context, flatName),
@@ -46,8 +48,8 @@ class RenterInfoStep extends StatelessWidget {
             isAstrics: true,
             textEditingController: nameController,
 
-            // validationFunciton: Validator
-            //     .checkRenterName, //cant pass the textfield without name
+            validationFunciton: FormValidators
+                .checkHomeName, //cant pass the textfield without name
           ),
           const SizedBox(
             height: 10,
@@ -56,11 +58,11 @@ class RenterInfoStep extends StatelessWidget {
             children: [
               Expanded(
                 child: StepperTextField(
-                  isNumber: true,
+                  isNumeric: true,
                   label: 'ফোন নম্বর',
                   isAstrics: true,
                   textEditingController: phoneController,
-                  // validationFunciton: Validator.checkPhoneNumber,
+                  validationFunciton: FormValidators.checkPhoneNumber,
                 ),
               ),
               const SizedBox(
@@ -68,10 +70,10 @@ class RenterInfoStep extends StatelessWidget {
               ),
               Expanded(
                 child: StepperTextField(
-                  isNumber: true,
+                  isNumeric: true,
                   label: "বিকল্প ফোন নম্বর",
                   textEditingController: alternatePhoneController,
-                  // validationFunciton: Validator.checkPhoneNumber,
+                  validationFunciton: FormValidators.checkPhoneNumber,
                 ),
               ),
             ],

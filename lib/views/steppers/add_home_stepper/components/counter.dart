@@ -36,7 +36,7 @@ class FlatFloorCounter extends StatelessWidget {
                 isFlatCounter
                     ? context.watch<NewHomeStepProvider>().flatLength.toString()
                     : context
-                        .read<NewHomeStepProvider>()
+                        .watch<NewHomeStepProvider>()
                         .floorLength
                         .toString(),
                 style: Theme.of(context).textTheme.headline6,
