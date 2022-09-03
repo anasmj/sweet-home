@@ -22,7 +22,7 @@ class Wrapper extends StatelessWidget {
             Profile.userId = appUser.userId;
             Profile.userName = appUser.userName;
           }
-          return appUser == null ? const Authenticate() : const HomePage();
+          return appUser == null ? const Authenticate() : HomePage();
         } else {
           //trying to fetch data
           return const Scaffold(

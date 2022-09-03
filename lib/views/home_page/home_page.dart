@@ -1,15 +1,17 @@
 //* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
-import 'package:sweet_home/models/response.dart';
-import 'package:sweet_home/services/home_crud.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sweet_home/views/styling/app_icons.dart';
+import 'package:sweet_home/views/test_page.dart';
 import '../current_month_page/current_month_details.dart';
 import '../flats_page/flat_list_page.dart';
 import '../pending_page/pending_page.dart';
+import 'components/appbar_dropdown.dart';
 import 'components/drawer.dart';
+import 'package:sweet_home/views/test_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   final double _appIconHeight = 20;
   final double _appIconWidth = 20;
@@ -26,33 +28,25 @@ class HomePage extends StatelessWidget {
             headerSliverBuilder: (context, value) {
               return [
                 SliverAppBar(
-                  actions: [
-                    IconButton(
-                      onPressed: () async {
-                        Response res = await HomeCrud().addHome(
-                          homeName: 'sweet home',
-                          location: 'Uttara',
-                          rentAmount: 34000,
-                          numOfFloor: 4,
-                          flatPerFloor: 2,
-                          gasBill: 200,
-                        );
-                        print(res.code);
-                      },
-                      icon: const Icon(Icons.add),
-                    )
-                  ],
                   floating: true,
                   pinned: true,
+                  actions: [
+                    IconButton(
+                        onPressed: () {
+                          // Navigator.push(
+                          //   context,
+                          //   PageTransition(
+                          //     child: const TestPage(),
+                          //     type: PageTransitionType.fade,
+                          //   ),
+                          // );
+                        },
+                        icon: Icon(Icons.add))
+                  ],
                   //pinned: true,
 
                   // APP BAR
-                  title: const Text(
-                    'আহসান মঞ্জিল ',
-                    overflow: TextOverflow.fade,
-                    softWrap: false,
-                    // style: TextStyle(fontSize: 20),
-                  ),
+                  title: TitleDropdown(),
 
                   centerTitle: true,
                   //TAB BAR

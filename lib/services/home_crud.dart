@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sweet_home/models/home_summary.dart';
 import 'package:sweet_home/models/response.dart';
 
 import '../models/home_model.dart';
@@ -7,6 +8,7 @@ import '../models/home_model.dart';
 class HomeCrud {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+
   Response response = Response();
 
   //GET CURRENT HOME INFO
@@ -20,6 +22,16 @@ class HomeCrud {
     if (homeSnapshot.exists) {
       // print(homeSnapshot.data());
     }
+  }
+
+  //RETURN LIST OF HOMES OF CURRENT USER
+  Future<List<HomeSummary>> getHOmes() async {
+    CollectionReference homeCollectionRef =
+        _db.collection('users').doc(_auth.currentUser!.uid).collection('homes');
+    QuerySnapshot snapshot = await homeCollectionRef.get();
+    return snapshot.docs.map((home) {
+      return HomeSummary.fromJson(home.data() as Map<String, dynamic>);
+    }).toList();
   }
 
   //prints current username email etc..
