@@ -15,14 +15,15 @@ class Wrapper extends StatelessWidget {
       builder: (context, AsyncSnapshot<AppUser?> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final AppUser? appUser = snapshot.data;
-          if (appUser != null) {
+          if (appUser == null) {
+            return const Authenticate();
+          } else {
             //set current user info in profile class
-
             Profile.email = appUser.userEmail;
             Profile.userId = appUser.userId;
             Profile.userName = appUser.userName;
+            return HomePage();
           }
-          return appUser == null ? const Authenticate() : HomePage();
         } else {
           //trying to fetch data
           return const Scaffold(

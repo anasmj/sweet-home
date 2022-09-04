@@ -1,10 +1,12 @@
 //* THIS IS FOLLOWED BY DESIGNE
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:sweet_home/controllers/routes.dart';
 import 'package:sweet_home/views/styling/app_icons.dart';
 import 'package:sweet_home/views/test_page.dart';
 import '../current_month_page/current_month_details.dart';
 import '../flats_page/flat_list_page.dart';
+import '../home_detail_page/home_detail.dart';
 import '../pending_page/pending_page.dart';
 import 'components/appbar_dropdown.dart';
 import 'components/drawer.dart';
@@ -32,16 +34,11 @@ class HomePage extends StatelessWidget {
                   pinned: true,
                   actions: [
                     IconButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //   PageTransition(
-                          //     child: const TestPage(),
-                          //     type: PageTransitionType.fade,
-                          //   ),
-                          // );
-                        },
-                        icon: Icon(Icons.add))
+                      onPressed: () {
+                        AppRoute.goToHomeDetail(context);
+                      },
+                      icon: const Icon(Icons.home),
+                    )
                   ],
                   //pinned: true,
 

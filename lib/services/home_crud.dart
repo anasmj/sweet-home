@@ -25,24 +25,27 @@ class HomeCrud {
   }
 
   //RETURN LIST OF HOMES OF CURRENT USER
-  Future<List<HomeSummary>> getHOmes() async {
+  Stream<List<HomeSummary>> getHOmes() async* {
     CollectionReference homeCollectionRef =
         _db.collection('users').doc(_auth.currentUser!.uid).collection('homes');
     QuerySnapshot snapshot = await homeCollectionRef.get();
-    return snapshot.docs.map((home) {
+    yield snapshot.docs.map((home) {
       return HomeSummary.fromJson(home.data() as Map<String, dynamic>);
     }).toList();
   }
 
-  //prints current username email etc..
-  // void getCurrentHomeInfo() async {
-  //   DocumentReference currentUserDocRef =
-  //       _db.collection('users').doc(_auth.currentUser!.uid);
-  //   DocumentSnapshot snapshot = await currentUserDocRef.get();
-  //   if (snapshot.exists) {
-  //     print(snapshot.data());
-  //   }
-  // }
+  //GET SINGLE HOME
+  Future<Home?> getHome({required String homeId}) async {
+    DocumentReference currentUserDocRef =
+        _db.collection('users').doc(_auth.currentUser!.uid);
+    CollectionReference userHomeCollection =
+        currentUserDocRef.collection('homes');
+    DocumentSnapshot homeSnapshot = await userHomeCollection.doc(homeId).get();
+    if (homeSnapshot.exists) {
+      return Home.fromJson(homeSnapshot.data() as Map<String, dynamic>);
+    }
+    return null;
+  }
 
   //CREATE NEW HOME
   Future<Response> addHome(

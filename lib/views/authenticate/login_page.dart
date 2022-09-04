@@ -44,7 +44,7 @@ class SignInPageState extends State<LoginPage> {
           ? Center(
               child: Lottie.asset(
                 AppIcons.tranparentLoad,
-                height: 150,
+                height: 80,
                 repeat: true,
               ),
             )

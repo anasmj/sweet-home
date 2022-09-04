@@ -9,15 +9,4 @@ class HomeSummary extends ChangeNotifier {
         homeId: json['Home Id'],
         homeName: json['Home Name'],
       );
-
-  //for dropdown
-
-  String? _currentHomeName;
-  void updateHomeName(String newValue) {
-    _currentHomeName = newValue;
-    notifyListeners();
-  }
-
-  get currentHome => _currentHomeName;
-  set setCurrentHome(String name) => _currentHomeName = name;
 }

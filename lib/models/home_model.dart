@@ -33,6 +33,16 @@ class Home {
         'Gas Bill': gasBill ?? 0,
         'Water Bill': waterBill ?? 0,
       };
+  static fromJson(Map<String, dynamic> data) => Home(
+        homeName: data['Home Name'],
+        homeId: data['Home Id'],
+        rentAmount: data['Rent Amount'],
+        location: data['Location'],
+        flatPerFloor: data['Flat Per Floor'],
+        floor: data['Floor'],
+        gasBill: data['Gas Bill'],
+        waterBill: data['Water Bill'],
+      );
 }
 
 

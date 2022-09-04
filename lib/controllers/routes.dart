@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/flat_model.dart';
 import '../providers/newrenter_step_provider.dart';
 import '../views/flat_details_page/flat_details.dart';
+import '../views/home_detail_page/home_detail.dart';
 import '../views/steppers/add_home_stepper/add_home_stepper.dart';
 import '../views/steppers/add_renter_stepper/add_renter_stepper.dart';
 
@@ -19,6 +20,15 @@ class AppRoute {
           type: PageTransitionType.rightToLeft,
         ),
       );
+
+  //HOME DETAIL PAGE
+  static void goToHomeDetail(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const HomeDetail(),
+      ),
+    );
+  }
 
   //CREATE NEW FLAT
   static void newHomeStepper({required BuildContext context}) {
