@@ -7,14 +7,14 @@ import 'package:sweet_home/views/styling/app_icons.dart';
 import '../../models/home_model.dart';
 import 'components/home_content.dart';
 
-class HomeDetail extends StatefulWidget {
-  const HomeDetail({super.key});
+class UserHomeDetail extends StatefulWidget {
+  const UserHomeDetail({super.key});
 
   @override
-  State<HomeDetail> createState() => _HomeDetailState();
+  State<UserHomeDetail> createState() => _UserHomeDetailState();
 }
 
-class _HomeDetailState extends State<HomeDetail> {
+class _UserHomeDetailState extends State<UserHomeDetail> {
   @override
   Widget build(BuildContext context) {
     DropdownProvider dropdownProvider = context.watch<DropdownProvider>();

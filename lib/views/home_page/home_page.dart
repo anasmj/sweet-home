@@ -6,11 +6,10 @@ import 'package:sweet_home/views/styling/app_icons.dart';
 import 'package:sweet_home/views/test_page.dart';
 import '../current_month_page/current_month_details.dart';
 import '../flats_page/flat_list_page.dart';
-import '../home_detail_page/home_detail.dart';
+import '../user_home_detail_page/user_home_detail.dart';
 import '../pending_page/pending_page.dart';
 import 'components/appbar_dropdown.dart';
 import 'components/drawer.dart';
-import 'package:sweet_home/views/test_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});

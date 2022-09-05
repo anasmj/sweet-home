@@ -28,7 +28,7 @@ class TransactionHelper {
   }
 
   //returns list of transactions made by a user
-  List<Transaction> ListOfAllTransactions() {
+  List<Transaction> listOfAllTransactions() {
     List<Transaction> transactionList = [];
     renter.records.forEach(
       (year) => year.months.forEach(

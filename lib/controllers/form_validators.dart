@@ -1,5 +1,11 @@
 //TAKES STRING AND RETURNS VALIDATIONS
 class FormValidators {
+  static String? checkEmpty(String? value) {
+    if (value!.isEmpty) return 'কোনও তথ্য দেয়া হয়নি';
+
+    return null; // null -> no problem
+  }
+
   static String? checkHomeName(String? value) {
     if (value!.isEmpty) return 'গ্রাহকের নাম দেয়া হয়নি';
 

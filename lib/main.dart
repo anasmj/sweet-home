@@ -102,6 +102,8 @@ class SweetHome extends StatelessWidget {
           ),
         ),
       ),
+
+      //DARK THEME
       darkTheme: ThemeData(
         iconTheme: const IconThemeData(
           color: Colors.white,

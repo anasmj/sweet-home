@@ -16,7 +16,7 @@ class TransactionListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Transaction> transactionList =
-        TransactionHelper(renter: renter).ListOfAllTransactions();
+        TransactionHelper(renter: renter).listOfAllTransactions();
 
     return transactionList.isNotEmpty
         ? ListView.builder(
