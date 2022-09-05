@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/profile.dart';
+import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/views/shared_widgets.dart';
 import '../../../controllers/routes.dart';
+import 'appbar_dropdown.dart';
 import 'change_theme_button.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -17,53 +20,13 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = context.watch<ThemeProvider>().isDarkMode;
     return Drawer(
         width: 300,
         elevation: 3.0,
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.only(left: 20),
-              color: Theme.of(context).primaryColor,
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CircleAvatar(
-                            radius: 30,
-                            child: FlutterLogo(),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          //show name here
-                          Text(
-                            Profile.userName ?? 'Name not found',
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      //show email
-                      Text(
-                        Profile.email ?? 'no email',
-                      ),
-                      const Spacer(),
-                      optionsButton(context: context),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            drawerHeader(context),
             ListTile(
               onTap: () => AppWidget.showToast('প্রোফাইলের কাজ চলছে'),
               leading: const Icon(Icons.account_circle),
@@ -116,6 +79,60 @@ class AppDrawer extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  Container drawerHeader(BuildContext context) {
+    bool isDark = context.watch<ThemeProvider>().isDarkMode;
+    return Container(
+      padding: const EdgeInsets.only(left: 20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: isDark
+              ? [Colors.grey.shade900, Colors.grey.shade900]
+              : [Colors.blue, Colors.blue.shade800],
+        ),
+      ),
+      height: 200,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // ignore: prefer_const_constructors
+          SizedBox(
+            height: 50,
+          ),
+          Align(alignment: Alignment.topLeft, child: TitleDropdown()),
+          const Spacer(),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  //show name here
+                  Text(
+                    Profile.userName ?? 'Name not found',
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              //show email
+              Text(
+                Profile.email ?? 'no email',
+              ),
+              const Spacer(),
+              optionsButton(context: context),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   PopupMenuButton<String> optionsButton({required BuildContext context}) {

@@ -101,10 +101,29 @@ class SweetHome extends StatelessWidget {
             color: Colors.grey.shade900,
           ),
         ),
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: Colors.grey.shade300,
+          prefixIconColor: Colors.grey.shade300,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          hintStyle: TextStyle(
+            color: Colors.grey.shade200,
+          ),
+        ),
       ),
 
       //DARK THEME
       darkTheme: ThemeData(
+        drawerTheme: DrawerThemeData(
+            backgroundColor: Colors.grey.shade600.withOpacity(0.97)),
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
@@ -139,8 +158,18 @@ class SweetHome extends StatelessWidget {
         ),
 
         inputDecorationTheme: InputDecorationTheme(
-          fillColor: Colors.grey.shade600,
+          fillColor: Colors.grey.shade300,
           prefixIconColor: Colors.grey.shade300,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
           hintStyle: TextStyle(
             color: Colors.grey.shade200,
           ),

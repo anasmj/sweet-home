@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/controllers/routes.dart';
 import 'package:sweet_home/providers/dropdown_provider.dart';
-import 'package:sweet_home/providers/home_provider.dart';
-import 'package:sweet_home/views/steppers/add_home_stepper/add_home_stepper.dart';
-
 import '../../../models/home_summary.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../services/home_crud.dart';
@@ -17,9 +14,12 @@ class TitleDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mode = context.watch<ThemeProvider>();
+    final bool isDark = context.watch<ThemeProvider>().isDarkMode;
     final providerWatch = context.watch<DropdownProvider>();
     final providerRead = context.read<DropdownProvider>();
+
+    final Color dropdownColorinDark = Colors.grey.shade700;
+    final Color dropdownColorinLight = Colors.blue.shade200;
 
     return StreamBuilder<List<HomeSummary>?>(
       stream: HomeCrud().getHOmes(),
@@ -42,9 +42,11 @@ class TitleDropdown extends StatelessWidget {
           return DropdownButton(
             value: dropdownValue,
             borderRadius: BorderRadius.circular(10),
-            dropdownColor:
-                mode.isDarkMode ? Colors.grey.shade700 : Colors.blue[200],
-            icon: const Icon(Icons.expand_more),
+            dropdownColor: isDark ? dropdownColorinDark : dropdownColorinLight,
+            icon: Icon(
+              Icons.expand_more,
+              color: isDark ? Colors.white : Colors.grey.shade900,
+            ),
             iconSize: 24,
             elevation: 19,
             style:

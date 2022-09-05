@@ -48,11 +48,11 @@ class HomeContent extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text(home.homeName),
+        title: titleText(),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: ListView(
+        child: Column(
           children: [
             makeListTile(
               context: context,
@@ -157,9 +157,43 @@ class HomeContent extends StatelessWidget {
               subtitle: 'on precess ',
               contrller: otherController,
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            getDeleteButton(),
           ],
         ),
       ),
+    );
+  }
+
+  TextButton getDeleteButton() {
+    return TextButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.red,
+        // minimumSize: const Size(140, 40),
+      ),
+      onPressed: () {},
+      child: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        child: Text(
+          'বাড়ীটি ডিলিট করুন',
+          style: TextStyle(
+            letterSpacing: 0.7,
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Text titleText() {
+    return Text(
+      home.homeName,
+      style: const TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.5),
+      overflow: TextOverflow.fade,
+      softWrap: true,
     );
   }
 

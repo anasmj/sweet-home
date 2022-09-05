@@ -25,38 +25,30 @@ class StepperTextField extends StatelessWidget {
         );
     return isAstrics
         ? TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             enabled: isDisabled,
             controller: textEditingController,
             validator: validationFunciton,
             cursorHeight: _cursorHeight,
             keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
             decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               label: getLabelWithAstrics(
                 label: label,
                 textStyle: formTextStyle,
               ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
             ),
           )
         : TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             enabled: isDisabled,
             controller: textEditingController,
             validator: validationFunciton,
             cursorHeight: _cursorHeight,
             keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
             decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               label: Text(
                 label,
-                style: formTextStyle,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                // style: formTextStyle,
               ),
             ),
           );

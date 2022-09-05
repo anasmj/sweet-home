@@ -31,14 +31,9 @@ class EditTextField extends StatelessWidget {
       cursorHeight: _cursorHeight,
       keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
       decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         label: Text(
           label,
           style: formTextStyle,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
         ),
         suffixIcon: const Icon(Icons.edit),
       ),

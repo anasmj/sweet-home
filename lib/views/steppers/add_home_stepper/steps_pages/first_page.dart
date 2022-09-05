@@ -19,7 +19,6 @@ class FristPage extends StatelessWidget {
     provider.firstPageFormKey = _firstPageFormKey;
     return Form(
       key: provider.firstPageFormKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
