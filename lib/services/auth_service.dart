@@ -59,7 +59,7 @@ class AuthService {
     return response;
   }
 
-  //!keep it as an example
+  //! example
   // Future<Response> registerWithEmailAndPass({
   //   required String email,
   //   required String password,
@@ -123,7 +123,6 @@ class AuthService {
   }
 
   //sign out
-
   Future signOut() async {
     try {
       await _auth.signOut();

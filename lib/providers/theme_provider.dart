@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../controllers/shared_pref.dart';
+import '../utils/shared_pref.dart';
 
 class ThemeProvider extends ChangeNotifier {
   //takig from user preference

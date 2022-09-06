@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/controllers/shared_pref.dart';
+import 'package:sweet_home/utils/shared_pref.dart';
 import 'package:sweet_home/models/home_summary.dart';
 import 'package:sweet_home/providers/dropdown_provider.dart';
 import 'package:sweet_home/providers/new_home_step_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
-import 'package:sweet_home/views/dismiss_keyboard.dart';
+import 'package:sweet_home/view/dismiss_keyboard.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/providers/home_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sweet_home/views/wrapper.dart';
+import 'package:sweet_home/view/resources/app_theme.dart';
+import 'package:sweet_home/view/wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,112 +71,10 @@ class SweetHome extends StatelessWidget {
       themeMode: context.watch<ThemeProvider>().isDarkMode
           ? ThemeMode.dark
           : ThemeMode.light,
-      theme: ThemeData(
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
-        primaryColor: Colors.blue.shade100,
-        secondaryHeaderColor: Colors.blue[50],
-        appBarTheme: AppBarTheme(
-          color: Colors.blue.shade400,
-          titleTextStyle: TextStyle(
-            color: Colors.grey.shade50,
-            fontSize: 18,
-          ),
-          iconTheme: IconThemeData(
-            color: Colors.grey.shade50,
-          ),
-        ),
-        textTheme: TextTheme(
-          bodyText2: TextStyle(
-            color: Colors.grey.shade900,
-            // color: Colors.grey.shade900,
-          ),
-          subtitle1: TextStyle(
-            color: Colors.grey.shade900,
-          ),
-          headline5: TextStyle(
-            color: Colors.grey.shade900,
-          ),
-          headline6: TextStyle(
-            color: Colors.grey.shade900,
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          fillColor: Colors.grey.shade300,
-          prefixIconColor: Colors.grey.shade300,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          hintStyle: TextStyle(
-            color: Colors.grey.shade200,
-          ),
-        ),
-      ),
-
-      //DARK THEME
-      darkTheme: ThemeData(
-        drawerTheme: DrawerThemeData(
-            backgroundColor: Colors.grey.shade600.withOpacity(0.97)),
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-
-        colorScheme: const ColorScheme.light(),
-        primaryColor: Colors.grey.shade800,
-        secondaryHeaderColor: Colors.grey.shade700,
-        appBarTheme: AppBarTheme(
-          color: Colors.grey.shade800,
-          titleTextStyle: TextStyle(color: Colors.grey.shade500, fontSize: 18),
-          iconTheme: IconThemeData(
-            color: Colors.grey.shade500,
-          ),
-        ),
-        scaffoldBackgroundColor: Colors.grey.shade900,
-
-        //text Theme
-        textTheme: TextTheme(
-          bodyText2: TextStyle(
-            color: Colors.grey.shade300,
-            // color: Colors.grey.shade900,
-          ),
-          subtitle1: TextStyle(
-            color: Colors.grey.shade300,
-          ),
-          headline5: TextStyle(
-            color: Colors.grey.shade300,
-          ),
-          headline6: TextStyle(
-            color: Colors.grey.shade300,
-          ),
-        ),
-
-        inputDecorationTheme: InputDecorationTheme(
-          fillColor: Colors.grey.shade300,
-          prefixIconColor: Colors.grey.shade300,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          hintStyle: TextStyle(
-            color: Colors.grey.shade200,
-          ),
-        ),
-      ),
+      theme: AppTheme.appLightTheme(),
+      darkTheme: AppTheme.appDarkTheme(),
       home: const DismissKeyboard(
+        //User Authentication
         child: Wrapper(),
       ),
     );
