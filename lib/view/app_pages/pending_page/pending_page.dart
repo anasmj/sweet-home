@@ -16,99 +16,96 @@ class PendingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: isInitialState
-          ? Padding(
-              padding: const EdgeInsets.all(60),
-              child: SvgPicture.asset(
-                AppIcons.noListUrl,
-              ),
-            )
-          : Column(
-              children: [
-                //UPPER SCREEN
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      'গ্রাহকদের কাছ থেকে আপনার মোট বকেয়া',
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(fontWeight: FontWeight.w600),
-                    ),
-                    getPendingText(context),
-
-                    //BUTTON
-                    const SizedBox(
-                      height: 40,
-                      width: 180,
-                      child: RemindButton(),
-                    ),
-                    const SizedBox(),
-                    Row(
-                      children: [
-                        Text(
-                          'গ্রাহক সংখ্যা 5',
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          //SEARCH BOX
-                          child: AppWidget.appSearchBar(context: context),
-                        ),
-                        downloadIcon()
-                      ],
-                    ),
-                  ]
-                      .map((e) => Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: _upperContainerVerticalPadding,
-                                horizontal: _hozontalPadding),
-                            child: e,
-                          ))
-                      .toList(),
-                ),
-
-                //LOWER SCREEN containes list of user who has dues
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: 20,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: _lowerContainerVerticalPadding,
-                            horizontal: _hozontalPadding),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                          elevation: 3,
-                          color: Colors.blue[50],
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              getListTile(context),
-                              Padding(
-                                //! 10 pixels for displaying pending amound in card
-                                padding: const EdgeInsets.only(right: 10.0),
-                                child: getDueAmountText(context),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              ],
+    return isInitialState
+        ? Padding(
+            padding: const EdgeInsets.all(60),
+            child: SvgPicture.asset(
+              AppIcons.noListUrl,
             ),
-    );
+          )
+        : Column(
+            children: [
+              //UPPER SCREEN
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    'গ্রাহকদের কাছ থেকে আপনার মোট বকেয়া',
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(fontWeight: FontWeight.w600),
+                  ),
+                  getPendingText(context),
+
+                  //BUTTON
+                  const SizedBox(
+                    height: 40,
+                    width: 180,
+                    child: RemindButton(),
+                  ),
+                  const SizedBox(),
+                  Row(
+                    children: [
+                      Text(
+                        'গ্রাহক সংখ্যা 5',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        //SEARCH BOX
+                        child: AppWidget.appSearchBar(context: context),
+                      ),
+                      downloadIcon()
+                    ],
+                  ),
+                ]
+                    .map((e) => Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: _upperContainerVerticalPadding,
+                              horizontal: _hozontalPadding),
+                          child: e,
+                        ))
+                    .toList(),
+              ),
+
+              //LOWER SCREEN containes list of user who has dues
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 20,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: _lowerContainerVerticalPadding,
+                          horizontal: _hozontalPadding),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        elevation: 3,
+                        color: Colors.blue[50],
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            getListTile(context),
+                            Padding(
+                              //! 10 pixels for displaying pending amound in card
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: getDueAmountText(context),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
+          );
   }
 
   Row getDueAmountText(BuildContext context) {

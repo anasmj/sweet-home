@@ -26,7 +26,7 @@ class CustomSliverAppbarDelegate extends SliverPersistentHeaderDelegate {
         children: [
           Container(
             height: expandedHeight,
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).appBarTheme.backgroundColor,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 90),

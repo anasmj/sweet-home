@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
                   actions: [
                     IconButton(
                       onPressed: () {
-                        AppRoute.goToHomeDetail(context);
+                        AppRoute.getCurrentHomeInfo(context);
                       },
                       icon: const Icon(Icons.home),
                     )

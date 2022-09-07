@@ -6,7 +6,7 @@ import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/view/app_widgets.dart';
 import '../../../../utils/routes.dart';
-import 'appbar_dropdown.dart';
+import 'home_dropdown.dart';
 import 'change_theme_button.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -100,7 +100,7 @@ class AppDrawer extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
-          Align(alignment: Alignment.topLeft, child: TitleDropdown()),
+          Align(alignment: Alignment.topLeft, child: HomeDropdown()),
           const Spacer(),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,

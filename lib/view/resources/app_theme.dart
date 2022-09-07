@@ -60,7 +60,6 @@ class AppTheme {
       iconTheme: const IconThemeData(
         color: Colors.white,
       ),
-
       colorScheme: const ColorScheme.light(),
       primaryColor: Colors.grey.shade800,
       secondaryHeaderColor: Colors.grey.shade700,
@@ -98,6 +97,10 @@ class AppTheme {
         border: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.white),
           borderRadius: BorderRadius.circular(10),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.white),

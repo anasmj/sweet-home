@@ -1,9 +1,16 @@
 //* THIS IS FOLLOWED BY DESIGNE
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/models/month_details.dart';
 import 'package:sweet_home/view/app_pages/pending_page/pending_page.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
+import '../../../providers/home_provider.dart';
+import '../../app_widgets.dart';
 import '../current_month_page/current_month_details.dart';
+import '../flats_page/components/customize_button.dart';
+import '../flats_page/components/flat_container.dart';
 import '../flats_page/flat_list_page.dart';
 import 'components/custom_appbar.dart';
 import 'components/drawer.dart';
@@ -21,62 +28,54 @@ class _HomePageV2State extends State<HomePageV2> {
   final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);
   int _currentTabIndex = 0;
   final double _appBarHeight = 280;
+  bool isInitialState = false;
+  int _currentMonthPageIndex = 0;
+  int _flatListPageIndex = 1;
+  int _pendingPageIndex = 2;
 
   @override
   Widget build(BuildContext context) {
+    final home = Provider.of<HomeProvider>(context);
     return Scaffold(
       drawer: AppDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentTabIndex,
         onTap: (newIndex) {
-          switch (newIndex) {
-            case 0:
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomePageV2(),
-                ),
-              );
-              break;
-            case 1:
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FlatListPage(),
-                ),
-              );
-              break;
-            case 2:
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PendingPage(),
-                ),
-              );
-              break;
-          }
           setState(() => _currentTabIndex = newIndex);
         },
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month), label: 'Current Month'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Flats'),
-          BottomNavigationBarItem(icon: Icon(Icons.pending), label: 'pendings'),
+              icon: Icon(Icons.calendar_month), label: 'চলতি মাস '),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ফ্ল্যাটগুলি'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.pending), label: 'বকেয়া সমূহ'),
         ],
       ),
-      body: CustomScrollView(
+      body: getUserSelectedPage(_currentTabIndex),
+    );
+  }
+
+  Widget getUserSelectedPage(int selectedIndex) {
+    if (selectedIndex == 0) {
+      return CustomScrollView(
         controller: ScrollController(),
         slivers: [
           SliverPersistentHeader(
+            //APP BAR
             delegate: CustomSliverAppbarDelegate(expandedHeight: _appBarHeight),
             pinned: false,
           ),
           SliverToBoxAdapter(
             child: CurrentMonthPage(),
           ),
+          // child: CurrentMonthPage(),
         ],
-      ),
-    );
+      );
+    }
+    if (selectedIndex == _currentMonthPageIndex) return FlatListPage();
+    if (selectedIndex == _flatListPageIndex) return FlatListPage();
+    if (selectedIndex == _pendingPageIndex) return PendingPage();
+    return const SizedBox();
   }
 
   Widget getTakaIcon(String iconUrl) => SizedBox(

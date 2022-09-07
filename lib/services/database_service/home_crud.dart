@@ -10,20 +10,6 @@ class HomeCrud {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Response response = Response();
-
-  //GET CURRENT HOME INFO
-  void getCurrentHomeInfo() async {
-    DocumentReference currentUserDocRef =
-        _db.collection('users').doc(_auth.currentUser!.uid);
-    CollectionReference userHomeCollection =
-        currentUserDocRef.collection('homes');
-    DocumentSnapshot homeSnapshot =
-        await userHomeCollection.doc('xzxtIiLkYnCPtxDMLi2G').get();
-    if (homeSnapshot.exists) {
-      // print(homeSnapshot.data());
-    }
-  }
-
   //RETURN LIST OF HOMES OF CURRENT USER
   Stream<List<HomeSummary>> getHOmes() async* {
     CollectionReference homeCollectionRef =
@@ -35,7 +21,7 @@ class HomeCrud {
   }
 
   //GET SINGLE HOME
-  Future<Home?> getHome({required String homeId}) async {
+  Future<Home?> getHomeById({required String homeId}) async {
     DocumentReference currentUserDocRef =
         _db.collection('users').doc(_auth.currentUser!.uid);
     CollectionReference userHomeCollection =
