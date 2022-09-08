@@ -17,7 +17,7 @@ class AddRenterStepper extends StatefulWidget {
 class _AddAddRenterStepperState extends State<AddRenterStepper> {
   int _currentStep = 0;
   bool isCompletedd = false;
-  bool isValidInfo = false;
+  // bool isValidInfo = false;
   @override
   Widget build(BuildContext context) {
     final renterInfoProvider = Provider.of<NewRenterStepProvider>(
@@ -77,9 +77,10 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
                       ),
                     Expanded(
                       child: forwardNavigationButton(
-                          context: context,
-                          details: details,
-                          isLastStep: isLastStep),
+                        context: context,
+                        details: details,
+                        isLastStep: isLastStep,
+                      ),
                     ),
                   ],
                 ),

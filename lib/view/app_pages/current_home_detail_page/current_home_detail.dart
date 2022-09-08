@@ -4,7 +4,7 @@ import 'package:sweet_home/providers/dropdown_provider.dart';
 
 import '../../../models/home_model.dart';
 import '../../../services/database_service/home_crud.dart';
-import 'components/home_content.dart';
+import 'components/home_detail_content.dart';
 
 class CurrentHomeDetail extends StatefulWidget {
   const CurrentHomeDetail({super.key});
@@ -17,6 +17,7 @@ class _UserHomeDetailState extends State<CurrentHomeDetail> {
   @override
   Widget build(BuildContext context) {
     DropdownProvider dropdownProvider = context.watch<DropdownProvider>();
+
     return Scaffold(
       body: FutureBuilder<Home?>(
         future: HomeCrud().getHomeById(homeId: dropdownProvider.currentHomeId),

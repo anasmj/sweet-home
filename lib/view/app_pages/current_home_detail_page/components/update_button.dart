@@ -7,6 +7,7 @@ class UpdateButton extends StatelessWidget {
   UpdateButton({Key? key, required this.editFormKey, required this.fieldName})
       : super(key: key);
 
+  String buttonText = 'সেভ';
   String fieldName;
   final GlobalKey<FormState> editFormKey;
 
@@ -26,10 +27,10 @@ class UpdateButton extends StatelessWidget {
           AppWidget.showToast('আপডেট করা সম্ভব হয়নি');
         }
       },
-      child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
-        child: Text('তথ্য পরিবর্তন',
-            style: TextStyle(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Text(buttonText,
+            style: const TextStyle(
               fontSize: 18,
             )),
       ),

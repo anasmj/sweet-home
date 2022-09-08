@@ -16,7 +16,7 @@ class HomeDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = context.watch<ThemeProvider>().isDarkMode;
     final providerWatch = context.watch<DropdownProvider>();
-    final providerRead = context.read<DropdownProvider>();
+    DropdownProvider providerRead = context.read<DropdownProvider>();
 
     final Color dropdownColorinDark = Colors.grey.shade700;
     final Color dropdownColorinLight = Colors.blue.shade200;
@@ -27,70 +27,84 @@ class HomeDropdown extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         }
-        if (snapshot.hasData) {
-          final homes = snapshot.data;
-          if (homes!.isEmpty) {
-            return showAddHomeWidget(context);
-          }
-          if (providerRead.currentHomeName == null) {
-            providerWatch.setCurrentHomeName = homes[0].homeName!;
-            providerRead.setCurrentHomeId = homes[0].homeId!;
-          }
-
-          dropdownValue = providerWatch.currentHomeName;
-
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              DropdownButton(
-                value: dropdownValue,
-                borderRadius: BorderRadius.circular(10),
-                dropdownColor:
-                    isDark ? dropdownColorinDark : dropdownColorinLight,
-                icon: Icon(
-                  Icons.expand_more,
-                  color: isDark ? Colors.white : Colors.grey.shade900,
-                ),
-                iconSize: 24,
-                elevation: 19,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(fontSize: 16),
-                onChanged: (String? value) {
-                  providerRead.updateHomeName(value!);
-                  homes.forEach((home) {
-                    if (home.homeName == providerWatch.currentHomeName) {
-                      //update provider with new home
-                      if (home.homeId != null) {
-                        providerRead.setCurrentHomeId = home.homeId!;
-                      }
-                    }
-                  });
-                },
-                items: homes.map<DropdownMenuItem<String>>((HomeSummary home) {
-                  return DropdownMenuItem<String>(
-                    value: home.homeName,
-                    child: Text(home.homeName ?? ''),
-                  );
-                }).toList(),
-              ),
-              IconButton(
-                onPressed: () {
-                  AppRoute.getCurrentHomeInfo(context);
-                },
-                icon: const Icon(Icons.home),
-                iconSize: 25,
-                color: context.watch<ThemeProvider>().isDarkMode
-                    ? Colors.white
-                    : Colors.black.withOpacity(0.5),
-              ),
-            ],
-          );
+        if (!snapshot.hasData) {}
+        final homes = snapshot.data;
+        if (homes!.isEmpty) return showAddHomeWidget(context);
+        if (providerWatch.currentHomeName == null) {
+          providerRead.setCurrentHomeName = homes.first.homeName!;
+          // providerRead.setCurrentHomeId = homes.first.homeId!;
+          providerRead.updateHomeId(homes.first.homeId!);
         }
-        return const SizedBox();
+
+        dropdownValue = providerWatch.currentHomeName;
+        return getDropdown(
+          isDark,
+          dropdownColorinDark,
+          dropdownColorinLight,
+          context,
+          providerRead,
+          homes,
+        );
       },
     );
+  }
+
+  Widget getDropdown(
+    bool isDark,
+    Color dropdownColorinDark,
+    Color dropdownColorinLight,
+    BuildContext context,
+    DropdownProvider providerRead,
+    List<HomeSummary> homes,
+  ) {
+    return Builder(builder: (context) {
+      final providerWatch = context.watch<DropdownProvider>();
+      DropdownProvider providerRead = context.read<DropdownProvider>();
+
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          DropdownButton(
+            value: dropdownValue,
+            borderRadius: BorderRadius.circular(10),
+            dropdownColor: isDark ? dropdownColorinDark : dropdownColorinLight,
+            icon: Icon(
+              Icons.expand_more,
+              color: isDark ? Colors.white : Colors.grey.shade900,
+            ),
+            iconSize: 24,
+            elevation: 19,
+            style:
+                Theme.of(context).textTheme.headline6!.copyWith(fontSize: 16),
+            onChanged: (String? value) {
+              providerRead.updateHomeName(value!);
+              homes.forEach((home) {
+                if (home.homeName == providerWatch.currentHomeName) {
+                  //UPDATE SELECTED HOME
+                  providerRead.updateHomeId(home.homeId!);
+                }
+              });
+            },
+            items: homes.map<DropdownMenuItem<String>>((HomeSummary home) {
+              return DropdownMenuItem<String>(
+                value: home.homeName,
+                child: Text(home.homeName ?? ''),
+              );
+            }).toList(),
+          ),
+          IconButton(
+            onPressed: () {
+              AppRoute.getCurrentHomeInfo(context);
+            },
+            icon: const Icon(Icons.home),
+            iconSize: 25,
+            color: context.watch<ThemeProvider>().isDarkMode
+                ? Colors.white
+                : Colors.black.withOpacity(0.5),
+          ),
+        ],
+      );
+    });
   }
 
   InkWell showAddHomeWidget(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/dropdown_provider.dart';
 import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
@@ -61,7 +62,11 @@ class AppDrawer extends StatelessWidget {
             ),
             const Spacer(),
             ListTile(
-              onTap: () => AuthService().signOut(),
+              onTap: () {
+                AuthService().signOut();
+                context.read<DropdownProvider>().clearDropdownValues();
+              },
+              // onTap: () => AuthService().signOut(),
               leading: const Icon(
                 Icons.logout_outlined,
               ),

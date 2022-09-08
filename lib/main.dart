@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/utils/shared_pref.dart';
-import 'package:sweet_home/models/home_summary.dart';
 import 'package:sweet_home/providers/dropdown_provider.dart';
 import 'package:sweet_home/providers/new_home_step_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';

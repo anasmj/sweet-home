@@ -10,10 +10,18 @@ class HomeCrud {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Response response = Response();
-  //RETURN LIST OF HOMES OF CURRENT USER
+  CollectionReference getHomesCollectionRef() {
+    return _db
+        .collection('users')
+        .doc(_auth.currentUser!.uid)
+        .collection('homes');
+  }
+
+  void updateCurrentHomeField() {}
+
+  //RETURN CURRENT USERS HOMES
   Stream<List<HomeSummary>> getHOmes() async* {
-    CollectionReference homeCollectionRef =
-        _db.collection('users').doc(_auth.currentUser!.uid).collection('homes');
+    CollectionReference homeCollectionRef = getHomesCollectionRef();
     QuerySnapshot snapshot = await homeCollectionRef.get();
     yield snapshot.docs.map((home) {
       return HomeSummary.fromJson(home.data() as Map<String, dynamic>);
@@ -79,21 +87,6 @@ class HomeCrud {
       response.code = 500;
       response.body = e.toString();
     });
-
-    //method chaining
-    // _db
-    //     .collection('users')
-    //     .doc(_auth.currentUser!.uid)
-    //     .collection('homes')
-    //     .add({
-    //   'HomeNmae': 'First Home',
-    //   'Rent Amount': 25600,
-    //   'Address': 'Dhanmondi',
-    //   'Gas Bill': 800,
-    //   'Water Bill': 500,
-    //   'Electricity': 1200,
-    // });
-
     return response;
   }
 }

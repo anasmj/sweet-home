@@ -162,7 +162,7 @@ class HomeDetailContent extends StatelessWidget {
                 validationFunciton: (String? value) {
                   return Utils.compareValues(
                     value: value!,
-                    compareWith: home.gasBill.toString(),
+                    compareWith: home.waterBill.toString(),
                     isRequired: false,
                   );
                 },
@@ -300,28 +300,6 @@ class HomeDetailContent extends StatelessWidget {
       ),
     );
   }
-
-  Widget updateElevatedButton() => ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          shape: const StadiumBorder(),
-        ),
-        onPressed: () {
-          if (editFormKey.currentState!.validate()) {
-            //update in db
-            print(editFormKey.currentState!.validate());
-            // updateField(home.homeId);
-          } else {
-            AppWidget.showToast('আপডেট করা সম্ভব হয়নি');
-          }
-        },
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Text('তথ্য পরিবর্তনa',
-              style: TextStyle(
-                fontSize: 18,
-              )),
-        ),
-      );
 
   Container divider(bool isDarkMode) {
     return Container(

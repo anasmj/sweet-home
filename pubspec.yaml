@@ -33,6 +33,7 @@ dependencies:
   firebase_auth: ^3.7.0
   flutter:
     sdk: flutter
+  
   flutter_svg: ^1.1.2
   fluttertoast: ^8.0.9
   intl: ^0.17.0
@@ -42,10 +43,29 @@ dependencies:
   provider: ^6.0.3
   shared_preferences: ^2.0.15
 
+
 dev_dependencies:
+  flutter_native_splash: ^2.2.9
+    
+  flutter_launcher_icons: ^0.10.0
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: '#8fd1f7' #sky blue color
+  # image: 'assets\icons\foreground_icon.png'
+  # flutter pub run flutter_native_splash:create
+  # run this command after adding a png image for splash screen
+  
+
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: 'assets\icons\launcher_icon.jpeg'
+  adaptive_icon_background: '#ff8fd1f7'
+  adaptive_icon_foreground: 'assets\icons\foreground_icon.png'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
