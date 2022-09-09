@@ -17,10 +17,20 @@ class HomeCrud {
         .collection('homes');
   }
 
-  void updateCurrentHomeField() {}
+  //DELETE HOME
+  Response deleteHome(String homeId) {
+    getHomesCollectionRef().doc(homeId).delete().whenComplete(() {
+      response.code = 200;
+      response.body = 'home deleted';
+    }).catchError((e) {
+      response.code = 400;
+      response.body = e.toString();
+    });
+    return response;
+  }
 
   //RETURN CURRENT USERS HOMES
-  Stream<List<HomeSummary>> getHOmes() async* {
+  Stream<List<HomeSummary>> getHomes() async* {
     CollectionReference homeCollectionRef = getHomesCollectionRef();
     QuerySnapshot snapshot = await homeCollectionRef.get();
     yield snapshot.docs.map((home) {

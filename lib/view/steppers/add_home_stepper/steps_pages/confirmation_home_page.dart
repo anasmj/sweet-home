@@ -39,6 +39,7 @@ class ConfirmHomePage extends StatelessWidget {
               )),
               onPressed: () {
                 Navigator.pop(context);
+                //todo: set State of the app
               },
               child: Padding(
                 padding:

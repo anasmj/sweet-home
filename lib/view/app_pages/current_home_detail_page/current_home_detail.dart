@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/providers/dropdown_provider.dart';
+import 'package:sweet_home/providers/current_home.dart';
 
 import '../../../models/home_model.dart';
 import '../../../services/database_service/home_crud.dart';
 import 'components/home_detail_content.dart';
 
 class CurrentHomeDetail extends StatefulWidget {
-  const CurrentHomeDetail({super.key});
-
+  CurrentHomeDetail({super.key});
   @override
   State<CurrentHomeDetail> createState() => _UserHomeDetailState();
 }
@@ -16,7 +15,7 @@ class CurrentHomeDetail extends StatefulWidget {
 class _UserHomeDetailState extends State<CurrentHomeDetail> {
   @override
   Widget build(BuildContext context) {
-    DropdownProvider dropdownProvider = context.watch<DropdownProvider>();
+    CurrentHomeProvider dropdownProvider = context.watch<CurrentHomeProvider>();
 
     return Scaffold(
       body: FutureBuilder<Home?>(

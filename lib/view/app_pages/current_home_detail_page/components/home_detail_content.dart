@@ -18,7 +18,6 @@ class HomeDetailContent extends StatelessWidget {
     Key? key,
     required this.home,
   }) : super(key: key);
-
   final Home home;
 
   TextEditingController nameController = TextEditingController();

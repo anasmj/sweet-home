@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/providers/dropdown_provider.dart';
+import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
@@ -28,6 +28,14 @@ class AppDrawer extends StatelessWidget {
         child: Column(
           children: [
             drawerHeader(context),
+            ListTile(
+              onTap: () => AppRoute.toCurrentHomeDetail(context),
+              leading: const Icon(Icons.home),
+              title: Text(
+                'বাড়ী',
+                style: drawerTextStyle,
+              ),
+            ),
             ListTile(
               onTap: () => AppWidget.showToast('প্রোফাইলের কাজ চলছে'),
               leading: const Icon(Icons.account_circle),
@@ -64,7 +72,7 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               onTap: () {
                 AuthService().signOut();
-                context.read<DropdownProvider>().clearDropdownValues();
+                context.read<CurrentHomeProvider>().updateHomeId(null);
               },
               // onTap: () => AuthService().signOut(),
               leading: const Icon(
@@ -105,6 +113,12 @@ class AppDrawer extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
+          // Align(
+          //   alignment: Alignment.topCenter,
+          //   child: Text(
+          //     context.watch<CurrentHomeProvider>().currentHomeName,
+          //   ),
+          // ),
           Align(alignment: Alignment.topLeft, child: HomeDropdown()),
           const Spacer(),
           Row(

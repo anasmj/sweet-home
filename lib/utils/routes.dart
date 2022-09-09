@@ -22,10 +22,10 @@ class AppRoute {
       );
 
   //HOME DETAIL PAGE
-  static void getCurrentHomeInfo(BuildContext context) {
+  static void toCurrentHomeDetail(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const CurrentHomeDetail(),
+        builder: (context) => CurrentHomeDetail(),
       ),
     );
   }
