@@ -12,6 +12,7 @@ class CustomSliverAppbarDelegate extends SliverPersistentHeaderDelegate {
 
   final double _summaryCardsRowHeight = 90;
   final double _summaryCardHeight = 150;
+  final double _fromTop = 90;
 
   appear(double shrinkOffset) => shrinkOffset / expandedHeight;
   dissapear(double shrinkOffset) => (1 - (shrinkOffset / expandedHeight));
@@ -28,8 +29,8 @@ class CustomSliverAppbarDelegate extends SliverPersistentHeaderDelegate {
             height: expandedHeight,
             color: Theme.of(context).appBarTheme.backgroundColor,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 90),
+          Positioned(
+            top: 1 - shrinkOffset + _fromTop,
             child: Opacity(
               opacity: dissapear(shrinkOffset),
               child: getSummaries(),
@@ -58,36 +59,31 @@ class CustomSliverAppbarDelegate extends SliverPersistentHeaderDelegate {
       final mode = context.watch<ThemeProvider>();
 
       return SizedBox(
-        height: _summaryCardsRowHeight,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SizedBox(
-              child: SummaryContainer(
-                txt: 'সম্পূর্ণ দিয়েছেন',
-                summaryColor: mode.isDarkMode
-                    ? Colors.green.shade300
-                    : Colors.green.shade400,
-                num: 5,
-              ),
+            SummaryContainer(
+              txt: 'সম্পূর্ণ ',
+              summaryColor: mode.isDarkMode
+                  ? Colors.green.shade300
+                  : Colors.green.shade400,
+              num: 5,
             ),
             SummaryContainer(
-                txt: 'আংশিক দিয়েছেন',
+                txt: 'আংশিক',
                 summaryColor: mode.isDarkMode
                     ? Colors.yellow.shade300
                     : Colors.yellow.shade400,
                 num: 1),
             SummaryContainer(
-                txt: 'বাকি আছেন',
-                summaryColor:
-                    mode.isDarkMode ? Colors.red.shade300 : Colors.red.shade400,
-                num: 1),
-          ]
-              .map((e) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: e,
-                  ))
-              .toList(),
+              txt: 'বাকি',
+              summaryColor:
+                  mode.isDarkMode ? Colors.red.shade300 : Colors.red.shade400,
+              num: 1,
+            ),
+          ],
         ),
       );
     });
