@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
+import 'package:sweet_home/view/resources/app_icons.dart';
 
 import '../../../models/home_model.dart';
+import '../../../models/home_summary.dart';
 import '../../../services/database_service/home_crud.dart';
+import '../../../utils/routes.dart';
+import '../empty_page/empty_home_page.dart';
 import 'components/home_detail_content.dart';
 
 class CurrentHomeDetail extends StatefulWidget {
@@ -15,25 +20,53 @@ class CurrentHomeDetail extends StatefulWidget {
 class _UserHomeDetailState extends State<CurrentHomeDetail> {
   @override
   Widget build(BuildContext context) {
-    CurrentHomeProvider dropdownProvider = context.watch<CurrentHomeProvider>();
+    final providerWatch = context.watch<CurrentHomeProvider>();
+    CurrentHomeProvider providerRead = context.read<CurrentHomeProvider>();
+    return FutureBuilder<List<Home>>(
+        future: HomeCrud().getAllHome(),
+        builder: (context, AsyncSnapshot<List<Home>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return showWaitingIndicator(context);
+          }
+          if (!snapshot.hasData) {}
+          List<Home>? homes = snapshot.data;
+          if (homes == null) return const EmptyHomePage();
+          if (homes.isEmpty) return const EmptyHomePage();
+          if (providerWatch.currentHomeId == null) {
+            providerRead.setCurrentHomeName = homes.first.homeName;
+            providerRead
+                .updateHomeId(homes.first.homeId); //TODO : should be deleted
+            providerRead.setCurrentHome(homes.first);
+            // HomeDetailContent(home: homes.first);
+          }
+          return HomeDetailContent();
+        });
+  }
 
-    return Scaffold(
-      body: FutureBuilder<Home?>(
-        future: HomeCrud().getHomeById(homeId: dropdownProvider.currentHomeId),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('দুঃক্ষিত,কোনও একটি সমস্যা হয়েছে');
-          }
-          if (snapshot.hasData) {
-            Home home = snapshot.data!;
-            return HomeDetailContent(home: home);
-          }
-          return const Center(
-            //waiting page
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
+  Widget builda(BuildContext context) {
+    final providerWatch = context.watch<CurrentHomeProvider>();
+    CurrentHomeProvider providerRead = context.read<CurrentHomeProvider>();
+    return StreamBuilder<List<HomeSummary>?>(
+      stream: HomeCrud().getHome(),
+      builder: (context, AsyncSnapshot<List<HomeSummary>?> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return showWaitingIndicator(context);
+        }
+        if (!snapshot.hasData) {}
+        List<HomeSummary>? homes = snapshot.data;
+        if (homes == null) return const EmptyHomePage();
+        if (homes.isEmpty) return const EmptyHomePage();
+        if (providerWatch.currentHomeId == null) {
+          providerRead.setCurrentHomeName = homes.first.homeName!;
+          providerRead.updateHomeId(homes.first.homeId);
+          // HomeDetailContent(home: homes.first);
+        }
+        return HomeDetailContent();
+      },
     );
   }
+
+  Widget showWaitingIndicator(context) => const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
 }

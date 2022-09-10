@@ -63,4 +63,13 @@ class NewHomeStepProvider extends ChangeNotifier {
   //THIRD STEP
   // bool _advanceSelected = false;
   // double _advanceAmount = 0.00;
+
+  void clearControllers() {
+    homeNameController.clear();
+    addressController.clear();
+    rentController.clear();
+    electricityController.clear();
+    gasController.clear();
+    waterController.clear();
+  }
 }

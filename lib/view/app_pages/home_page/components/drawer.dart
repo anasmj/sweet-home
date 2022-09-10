@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
@@ -6,9 +5,11 @@ import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/view/app_widgets.dart';
+import '../../../../models/home_model.dart';
+import '../../../../services/database_service/home_crud.dart';
 import '../../../../utils/routes.dart';
-import 'home_dropdown.dart';
 import 'change_theme_button.dart';
+import 'homes_popup.dart';
 
 class AppDrawer extends StatelessWidget {
   AppDrawer({
@@ -32,7 +33,7 @@ class AppDrawer extends StatelessWidget {
               onTap: () => AppRoute.toCurrentHomeDetail(context),
               leading: const Icon(Icons.home),
               title: Text(
-                'বাড়ী',
+                'আপনার বাড়ী',
                 style: drawerTextStyle,
               ),
             ),
@@ -68,6 +69,16 @@ class AppDrawer extends StatelessWidget {
                 style: drawerTextStyle,
               ),
             ),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              leading: const Icon(Icons.edit),
+              title: Text(
+                'test',
+                style: drawerTextStyle,
+              ),
+            ),
             const Spacer(),
             ListTile(
               onTap: () {
@@ -83,11 +94,11 @@ class AppDrawer extends StatelessWidget {
                 style: drawerTextStyle,
               ),
             ),
-            const ListTile(
-              leading: FlutterLogo(),
+            ListTile(
+              leading: const FlutterLogo(),
               title: Text(
                 'built with flutter 3.3.0 ',
-                style: TextStyle(),
+                style: const TextStyle().copyWith(fontSize: 12),
               ),
             ),
           ],
@@ -95,107 +106,82 @@ class AppDrawer extends StatelessWidget {
   }
 
   Container drawerHeader(BuildContext context) {
-    bool isDark = context.watch<ThemeProvider>().isDarkMode;
+    const double withAndHeight = 8;
+    const double containerHeight = 200;
+    bool isDark = context.read<ThemeProvider>().isDarkMode;
     return Container(
       padding: const EdgeInsets.only(left: 20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isDark
               ? [Colors.grey.shade900, Colors.grey.shade900]
-              : [Colors.blue, Colors.blue.shade800],
+              : [Colors.blue.shade400, Colors.blue.shade800],
         ),
       ),
-      height: 200,
+      height: containerHeight,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // ignore: prefer_const_constructors
-          SizedBox(
-            height: 50,
+          const SizedBox(
+            height: 30,
           ),
-          // Align(
-          //   alignment: Alignment.topCenter,
-          //   child: Text(
-          //     context.watch<CurrentHomeProvider>().currentHomeName,
-          //   ),
-          // ),
-          Align(alignment: Alignment.topLeft, child: HomeDropdown()),
+          Text(
+            context.watch<CurrentHomeProvider>().currentHomeName ?? '',
+            style: Theme.of(context).textTheme.headline6,
+          ),
           const Spacer(),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  //show name here
-                  Text(
-                    Profile.userName ?? 'Name not found',
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              //show email
-              Text(
-                Profile.email ?? 'no email',
-              ),
-              const Spacer(),
-              optionsButton(context: context),
-            ],
-          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20, right: 10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                getNameAndEmail(),
+                const Spacer(),
+                FutureBuilder<List<Home>>(
+                  future: HomeCrud().getAllHome(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (!snapshot.hasData) {
+                      return const SizedBox();
+                      // return const CircularProgressIndicator();
+                    }
+                    if (snapshot.hasError) return const Text('error Occured');
+                    List<Home> userHomes = snapshot.data;
+                    if (userHomes.isNotEmpty) {
+                      return HomesPopupButton(
+                        userHomes: userHomes,
+                        onHomeDelete: () =>
+                            removeDrawer(drawerContext: context),
+                      );
+                    }
+                    //show nothing if user have no home
+                    return const SizedBox();
+                  },
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
-  PopupMenuButton<String> optionsButton({required BuildContext context}) {
-    return PopupMenuButton<String>(
-      // icon: Icon(Icons.expand_more),
+  void removeDrawer({required BuildContext drawerContext}) {
+    Navigator.pop(drawerContext);
+  }
 
-      tooltip: 'মেন্যু',
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+  SizedBox getNameAndEmail() {
+    return SizedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            Profile.userName ?? 'Name not found',
+            style: const TextStyle(fontSize: 18),
+          ),
+          Text(
+            Profile.email ?? 'no email',
+          ),
+        ],
       ),
-      itemBuilder: (BuildContext context) => [
-        PopupMenuItem(
-          value: _otherAccounts,
-          child: const Text(
-            "অন্যান্য একাউন্ট",
-            style: TextStyle(
-              fontSize: 16,
-            ),
-          ),
-        ),
-        PopupMenuItem(
-          value: _newAccount,
-          child: const ListTile(
-            title: Text(
-              "একাউন্ট খুলুন",
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            trailing: Icon(Icons.add),
-          ),
-        ),
-      ],
-      onSelected: (value) {
-        switch (value) {
-          case 'অন্যান্য একাউন্ট':
-
-            // AppWidget.showToast('কাজ চলছে');
-            break; //_showModalSheet()
-          case 'একাউন্ট খুলুন':
-            AppWidget.showToast('কাজ চলছে');
-            break; //_showModalSheet()
-        }
-      },
     );
   }
 }

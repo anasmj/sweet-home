@@ -9,6 +9,7 @@ import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/view/dismiss_keyboard.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/providers/home_provider.dart';
+// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sweet_home/view/resources/app_theme.dart';
 import 'package:sweet_home/view/wrapper.dart';

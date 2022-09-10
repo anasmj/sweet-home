@@ -30,12 +30,20 @@ class HomeCrud {
   }
 
   //RETURN CURRENT USERS HOMES
-  Stream<List<HomeSummary>> getHomes() async* {
+  Stream<List<HomeSummary>> getHome() async* {
     CollectionReference homeCollectionRef = getHomesCollectionRef();
     QuerySnapshot snapshot = await homeCollectionRef.get();
     yield snapshot.docs.map((home) {
       return HomeSummary.fromJson(home.data() as Map<String, dynamic>);
     }).toList();
+  }
+
+  Future<List<Home>> getAllHome() async {
+    final homeSnapshots = await getHomesCollectionRef().get();
+    List<Home> allHome = homeSnapshots.docs.map((homeDoc) {
+      return Home.fromJson(homeDoc.data() as Map<String, dynamic>);
+    }).toList();
+    return allHome;
   }
 
   //GET SINGLE HOME

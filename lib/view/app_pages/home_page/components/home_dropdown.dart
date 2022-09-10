@@ -27,7 +27,7 @@ class _HomeDropdownState extends State<HomeDropdown> {
     final Color dropdownColorinLight = Colors.blue.shade200;
 
     return StreamBuilder<List<HomeSummary>?>(
-      stream: HomeCrud().getHomes(),
+      stream: HomeCrud().getHome(),
       builder: (context, AsyncSnapshot<List<HomeSummary>?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -43,36 +43,6 @@ class _HomeDropdownState extends State<HomeDropdown> {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            DropdownButton(
-              value: dropdownValue ?? '',
-              borderRadius: BorderRadius.circular(10),
-              dropdownColor:
-                  isDark ? dropdownColorinDark : dropdownColorinLight,
-              icon: Icon(
-                Icons.expand_more,
-                color: isDark ? Colors.white : Colors.grey.shade900,
-              ),
-              iconSize: 24,
-              elevation: 19,
-              style:
-                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 16),
-              onChanged: (String? value) {
-                providerRead.updateHomeName(value!);
-                homes.forEach((home) {
-                  if (home.homeName == providerWatch.currentHomeName) {
-                    //SELECTED HOME
-                    providerRead.updateHomeId(home.homeId!);
-                  }
-                });
-              },
-              items: homes.map<DropdownMenuItem<String>>((HomeSummary home) {
-                if (home.homeId == null) {}
-                return DropdownMenuItem<String>(
-                  value: home.homeName,
-                  child: Text(home.homeName ?? ''),
-                );
-              }).toList(),
-            ),
             IconButton(
               onPressed: () {
                 AppRoute.toCurrentHomeDetail(context);

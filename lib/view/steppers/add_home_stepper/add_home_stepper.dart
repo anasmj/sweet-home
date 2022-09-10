@@ -81,6 +81,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                         if (res.code == 200) {
                           setState(() {
                             isCompletedd = true;
+                            provider.clearControllers();
                           });
 
                           //failed

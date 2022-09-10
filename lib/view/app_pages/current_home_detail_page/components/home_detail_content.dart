@@ -1,24 +1,21 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
+import 'package:sweet_home/services/database_service/home_crud.dart';
 import 'package:sweet_home/view/app_pages/current_home_detail_page/components/update_button.dart';
-import 'package:sweet_home/view/app_widgets.dart';
 import 'package:sweet_home/view/app_pages/current_home_detail_page/components/edit_textfield.dart';
-
+import '../../../../models/response.dart';
 import '../../../../utils/compare_values.dart';
-import '../../../../utils/form_validators.dart';
 import '../../../../models/home_model.dart';
+import '../../../app_widgets.dart';
 import '../../../resources/app_icons.dart';
 import 'delete_button.dart';
 
 class HomeDetailContent extends StatelessWidget {
   HomeDetailContent({
     Key? key,
-    required this.home,
   }) : super(key: key);
-  final Home home;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController rentController = TextEditingController();
@@ -35,6 +32,7 @@ class HomeDetailContent extends StatelessWidget {
   final Color colorInDarkMode = Colors.white;
 
   final displayFieldToDbField = {
+    //app field | DB fields
     'বাড়ীর নাম': 'Home Name',
     'ভাড়া': 'Rent Amount',
     'ঠিকানা': 'Location',
@@ -49,149 +47,181 @@ class HomeDetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    nameController.text = home.homeName.trim();
-    rentController.text = home.rentAmount.toString();
-    locationController.text = home.location;
-    gasController.text = home.gasBill.toString();
-    waterController.text = home.waterBill.toString();
-    floorController.text = home.floor.toString();
-    flatNumController.text = home.flatPerFloor.toString();
-
-    bool buttonShouldActive = false;
-
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        title: modalSheetTitleText(),
+    return FutureBuilder(
+      future: HomeCrud().getHomeById(
+        homeId: context.read<CurrentHomeProvider>().currentHomeId,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              makeSingleListTile(
-                context: context,
-                leadingIcon: Icons.home_filled,
-                title: 'বাড়ীর নাম',
-                subtitle: home.homeName,
-                controller: nameController,
-                validationFunciton: (String? value) {
-                  return Utils.compareValues(
-                    value: value!,
-                    compareWith: home.homeName.toString(),
-                  );
-                },
-                // validationFunciton: FormValidators.checkEmpty,
-                willNumeric: false,
+      builder: ((context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            }
+            Home home = snapshot.data;
+            context.read<CurrentHomeProvider>().setCurrentHome(home);
+            return Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                centerTitle: true,
+                title: Text(
+                  home.homeName,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, letterSpacing: 0.5),
+                  overflow: TextOverflow.fade,
+                  softWrap: true,
+                ),
               ),
-              makeSingleListTile(
-                context: context,
-                assetUrl: AppIcons.takaUrl,
-                title: 'ভাড়া',
-                subtitle: home.rentAmount.toString(),
-                controller: rentController,
-                validationFunciton: (String? value) {
-                  return Utils.compareValues(
-                    value: value!,
-                    compareWith: home.rentAmount.toString(),
-                  );
-                },
-              ),
-              makeSingleListTile(
-                context: context,
-                leadingIcon: Icons.pin_drop,
-                title: 'ঠিকানা',
-                subtitle: home.location,
-                controller: locationController,
-                willNumeric: false,
-                validationFunciton: (String? value) {
-                  return Utils.compareValues(
-                    value: value!,
-                    compareWith: home.location.toString(),
-                  );
-                },
-              ),
-              makeSingleListTile(
-                context: context,
-                leadingIcon: Icons.format_list_numbered_rounded,
-                title: 'তলা',
-                subtitle: home.floor.toString(),
-                controller: floorController,
-                validationFunciton: (String? value) {
-                  return Utils.compareValues(
-                    value: value!,
-                    compareWith: home.floor.toString(),
-                  );
-                },
-              ),
-              makeSingleListTile(
-                context: context,
-                leadingIcon: Icons.view_column,
-                title: 'ফ্লোরে ফ্ল্যাট সংখ্যা',
-                subtitle: home.flatPerFloor.toString(),
-                controller: flatNumController,
-                validationFunciton: (String? value) {
-                  return Utils.compareValues(
-                    value: value!,
-                    compareWith: home.flatPerFloor.toString(),
-                  );
-                },
-              ),
-              makeSingleListTile(
-                context: context,
-                leadingIcon: Icons.gas_meter_outlined,
-                title: 'গ্যাস',
-                subtitle: home.gasBill.toString(),
-                controller: gasController,
-                validationFunciton: (String? value) {
-                  return Utils.compareValues(
-                    value: value!,
-                    compareWith: home.gasBill.toString(),
-                    isRequired: false,
-                  );
-                },
-              ),
-              makeSingleListTile(
-                context: context,
-                leadingIcon: Icons.water_drop_outlined,
-                title: 'পানি',
-                subtitle: home.waterBill.toString(),
-                controller: waterController,
-                validationFunciton: (String? value) {
-                  return Utils.compareValues(
-                    value: value!,
-                    compareWith: home.waterBill.toString(),
-                    isRequired: false,
-                  );
-                },
-              ),
-              makeSingleListTile(
-                context: context,
-                leadingIcon: Icons.add_home_work_rounded,
-                title: 'অন্যান্য',
-                subtitle: 'on precess ',
-                controller: otherController,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              DeleteButton(),
-            ],
-          ),
+              body: scaffoldBody(context, home),
+            );
+        }
+      }),
+    );
+  }
+
+  Padding scaffoldBody(BuildContext context, Home home) {
+    String currentHomeId = context.watch<CurrentHomeProvider>().currentHomeId;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            makeSingleListTile(
+              context: context,
+              leadingIcon: Icons.home_filled,
+              title: 'বাড়ীর নাম',
+              subtitle: home.homeName,
+              controller: nameController,
+              validationFunciton: (String? value) {
+                return Utils.compareValues(
+                  value: value!,
+                  compareWith: home.homeName.toString(),
+                );
+              },
+              // validationFunciton: FormValidators.checkEmpty,
+              willNumeric: false,
+            ),
+            makeSingleListTile(
+              context: context,
+              assetUrl: AppIcons.takaUrl,
+              title: 'ভাড়া',
+              subtitle: home.rentAmount.toString(),
+              controller: rentController,
+              validationFunciton: (String? value) {
+                return Utils.compareValues(
+                  value: value!,
+                  compareWith: home.rentAmount.toString(),
+                );
+              },
+            ),
+            makeSingleListTile(
+              context: context,
+              leadingIcon: Icons.pin_drop,
+              title: 'ঠিকানা',
+              subtitle: home.location,
+              controller: locationController,
+              willNumeric: false,
+              validationFunciton: (String? value) {
+                return Utils.compareValues(
+                  value: value!,
+                  compareWith: home.location.toString(),
+                );
+              },
+            ),
+            makeSingleListTile(
+              context: context,
+              leadingIcon: Icons.format_list_numbered_rounded,
+              title: 'তলা',
+              subtitle: home.floor.toString(),
+              controller: floorController,
+              validationFunciton: (String? value) {
+                return Utils.compareValues(
+                  value: value!,
+                  compareWith: home.floor.toString(),
+                );
+              },
+            ),
+            makeSingleListTile(
+              context: context,
+              leadingIcon: Icons.view_column,
+              title: 'ফ্লোরে ফ্ল্যাট সংখ্যা',
+              subtitle: home.flatPerFloor.toString(),
+              controller: flatNumController,
+              validationFunciton: (String? value) {
+                return Utils.compareValues(
+                  value: value!,
+                  compareWith: home.flatPerFloor.toString(),
+                );
+              },
+            ),
+            makeSingleListTile(
+              context: context,
+              leadingIcon: Icons.gas_meter_outlined,
+              title: 'গ্যাস',
+              subtitle: home.gasBill.toString(),
+              controller: gasController,
+              validationFunciton: (String? value) {
+                return Utils.compareValues(
+                  value: value!,
+                  compareWith: home.gasBill.toString(),
+                  isRequired: false,
+                );
+              },
+            ),
+            makeSingleListTile(
+              context: context,
+              leadingIcon: Icons.water_drop_outlined,
+              title: 'পানি',
+              subtitle: home.waterBill.toString(),
+              controller: waterController,
+              validationFunciton: (String? value) {
+                return Utils.compareValues(
+                  value: value!,
+                  compareWith: home.waterBill.toString(),
+                  isRequired: false,
+                );
+              },
+            ),
+            makeSingleListTile(
+              context: context,
+              leadingIcon: Icons.add_home_work_rounded,
+              title: 'অন্যান্য',
+              subtitle: 'on precess ',
+              controller: otherController,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            DeleteButton(onHomeDeleted: () {
+              Home? currentHome =
+                  context.read<CurrentHomeProvider>().getCurrentHome;
+              if (currentHome != null) {
+                Response response = HomeCrud().deleteHome(currentHomeId);
+                if (response.code != 200) {
+                  AppWidget.snackBarContent(msg: 'বাড়ীটি মুছে ফেলা হয়েছে');
+                }
+                AppWidget.showToast('deleted home');
+                context.read<CurrentHomeProvider>().clearProviderFields();
+                Navigator.of(context).pop();
+              }
+            }),
+          ],
         ),
       ),
     );
   }
 
-  Text modalSheetTitleText() {
-    return Text(
-      home.homeName,
-      style: const TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.5),
-      overflow: TextOverflow.fade,
-      softWrap: true,
-    );
-  }
+  // Text modalSheetTitleText() {
+  //   return Text(
+  //     'home.homeName',
+  //     style: const TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.5),
+  //     overflow: TextOverflow.fade,
+  //     softWrap: true,
+  //   );
+  // }
 
   ListTile makeSingleListTile({
     required BuildContext context,
@@ -216,7 +246,7 @@ class HomeDetailContent extends StatelessWidget {
         context: context,
         // isScrollControlled: true,
         builder: (context) {
-          return modalContent(
+          return modalSheetContent(
             context: context,
             title: title,
             controller: controller,
@@ -251,7 +281,7 @@ class HomeDetailContent extends StatelessWidget {
     return selectedFirebaseField;
   }
 
-  Widget modalContent({
+  Widget modalSheetContent({
     required BuildContext context,
     required String title,
     required TextEditingController controller,

@@ -22,6 +22,7 @@ class AppIcons {
   static String noData2Url = "assets/icons/no_data_2.svg";
   static String noListUrl = "assets/icons/no_list.svg";
   static String homeLogoUrl = "assets/icons/landing_logo.jpeg";
+  static String addHomeUrl = "assets/icons/addHomeIcon.jpg";
 
   //implement LOTTIES like this
   // Lottie.asset(
@@ -34,4 +35,6 @@ class AppIcons {
   static String homeLoadingIndicator = 'assets/lotties/makeHome.json';
   static String blueCircleIndicator = 'assets/lotties/loading_blue_circle.json';
   static String createHome = 'assets/lotties/create_home.json';
+  static String homePopUp = 'assets/lotties/homePopUp.json';
+  static String arrowDown = 'assets/lotties/arrow_down.json';
 }

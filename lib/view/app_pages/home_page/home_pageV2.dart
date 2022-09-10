@@ -25,17 +25,15 @@ class HomePageV2 extends StatefulWidget {
 class _HomePageV2State extends State<HomePageV2> {
   final double _appIconHeight = 20;
   final double _appIconWidth = 20;
-  final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);
   int _currentTabIndex = 0;
   final double _appBarHeight = 280;
   bool isInitialState = false;
-  int _currentMonthPageIndex = 0;
-  int _flatListPageIndex = 1;
-  int _pendingPageIndex = 2;
+  final int _currentMonthPageIndex = 0;
+  final int _flatListPageIndex = 1;
+  final int _pendingPageIndex = 2;
 
   @override
   Widget build(BuildContext context) {
-    final home = Provider.of<HomeProvider>(context);
     return Scaffold(
       drawer: AppDrawer(),
       bottomNavigationBar: BottomNavigationBar(
