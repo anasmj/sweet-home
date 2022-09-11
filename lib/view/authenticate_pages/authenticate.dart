@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/view/authenticate/registration_page.dart';
-import 'package:sweet_home/view/authenticate/login_page.dart';
+import 'package:sweet_home/view/authenticate_pages/registration_page.dart';
+import 'package:sweet_home/view/authenticate_pages/login_page.dart';
 
 class Authenticate extends StatefulWidget {
   const Authenticate({super.key});

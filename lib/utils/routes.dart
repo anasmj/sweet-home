@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/flat_model.dart';
 import '../providers/newrenter_step_provider.dart';
 import '../view/app_pages/flat_details_page/flat_details.dart';
-import '../view/app_pages/current_home_detail_page/current_home_detail.dart';
+import 'get_user_homes.dart';
 import '../view/steppers/add_home_stepper/add_home_stepper.dart';
 import '../view/steppers/add_renter_stepper/add_renter_stepper.dart';
 
@@ -25,7 +25,7 @@ class AppRoute {
   static void toCurrentHomeDetail(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => CurrentHomeDetail(),
+        builder: (context) => UserHomes(),
       ),
     );
   }

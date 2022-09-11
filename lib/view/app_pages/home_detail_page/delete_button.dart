@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/models/response.dart';
 import 'package:sweet_home/services/database_service/home_crud.dart';
 import 'package:sweet_home/view/app_widgets.dart';
-import '../../../../providers/current_home.dart';
-import '../../../resources/app_icons.dart';
+import '../../../providers/current_home.dart';
+import '../../resources/app_icons.dart';
 
 class DeleteButton extends StatelessWidget {
   DeleteButton({

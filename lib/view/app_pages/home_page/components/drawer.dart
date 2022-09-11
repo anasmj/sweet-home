@@ -120,22 +120,24 @@ class AppDrawer extends StatelessWidget {
       ),
       height: containerHeight,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const SizedBox(
-            height: 30,
-          ),
-          Text(
-            context.watch<CurrentHomeProvider>().currentHomeName ?? '',
-            style: Theme.of(context).textTheme.headline6,
-          ),
-          const Spacer(),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20, right: 10),
+            padding: const EdgeInsets.only(top: 30.0),
+            child: Text(
+              context.watch<CurrentHomeProvider>().currentHomeName ?? '',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          // const Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 getNameAndEmail(),
-                const Spacer(),
+
+                //TODO: to fix alignment problem
                 FutureBuilder<List<Home>>(
                   future: HomeCrud().getAllHome(),
                   builder: (context, AsyncSnapshot snapshot) {

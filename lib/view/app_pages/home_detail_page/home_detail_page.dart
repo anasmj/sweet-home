@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/providers/current_home.dart';
-import 'package:sweet_home/providers/theme_provider.dart';
-import 'package:sweet_home/services/database_service/home_crud.dart';
-import 'package:sweet_home/view/app_pages/current_home_detail_page/components/update_button.dart';
-import 'package:sweet_home/view/app_pages/current_home_detail_page/components/edit_textfield.dart';
-import '../../../../models/response.dart';
-import '../../../../utils/compare_values.dart';
-import '../../../../models/home_model.dart';
-import '../../../app_widgets.dart';
-import '../../../resources/app_icons.dart';
+import 'package:sweet_home/view/app_pages/home_detail_page/update_button.dart';
+import '../../../providers/current_home.dart';
+import '../../../providers/theme_provider.dart';
+import '../../../services/database_service/home_crud.dart';
+import '../../app_widgets.dart';
+import 'package:sweet_home/view/app_pages/home_detail_page/edit_textfield.dart';
+import '../../../models/response.dart';
+import '../../../utils/compare_values.dart';
+import '../../../models/home_model.dart';
+import '../../resources/app_icons.dart';
 import 'delete_button.dart';
 
-class HomeDetailContent extends StatelessWidget {
-  HomeDetailContent({
-    Key? key,
-  }) : super(key: key);
+//* Takes a Home object and displaies its property allowing to fields in database
+class HomeDetail extends StatelessWidget {
+  HomeDetail({required this.home, super.key});
+
+  Home home;
+  final Color colorInLightMode = Colors.grey.shade700;
+  final Color modalSheetBgDark = Colors.grey.shade900;
+  final Color modalSheetBgLight = Colors.white;
+  final Color colorInDarkMode = Colors.white;
+  GlobalKey<FormState> editFormKey = GlobalKey<FormState>();
 
   TextEditingController nameController = TextEditingController();
   TextEditingController rentController = TextEditingController();
@@ -25,11 +31,6 @@ class HomeDetailContent extends StatelessWidget {
   TextEditingController floorController = TextEditingController();
   TextEditingController flatNumController = TextEditingController();
   TextEditingController otherController = TextEditingController();
-
-  final Color colorInLightMode = Colors.grey.shade700;
-  final Color modalSheetBgDark = Colors.grey.shade900;
-  final Color modalSheetBgLight = Colors.white;
-  final Color colorInDarkMode = Colors.white;
 
   final displayFieldToDbField = {
     //app field | DB fields
@@ -43,50 +44,13 @@ class HomeDetailContent extends StatelessWidget {
     // 'অন্যান্য' : 'Others'
   };
 
-  GlobalKey<FormState> editFormKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: HomeCrud().getHomeById(
-        homeId: context.read<CurrentHomeProvider>().currentHomeId,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(home.homeName),
       ),
-      builder: ((context, AsyncSnapshot snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
-          default:
-            if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            }
-            Home home = snapshot.data;
-            context.read<CurrentHomeProvider>().setCurrentHome(home);
-            return Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                centerTitle: true,
-                title: Text(
-                  home.homeName,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, letterSpacing: 0.5),
-                  overflow: TextOverflow.fade,
-                  softWrap: true,
-                ),
-              ),
-              body: scaffoldBody(context, home),
-            );
-        }
-      }),
-    );
-  }
-
-  Padding scaffoldBody(BuildContext context, Home home) {
-    String currentHomeId = context.watch<CurrentHomeProvider>().currentHomeId;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             makeSingleListTile(
@@ -199,7 +163,7 @@ class HomeDetailContent extends StatelessWidget {
               Home? currentHome =
                   context.read<CurrentHomeProvider>().getCurrentHome;
               if (currentHome != null) {
-                Response response = HomeCrud().deleteHome(currentHomeId);
+                Response response = HomeCrud().deleteHome(home.homeId);
                 if (response.code != 200) {
                   AppWidget.snackBarContent(msg: 'বাড়ীটি মুছে ফেলা হয়েছে');
                 }
@@ -213,15 +177,6 @@ class HomeDetailContent extends StatelessWidget {
       ),
     );
   }
-
-  // Text modalSheetTitleText() {
-  //   return Text(
-  //     'home.homeName',
-  //     style: const TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.5),
-  //     overflow: TextOverflow.fade,
-  //     softWrap: true,
-  //   );
-  // }
 
   ListTile makeSingleListTile({
     required BuildContext context,
@@ -273,12 +228,6 @@ class HomeDetailContent extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String getFirebaseFieldName({required String title}) {
-    String selectedFirebaseField;
-    selectedFirebaseField = displayFieldToDbField[title] ?? 'Not found';
-    return selectedFirebaseField;
   }
 
   Widget modalSheetContent({
@@ -339,5 +288,11 @@ class HomeDetailContent extends StatelessWidget {
       height: 4,
       width: 20,
     );
+  }
+
+  String getFirebaseFieldName({required String title}) {
+    String selectedFirebaseField;
+    selectedFirebaseField = displayFieldToDbField[title] ?? 'Not found';
+    return selectedFirebaseField;
   }
 }

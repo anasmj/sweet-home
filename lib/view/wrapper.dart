@@ -4,7 +4,7 @@ import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/services/database_service/home_crud.dart';
-import 'package:sweet_home/view/authenticate/authenticate.dart';
+import 'package:sweet_home/view/authenticate_pages/authenticate.dart';
 import 'package:sweet_home/view/app_pages/home_page/home_page.dart';
 import '../models/app_user.dart';
 import '../models/home_model.dart';

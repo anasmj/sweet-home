@@ -11,6 +11,7 @@ class HomesPopupButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      iconSize: 22,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
