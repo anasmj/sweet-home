@@ -17,27 +17,7 @@ class HomeCrud {
         .collection('homes');
   }
 
-  //DELETE HOME
-  Response deleteHome(String homeId) {
-    getHomesCollectionRef().doc(homeId).delete().whenComplete(() {
-      response.code = 200;
-      response.body = 'home deleted';
-    }).catchError((e) {
-      response.code = 400;
-      response.body = e.toString();
-    });
-    return response;
-  }
-
-  //RETURN CURRENT USERS HOMES
-  Stream<List<HomeSummary>> getHome() async* {
-    CollectionReference homeCollectionRef = getHomesCollectionRef();
-    QuerySnapshot snapshot = await homeCollectionRef.get();
-    yield snapshot.docs.map((home) {
-      return HomeSummary.fromJson(home.data() as Map<String, dynamic>);
-    }).toList();
-  }
-
+  //READ HOMES
   Future<List<Home>> getAllHome() async {
     final homeSnapshots = await getHomesCollectionRef().get();
     List<Home> allHome = homeSnapshots.docs.map((homeDoc) {
@@ -57,6 +37,36 @@ class HomeCrud {
       return Home.fromJson(homeSnapshot.data() as Map<String, dynamic>);
     }
     return null;
+  }
+
+  //DELETE HOME
+  Response deleteHome(String homeId) {
+    getHomesCollectionRef().doc(homeId).delete().whenComplete(() {
+      response.code = 200;
+      response.body = 'home deleted';
+    }).catchError((e) {
+      response.code = 400;
+      response.body = e.toString();
+    });
+    return response;
+  }
+
+  //UPDATE HOME
+  void updatefield(
+      {required String homeId,
+      required String field,
+      required String newValue}) {
+    print('trying to update field..');
+    getHomesCollectionRef()
+        .doc(homeId)
+        .update({field: newValue}).whenComplete(() {
+      response.code = 200;
+      response.body = 'updated successfully';
+    }).catchError((error) {
+      response.code = 400;
+      response.body = 'unable to update';
+    });
+    // return response;
   }
 
   //CREATE NEW HOME

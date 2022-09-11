@@ -23,15 +23,6 @@ class HomeDetail extends StatelessWidget {
   final Color colorInDarkMode = Colors.white;
   GlobalKey<FormState> editFormKey = GlobalKey<FormState>();
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController rentController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
-  TextEditingController gasController = TextEditingController();
-  TextEditingController waterController = TextEditingController();
-  TextEditingController floorController = TextEditingController();
-  TextEditingController flatNumController = TextEditingController();
-  TextEditingController otherController = TextEditingController();
-
   final displayFieldToDbField = {
     //app field | DB fields
     'বাড়ীর নাম': 'Home Name',
@@ -46,9 +37,19 @@ class HomeDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CurrentHomeProvider provider = context.read<CurrentHomeProvider>();
+
+    // provider.nameController.text = home.homeName;
+    // provider.rentController.text = home.rentAmount.toString();
+    // provider.locationController.text = home.location;
+    // provider.gasController.text = home.gasBill.toString();
+    // provider.waterController.text = home.waterBill.toString();
+    // provider.floorController.text = home.flatPerFloor.toString();
+    // provider.flatNumController.text = home.flatPerFloor.toString();
     return Scaffold(
       appBar: AppBar(
         title: Text(home.homeName),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -58,14 +59,12 @@ class HomeDetail extends StatelessWidget {
               leadingIcon: Icons.home_filled,
               title: 'বাড়ীর নাম',
               subtitle: home.homeName,
-              controller: nameController,
               validationFunciton: (String? value) {
                 return Utils.compareValues(
                   value: value!,
                   compareWith: home.homeName.toString(),
                 );
               },
-              // validationFunciton: FormValidators.checkEmpty,
               willNumeric: false,
             ),
             makeSingleListTile(
@@ -73,7 +72,6 @@ class HomeDetail extends StatelessWidget {
               assetUrl: AppIcons.takaUrl,
               title: 'ভাড়া',
               subtitle: home.rentAmount.toString(),
-              controller: rentController,
               validationFunciton: (String? value) {
                 return Utils.compareValues(
                   value: value!,
@@ -86,7 +84,6 @@ class HomeDetail extends StatelessWidget {
               leadingIcon: Icons.pin_drop,
               title: 'ঠিকানা',
               subtitle: home.location,
-              controller: locationController,
               willNumeric: false,
               validationFunciton: (String? value) {
                 return Utils.compareValues(
@@ -100,7 +97,6 @@ class HomeDetail extends StatelessWidget {
               leadingIcon: Icons.format_list_numbered_rounded,
               title: 'তলা',
               subtitle: home.floor.toString(),
-              controller: floorController,
               validationFunciton: (String? value) {
                 return Utils.compareValues(
                   value: value!,
@@ -113,7 +109,6 @@ class HomeDetail extends StatelessWidget {
               leadingIcon: Icons.view_column,
               title: 'ফ্লোরে ফ্ল্যাট সংখ্যা',
               subtitle: home.flatPerFloor.toString(),
-              controller: flatNumController,
               validationFunciton: (String? value) {
                 return Utils.compareValues(
                   value: value!,
@@ -126,7 +121,6 @@ class HomeDetail extends StatelessWidget {
               leadingIcon: Icons.gas_meter_outlined,
               title: 'গ্যাস',
               subtitle: home.gasBill.toString(),
-              controller: gasController,
               validationFunciton: (String? value) {
                 return Utils.compareValues(
                   value: value!,
@@ -140,7 +134,6 @@ class HomeDetail extends StatelessWidget {
               leadingIcon: Icons.water_drop_outlined,
               title: 'পানি',
               subtitle: home.waterBill.toString(),
-              controller: waterController,
               validationFunciton: (String? value) {
                 return Utils.compareValues(
                   value: value!,
@@ -149,29 +142,36 @@ class HomeDetail extends StatelessWidget {
                 );
               },
             ),
-            makeSingleListTile(
-              context: context,
-              leadingIcon: Icons.add_home_work_rounded,
-              title: 'অন্যান্য',
-              subtitle: 'on precess ',
-              controller: otherController,
+            ListTile(
+              onTap: () => AppWidget.showToast('Work in progress..'),
+              leading: const Icon(Icons.add_home_work_rounded),
+              title: const Text('অন্যান্য'),
+              subtitle: const Text('অন্যান্য খরচ'),
+              trailing: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 18,
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
-            DeleteButton(onHomeDeleted: () {
-              Home? currentHome =
-                  context.read<CurrentHomeProvider>().getCurrentHome;
-              if (currentHome != null) {
-                Response response = HomeCrud().deleteHome(home.homeId);
-                if (response.code != 200) {
-                  AppWidget.snackBarContent(msg: 'বাড়ীটি মুছে ফেলা হয়েছে');
+            DeleteButton(
+              onHomeDeleted: () {
+                Home? currentHome =
+                    context.read<CurrentHomeProvider>().getCurrentHome;
+                if (currentHome != null) {
+                  Response response = HomeCrud().deleteHome(home.homeId);
+                  if (response.code != 200) {
+                    AppWidget.snackBarContent(
+                        msg: 'বাড়ীটি ডিলিট করা সম্ভব হয়নি');
+                  }
+                  AppWidget.showToast('বাড়ীটি মুছে ফেলা হয়েছে');
+                  context.read<CurrentHomeProvider>().setCurrentHome(null);
+                  //close drawer
+                  Navigator.of(context).pop();
                 }
-                AppWidget.showToast('deleted home');
-                context.read<CurrentHomeProvider>().clearProviderFields();
-                Navigator.of(context).pop();
-              }
-            }),
+              },
+            ),
           ],
         ),
       ),
@@ -183,33 +183,66 @@ class HomeDetail extends StatelessWidget {
     IconData? leadingIcon,
     required String title,
     required String subtitle,
-    required TextEditingController controller,
+    // TextEditingController? controller,
     String? Function(String?)? validationFunciton,
     String? assetUrl,
     bool? willNumeric = true,
   }) {
     bool isDark = context.watch<ThemeProvider>().isDarkMode;
+    CurrentHomeProvider provider = context.read<CurrentHomeProvider>();
+
     return ListTile(
-      onTap: () => showModalBottomSheet(
-        backgroundColor: isDark ? modalSheetBgDark : modalSheetBgLight,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        )),
-        context: context,
-        // isScrollControlled: true,
-        builder: (context) {
-          return modalSheetContent(
-            context: context,
-            title: title,
-            controller: controller,
-            validationFunciton: validationFunciton,
-            willNumeric: willNumeric,
-          );
-        },
-      ),
+      onTap: () {
+        provider.displayTextController.text = subtitle;
+        showModalBottomSheet(
+          backgroundColor: isDark ? modalSheetBgDark : modalSheetBgLight,
+          isScrollControlled: true,
+          shape: modalSheetStyle(),
+          context: context,
+          // isScrollControlled: true,
+          builder: (context) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 30),
+                    child: divider(isDark),
+                  ),
+                  Text(
+                    title,
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Form(
+                      key: editFormKey,
+                      child: EditTextField(
+                        // textEditingController: controller,
+                        validationFunciton: validationFunciton,
+                        isNumeric: willNumeric ?? false,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  // updateElevatedButton(),
+                  UpdateButton(
+                    editFormKey: editFormKey,
+                    homeId: home.homeId,
+                    dbFieldName: getFirebaseFieldName(title: title),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
       leading: assetUrl == null
           ? Icon(
               leadingIcon,
@@ -230,51 +263,11 @@ class HomeDetail extends StatelessWidget {
     );
   }
 
-  Widget modalSheetContent({
-    required BuildContext context,
-    required String title,
-    required TextEditingController controller,
-    String? Function(String?)? validationFunciton,
-    bool? willNumeric = true,
-  }) {
-    bool isDarkMode = context.watch<ThemeProvider>().isDarkMode;
-
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.75,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0, bottom: 30),
-            child: divider(isDarkMode),
-          ),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 24),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Form(
-              key: editFormKey,
-              child: EditTextField(
-                textEditingController: controller,
-                validationFunciton: validationFunciton,
-                isNumeric: willNumeric ?? false,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          // updateElevatedButton(),
-          UpdateButton(
-            editFormKey: editFormKey,
-            fieldName: getFirebaseFieldName(title: title),
-          ),
-        ],
+  RoundedRectangleBorder modalSheetStyle() {
+    return const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
       ),
     );
   }

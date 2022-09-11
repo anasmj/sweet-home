@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sweet_home/models/response.dart';
-import 'package:sweet_home/services/database_service/home_crud.dart';
-import 'package:sweet_home/view/app_widgets.dart';
-import '../../../providers/current_home.dart';
 import '../../resources/app_icons.dart';
 
+// ignore: must_be_immutable
 class DeleteButton extends StatelessWidget {
   DeleteButton({
     required this.onHomeDeleted,
@@ -19,7 +15,6 @@ class DeleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String currentHomeId = context.watch<CurrentHomeProvider>().currentHomeId;
     return OutlinedButton(
       onPressed: onHomeDeleted,
       style: OutlinedButton.styleFrom(
@@ -33,24 +28,26 @@ class DeleteButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           RichText(
-            text: TextSpan(children: [
-              WidgetSpan(
-                child: Image.asset(
-                  AppIcons.binUrl,
-                  height: _iconWidthAndHeight,
-                  width: _iconWidthAndHeight,
-                  color: Colors.red,
+            text: TextSpan(
+              children: [
+                WidgetSpan(
+                  child: Image.asset(
+                    AppIcons.binUrl,
+                    height: _iconWidthAndHeight,
+                    width: _iconWidthAndHeight,
+                    color: Colors.red,
+                  ),
                 ),
-              ),
-              TextSpan(
-                text: ' $_buttonText',
-                style: const TextStyle(
-                  // fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                  fontSize: 16,
+                TextSpan(
+                  text: ' $_buttonText',
+                  style: const TextStyle(
+                    // fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ),
         ],
       ),

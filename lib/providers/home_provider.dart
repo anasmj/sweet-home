@@ -4,6 +4,7 @@ import '../models/flat_model.dart';
 import '../models/others_model.dart';
 import '../models/renter.dart';
 
+//! might be eliminated
 //VALUE IN THIS CLASSS ARE PROVIDED INTO FLATS GLOBALLY
 class HomeProvider extends ChangeNotifier {
   final String _homeName = '';
@@ -19,7 +20,6 @@ class HomeProvider extends ChangeNotifier {
   final double electricityBill = 0; //TODO: needs to get updated
 
   // List<Flat>? _flats;
-
   String get homeName => _homeName;
   // String get ownerName => ownerName;
   String get address => _address;

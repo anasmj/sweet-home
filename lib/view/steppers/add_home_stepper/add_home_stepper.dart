@@ -63,8 +63,8 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                           isLoading = true;
                         });
                         Response res = await HomeCrud().addHome(
-                          homeName: provider.homeNameController.text,
-                          location: provider.addressController.text,
+                          homeName: provider.homeNameController.text.trim(),
+                          location: provider.addressController.text.trim(),
                           rentAmount:
                               double.parse(provider.rentController.text),
                           gasBill: provider.waterController.text.isNotEmpty

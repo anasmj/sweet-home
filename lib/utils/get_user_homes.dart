@@ -19,28 +19,26 @@ class _UserHomeDetailState extends State<UserHomes> {
     final providerWatch = context.watch<CurrentHomeProvider>();
     CurrentHomeProvider providerRead = context.read<CurrentHomeProvider>();
     return FutureBuilder<List<Home>>(
-        future: HomeCrud().getAllHome(),
-        builder: (context, AsyncSnapshot<List<Home>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return showWaitingIndicator(context);
-          }
-          if (!snapshot.hasData) {}
-          List<Home>? homes = snapshot.data;
-          if (homes == null) return const EmptyHomePage();
-          if (homes.isEmpty) return const EmptyHomePage();
-          if (providerWatch.currentHomeId == null) {
-            providerRead.setCurrentHomeName = homes.first.homeName;
-            providerRead
-                .updateHomeId(homes.first.homeId); //TODO : should be deleted
-            providerRead.setCurrentHome(homes.first);
-            // HomeDetailContent(home: homes.first);
-          }
-          return homes.length > 1
-              ? HomeOptionsPage(userHomes: homes)
-              : HomeDetail(
-                  home: homes.first,
-                );
-        });
+      future: HomeCrud().getAllHome(),
+      builder: (context, AsyncSnapshot<List<Home>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return showWaitingIndicator(context);
+        }
+        if (!snapshot.hasData) {}
+        List<Home>? homes = snapshot.data;
+        // if (homes == null) return const EmptyHomePage();
+        if (homes!.isEmpty) return const EmptyHomePage();
+        Home? selectedHome = providerWatch.getCurrentHome;
+        if (selectedHome == null) {
+          providerRead.setCurrentHome(homes.first);
+        }
+        return homes.length > 1
+            ? HomeOptionsPage(userHomes: homes)
+            : HomeDetail(
+                home: homes.first,
+              );
+      },
+    );
   }
 
   Widget showWaitingIndicator(context) => const Scaffold(

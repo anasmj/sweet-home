@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/current_home.dart';
 
 // ignore: must_be_immutable
 class EditTextField extends StatelessWidget {
@@ -7,7 +10,6 @@ class EditTextField extends StatelessWidget {
     this.isNumeric = false,
     this.validationFunciton,
     this.isDisabled = true,
-    this.textEditingController,
     super.key,
   });
 
@@ -15,18 +17,20 @@ class EditTextField extends StatelessWidget {
 
   String label;
   bool isNumeric;
-  final double _cursorHeight = 22;
-  TextEditingController? textEditingController;
   bool isDisabled;
+
+  final double _cursorHeight = 22;
+
   @override
   Widget build(BuildContext context) {
+    CurrentHomeProvider provider = context.read<CurrentHomeProvider>();
     TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
           color: Colors.black.withOpacity(0.8),
         );
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       enabled: isDisabled,
-      controller: textEditingController,
+      controller: provider.displayTextController,
       validator: validationFunciton,
       cursorHeight: _cursorHeight,
       keyboardType: isNumeric ? TextInputType.number : TextInputType.name,

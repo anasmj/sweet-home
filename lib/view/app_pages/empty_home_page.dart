@@ -9,7 +9,7 @@ class EmptyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _arrowIconFromLeft = MediaQuery.of(context).size.width * 0.55;
+    double arrowIconFromLeft = MediaQuery.of(context).size.width * 0.55;
     return Scaffold(
       appBar: AppBar(
         title: const Text('বাড়ী যুক্ত করুন'),
@@ -24,7 +24,7 @@ class EmptyHomePage extends StatelessWidget {
             repeat: false,
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 100.0, left: _arrowIconFromLeft),
+            padding: EdgeInsets.only(bottom: 100.0, left: arrowIconFromLeft),
             child: Lottie.asset(
               AppIcons.arrowDown,
               height: 200,
@@ -35,6 +35,7 @@ class EmptyHomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          Navigator.of(context).pop();
           AppRoute.newHomeStepper(context: context);
         },
         child: const Icon(Icons.add),
