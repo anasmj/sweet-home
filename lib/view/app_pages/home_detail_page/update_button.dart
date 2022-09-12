@@ -1,41 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/services/database_service/home_crud.dart';
-
 import '../../../providers/current_home.dart';
-import '../../app_widgets.dart';
 
 // ignore: must_be_immutable
 class UpdateButton extends StatelessWidget {
   UpdateButton({
     Key? key,
-    required this.homeId,
-    required this.editFormKey,
-    required this.dbFieldName,
+    required this.onUpdated,
   }) : super(key: key);
-  String dbFieldName;
-  String homeId;
-  final GlobalKey<FormState> editFormKey;
+  VoidCallback onUpdated;
 
   String buttonText = 'সেভ';
 
   @override
   Widget build(BuildContext context) {
-    CurrentHomeProvider provider = context.read<CurrentHomeProvider>();
-    String updateWith = provider.displayTextController.text;
-
+    CurrentHomeProvider providerRead = context.read<CurrentHomeProvider>();
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
       ),
-      onPressed: () {
-        if (editFormKey.currentState!.validate()) {
-          // HomeCrud().updatefield(
-          //     homeId: homeId, field: dbFieldName, newValue: updateWith);
-        } else {
-          AppWidget.showToast('আপডেট করা সম্ভব হয়নি');
-        }
-      },
+      onPressed: onUpdated,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Text(buttonText,

@@ -73,6 +73,10 @@ class SweetHome extends StatelessWidget {
           : ThemeMode.light,
       theme: AppTheme.appLightTheme(),
       darkTheme: AppTheme.appDarkTheme(),
+
+      ///dissmiss keyboard is a custom class
+      ///to dissmiss keyboard when outsite of keyboard is
+      ///touched
       home: const DismissKeyboard(
         //User Authentication
         child: Wrapper(),

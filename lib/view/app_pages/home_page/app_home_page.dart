@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/view/app_pages/pending_page/pending_page.dart';
@@ -11,7 +12,7 @@ import 'components/custom_appbar.dart';
 import 'components/drawer.dart';
 
 class AppHomePage extends StatefulWidget {
-  AppHomePage({super.key});
+  const AppHomePage({super.key});
 
   @override
   State<AppHomePage> createState() => _AppHomePage();
@@ -23,58 +24,67 @@ class _AppHomePage extends State<AppHomePage> {
   int _currentTabIndex = 0;
   final double _appBarHeight = 280;
   bool isInitialState = false;
+
   final int _currentMonthPageIndex = 0;
   final int _flatListPageIndex = 1;
   final int _pendingPageIndex = 2;
 
-  //! ALWAYS SETS THE FIRST HOME AS CURRENT HOME TO USER AFTER LOGIN
+  //! SETS THE FIRST HOME AS CURRENT HOME IF NO HOME IS SELECTED PREVIOUSLY
   @override
   Widget build(BuildContext context) {
     CurrentHomeProvider providerRead = context.watch<CurrentHomeProvider>();
 
-    return FutureBuilder<List<Home>>(
-      future: HomeCrud().getAllHome(),
-      builder: (context, AsyncSnapshot<List<Home>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return showWaitingIndicator(context);
-        }
-        if (!snapshot.hasData) {}
-        List<Home>? homes = snapshot.data;
-        if (homes != null) {
-          if (homes.isNotEmpty) {
-            providerRead.setCurrentHome(homes.first);
-          }
-        }
-        return Scaffold(
-          drawer: AppDrawer(),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentTabIndex,
-            onTap: (newIndex) {
-              setState(() => _currentTabIndex = newIndex);
+    return providerRead.getCurrentHome == null
+        ? FutureBuilder<List<Home>>(
+            //select a home if any
+            future: HomeCrud().getAllHome(),
+            builder: (context, AsyncSnapshot<List<Home>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return searchingForHome(context);
+              }
+              if (!snapshot.hasData) {}
+              List<Home>? homes = snapshot.data;
+              if (homes != null) {
+                if (homes.isNotEmpty) {
+                  providerRead.setCurrentHome(homes.first);
+                }
+              }
+              return showAppHomePage();
             },
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.calendar_month), label: 'চলতি মাস '),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home), label: 'ফ্ল্যাটগুলি'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.pending), label: 'বকেয়া সমূহ'),
-            ],
-          ),
-          body: getUserSelectedPage(_currentTabIndex),
-        );
-      },
+          )
+        //home is already selected by user
+        : showAppHomePage();
+  }
+
+  Scaffold showAppHomePage() {
+    return Scaffold(
+      drawer: AppDrawer(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentTabIndex,
+        onTap: (newIndex) {
+          setState(() => _currentTabIndex = newIndex);
+        },
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month), label: 'চলতি মাস '),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ফ্ল্যাটগুলি'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.pending), label: 'বকেয়া সমূহ'),
+        ],
+      ),
+      body: getUserSelectedPage(_currentTabIndex),
     );
   }
 
-  Widget showWaitingIndicator(context) => const Scaffold(
+  Widget searchingForHome(context) => Scaffold(
         body: Center(
-            child: Text(
-          'Initializing App..',
-          style: TextStyle(fontSize: 18),
-        )),
+          child: Lottie.asset(
+            AppIcons.searching,
+          ),
+        ),
       );
 
+  //ALTERNATE OF SWITH-CASE
   Widget getUserSelectedPage(int selectedIndex) {
     if (selectedIndex == 0) {
       return CustomScrollView(
@@ -91,7 +101,6 @@ class _AppHomePage extends State<AppHomePage> {
         ],
       );
     }
-    if (selectedIndex == _currentMonthPageIndex) return FlatListPage();
     if (selectedIndex == _flatListPageIndex) return FlatListPage();
     if (selectedIndex == _pendingPageIndex) return PendingPage();
     return const SizedBox();

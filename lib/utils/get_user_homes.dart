@@ -26,8 +26,8 @@ class _UserHomeDetailState extends State<UserHomes> {
         }
         if (!snapshot.hasData) {}
         List<Home>? homes = snapshot.data;
-        // if (homes == null) return const EmptyHomePage();
-        if (homes!.isEmpty) return const EmptyHomePage();
+        if (homes == null) return const EmptyHomePage(); //!breaking the app
+        if (homes.isEmpty) return const EmptyHomePage();
         Home? selectedHome = providerWatch.getCurrentHome;
         if (selectedHome == null) {
           providerRead.setCurrentHome(homes.first);

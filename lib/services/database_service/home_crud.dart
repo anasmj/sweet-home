@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sweet_home/models/home_summary.dart';
 import 'package:sweet_home/models/response.dart';
 
 import '../../models/home_model.dart';
@@ -52,11 +51,10 @@ class HomeCrud {
   }
 
   //UPDATE HOME
-  void updatefield(
+  Response updatefield(
       {required String homeId,
       required String field,
-      required String newValue}) {
-    print('trying to update field..');
+      required dynamic newValue}) {
     getHomesCollectionRef()
         .doc(homeId)
         .update({field: newValue}).whenComplete(() {
@@ -66,7 +64,7 @@ class HomeCrud {
       response.code = 400;
       response.body = 'unable to update';
     });
-    // return response;
+    return response;
   }
 
   //CREATE NEW HOME
