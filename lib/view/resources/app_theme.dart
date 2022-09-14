@@ -34,8 +34,8 @@ class AppTheme {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        fillColor: Colors.grey.shade300,
-        prefixIconColor: Colors.grey.shade300,
+        fillColor: Colors.grey.shade200,
+        prefixIconColor: Colors.grey.shade700,
         contentPadding:
             const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         border: OutlineInputBorder(
@@ -47,7 +47,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(10.0),
         ),
         hintStyle: TextStyle(
-          color: Colors.grey.shade200,
+          color: Colors.grey.shade700,
         ),
       ),
     );
@@ -90,7 +90,8 @@ class AppTheme {
       ),
 
       inputDecorationTheme: InputDecorationTheme(
-        fillColor: Colors.grey.shade300,
+        fillColor: Colors.grey.shade800,
+        // fillColor: Colors.grey.shade300,
         prefixIconColor: Colors.grey.shade300,
         contentPadding:
             const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

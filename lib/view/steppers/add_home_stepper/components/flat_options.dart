@@ -20,7 +20,7 @@ class _FlatSelectorState extends State<FlatSelector> {
   List<bool> selectedList = [];
   @override
   Widget build(BuildContext context) {
-    var flats = UserFlats.flatList(flatRange: 4, floorRange: 6);
+    var flats = UserFlats.getFlatList(flatRange: 4, floorRange: 6);
     List<bool> selectedList = [];
 
     for (int i = 0; i < flats.length; i++) {

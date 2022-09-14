@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
-
-import '../providers/theme_provider.dart';
 
 class AppWidget {
   static void showToast(String message) => Fluttertoast.showToast(
@@ -18,38 +15,35 @@ class AppWidget {
 
   static Widget appSearchBar({required BuildContext context}) => SizedBox(
         height: 40,
-        child: Material(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          elevation: 2,
-          child: TextField(
-            style: TextStyle(
-              color: context.watch<ThemeProvider>().isDarkMode
-                  ? Colors.white
-                  : Colors.grey.shade800,
-              fontSize: 18,
+        child: TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(
+                width: 0,
+                style: BorderStyle.none,
+              ),
             ),
-            cursorColor: context.watch<ThemeProvider>().isDarkMode
-                ? Colors.white
-                : Colors.grey.shade700,
-            maxLines: 1,
-            decoration: InputDecoration(
-              filled: true,
-              prefixIcon: const Icon(Icons.search),
-              contentPadding: const EdgeInsets.only(top: 10),
-              hintText: 'খোঁজ করুন',
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide.none,
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide.none,
-              ),
+            focusedBorder: searchBoxBorder(),
+            filled: true,
+            hintText: ' খোঁজ করুন',
+            prefixIcon: const Icon(
+              Icons.search,
             ),
           ),
+          maxLines: 1,
         ),
       );
+
+  static OutlineInputBorder searchBoxBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: const BorderSide(
+        width: 0,
+        style: BorderStyle.none,
+      ),
+    );
+  }
 
   static SnackBar snackBarContent({required String msg}) => SnackBar(
         content: Text(msg),

@@ -69,18 +69,18 @@ class AppDrawer extends StatelessWidget {
               style: drawerTextStyle,
             ),
           ),
-          ListTile(
-            onTap: () {
-              print(Provider.of<CurrentHomeProvider>(context, listen: false)
-                  .getCurrentHome!
-                  .homeName);
-            },
-            leading: const Icon(Icons.edit),
-            title: Text(
-              'test',
-              style: drawerTextStyle,
-            ),
-          ),
+          // ListTile(
+          //   onTap: () {
+          //     print(Provider.of<CurrentHomeProvider>(context, listen: false)
+          //         .getCurrentHome!
+          //         .homeName);
+          //   },
+          //   leading: const Icon(Icons.edit),
+          //   title: Text(
+          //     'test',
+          //     style: drawerTextStyle,
+          //   ),
+          // ),
           const Spacer(),
           ListTile(
             onTap: () {

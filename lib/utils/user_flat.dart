@@ -1,3 +1,6 @@
+//*TAKES RANGE OF FLOOR AND FLAT NUMBER PER FLOOR AND
+//*GIVES A 1D LIST OF FLAT
+
 class UserFlats {
   static final List<List<String>> _userFlatOptions = [
     ['1A', '1B', '1C', '1D', '1E', '1F', '1G', '1H', '1I', '1J'],
@@ -11,9 +14,7 @@ class UserFlats {
     ['9A', '9B', '9C', '9D', '9E', '9F', '9G', '9H', '9I', '9J'],
   ];
 
-  //*TAKES RANGE OF FLOOR AND FLAT NUMBER PER FLOOR AND
-  //*GIVES A 1D LIST OF FLAT
-  static List<String> flatList(
+  static List<String> getFlatList(
       {required int floorRange, required int flatRange}) {
     List<String> finalFlatList = [];
     if ((floorRange > 0 && floorRange < 9) &&

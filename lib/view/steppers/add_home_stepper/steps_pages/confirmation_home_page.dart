@@ -2,18 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
+import '../../../../providers/new_home_step_provider.dart';
 
 class ConfirmHomePage extends StatelessWidget {
   const ConfirmHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final faltProvider = context.watch<HomeProvider>();
-    // final provider = context.watch<NewRenterStepProvider>();
-
-    // int flatNo = provider.selectedFlatNo!;
-    // String assignedFlatNo = faltProvider.flats[flatNo].flatName;
+    final provider = context.watch<NewHomeStepProvider>();
+    provider.clearControllers();
 
     return Center(
       child: Padding(

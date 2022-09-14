@@ -33,40 +33,8 @@ class CurrentMonthPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 20.0),
               child: Column(
                 children: [
-                  // const MonthlySummaryCard(),
                   const SizedBox(height: 40),
-                  // SingleChildScrollView(
-                  //   scrollDirection: Axis.horizontal,
-                  //   child: Row(
-                  //     children: [
-                  //       SummaryContainer(
-                  //         txt: 'সম্পূর্ণ দিয়েছেন',
-                  //         summaryColor: mode.isDarkMode
-                  //             ? Colors.green.shade300
-                  //             : Colors.green.shade400,
-                  //         num: 5,
-                  //       ),
-                  //       SummaryContainer(
-                  //           txt: 'আংশিক দিয়েছেন',
-                  //           summaryColor: mode.isDarkMode
-                  //               ? Colors.yellow.shade300
-                  //               : Colors.yellow.shade400,
-                  //           num: 1),
-                  //       SummaryContainer(
-                  //           txt: 'বাকি আছেন',
-                  //           summaryColor: mode.isDarkMode
-                  //               ? Colors.red.shade300
-                  //               : Colors.red.shade400,
-                  //           num: 1),
-                  //     ]
-                  //         .map((e) => Padding(
-                  //               padding:
-                  //                   const EdgeInsets.symmetric(horizontal: 4.0),
-                  //               child: e,
-                  //             ))
-                  //         .toList(),
-                  //   ),
-                  // ),
+
                   const SizedBox(height: 60),
                   //monthly details tables
                   Padding(
@@ -83,6 +51,9 @@ class CurrentMonthPage extends StatelessWidget {
                       title: "আগের মাসের হিসাব",
                       date: CustomFormatter().previousMonthYear(),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 60,
                   ),
                 ],
               ),

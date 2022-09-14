@@ -6,6 +6,7 @@ import 'package:sweet_home/view/app_pages/pending_page/pending_page.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 import '../../../models/home_model.dart';
 import '../../../services/database_service/home_crud.dart';
+import '../../../view_models/flat_list.dart';
 import '../current_month_page/current_month_details.dart';
 import '../flats_page/flat_list_page.dart';
 import 'components/custom_appbar.dart';
@@ -21,7 +22,7 @@ class AppHomePage extends StatefulWidget {
 class _AppHomePage extends State<AppHomePage> {
   final double _appIconHeight = 20;
   final double _appIconWidth = 20;
-  int _currentTabIndex = 0;
+  int _currentTabIndex = 1;
   final double _appBarHeight = 280;
   bool isInitialState = false;
 
@@ -101,7 +102,10 @@ class _AppHomePage extends State<AppHomePage> {
         ],
       );
     }
-    if (selectedIndex == _flatListPageIndex) return FlatListPage();
+    // if (selectedIndex == _flatListPageIndex) return FlatListPage();
+    if (selectedIndex == _flatListPageIndex) {
+      return FlatListVM().getFlatList(context);
+    }
     if (selectedIndex == _pendingPageIndex) return PendingPage();
     return const SizedBox();
   }

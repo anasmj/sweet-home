@@ -6,17 +6,25 @@ import '../providers/current_home.dart';
 import '../services/database_service/home_crud.dart';
 import '../view/app_widgets.dart';
 
-onHomeDeleted(BuildContext context) {
+onHomeDeleted(BuildContext context) async {
   Home? currentHome = context.read<CurrentHomeProvider>().getCurrentHome;
   if (currentHome != null) {
-    var home;
-    Response response = HomeCrud().deleteHome(home.homeId);
+    var homeId = currentHome.homeId;
+    Response response = HomeCrud().deleteHome(homeId);
+    //trying to find other homs
+    List<Home> homeList = await HomeCrud().getAllHome();
+    if (homeList.isNotEmpty) {
+      // ignore: use_build_context_synchronously
+      context.read<CurrentHomeProvider>().setCurrentHome(homeList.first);
+    }
     if (response.code != 200) {
       AppWidget.snackBarContent(msg: 'বাড়ীটি ডিলিট করা সম্ভব হয়নি');
     }
     AppWidget.showToast('বাড়ীটি মুছে ফেলা হয়েছে');
-    context.read<CurrentHomeProvider>().setCurrentHome(null);
+
+    // context.read<CurrentHomeProvider>().setCurrentHome(null);
     //close drawer
+
     Navigator.of(context).pop();
   }
 }
