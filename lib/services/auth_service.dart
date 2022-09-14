@@ -28,8 +28,7 @@ class AuthService {
     // return _auth.userChanges().map((User? user) => toAppUserModel(user));
   }
 
-  // register with email and pass and set up firestore
-
+  // CREATE NEW USER
   Future<Response> registerWithEmailAndPass({
     required String email,
     required String password,

@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/models/response.dart';
 
-import '../../models/home_model.dart';
+import '../models/home_model.dart';
 
-class HomeCrud {
+class FlatService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
@@ -16,7 +16,7 @@ class HomeCrud {
         .collection('homes');
   }
 
-  //READ HOMES
+  //READ All Flats
   Future<List<Home>> getAllHome() async {
     final homeSnapshots = await getHomesCollectionRef().get();
     List<Home> allHome = homeSnapshots.docs.map((homeDoc) {
@@ -25,7 +25,7 @@ class HomeCrud {
     return allHome;
   }
 
-  //GET SINGLE HOME
+  //GET SINGLE FLAT
   Future<Home?> getHomeById({required String homeId}) async {
     DocumentReference currentUserDocRef =
         _db.collection('users').doc(_auth.currentUser!.uid);
@@ -38,7 +38,7 @@ class HomeCrud {
     return null;
   }
 
-  //DELETE HOME
+  //DELETE FLAT
   Response deleteHome(String homeId) {
     getHomesCollectionRef().doc(homeId).delete().whenComplete(() {
       response.code = 200;
@@ -50,7 +50,7 @@ class HomeCrud {
     return response;
   }
 
-  //UPDATE HOME
+  //UPDATE FLAT
   Response updatefield(
       {required String homeId,
       required String field,
@@ -67,7 +67,7 @@ class HomeCrud {
     return response;
   }
 
-  //CREATE NEW HOME
+  //CREATE NEW FLAT
   Future<Response> addHome(
       {String? userId,
       required String homeName,

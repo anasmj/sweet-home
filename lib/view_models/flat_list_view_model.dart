@@ -9,7 +9,7 @@ import '../view/app_pages/flats_page/home_flats.dart';
 //should return widget to show user
 class FlatListVM extends ChangeNotifier {
   //make a list of flat
-  late Widget displayWidget = Scaffold(
+  late Widget displayWidget = const Scaffold(
     body: Center(child: Text('loading..')),
   );
 
@@ -23,9 +23,9 @@ class FlatListVM extends ChangeNotifier {
       );
     }
     //if there are no flats in home
-    List<String> flatsName = UserFlats.getFlatList(
+    List<String> flatsNames = UserFlats.getFlatList(
         floorRange: home.floor, flatRange: home.flatPerFloor);
 
-    return HomeFlatsPage(flatNames: flatsName);
+    return HomeFlatsPage(flatNames: flatsNames);
   }
 }

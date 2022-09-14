@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/home_model.dart';
 import '../models/response.dart';
 import '../providers/current_home.dart';
-import '../services/database_service/home_crud.dart';
+import '../services/home_services.dart';
 import '../view/app_widgets.dart';
 
 onHomeDeleted(BuildContext context) async {

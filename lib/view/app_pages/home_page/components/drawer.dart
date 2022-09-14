@@ -6,7 +6,7 @@ import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/view/app_widgets.dart';
 import '../../../../models/home_model.dart';
-import '../../../../services/database_service/home_crud.dart';
+import '../../../../services/home_services.dart';
 import '../../../../utils/routes.dart';
 import 'change_theme_button.dart';
 import 'homes_popup.dart';

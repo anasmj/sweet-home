@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/current_home.dart';
 import '../../app_widgets.dart';
 import '../../resources/app_icons.dart';
-import 'components/customize_button.dart';
 
 //*ADOPTS VIEW MODEL
 // ignore: must_be_immutable
@@ -22,21 +22,25 @@ class HomeFlatsPage extends StatelessWidget {
           const SizedBox(
             height: 50,
           ),
-          //upper part of container
-          Row(
-            children: [
-              noOfFlatText(context, flatNames.length),
-              const SizedBox(width: 18),
-              Expanded(
-                child: AppWidget.appSearchBar(context: context),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
+          // upper part of container
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Row(
+              children: [
+                noOfFlatText(context, flatNames.length),
+                const SizedBox(width: 18),
+                Expanded(
+                  child: AppWidget.appSearchBar(context: context),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.add),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
           ),
 
           Expanded(

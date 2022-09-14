@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/new_home_step_provider.dart';
+import 'package:sweet_home/utils/user_flat.dart';
 import 'package:sweet_home/view/steppers/add_home_stepper/steps_pages/confirmation_home_page.dart';
 import 'package:sweet_home/view/steppers/add_home_stepper/steps_pages/first_page.dart';
 import 'package:sweet_home/view/steppers/add_home_stepper/steps_pages/second_page.dart';
 import '../../../models/response.dart';
-import '../../../services/database_service/home_crud.dart';
+import '../../../services/home_services.dart';
 import '../../app_widgets.dart';
 import '../../resources/app_icons.dart';
 
@@ -63,19 +64,22 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                           isLoading = true;
                         });
                         Response res = await HomeCrud().addHome(
-                          homeName: provider.homeNameController.text.trim(),
-                          location: provider.addressController.text.trim(),
-                          rentAmount:
-                              double.parse(provider.rentController.text),
-                          gasBill: provider.waterController.text.isNotEmpty
-                              ? double.parse(provider.gasController.text)
-                              : 0.0,
-                          waterBill: provider.waterController.text.isNotEmpty
-                              ? double.parse(provider.waterController.text)
-                              : 0.0,
-                          numOfFloor: provider.floorLength,
-                          flatPerFloor: provider.flatLength,
-                        );
+                            homeName: provider.homeNameController.text.trim(),
+                            location: provider.addressController.text.trim(),
+                            rentAmount:
+                                double.parse(provider.rentController.text),
+                            gasBill: provider.waterController.text.isNotEmpty
+                                ? double.parse(provider.gasController.text)
+                                : 0.0,
+                            waterBill: provider.waterController.text.isNotEmpty
+                                ? double.parse(provider.waterController.text)
+                                : 0.0,
+                            numOfFloor: provider.floorLength,
+                            flatPerFloor: provider.flatLength,
+                            flatNames: UserFlats.getFlatList(
+                              floorRange: provider.flatLength,
+                              flatRange: provider.flatLength,
+                            ));
 
                         // Successful
                         if (res.code == 200) {
