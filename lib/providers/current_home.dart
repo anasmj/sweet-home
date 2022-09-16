@@ -6,8 +6,10 @@ class CurrentHomeProvider extends ChangeNotifier {
   GlobalKey<FormState> editFormKey = GlobalKey<FormState>();
   TextEditingController displayTextController = TextEditingController();
 
-  Home? get getCurrentHome => _currentHome;
+  Home? get currentHome => _currentHome;
+
   void setCurrentHome(Home? selectedHome) {
     _currentHome = selectedHome;
+    // notifyListeners(); //?should it be ?
   }
 }

@@ -18,9 +18,9 @@ class _OccupationDropdownState extends State<OccupationDropdown> {
   Widget build(BuildContext context) {
     Provider.of<NewRenterStepProvider>(context).setOccupation = dropDownValue!;
 
-    TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          color: Colors.black.withOpacity(0.8),
-        );
+    // TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
+    //       color: Colors.black.withOpacity(0.8),
+    //     );
     return DropdownButton(
       borderRadius: BorderRadius.circular(10),
       value: dropDownValue,
@@ -35,7 +35,7 @@ class _OccupationDropdownState extends State<OccupationDropdown> {
               value: value,
               child: Text(
                 value,
-                style: formTextStyle,
+                // style: formTextStyle,
               ),
             ),
           )

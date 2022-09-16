@@ -20,9 +20,6 @@ class StepperTextField extends StatelessWidget {
   bool isDisabled;
   @override
   Widget build(BuildContext context) {
-    TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          color: Colors.black.withOpacity(0.8),
-        );
     return isAstrics
         ? TextFormField(
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -33,8 +30,8 @@ class StepperTextField extends StatelessWidget {
             keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
             decoration: InputDecoration(
               label: getLabelWithAstrics(
+                context: context,
                 label: label,
-                textStyle: formTextStyle,
               ),
             ),
           )
@@ -48,19 +45,22 @@ class StepperTextField extends StatelessWidget {
             decoration: InputDecoration(
               label: Text(
                 label,
-                // style: formTextStyle,
               ),
             ),
           );
   }
 
-  RichText getLabelWithAstrics(
-      {required String label, required TextStyle textStyle}) {
+  RichText getLabelWithAstrics({context, required String label}) {
     return RichText(
       text: TextSpan(
-        style: textStyle,
+        // style: textStyle,
         children: [
-          TextSpan(text: label),
+          TextSpan(
+              text: label,
+              style: Theme.of(context)
+                  .inputDecorationTheme
+                  .labelStyle!
+                  .copyWith(fontSize: 17)),
           TextSpan(
             text: ' *',
             style: TextStyle(

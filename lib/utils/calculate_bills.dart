@@ -16,8 +16,8 @@ class CalculateBill {
   double? electricBill = 0;
 
   CalculateBill.setRenter({required this.renter}) {
-    Year currentYear =
-        renter.records[renter.records.length - 1]; //last element of List<year>
+    Year currentYear = renter
+        .records![renter.records!.length - 1]; //last element of List<year>
     currentMonth = currentYear.months[currentYear.months.length - 1];
     previousMonth = currentYear.months[currentYear.months.length - 2];
   }

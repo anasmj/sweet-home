@@ -13,6 +13,7 @@ import 'package:sweet_home/providers/home_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sweet_home/view/resources/app_theme.dart';
 import 'package:sweet_home/view/wrapper.dart';
+import 'package:sweet_home/view_models/flat_list_viewmodel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +46,13 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => CurrentHomeProvider(),
+        ),
+        ChangeNotifierProxyProvider<CurrentHomeProvider, FlatListViweModel>(
+          create: (BuildContext context) => FlatListViweModel(),
+          update: (context, currentHome, viewModel) => FlatListViweModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FlatListViweModel(),
         ),
         ListenableProvider(
           create: (context) => ThemeProvider(),

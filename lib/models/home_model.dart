@@ -1,6 +1,8 @@
 // import 'package:rent_home/models/others_model.dart';
 // import 'flat_model.dart';
 
+import 'package:sweet_home/models/renter.dart';
+
 import 'flat_model.dart';
 
 class Home {
@@ -12,8 +14,6 @@ class Home {
   final String location;
   final double? gasBill;
   final double? waterBill;
-  final List<Flat>? flatList;
-
   Home({
     this.homeId = '',
     required this.homeName,
@@ -21,7 +21,6 @@ class Home {
     required this.location,
     required this.floor,
     required this.flatPerFloor,
-    this.flatList,
     this.gasBill,
     this.waterBill,
   });

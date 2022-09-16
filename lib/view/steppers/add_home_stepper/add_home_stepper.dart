@@ -77,7 +77,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                             numOfFloor: provider.floorLength,
                             flatPerFloor: provider.flatLength,
                             flatNames: UserFlats.getFlatList(
-                              floorRange: provider.flatLength,
+                              floorRange: provider.floorLength,
                               flatRange: provider.flatLength,
                             ));
 

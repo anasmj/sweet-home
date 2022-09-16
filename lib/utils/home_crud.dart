@@ -7,11 +7,12 @@ import '../services/home_services.dart';
 import '../view/app_widgets.dart';
 
 onHomeDeleted(BuildContext context) async {
-  Home? currentHome = context.read<CurrentHomeProvider>().getCurrentHome;
+  Home? currentHome = context.read<CurrentHomeProvider>().currentHome;
   if (currentHome != null) {
     var homeId = currentHome.homeId;
     Response response = HomeCrud().deleteHome(homeId);
     //trying to find other homs
+    context.read<CurrentHomeProvider>().setCurrentHome(null);
     List<Home> homeList = await HomeCrud().getAllHome();
     if (homeList.isNotEmpty) {
       // ignore: use_build_context_synchronously

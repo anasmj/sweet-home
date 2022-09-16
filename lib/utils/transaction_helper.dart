@@ -18,8 +18,8 @@ class TransactionHelper {
 
   //! incomplete function, more parameter needed
   void addTransaction(Renter renter, date, amount) {
-    Year currentYear =
-        renter.records[renter.records.length - 1]; //last element of List<year>
+    Year currentYear = renter
+        .records![renter.records!.length - 1]; //last element of List<year>
     currentMonth = currentYear.months[currentYear.months.length - 1];
 
     List<Transaction> userTransactionList = currentMonth.transactions!;
@@ -30,7 +30,7 @@ class TransactionHelper {
   //returns list of transactions made by a user
   List<Transaction> listOfAllTransactions() {
     List<Transaction> transactionList = [];
-    renter.records.forEach(
+    renter.records!.forEach(
       (year) => year.months.forEach(
         (monthDetail) {
           monthDetail.transactions!.forEach(

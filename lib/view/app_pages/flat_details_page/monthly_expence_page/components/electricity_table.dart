@@ -13,8 +13,9 @@ class ElectricityTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //TODO: keep it to the kitchen
-    Year currentYear =
-        renter.records[renter.records.length - 1]; //last element of List<year>
+    //! this is for demo purpose, it can be null in real scenario if not changed
+    Year currentYear = renter
+        .records![renter.records!.length - 1]; //last element of List<year>
     MonthDetails currentMonth =
         currentYear.months[currentYear.months.length - 1];
     MonthDetails previousMonth =

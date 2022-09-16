@@ -1,71 +1,85 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sweet_home/models/renter.dart';
 import 'package:sweet_home/models/response.dart';
 
+import '../models/flat_model.dart';
 import '../models/home_model.dart';
 
 class FlatService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-
   Response response = Response();
-  CollectionReference getHomesCollectionRef() {
-    return _db
-        .collection('users')
-        .doc(_auth.currentUser!.uid)
-        .collection('homes');
+
+  //get flats collection
+  Future<CollectionReference> getFlatsCollectionRef(String homeId) async {
+    DocumentReference currentUserDocRef =
+        _db.collection('users').doc(_auth.currentUser!.uid);
+    DocumentReference currentHomeDocRef =
+        currentUserDocRef.collection('homes').doc(homeId);
+    CollectionReference flatsCollectionRef =
+        currentHomeDocRef.collection('flats');
+    return flatsCollectionRef;
   }
 
-  //READ All Flats
-  Future<List<Home>> getAllHome() async {
-    final homeSnapshots = await getHomesCollectionRef().get();
-    List<Home> allHome = homeSnapshots.docs.map((homeDoc) {
-      return Home.fromJson(homeDoc.data() as Map<String, dynamic>);
+  Future<List<Flat>> getAllFlats({required String homeId}) async {
+    CollectionReference flatsCollectionRef =
+        await getFlatsCollectionRef(homeId);
+    final flatsSnapshot = await flatsCollectionRef.get();
+    final flatList = flatsSnapshot.docs.map((flat) {
+      Renter? renter;
+
+      try {
+        var renterData = flat['renter'] as Map<String, dynamic>;
+        if (renterData.isNotEmpty) {
+          renter = Renter.fromJson(renterData);
+        }
+      } catch (e) {}
+      return Flat.fromJson(flat.data() as Map<String, dynamic>);
     }).toList();
-    return allHome;
+    return flatList;
   }
 
   //GET SINGLE FLAT
-  Future<Home?> getHomeById({required String homeId}) async {
-    DocumentReference currentUserDocRef =
-        _db.collection('users').doc(_auth.currentUser!.uid);
-    CollectionReference userHomeCollection =
-        currentUserDocRef.collection('homes');
-    DocumentSnapshot homeSnapshot = await userHomeCollection.doc(homeId).get();
-    if (homeSnapshot.exists) {
-      return Home.fromJson(homeSnapshot.data() as Map<String, dynamic>);
+  Future<Home?> getFlatById({required String homeId, flatId}) async {
+    //READ SINGE FLAT
+    CollectionReference flatsCollectionRef =
+        await getFlatsCollectionRef(homeId);
+    DocumentSnapshot flatsSnapshot = await flatsCollectionRef.doc(flatId).get();
+    if (flatsSnapshot.exists) {
+      print('snapshot found');
+      print(flatsSnapshot.get('flatName'));
     }
-    return null;
   }
 
   //DELETE FLAT
-  Response deleteHome(String homeId) {
-    getHomesCollectionRef().doc(homeId).delete().whenComplete(() {
-      response.code = 200;
-      response.body = 'home deleted';
-    }).catchError((e) {
-      response.code = 400;
-      response.body = e.toString();
-    });
-    return response;
-  }
+  // Response deleteHome(String homeId) {
+  //   getHomesCollectionRef().doc(homeId).delete().whenComplete(() {
+  //     response.code = 200;
+  //     response.body = 'home deleted';
+  //   }).catchError((e) {
+  //     response.code = 400;
+  //     response.body = e.toString();
+  //   });
+  //   return response;
+  // }
 
   //UPDATE FLAT
-  Response updatefield(
-      {required String homeId,
-      required String field,
-      required dynamic newValue}) {
-    getHomesCollectionRef()
-        .doc(homeId)
-        .update({field: newValue}).whenComplete(() {
-      response.code = 200;
-      response.body = 'updated successfully';
-    }).catchError((error) {
-      response.code = 400;
-      response.body = 'unable to update';
-    });
-    return response;
-  }
+  // Response updatefield(
+  //     {required String homeId,
+  //     required String field,
+  //     required dynamic newValue}) {
+  //   getHomesCollectionRef()
+  //       .doc(homeId)
+  //       .update({field: newValue}).whenComplete(() {
+  //     response.code = 200;
+  //     response.body = 'updated successfully';
+  //   }).catchError((error) {
+  //     response.code = 400;
+  //     response.body = 'unable to update';
+  //   });
+  //   return response;
+  // }
 
   //CREATE NEW FLAT
   Future<Response> addHome(

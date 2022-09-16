@@ -42,8 +42,7 @@ class AppRoute {
   }
 
   //ADD NEW RENTER
-  static void newRenterStepper(
-      {required BuildContext context, required int flatNo}) {
+  static void newRenterStepper({required BuildContext context}) {
     Navigator.push(
       context,
       PageTransition(
@@ -51,6 +50,6 @@ class AppRoute {
         type: PageTransitionType.fade,
       ),
     );
-    context.read<NewRenterStepProvider>().setSelectedFlatNo(flatNo);
+    // context.read<NewRenterStepProvider>().setSelectedFlatNo(flatNo);
   }
 }

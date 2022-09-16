@@ -1,11 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
+import 'package:sweet_home/providers/flat_info_provider.dart';
+import 'package:sweet_home/providers/new_home_step_provider.dart';
 import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
+import 'package:sweet_home/services/flat_services.dart';
+import 'package:sweet_home/utils/user_flat.dart';
 import 'package:sweet_home/view/app_widgets.dart';
+import '../../../../models/flat_model.dart';
 import '../../../../models/home_model.dart';
+import '../../../../models/renter.dart';
 import '../../../../services/home_services.dart';
 import '../../../../utils/routes.dart';
 import 'change_theme_button.dart';
@@ -22,7 +29,9 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Home? home = context.watch<CurrentHomeProvider>().currentHome;
     bool isDark = context.watch<ThemeProvider>().isDarkMode;
+    NewHomeStepProvider newHome = context.watch<NewHomeStepProvider>();
     return Drawer(
       width: 300,
       elevation: 3.0,
@@ -69,18 +78,30 @@ class AppDrawer extends StatelessWidget {
               style: drawerTextStyle,
             ),
           ),
-          // ListTile(
-          //   onTap: () {
-          //     print(Provider.of<CurrentHomeProvider>(context, listen: false)
-          //         .getCurrentHome!
-          //         .homeName);
-          //   },
-          //   leading: const Icon(Icons.edit),
-          //   title: Text(
-          //     'test',
-          //     style: drawerTextStyle,
-          //   ),
-          // ),
+          ListTile(
+            onTap: () async {
+              if (home == null) print('home is null found_drawer');
+              if (home != null) {
+                // CollectionReference flatsCollectionRef =
+                //     await FlatService().getFlatsCollectionRef(home.homeId);
+                // final flatsSnapshot = await flatsCollectionRef.get();
+
+                // flatsSnapshot.docs.map((flat) {
+                //   try {
+                //     var renterData = flat['renter'] as Map<String, dynamic>;
+                //     if (renterData.isNotEmpty) {
+                //       Renter? renter = Renter.fromJson(renterData);
+                //     }
+                //   } catch (e) {}
+                // }).toList();
+              }
+            },
+            leading: const Icon(Icons.edit),
+            title: Text(
+              'test',
+              style: drawerTextStyle,
+            ),
+          ),
           const Spacer(),
           ListTile(
             onTap: () {
@@ -131,8 +152,8 @@ class AppDrawer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 30.0),
             child: Text(
-              watchProvider.getCurrentHome != null
-                  ? watchProvider.getCurrentHome!.homeName
+              watchProvider.currentHome != null
+                  ? watchProvider.currentHome!.homeName
                   : '',
               style: Theme.of(context).textTheme.headline6,
             ),
@@ -158,8 +179,7 @@ class AppDrawer extends StatelessWidget {
                     if (userHomes.isNotEmpty) {
                       return HomesPopupButton(
                         userHomes: userHomes,
-                        onHomeDelete: () =>
-                            removeDrawer(drawerContext: context),
+                        onHomeDelete: () => closeDrawer(drawerContext: context),
                       );
                     }
                     //show nothing if user have no home
@@ -174,7 +194,7 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  void removeDrawer({required BuildContext drawerContext}) {
+  void closeDrawer({required BuildContext drawerContext}) {
     Navigator.pop(drawerContext);
   }
 

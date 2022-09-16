@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/providers/home_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/view/steppers/add_renter_stepper/steps_pages/components/occupation_dropdown.dart';
@@ -22,15 +23,14 @@ class RenterInfoStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<NewRenterStepProvider>(context);
-    String flatName =
-        context.watch<HomeProvider>().flats[provider.selectedFlatNo].flatName;
+    String flatName = context.watch<CurrentFlatInfoProvider>().selectedFlat;
 
     nameController.text = provider.getRenterName;
     provider.firstPageFormKey = firstPageFormKey;
 
-    TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          color: Colors.black.withOpacity(0.8),
-        );
+    // TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
+    //       color: Colors.black.withOpacity(0.8),
+    //     );
     var occupationDropdown = const OccupationDropdown();
 
     return Form(
@@ -41,7 +41,7 @@ class RenterInfoStep extends StatelessWidget {
         children: [
           flatNameChip(context, flatName),
           const SizedBox(
-            height: 10,
+            height: 20,
           ),
           StepperTextField(
             label: "গ্রাহকের নাম",
@@ -52,7 +52,7 @@ class RenterInfoStep extends StatelessWidget {
                 .checkHomeName, //cant pass the textfield without name
           ),
           const SizedBox(
-            height: 10,
+            height: 20,
           ),
           Row(
             children: [
@@ -88,9 +88,9 @@ class RenterInfoStep extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'পেশাঃ ',
-                    style: formTextStyle,
+                    style: TextStyle(fontSize: 16),
                   ),
                   const SizedBox(
                     width: 20,
@@ -101,9 +101,9 @@ class RenterInfoStep extends StatelessWidget {
               const Spacer(),
 
               //number of member counter
-              Text(
+              const Text(
                 'সদস্য সংখ্যা',
-                style: formTextStyle,
+                style: TextStyle(fontSize: 16),
               ),
               //increment or decrement
               Column(
@@ -113,9 +113,8 @@ class RenterInfoStep extends StatelessWidget {
                     onPressed: () {
                       context.read<NewRenterStepProvider>().incrementMember();
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.add,
-                      color: Colors.black.withOpacity(0.6),
                     ),
                   ),
                   Text(
@@ -127,9 +126,8 @@ class RenterInfoStep extends StatelessWidget {
                     onPressed: () {
                       context.read<NewRenterStepProvider>().decrementMember();
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.remove,
-                      color: Colors.black.withOpacity(0.6),
                     ),
                   ),
                 ],

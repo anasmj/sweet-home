@@ -6,9 +6,9 @@ import 'package:sweet_home/view/app_pages/pending_page/pending_page.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 import '../../../models/home_model.dart';
 import '../../../services/home_services.dart';
-import '../../../view_models/flat_list_view_model.dart';
+import '../../../view_models/flat_list_viewmodel.dart';
 import '../current_month_page/current_month_details.dart';
-import '../flats_page/flat_list_page.dart';
+import '../flats_page/home_flats.dart';
 import 'components/custom_appbar.dart';
 import 'components/drawer.dart';
 
@@ -22,7 +22,7 @@ class AppHomePage extends StatefulWidget {
 class _AppHomePage extends State<AppHomePage> {
   final double _appIconHeight = 20;
   final double _appIconWidth = 20;
-  int _currentTabIndex = 1;
+  int _currentTabIndex = 0;
   final double _appBarHeight = 280;
   bool isInitialState = false;
 
@@ -35,7 +35,7 @@ class _AppHomePage extends State<AppHomePage> {
   Widget build(BuildContext context) {
     CurrentHomeProvider providerRead = context.watch<CurrentHomeProvider>();
 
-    return providerRead.getCurrentHome == null
+    return providerRead.currentHome == null
         ? FutureBuilder<List<Home>>(
             //select a home if any
             future: HomeCrud().getAllHome(),
@@ -104,7 +104,8 @@ class _AppHomePage extends State<AppHomePage> {
     }
     // if (selectedIndex == _flatListPageIndex) return FlatListPage();
     if (selectedIndex == _flatListPageIndex) {
-      return FlatListVM().getFlatList(context);
+      return HomeFlatsPage();
+      // return context.watch<FlatListViweModel>().getWidget(context);
     }
     if (selectedIndex == _pendingPageIndex) return PendingPage();
     return const SizedBox();

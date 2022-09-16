@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../utils/routes.dart';
-import '../resources/app_icons.dart';
+import '../../../utils/routes.dart';
+import '../../resources/app_icons.dart';
 
 class EmptyHomePage extends StatelessWidget {
   const EmptyHomePage({super.key});

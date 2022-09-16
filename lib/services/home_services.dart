@@ -89,11 +89,10 @@ class HomeCrud {
     //create flats colection, where doc id = flat name
     CollectionReference flatCollectionRef = homeDocRef.collection('flats');
     flatNames.forEach((flatName) =>
-        flatCollectionRef.doc(flatName).set({'flatName': flatName}));
+        flatCollectionRef.doc(flatName).set(Flat().toJson(flatName)));
 
-    //converting data to map
     final data = Home(
-      homeId: homeDocRef.id, //auto generated doc id
+      homeId: homeDocRef.id, // assign auto generated doc id to home id
       homeName: homeName,
       rentAmount: rentAmount,
       floor: numOfFloor,

@@ -34,6 +34,9 @@ class AppTheme {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
+        labelStyle: const TextStyle(
+          color: Colors.black,
+        ),
         fillColor: Colors.grey.shade200,
         prefixIconColor: Colors.grey.shade700,
         contentPadding:
@@ -93,6 +96,9 @@ class AppTheme {
         fillColor: Colors.grey.shade800,
         // fillColor: Colors.grey.shade300,
         prefixIconColor: Colors.grey.shade300,
+        labelStyle: const TextStyle(
+          color: Colors.white,
+        ),
         contentPadding:
             const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         border: OutlineInputBorder(

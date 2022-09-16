@@ -175,7 +175,7 @@ class RegisterScreenState extends State<RegistrationPage> {
   String? passwordValidator(String? val) {
     return val != null
         ? val.length < 6
-            ? 'পাসওয়ার্ড অন্তত ৬ অক্ষরের দিন'
+            ? 'পাসওয়ার্ড ৬ অক্ষরের হতে হবে'
             : null
         : null;
   }

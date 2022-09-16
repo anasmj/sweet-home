@@ -6,7 +6,7 @@ class NewHomeStepProvider extends ChangeNotifier {
 
   //FIRST STEP
   int _noOfFloor = 1;
-  int _noOfFlat = 1;
+  int _noOfFlat = 2;
 
   //TEC to be accessed from different places
   TextEditingController homeNameController = TextEditingController();
@@ -71,5 +71,6 @@ class NewHomeStepProvider extends ChangeNotifier {
     electricityController.clear();
     gasController.clear();
     waterController.clear();
+    print('new home step provider: colntroller should be cleared up');
   }
 }

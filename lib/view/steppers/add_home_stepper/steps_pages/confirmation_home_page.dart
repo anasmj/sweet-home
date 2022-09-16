@@ -11,7 +11,7 @@ class ConfirmHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<NewHomeStepProvider>();
+    final provider = context.read<NewHomeStepProvider>();
     provider.clearControllers();
 
     return Center(

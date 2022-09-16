@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import '../models/home_model.dart';
 import '../services/home_services.dart';
-import '../view/app_pages/empty_home_page.dart';
+import '../view/app_pages/empty_pages/empty_home_page.dart';
 import '../view/app_pages/home_detail_page/home_detail_page.dart';
 import '../view/app_pages/home_options_page.dart';
 
@@ -28,7 +28,7 @@ class _UserHomeDetailState extends State<UserHomes> {
         List<Home>? homes = snapshot.data;
         if (homes == null) return const EmptyHomePage();
         if (homes.isEmpty) return const EmptyHomePage();
-        Home? selectedHome = providerWatch.getCurrentHome;
+        Home? selectedHome = providerWatch.currentHome;
         if (selectedHome == null) {
           providerRead.setCurrentHome(homes.first);
         }
