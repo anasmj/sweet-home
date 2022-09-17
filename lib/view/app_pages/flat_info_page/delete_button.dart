@@ -4,19 +4,19 @@ import '../../resources/app_icons.dart';
 // ignore: must_be_immutable
 class DeleteButton extends StatelessWidget {
   DeleteButton({
-    required this.onHomeDeleted,
+    // required this.onHomeDeleted,
     Key? key,
   }) : super(key: key);
 
   final String _buttonText = 'ডিলিট';
   final double _iconWidthAndHeight = 16;
   final confirmationCaptcha = 'A1B2C3';
-  VoidCallback onHomeDeleted;
+  // VoidCallback onHomeDeleted;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: onHomeDeleted,
+      onPressed: () {}, // onHomeDeleted,
       style: OutlinedButton.styleFrom(
           side: const BorderSide(
         width: 2,

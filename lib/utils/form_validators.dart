@@ -19,19 +19,15 @@ class FormValidators {
   }
 
   static String? checkRentAmount(String? value) {
-    if (value!.isEmpty) return 'বাড়ীভাড়া উল্লেখ করা হয়নি';
-
+    if (value!.isEmpty) return 'বাড়ী ভাড়া উল্লেখ করা হয়নি';
     return null;
   }
 
   static String? checkGasBill(String? value) {
-    // if (value!.isEmpty) return 'বাড়ীভাড়া উল্লেখ করা হয়নি';
-
     return null;
   }
 
   static String? checWaterBill(String? value) {
-    // if (value!.isEmpty) return 'বাড়ীভাড়া উল্লেখ করা হয়নি';
     return null;
   }
 

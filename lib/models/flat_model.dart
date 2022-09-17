@@ -58,9 +58,11 @@ class Flat {
     );
   }
 
-  Map<String, dynamic> toJson(String flatName) => {
+  Map<String, dynamic> toJson(
+          {required String flatName, required double rentAmount}) =>
+      {
         'flatName': flatName,
-        'rentAmount': flatRentAmount,
+        'rentAmount': rentAmount,
         'gasBill': flatGasBill,
         'waterBill': flatWaterBill,
         'noOfBed': noOfBed,

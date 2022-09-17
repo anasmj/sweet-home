@@ -28,9 +28,6 @@ class RenterInfoStep extends StatelessWidget {
     nameController.text = provider.getRenterName;
     provider.firstPageFormKey = firstPageFormKey;
 
-    // TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-    //       color: Colors.black.withOpacity(0.8),
-    //     );
     var occupationDropdown = const OccupationDropdown();
 
     return Form(

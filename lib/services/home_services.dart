@@ -84,12 +84,13 @@ class HomeCrud {
     CollectionReference users = _db.collection('users');
     DocumentReference docReferencer = users.doc(_auth.currentUser!.uid);
     DocumentReference homeDocRef =
-        docReferencer.collection('homes').doc(); //auto generated home doc id
+        docReferencer.collection('homes').doc(); //home doc created
 
     //create flats colection, where doc id = flat name
     CollectionReference flatCollectionRef = homeDocRef.collection('flats');
-    flatNames.forEach((flatName) =>
-        flatCollectionRef.doc(flatName).set(Flat().toJson(flatName)));
+    flatNames.forEach((flatName) => flatCollectionRef
+        .doc(flatName)
+        .set(Flat().toJson(flatName: flatName, rentAmount: rentAmount)));
 
     final data = Home(
       homeId: homeDocRef.id, // assign auto generated doc id to home id

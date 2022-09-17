@@ -8,7 +8,7 @@ import '../view/app_pages/home_detail_page/home_detail_page.dart';
 import '../view/app_pages/home_options_page.dart';
 
 class UserHomes extends StatefulWidget {
-  UserHomes({super.key});
+  const UserHomes({super.key});
   @override
   State<UserHomes> createState() => _UserHomeDetailState();
 }

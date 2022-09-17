@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/flat_services.dart';
+import 'package:sweet_home/view/app_pages/flat_details_page/flat_details.dart';
 import '../../../models/flat_model.dart';
 import '../../../models/home_model.dart';
 import '../../../providers/flat_info_provider.dart';
@@ -13,6 +14,7 @@ import '../../../view_models/flat_list_viewmodel.dart';
 import '../../app_widgets.dart';
 import '../../resources/app_icons.dart';
 import '../empty_pages/empty_flat_page.dart';
+import '../flat_details_page/flat_details_copy.dart';
 import 'components/flat_menu_popup.dart';
 
 //*ADOPTS VIEW MODEL
@@ -175,12 +177,13 @@ class HomeFlatsPage extends StatelessWidget {
           onTap: () {
             Provider.of<CurrentFlatInfoProvider>(context, listen: false)
                 .currentFlatName = flat.flatName;
-            // context.watch<CurrentFlatInfoProvider>().selectedFlat;
             flat.renter == null
                 ? AppRoute.newRenterStepper(
                     context: context,
                   )
-                : () {};
+                : Navigator.of(context).push(MaterialPageRoute(
+                    builder: ((builder) =>
+                        FlatDetailsCopy(renter: flat.renter!))));
           },
           child: Material(
             //shadowing
@@ -202,7 +205,7 @@ class HomeFlatsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Image(
-                          width: 20,
+                          width: 16,
                           image: AssetImage(AppIcons.takaUrl),
                         ),
                         const SizedBox(
@@ -225,17 +228,28 @@ class HomeFlatsPage extends StatelessWidget {
                             AppIcons.personAddUrl,
                             height: 40,
                             // width: 90,
-                            color: Colors.black.withOpacity(0.6),
+                            color: isDark
+                                ? Colors.white.withOpacity(0.6)
+                                : Colors.black.withOpacity(0.6),
                           )
                         : const Text(''),
                     //BOTTOM INFORMATION ABOUT FLAT
                     flat.renter != null
                         ? ListTile(
-                            title: Text(
-                              flat.renter!.name,
-                              maxLines: 1,
-                              overflow: TextOverflow.fade,
-                              softWrap: true,
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  flat.renter!.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.fade,
+                                  softWrap: true,
+                                ),
+                                const CircleAvatar(
+                                  radius: 6,
+                                  backgroundColor: Colors.green,
+                                ),
+                              ],
                             ),
                             subtitle: Text(flat.renter != null
                                 ? '${CustomFormatter().monthYear(flat.renter!.entryDate!)} থেকে আছেন'

@@ -10,8 +10,6 @@ import '../components/counter.dart';
 class FristPage extends StatelessWidget {
   FristPage({super.key});
   final _firstPageFormKey = GlobalKey<FormState>();
-  // final homeNameController = TextEditingController();
-  // final addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

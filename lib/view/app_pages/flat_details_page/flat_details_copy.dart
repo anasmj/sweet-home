@@ -11,8 +11,8 @@ import 'transaction_entry_page/transaction_entry_page.dart';
 
 //called from flat list page
 // ignore: must_be_immutable
-class FlatDetails extends StatelessWidget {
-  FlatDetails({required this.renter, super.key});
+class FlatDetailsCopy extends StatelessWidget {
+  FlatDetailsCopy({required this.renter, super.key});
   final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);
 
   List<String> menuTitles = ['রিপোর্ট', 'তাগাদা দিন'];
@@ -66,11 +66,14 @@ class FlatDetails extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Center(
-              child: MonthlyExpencePage(renter: renter),
-            ),
+            Center(child: Text('Monthly Expence')
+                // child: MonthlyExpencePage(renter: renter),
+                ),
             const EntryPage(),
-            TransactionListPage(renter: renter),
+            // TransactionListPage(renter: renter),
+            Center(child: Text('Monthly Expence')
+                // child: MonthlyExpencePage(renter: renter),
+                )
           ],
         ),
       ),
@@ -99,7 +102,7 @@ class FlatDetails extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: '23412',
+              text: ' 23412\n',
               // '${CalculateBill.setRenter(renter: renter).totalBill.toStringAsFixed(1)} \n',
               style: appTextTheme.headline6!.copyWith(
                   color: Colors.red[900], fontWeight: FontWeight.w600),

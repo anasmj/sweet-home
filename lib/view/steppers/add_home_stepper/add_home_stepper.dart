@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/new_home_step_provider.dart';
+import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/utils/user_flat.dart';
 import 'package:sweet_home/view/steppers/add_home_stepper/steps_pages/confirmation_home_page.dart';
 import 'package:sweet_home/view/steppers/add_home_stepper/steps_pages/first_page.dart';
@@ -39,22 +40,12 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
       ),
       body: !isCompletedd
           ? isLoading
-              ? Center(
-                  child: Lottie.asset(
-                    AppIcons.blueCircleIndicator,
-                    height: 150,
-                    repeat: true,
-                  ),
-                )
+              ? buildingHomeLoadingIndicator()
               : Stepper(
                   type: StepperType.horizontal,
                   currentStep: _currentStep,
                   onStepContinue: () async {
                     if (isLastStep) {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      //all informations are okay
                       if (context
                           .read<NewHomeStepProvider>()
                           .secondPageFormKey!
@@ -126,7 +117,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                         //dont show back button at first step
                         if (_currentStep != 0)
                           Expanded(
-                            child: backNavigationButton(details),
+                            child: backNavigationButton(context, details),
                           ),
                         if (_currentStep != 0)
                           const SizedBox(
@@ -144,6 +135,16 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                 )
           //confirm user that home is addeed
           : const ConfirmHomePage(),
+    );
+  }
+
+  Center buildingHomeLoadingIndicator() {
+    return Center(
+      child: Lottie.asset(
+        AppIcons.blueCircleIndicator,
+        height: 150,
+        repeat: true,
+      ),
     );
   }
 
@@ -180,13 +181,18 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
     );
   }
 
-  ElevatedButton backNavigationButton(ControlsDetails details) {
-    return ElevatedButton(
+  OutlinedButton backNavigationButton(
+      BuildContext context, ControlsDetails details) {
+    bool isDark = context.watch<ThemeProvider>().isDarkMode;
+    return OutlinedButton(
       style: ElevatedButton.styleFrom(
+        side: BorderSide(
+          color: isDark ? Colors.grey.shade400 : Colors.blue,
+          width: 1,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        backgroundColor: Colors.grey,
       ),
       onPressed: details.onStepCancel,
       child: Padding(

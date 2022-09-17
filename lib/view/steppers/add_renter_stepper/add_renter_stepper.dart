@@ -27,7 +27,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('নতুন গ্রাহক যুক্ত'),
+        title: const Text('গ্রাহক যুক্ত করুন'),
         centerTitle: true,
         automaticallyImplyLeading: _currentStep != 0
             ? false
