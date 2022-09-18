@@ -9,9 +9,6 @@ import '../../../services/home_services.dart';
 import '../../../utils/home_crud.dart';
 import '../../app_widgets.dart';
 import 'package:sweet_home/view/app_pages/home_detail_page/edit_textfield.dart';
-import '../../../models/response.dart';
-import '../../../utils/compare_values.dart';
-import '../../../models/home_model.dart';
 import '../../resources/app_icons.dart';
 import 'delete_button.dart';
 

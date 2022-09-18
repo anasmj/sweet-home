@@ -45,7 +45,7 @@ class Flat {
       renter = Renter.fromJson(renterData);
     } catch (e) {}
     return Flat(
-      flatName: json['flatName'] ?? 'no name',
+      flatName: json['flatName'] ?? '',
       renter: renter,
       flatRentAmount: json['flatRent'] ?? 0.00,
       flatGasBill: json['gasBill'] ?? 0.00,

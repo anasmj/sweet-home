@@ -240,7 +240,7 @@ class HomeFlatsPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  flat.renter!.name,
+                                  flat.renter!.renterName,
                                   maxLines: 1,
                                   overflow: TextOverflow.fade,
                                   softWrap: true,

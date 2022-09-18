@@ -59,7 +59,7 @@ class RenterInfoStep extends StatelessWidget {
                   label: 'ফোন নম্বর',
                   isAstrics: true,
                   textEditingController: phoneController,
-                  validationFunciton: FormValidators.checkPhoneNumber,
+                  // validationFunciton: FormValidators.checkPhoneNumber,
                 ),
               ),
               const SizedBox(
@@ -70,7 +70,6 @@ class RenterInfoStep extends StatelessWidget {
                   isNumeric: true,
                   label: "বিকল্প ফোন নম্বর",
                   textEditingController: alternatePhoneController,
-                  validationFunciton: FormValidators.checkPhoneNumber,
                 ),
               ),
             ],

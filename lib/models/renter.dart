@@ -1,22 +1,27 @@
 import 'package:sweet_home/models/year.dart';
 
 class Renter {
-  String name;
+  String renterName;
   int? numOfPerson;
   DateTime? entryDate;
   List<Year>? records;
   Renter({
-    required this.name,
+    required this.renterName,
     this.entryDate,
     this.records,
     this.numOfPerson,
   });
 
   static Renter? fromJson(Map<String, dynamic> json) => Renter(
-        name: json['renterName'],
+        renterName: json['renterName'],
         entryDate: DateTime.parse(json['entryDate']),
         numOfPerson: json['noOfPerson'],
       );
+  Map<String, dynamic> toJson() => {
+        'renterName': renterName,
+        'noOfPerson': numOfPerson,
+        'entryDate': entryDate,
+      };
 }
 
 

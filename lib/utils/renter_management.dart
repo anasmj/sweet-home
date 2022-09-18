@@ -22,7 +22,7 @@ class RenterManagement {
     // print(renterName);
     // print(dateOfEntry.toIso8601String());
     flat.renter = Renter(
-      name: renterName,
+      renterName: renterName,
       entryDate: dateOfEntry,
       records: [],
       numOfPerson: noOfPerson,

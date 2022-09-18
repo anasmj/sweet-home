@@ -39,7 +39,7 @@ class FlatChoicieChips extends StatelessWidget {
             labelPadding:
                 const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
             label: flatList[flatNo].renter != null
-                ? Text(flatList[flatNo].renter!.name)
+                ? Text(flatList[flatNo].renter!.renterName)
                 : const Text('খালি আছে'),
             avatar: CircleAvatar(
               backgroundColor: flatList[flatNo].renter != null

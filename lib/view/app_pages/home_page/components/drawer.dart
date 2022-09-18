@@ -82,18 +82,12 @@ class AppDrawer extends StatelessWidget {
             onTap: () async {
               if (home == null) print('home is null found_drawer');
               if (home != null) {
-                // CollectionReference flatsCollectionRef =
-                //     await FlatService().getFlatsCollectionRef(home.homeId);
-                // final flatsSnapshot = await flatsCollectionRef.get();
-
-                // flatsSnapshot.docs.map((flat) {
-                //   try {
-                //     var renterData = flat['renter'] as Map<String, dynamic>;
-                //     if (renterData.isNotEmpty) {
-                //       Renter? renter = Renter.fromJson(renterData);
-                //     }
-                //   } catch (e) {}
-                // }).toList();
+                FlatService().addRenterToFlat(
+                    homeId: home.homeId,
+                    flatId: '2A',
+                    renterName: 'Jhon',
+                    noOfPerson: 3,
+                    entryDate: DateTime.parse('2022-02-27'));
               }
             },
             leading: const Icon(Icons.edit),

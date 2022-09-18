@@ -11,8 +11,10 @@ class FlatService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   Response response = Response();
 
+  //FLAT CRUD
   //get flats collection
-  Future<CollectionReference> getFlatsCollectionRef(String homeId) async {
+  Future<CollectionReference> getFlatsCollectionRef(
+      {required String homeId}) async {
     DocumentReference currentUserDocRef =
         _db.collection('users').doc(_auth.currentUser!.uid);
     DocumentReference currentHomeDocRef =
@@ -22,9 +24,10 @@ class FlatService {
     return flatsCollectionRef;
   }
 
+  //GET ALL FLATS INLCUDING RENTER INFORMATION
   Future<List<Flat>> getAllFlats({required String homeId}) async {
     CollectionReference flatsCollectionRef =
-        await getFlatsCollectionRef(homeId);
+        await getFlatsCollectionRef(homeId: homeId);
     final flatsSnapshot = await flatsCollectionRef.get();
     final flatList = flatsSnapshot.docs.map((flat) {
       Renter? renter;
@@ -40,17 +43,17 @@ class FlatService {
     return flatList;
   }
 
-  //GET SINGLE FLAT
-  Future<Home?> getFlatById({required String homeId, flatId}) async {
-    //READ SINGE FLAT
-    CollectionReference flatsCollectionRef =
-        await getFlatsCollectionRef(homeId);
-    DocumentSnapshot flatsSnapshot = await flatsCollectionRef.doc(flatId).get();
-    if (flatsSnapshot.exists) {
-      print('snapshot found');
-      print(flatsSnapshot.get('flatName'));
-    }
-  }
+  // //GET SINGLE FLAT
+  // Future<Home?> getFlatById({required String homeId, flatId}) async {
+  //   //READ SINGE FLAT
+  //   CollectionReference flatsCollectionRef =
+  //       await getFlatsCollectionRef(homeId: homeId);
+  //   DocumentSnapshot flatsSnapshot = await flatsCollectionRef.doc(flatId).get();
+  //   if (flatsSnapshot.exists) {
+  //     print('snapshot found');
+  //     print(flatsSnapshot.get('flatName'));
+  //   }
+  // }
 
   //DELETE FLAT
   // Response deleteHome(String homeId) {
@@ -127,6 +130,50 @@ class FlatService {
       response.code = 500;
       response.body = e.toString();
     });
+    return response;
+  }
+
+  //RENTER CRUD
+  //ADD RENTER TO A FLAT
+  Future<Response> addRenterToFlat({
+    required String homeId,
+    required String flatId,
+    required String renterName,
+    required int noOfPerson,
+    required DateTime entryDate,
+  }) async {
+    CollectionReference flatsCollectionRef =
+        await getFlatsCollectionRef(homeId: homeId);
+    DocumentReference flatDocRef = flatsCollectionRef.doc(flatId);
+    flatDocRef.update({
+      'renter': Renter(
+              renterName: renterName,
+              numOfPerson: noOfPerson,
+              entryDate: entryDate)
+          .toJson(),
+    }).whenComplete(() {
+      response.code = 200;
+      response.body = 'successfully added renter to flat';
+    }).catchError((e) {
+      response.code = 400;
+      response.body = e.toString();
+    });
+    return response;
+  }
+
+  //DELETE RENTR
+  Future<Response> deleteRenterFromFlat(
+      {required String homeId, required String flatId}) async {
+    CollectionReference flatsCollectionRef =
+        await getFlatsCollectionRef(homeId: homeId);
+    flatsCollectionRef.doc(flatId).delete().whenComplete(() {
+      response.code = 200;
+      response.body = 'deleted successfully';
+    }).catchError((e) {
+      response.code = 400;
+      response.body = e.toString();
+    });
+
     return response;
   }
 }

@@ -36,7 +36,7 @@ class StepperTextField extends StatelessWidget {
             ),
           )
         : TextFormField(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            // autovalidateMode: AutovalidateMode.onUserInteraction,
             enabled: isDisabled,
             controller: textEditingController,
             validator: validationFunciton,

@@ -83,7 +83,7 @@ class FlatDetailsCopy extends StatelessWidget {
   ListTile appBarContent(TextTheme appTextTheme) {
     return ListTile(
       title: Text(
-        renter.name,
+        renter.renterName,
         style: appTextTheme.headline5!,
         maxLines: 1,
         overflow: TextOverflow.fade,

@@ -17,7 +17,7 @@ List<Flat> databaseFlatList = [
     flatRentAmount: 7500,
     flatName: '1A',
     renter: Renter(
-      name: 'আশরাফুল আলম',
+      renterName: 'আশরাফুল আলম',
       entryDate: DateTime.parse("2022-04-19"),
       numOfPerson: 3,
       records: <Year>[
@@ -75,7 +75,7 @@ List<Flat> databaseFlatList = [
   Flat(
     flatName: '1B',
     renter: Renter(
-      name: 'দিদার হোসাইন',
+      renterName: 'দিদার হোসাইন',
       entryDate: DateTime.parse("2022-10-04"),
       numOfPerson: 2,
       records: <Year>[
@@ -155,7 +155,7 @@ List<Flat> databaseFlatList = [
   Flat(
     flatName: '2A',
     renter: Renter(
-      name: 'রিফাত হাওলাদার',
+      renterName: 'রিফাত হাওলাদার',
       entryDate: DateTime.parse("2022-08-04"),
       numOfPerson: 2,
       records: <Year>[

@@ -6,6 +6,7 @@ import 'package:sweet_home/view/steppers/add_renter_stepper/steps_pages/first_st
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../providers/theme_provider.dart';
 import '../../../utils/renter_management.dart';
 
 class AddRenterStepper extends StatefulWidget {
@@ -42,8 +43,10 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
                   setState(() {
                     isCompletedd = true;
                     //logic to make a new renter object and add to lists
-                    RenterManagement.addRenterToFlat(
-                        context: context); //flat no is up to dated in provider
+                    // RenterManagement.addRenterToFlat(
+                    //     context: context);
+
+                    //flat no is up to dated in provider
                   });
                 } else {
                   if (renterInfoProvider.firstPageFormKey!.currentState!
@@ -103,8 +106,8 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      onPressed:
-          provider.selectedFlatNo != null ? details.onStepContinue : null,
+      onPressed: details.onStepContinue,
+      // provider.selectedFlatNo != null ? details.onStepContinue : null,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Row(
@@ -127,13 +130,19 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
     );
   }
 
-  ElevatedButton backNavigationButton(ControlsDetails details) {
-    return ElevatedButton(
+  OutlinedButton backNavigationButton(ControlsDetails details) {
+    bool isDark = context.watch<ThemeProvider>().isDarkMode;
+
+    return OutlinedButton(
       style: ElevatedButton.styleFrom(
+        side: BorderSide(
+          color: isDark ? Colors.grey.shade400 : Colors.blue,
+          width: 1,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        backgroundColor: Colors.grey,
+        // backgroundColor: Colors.grey,
       ),
       onPressed: details.onStepCancel,
       child: Padding(
