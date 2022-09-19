@@ -133,24 +133,43 @@ class FlatService {
     return response;
   }
 
-  //RENTER CRUD
-  //ADD RENTER TO A FLAT
+  //UPDATE FLAT WITH RENTER
   Future<Response> addRenterToFlat({
     required String homeId,
     required String flatId,
     required String renterName,
+    required String phoneNo,
+    String? alternatePhoneNo = '',
+    String? occupation = ' ',
     required int noOfPerson,
     required DateTime entryDate,
+    String? previousLocation,
+    String? village,
+    String? policeStation,
+    String? union,
+    String? subDistrict,
+    String? district,
+    double? advance,
   }) async {
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
     DocumentReference flatDocRef = flatsCollectionRef.doc(flatId);
-    flatDocRef.update({
+    await flatDocRef.update({
       'renter': Renter(
-              renterName: renterName,
-              numOfPerson: noOfPerson,
-              entryDate: entryDate)
-          .toJson(),
+        renterName: renterName,
+        phoneNo: phoneNo,
+        alternatePhoneNo: alternatePhoneNo,
+        occupation: occupation,
+        numOfPerson: noOfPerson,
+        entryDate: entryDate,
+        previousLocation: previousLocation,
+        village: village,
+        policeStation: policeStation,
+        union: union,
+        subDistrict: subDistrict,
+        district: district,
+        advance: advance,
+      ).toJson(),
     }).whenComplete(() {
       response.code = 200;
       response.body = 'successfully added renter to flat';

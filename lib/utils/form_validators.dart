@@ -1,7 +1,7 @@
 //TAKES STRING AND RETURNS VALIDATIONS
 class FormValidators {
   static String? checkEmpty(String? value) {
-    if (value!.isEmpty) return 'কোনও তথ্য দেয়া হয়নি';
+    if (value!.isEmpty) return 'তথ্যটি দেয়া হয়নি';
 
     return null; // null -> no problem
   }
@@ -39,7 +39,9 @@ class FormValidators {
     return null;
   }
 
-  static String? checkPhoneNumber(String? value) {
+  static String? checkPhoneNumber(
+    String? value,
+  ) {
     if (value!.isEmpty) return 'ফোন নম্বর দেয়া হয়নি';
     if (value.length != 11) return 'ফোন নম্বরটি সঠিক নয়';
 

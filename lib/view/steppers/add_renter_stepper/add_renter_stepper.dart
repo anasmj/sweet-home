@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/view/steppers/add_renter_stepper/steps_pages/confirmation_page.dart';
+import 'package:sweet_home/models/response.dart';
+import 'package:sweet_home/providers/current_home.dart';
+import 'package:sweet_home/providers/flat_info_provider.dart';
+import 'package:sweet_home/providers/home_provider.dart';
+import 'package:sweet_home/view/app_pages/empty_pages/empty_home_page.dart';
+import 'package:sweet_home/view/app_pages/successful_pages/renter_add_successful.dart';
+import 'package:sweet_home/view/app_widgets.dart';
 import 'package:sweet_home/view/steppers/add_renter_stepper/steps_pages/second_step.dart';
 import 'package:sweet_home/view/steppers/add_renter_stepper/steps_pages/third_step.dart';
 import 'package:sweet_home/view/steppers/add_renter_stepper/steps_pages/first_step.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../models/home_model.dart';
 import '../../../providers/theme_provider.dart';
+import '../../../services/flat_services.dart';
 import '../../../utils/renter_management.dart';
 
 class AddRenterStepper extends StatefulWidget {
@@ -18,12 +26,50 @@ class AddRenterStepper extends StatefulWidget {
 class _AddAddRenterStepperState extends State<AddRenterStepper> {
   int _currentStep = 0;
   bool isCompletedd = false;
+  bool isLoading = false;
   // bool isValidInfo = false;
+  Future<Response> addRenterToDatabase(BuildContext context) async {
+    final provider = Provider.of<NewRenterStepProvider>(context, listen: false);
+    final flatName = context.read<CurrentFlatInfoProvider>().selectedFlat;
+    String homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
+        .currentHome!
+        .homeId;
+    double advanceAmount = provider.advanceController.text.isNotEmpty
+        ? double.parse(provider.advanceController.text)
+        : 0.00;
+    Response response = await FlatService().addRenterToFlat(
+      homeId: homeId,
+      flatId: flatName,
+      renterName: provider.renterNameController.text,
+      phoneNo: provider.phoneController.text,
+      alternatePhoneNo: provider.altPhoneController.text,
+      occupation: provider.occupation,
+      noOfPerson: provider.memberNo,
+      entryDate: DateTime.now(),
+      previousLocation: provider.previousLocationController.text,
+      village: provider.villageController.text,
+      policeStation: provider.thanaController.text,
+      union: provider.unionController.text,
+      subDistrict: provider.subDistrictController.text,
+      district: provider.districtController.text,
+      advance: advanceAmount,
+    );
+    print(response.code);
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final renterInfoProvider = Provider.of<NewRenterStepProvider>(
-        context); //used to validate state of form
+    String homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
+        .currentHome!
+        .homeId;
+    final provider = Provider.of<NewRenterStepProvider>(context);
+    double advanceAmount = provider.advanceController.text.isNotEmpty
+        ? double.parse(provider.advanceController.text)
+        : 0.00;
 
+    //used to validate state of form
+    final flatName = context.read<CurrentFlatInfoProvider>().selectedFlat;
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
     return Scaffold(
@@ -35,62 +81,134 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
             : true, //disable back button when user not in first page
       ),
       body: !isCompletedd
-          ? Stepper(
-              type: StepperType.horizontal,
-              currentStep: _currentStep,
-              onStepContinue: () {
-                if (isLastStep) {
-                  setState(() {
-                    isCompletedd = true;
-                    //logic to make a new renter object and add to lists
-                    // RenterManagement.addRenterToFlat(
-                    //     context: context);
+          ? isLoading
+              ? addingRenterIndicator()
+              : Stepper(
+                  type: StepperType.horizontal,
+                  currentStep: _currentStep,
+                  onStepContinue: () async {
+                    if (isLastStep) {
+                      setState(() {
+                        isLoading = true;
+                        // isCompletedd = true;
+                        // clearPreviousRenterInfo(context);
+                      });
 
-                    //flat no is up to dated in provider
-                  });
-                } else {
-                  if (renterInfoProvider.firstPageFormKey!.currentState!
-                      .validate()) {
-                    //false if textfield value of first pagd is not valied.
-                    setState(() {
-                      _currentStep += 1;
-                    });
-                  }
-                }
-              },
-              onStepCancel: () => _currentStep == 0
-                  ? null
-                  : setState(() {
-                      _currentStep -= 1;
-                    }),
-              steps: getSteps(),
-              controlsBuilder: (context, ControlsDetails details) => Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    //dont show back button at first step
-                    if (_currentStep != 0)
-                      Expanded(
-                        child: backNavigationButton(details),
-                      ),
-                    if (_currentStep != 0)
-                      const SizedBox(
-                        width: 20,
-                      ),
-                    Expanded(
-                      child: forwardNavigationButton(
-                        context: context,
-                        details: details,
-                        isLastStep: isLastStep,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
+                      Response res = await FlatService().addRenterToFlat(
+                        homeId: homeId,
+                        flatId: flatName,
+                        renterName: provider.renterNameController.text,
+                        phoneNo: provider.phoneController.text,
+                        alternatePhoneNo: provider.altPhoneController.text,
+                        occupation: provider.occupation,
+                        noOfPerson: provider.memberNo,
+                        entryDate: DateTime.now(),
+                        previousLocation:
+                            provider.previousLocationController.text,
+                        village: provider.villageController.text,
+                        policeStation: provider.thanaController.text,
+                        union: provider.unionController.text,
+                        subDistrict: provider.subDistrictController.text,
+                        district: provider.districtController.text,
+                        advance: advanceAmount,
+                      );
+
+                      // success
+                      if (res.code == 200) {
+                        setState(() {
+                          isLoading = false;
+                          isCompletedd = true;
+                          clearPreviousRenterInfo(context);
+                        });
+
+                        //failed
+                      } else {
+                        AppWidget.snackBarContent(
+                            msg: res.body ??
+                                'যুক্ত করা সম্ভব হয়নি, আবার চেষ্টা করুন');
+                      }
+                      setState(() {
+                        isLoading = false;
+                      });
+                    } else {
+                      if (provider.firstPageFormKey!.currentState!.validate()) {
+                        //false if textfield value of first pagd is not valied.
+                        setState(() {
+                          _currentStep += 1;
+                        });
+                      }
+                    }
+                  },
+                  onStepCancel: () => _currentStep == 0
+                      ? null
+                      : setState(() {
+                          _currentStep -= 1;
+                        }),
+                  steps: getSteps(),
+                  controlsBuilder: (context, ControlsDetails details) =>
+                      Padding(
+                    padding: const EdgeInsets.only(top: 80.0),
+                    child: getNavButtons(details, context, isLastStep),
+                  ),
+                )
           //user added a new renter into the flat.
-          : const ConfirmationPage(),
+          : const AddRenterSuccessfulPage(),
+    );
+  }
+
+  void clearPreviousRenterInfo(BuildContext context) {
+    final provider = Provider.of<NewRenterStepProvider>(context, listen: false);
+    provider.advanceController.clear();
+    provider.renterNameController.clear();
+    provider.setMemberNo = 1;
+    provider.altPhoneController.clear();
+    provider.phoneController.clear();
+    provider.previousLocationController.clear();
+    provider.thanaController.clear();
+    provider.unionController.clear();
+    provider.subDistrictController.clear();
+    provider.districtController.clear();
+    provider.villageController.clear();
+  }
+
+  Widget addingRenterIndicator() => Center(
+        child: SizedBox(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CircularProgressIndicator(),
+              SizedBox(height: 20),
+              Text(
+                'গ্রাহক যুক্ত করা হচ্ছে . .',
+                style: TextStyle(fontSize: 18),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  Row getNavButtons(
+      ControlsDetails details, BuildContext context, bool isLastStep) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        //dont show back button at first step
+        if (_currentStep != 0)
+          Expanded(
+            child: backNavigationButton(details),
+          ),
+        if (_currentStep != 0)
+          const SizedBox(
+            width: 20,
+          ),
+        Expanded(
+          child: forwardNavigationButton(
+            context: context,
+            details: details,
+            isLastStep: isLastStep,
+          ),
+        ),
+      ],
     );
   }
 
@@ -98,8 +216,6 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
       {required BuildContext context,
       required ControlsDetails details,
       required bool isLastStep}) {
-    final provider = Provider.of<NewRenterStepProvider>(context);
-
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(

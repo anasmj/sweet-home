@@ -25,123 +25,141 @@ class RenterInfoStep extends StatelessWidget {
     final provider = Provider.of<NewRenterStepProvider>(context);
     String flatName = context.watch<CurrentFlatInfoProvider>().selectedFlat;
 
-    nameController.text = provider.getRenterName;
+    // nameController.text = provider.getRenterName;
     provider.firstPageFormKey = firstPageFormKey;
 
     var occupationDropdown = const OccupationDropdown();
+    clearProviderInfo() {
+      provider.renterNameController.clear();
+      provider.phoneController.clear();
+      provider.altPhoneController.clear();
+      provider.setOccupation('');
+      provider.setMemberNo = 2;
+    }
 
-    return Form(
-      //key needs to exposed to its parent which is NewRenterStepper
-      key: provider.firstPageFormKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Column(
-        children: [
-          flatNameChip(context, flatName),
-          const SizedBox(
-            height: 20,
-          ),
-          StepperTextField(
-            label: "গ্রাহকের নাম",
-            isAstrics: true,
-            textEditingController: nameController,
+    return WillPopScope(
+      onWillPop: () async {
+        clearProviderInfo();
 
-            validationFunciton: FormValidators
-                .checkHomeName, //cant pass the textfield without name
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: StepperTextField(
-                  isNumeric: true,
-                  label: 'ফোন নম্বর',
-                  isAstrics: true,
-                  textEditingController: phoneController,
-                  // validationFunciton: FormValidators.checkPhoneNumber,
+        return true;
+      },
+      child: Form(
+        //key needs to exposed to its parent which is NewRenterStepper
+        key: provider.firstPageFormKey,
+        // autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(
+          children: [
+            flatNameChip(context, flatName),
+            const SizedBox(
+              height: 20,
+            ),
+            StepperTextField(
+              label: "গ্রাহকের নাম",
+              isAstrics: true,
+              textEditingController: provider.renterNameController,
+              // textEditingController: nameController,
+
+              validationFunciton: FormValidators
+                  .checkEmpty, //cant pass the textfield without name
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: StepperTextField(
+                    isNumeric: true,
+                    label: 'ফোন নম্বর',
+                    isAstrics: true,
+                    textEditingController: provider.phoneController,
+                    // textEditingController: phoneController,
+                    // validationFunciton: FormValidators.checkPhoneNumber,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: StepperTextField(
-                  isNumeric: true,
-                  label: "বিকল্প ফোন নম্বর",
-                  textEditingController: alternatePhoneController,
+                const SizedBox(
+                  width: 10,
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //occupation drop down
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'পেশাঃ ',
-                    style: TextStyle(fontSize: 16),
+                Expanded(
+                  child: StepperTextField(
+                    isNumeric: true,
+                    label: "বিকল্প ফোন নম্বর",
+                    textEditingController: provider.altPhoneController,
+                    // validationFunciton: FormValidators.checkPhoneNumber,
+                    // textEditingController: alternatePhoneController,
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  occupationDropdown,
-                ],
-              ),
-              const Spacer(),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //occupation drop down
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'পেশাঃ ',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    occupationDropdown,
+                  ],
+                ),
+                const Spacer(),
 
-              //number of member counter
-              const Text(
-                'সদস্য সংখ্যা',
-                style: TextStyle(fontSize: 16),
-              ),
-              //increment or decrement
-              Column(
-                children: [
-                  IconButton(
-                    iconSize: 22,
-                    onPressed: () {
-                      context.read<NewRenterStepProvider>().incrementMember();
-                    },
-                    icon: const Icon(
-                      Icons.add,
+                //number of member counter
+                const Text(
+                  'সদস্য সংখ্যা',
+                  style: TextStyle(fontSize: 16),
+                ),
+                //increment or decrement
+                Column(
+                  children: [
+                    IconButton(
+                      iconSize: 22,
+                      onPressed: () {
+                        context.read<NewRenterStepProvider>().incrementMember();
+                      },
+                      icon: const Icon(
+                        Icons.add,
+                      ),
                     ),
-                  ),
-                  Text(
-                    provider.memberNo.toString(),
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  IconButton(
-                    iconSize: 22,
-                    onPressed: () {
-                      context.read<NewRenterStepProvider>().decrementMember();
-                    },
-                    icon: const Icon(
-                      Icons.remove,
+                    Text(
+                      provider.memberNo.toString(),
+                      style: Theme.of(context).textTheme.headline6,
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          // Align(
-          //   alignment: Alignment.bottomLeft,
-          //   child: Text(
-          //     'ফ্ল্যাট বাছাই করুনঃ',
-          //     style: Theme.of(context).textTheme.subtitle1,
-          //   ),
-          // ),
-          // const SizedBox(
-          //   height: 20,
-          // ),
-          //FlatChoicieChips(),
-        ],
+                    IconButton(
+                      iconSize: 22,
+                      onPressed: () {
+                        context.read<NewRenterStepProvider>().decrementMember();
+                      },
+                      icon: const Icon(
+                        Icons.remove,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            // Align(
+            //   alignment: Alignment.bottomLeft,
+            //   child: Text(
+            //     'ফ্ল্যাট বাছাই করুনঃ',
+            //     style: Theme.of(context).textTheme.subtitle1,
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            //FlatChoicieChips(),
+          ],
+        ),
       ),
     );
   }

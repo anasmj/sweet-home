@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/theme_provider.dart';
 
+import '../../../../providers/newrenter_step_provider.dart';
 import '../../shared_components/stepper_textfield.dart';
 import 'components/location_radio.dart';
 
@@ -20,30 +23,30 @@ class AddressStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<NewRenterStepProvider>(context);
     return Form(
       //Nothnig to validate
       child: Column(
         children: [
           StepperTextField(
             label: "পূর্বের ঠিকানা",
-            textEditingController: previousAddressController,
+            textEditingController: provider.previousLocationController,
+            // textEditingController: previousAddressController,
           ),
           const SizedBox(
             height: 10,
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'স্থায়ী ঠিকানা',
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
+          const SizedBox(
+            height: 10,
           ),
+          permanentAddressDivider(context),
           const SizedBox(
             height: 10,
           ),
           StepperTextField(
             label: 'গ্রাম',
-            textEditingController: vilageController,
+            textEditingController: provider.villageController,
+            // textEditingController: vilageController,
           ),
           const SizedBox(
             width: 10,
@@ -59,7 +62,10 @@ class AddressStep extends StatelessWidget {
               ),
               Expanded(
                 child: StepperTextField(
-                  textEditingController: unionController,
+                  textEditingController: provider.isThanaSelected
+                      ? provider.thanaController
+                      : provider.unionController,
+                  // textEditingController: unionController,
                 ),
               ),
             ],
@@ -69,18 +75,41 @@ class AddressStep extends StatelessWidget {
           ),
           StepperTextField(
             label: 'উপজেলা',
-            textEditingController: subDistrictController,
+            textEditingController: provider.subDistrictController,
+
+            // textEditingController: subDistrictController,
           ),
           const SizedBox(
             height: 10,
           ),
           StepperTextField(
             label: 'জেলা',
-            textEditingController: districtController,
+            textEditingController: provider.districtController,
+
+            // textEditingController: districtController,
           ),
         ],
       ),
     );
+  }
+
+  Row permanentAddressDivider(BuildContext context) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Text(
+        'স্থায়ী ঠিকানা',
+        style: Theme.of(context).textTheme.bodyText1,
+      ),
+      const SizedBox(
+        width: 10,
+      ),
+      Expanded(
+        child: Divider(
+          color: context.watch<ThemeProvider>().isDarkMode
+              ? Colors.grey.shade400
+              : Colors.grey.shade800,
+        ),
+      )
+    ]);
   }
 
   Widget buildChips() => Wrap(

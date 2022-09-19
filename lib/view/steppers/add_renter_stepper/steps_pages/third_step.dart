@@ -30,6 +30,10 @@ class ThirdStepPage extends StatelessWidget {
             Expanded(child: BackNid()),
           ],
         ),
+        const Text(
+          '** NID কার্ডের সুবিধাটি এখনও চালু করা হয়নি **',
+          style: TextStyle(color: Colors.red),
+        ),
         const SizedBox(
           height: 10,
         ),
@@ -54,16 +58,18 @@ class ThirdStepPage extends StatelessWidget {
   Widget getAdvanceTextField(
       BuildContext context, TextEditingController controller) {
     final provider = context.watch<NewRenterStepProvider>();
+
     return SizedBox(
       width: 120,
       height: 40,
       child: TextFormField(
-        controller: controller,
+        controller: provider.advanceController,
+        // controller: controller,
         enabled: provider.advanceStatus,
         style: Theme.of(context)
             .textTheme
             .headline6!
-            .copyWith(fontWeight: FontWeight.bold),
+            .copyWith(fontWeight: FontWeight.w500),
         keyboardType: TextInputType.number,
         cursorHeight: 22,
         decoration: InputDecoration(

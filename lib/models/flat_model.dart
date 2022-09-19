@@ -47,7 +47,7 @@ class Flat {
     return Flat(
       flatName: json['flatName'] ?? '',
       renter: renter,
-      flatRentAmount: json['flatRent'] ?? 0.00,
+      flatRentAmount: json['rentAmount'] ?? 0.00,
       flatGasBill: json['gasBill'] ?? 0.00,
       flatWaterBill: json['waterBill'] ?? 0.00,
       noOfBed: json['noOfBed'] ?? 1,
@@ -68,10 +68,10 @@ class Flat {
         'noOfBed': noOfBed,
         'bath': bath,
         'varanda': varanda,
-        'diningRoom': diningRoom,
-        'drawingRoom': drawingRoom,
+        'isDiningExists': diningRoom,
+        'isDrawingExists': drawingRoom,
       };
-  static void setRenter(Renter renter) {
-    renter = renter;
-  }
+  // static void setRenter(Renter renter) {
+  //   renter = renter;
+  // }
 }

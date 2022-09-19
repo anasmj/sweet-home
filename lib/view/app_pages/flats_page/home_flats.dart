@@ -25,7 +25,17 @@ class HomeFlatsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Home? home = context.watch<CurrentHomeProvider>().currentHome;
-
+    // return Center(
+    //   child: SizedBox(
+    //     height: 250,
+    //     width: 200,
+    //     child: makeFlat(
+    //       context,
+    //       0,
+    //       Flat(),
+    //     ),
+    //   ),
+    // );
     return home == null ? const EmptyFlatPage() : futureBuilderMethod(home);
   }
 
@@ -176,7 +186,7 @@ class HomeFlatsPage extends StatelessWidget {
         InkWell(
           onTap: () {
             Provider.of<CurrentFlatInfoProvider>(context, listen: false)
-                .currentFlatName = flat.flatName;
+                .newSelectedFlat = flat.flatName;
             flat.renter == null
                 ? AppRoute.newRenterStepper(
                     context: context,
@@ -197,30 +207,20 @@ class HomeFlatsPage extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
               ),
               child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Image(
-                          width: 16,
-                          image: AssetImage(AppIcons.takaUrl),
-                        ),
                         const SizedBox(
-                          width: 6,
+                          width: 45,
                         ),
-                        SizedBox(
-                          width: 70,
-                          child: Text(
-                            flat.flatRentAmount.toString(),
-                            style: appTextTheme.headline6,
-                          ),
-                        ),
+                        rentAmountText(flat, appTextTheme, isDark),
+                        // const Spacer(),
 
                         //MENU THAT LEADS TO MODAL SHEET
-                        const FlatMenuPopup(),
+                        // const FlatMenuPopup(),
                       ],
                     ),
                     flat.renter == null
@@ -286,6 +286,34 @@ class HomeFlatsPage extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.bold),
               ),
             ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row rentAmountText(Flat flat, TextTheme appTextTheme, bool isDark) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image(
+          width: 16,
+          image: AssetImage(
+            AppIcons.takaUrl,
+          ),
+          color: isDark ? Colors.white : Colors.black,
+        ),
+        const SizedBox(
+          width: 6,
+        ),
+        SizedBox(
+          width: 80,
+          child: Text(
+            flat.flatRentAmount.toString(),
+            overflow: TextOverflow.ellipsis,
+            softWrap: true,
+            maxLines: 1,
+            style: appTextTheme.headline6,
           ),
         ),
       ],

@@ -23,7 +23,7 @@ class CurrentFlatInfoProvider extends ChangeNotifier {
   double? _electricityUnitPrice; // = 0.00;
   Renter? _renter;
 
-  set currentFlatName(String name) => _selectedFlat = name;
+  set newSelectedFlat(String name) => _selectedFlat = name;
 
   ///whenever user taps on a flat this class gets updated.
   void updateFlatInfo({

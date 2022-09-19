@@ -15,6 +15,7 @@ class StepperTextField extends StatelessWidget {
 
   String label;
   bool isAstrics, isNumeric;
+  final double _fontSize = 14;
   final double _cursorHeight = 22;
   TextEditingController textEditingController;
   bool isDisabled;
@@ -36,7 +37,7 @@ class StepperTextField extends StatelessWidget {
             ),
           )
         : TextFormField(
-            // autovalidateMode: AutovalidateMode.onUserInteraction,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             enabled: isDisabled,
             controller: textEditingController,
             validator: validationFunciton,
@@ -45,6 +46,10 @@ class StepperTextField extends StatelessWidget {
             decoration: InputDecoration(
               label: Text(
                 label,
+                style: Theme.of(context)
+                    .inputDecorationTheme
+                    .labelStyle!
+                    .copyWith(fontSize: _fontSize),
               ),
             ),
           );
@@ -56,11 +61,12 @@ class StepperTextField extends StatelessWidget {
         // style: textStyle,
         children: [
           TextSpan(
-              text: label,
-              style: Theme.of(context)
-                  .inputDecorationTheme
-                  .labelStyle!
-                  .copyWith(fontSize: 17)),
+            text: label,
+            style: Theme.of(context)
+                .inputDecorationTheme
+                .labelStyle!
+                .copyWith(fontSize: _fontSize),
+          ),
           TextSpan(
             text: ' *',
             style: TextStyle(

@@ -79,17 +79,7 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            onTap: () async {
-              if (home == null) print('home is null found_drawer');
-              if (home != null) {
-                FlatService().addRenterToFlat(
-                    homeId: home.homeId,
-                    flatId: '2A',
-                    renterName: 'Jhon',
-                    noOfPerson: 3,
-                    entryDate: DateTime.parse('2022-02-27'));
-              }
-            },
+            onTap: () async {},
             leading: const Icon(Icons.edit),
             title: Text(
               'test',

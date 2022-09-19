@@ -2,25 +2,73 @@ import 'package:sweet_home/models/year.dart';
 
 class Renter {
   String renterName;
+  String phoneNo;
+  String? alternatePhoneNo;
+  String? occupation;
   int? numOfPerson;
   DateTime? entryDate;
+
+  String? previousLocation;
+  String? village;
+  String? policeStation;
+  String? union;
+  String? subDistrict;
+  String? district;
+
+  double? advance;
+
   List<Year>? records;
   Renter({
     required this.renterName,
+    required this.phoneNo,
+    this.alternatePhoneNo = '',
+    this.occupation = '',
     this.entryDate,
     this.records,
     this.numOfPerson,
+    this.previousLocation,
+    this.village,
+    this.policeStation,
+    this.union,
+    this.subDistrict,
+    this.district,
+    this.advance,
   });
 
-  static Renter? fromJson(Map<String, dynamic> json) => Renter(
-        renterName: json['renterName'],
-        entryDate: DateTime.parse(json['entryDate']),
-        numOfPerson: json['noOfPerson'],
-      );
+  static Renter fromJson(Map<String, dynamic> json) {
+    Renter renter = Renter(
+      renterName: json['renterName'],
+      phoneNo: json['phoneNo'],
+      alternatePhoneNo: json['alternatePhoneNo'] ?? '',
+      occupation: json['occupation'] ?? '',
+      entryDate: DateTime.parse(json['entryDate']),
+      numOfPerson: json['noOfPerson'] ?? 1,
+      previousLocation: json['previousLocation'] ?? '',
+      village: json['village'] ?? '',
+      policeStation: json['policeStation'] ?? '',
+      union: json['union'] ?? '',
+      subDistrict: json['subDistrict'] ?? '',
+      district: json['district'] ?? '',
+      advance: json['advance'],
+    );
+
+    return renter;
+  }
+
   Map<String, dynamic> toJson() => {
         'renterName': renterName,
+        'phoneNo': phoneNo,
+        'alternatePhoneNo': alternatePhoneNo,
+        'occupation': occupation,
         'noOfPerson': numOfPerson,
-        'entryDate': entryDate,
+        'entryDate': entryDate.toString(),
+        'previousLocation': previousLocation,
+        'village': village,
+        'policeStation:': policeStation,
+        'union:': union,
+        'subDistrict ': subDistrict,
+        'district': district,
+        'advance': advance,
       };
 }
 
