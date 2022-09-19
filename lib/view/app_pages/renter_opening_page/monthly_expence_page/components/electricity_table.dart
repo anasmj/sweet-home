@@ -14,19 +14,19 @@ class ElectricityTable extends StatelessWidget {
   Widget build(BuildContext context) {
     //TODO: keep it to the kitchen
     //! this is for demo purpose, it can be null in real scenario if not changed
-    Year currentYear = renter
-        .records![renter.records!.length - 1]; //last element of List<year>
-    MonthDetails currentMonth =
-        currentYear.months[currentYear.months.length - 1];
-    MonthDetails previousMonth =
-        currentYear.months[currentYear.months.length - 2];
+    // Year currentYear = renter
+    //     .records![renter.records!.length - 1]; //last element of List<year>
+    // MonthDetails currentMonth =
+    //     currentYear.months[currentYear.months.length - 1];
+    // MonthDetails previousMonth =
+    //     currentYear.months[currentYear.months.length - 2];
 
-    double usedUnit = double.parse((currentMonth.readingOfElecctricMeter -
-            previousMonth.readingOfElecctricMeter)
-        .toStringAsFixed(1));
+    // double usedUnit = double.parse((currentMonth.readingOfElecctricMeter -
+    //         previousMonth.readingOfElecctricMeter)
+    //     .toStringAsFixed(1));
 
-    String electricBill = CalculateBill.setRenter(renter: renter)
-        .getElectricBill; //returns current electeric bill
+    // String electricBill = CalculateBill.setRenter(renter: renter)
+    //     .getElectricBill; //returns current electeric bill
 
     return SizedBox(
       width: 200,
@@ -37,7 +37,8 @@ class ElectricityTable extends StatelessWidget {
             children: [
               const Text("আগের মাসের ইউনিট"),
               Text(
-                CalculateBill.setRenter(renter: renter).previousMonthReading,
+                '23423',
+                // CalculateBill.setRenter(renter: renter).previousMonthReading,
               )
             ],
           ),
@@ -46,7 +47,8 @@ class ElectricityTable extends StatelessWidget {
             children: [
               const Text("এ মাসের ইউনিট"),
               Text(
-                CalculateBill.setRenter(renter: renter).currentMonthReading,
+                '23432',
+                // CalculateBill.setRenter(renter: renter).currentMonthReading,
               ),
             ],
           ),
@@ -55,15 +57,19 @@ class ElectricityTable extends StatelessWidget {
             children: [
               const Text("ব্যাবহৃত ইউনিট"),
               Text(
-                CalculateBill.setRenter(renter: renter).usedUnitOfElectricity,
+                '23432',
+
+                // CalculateBill.setRenter(renter: renter).usedUnitOfElectricity,
               ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("মূল্য ($usedUnit * ${currentMonth.electricityUnitPrice!})"),
-              Text(electricBill.toString()),
+              // Text("মূল্য ($usedUnit * ${currentMonth.electricityUnitPrice!})"),
+              Text('sdfsd'),
+              // Text(electricBill.toString()),
+              Text('32333')
             ],
           ),
         ],

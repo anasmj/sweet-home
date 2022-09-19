@@ -8,7 +8,7 @@ import 'transaction_entry_page/transaction_entry_page.dart';
 
 //*SHOWS SUMMARY OF A USER IN APP BAR
 //*PROVIDES TWO TAB BAR 1.MONTHLY EXPENCE, 2.TRANSACTIONS
-
+//!bckup
 //called from flat list page
 // ignore: must_be_immutable
 class FlatDetails extends StatelessWidget {

@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static ThemeData appLightTheme() {
     return ThemeData(
+      bottomSheetTheme: const BottomSheetThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+      ),
       iconTheme: const IconThemeData(
         color: Colors.black,
       ),

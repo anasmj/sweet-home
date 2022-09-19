@@ -29,7 +29,7 @@ class FlatInfoPage extends StatelessWidget {
             IconButton(
               iconSize: 18,
               onPressed: () {
-                showCinfirmDialog(
+                showConfirmDialog(
                     context: context,
                     msg: 'তথ্যগুলি আপনার সকল ফ্ল্যাটের জন্য নির্ধারণ করা হবে');
               },
@@ -125,7 +125,7 @@ class FlatInfoPage extends StatelessWidget {
         ));
   }
 
-  Future<void> showCinfirmDialog(
+  Future<void> showConfirmDialog(
       {required BuildContext context,
       required String msg,
       String title = ''}) async {

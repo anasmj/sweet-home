@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/utils/calculate_bills.dart';
-import 'package:sweet_home/view/app_pages/flat_details_page/components/bottom_button.dart';
-import 'package:sweet_home/view/app_pages/flat_details_page/monthly_expence_page/components/electricity_table.dart';
-import 'package:sweet_home/view/app_pages/flat_details_page/monthly_expence_page/components/others_table.dart';
+import 'package:sweet_home/view/app_pages/renter_opening_page/components/bottom_button.dart';
+import 'package:sweet_home/view/app_pages/renter_opening_page/monthly_expence_page/components/electricity_table.dart';
+import 'package:sweet_home/view/app_pages/renter_opening_page/monthly_expence_page/components/others_table.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import '../../../../../models/renter.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
@@ -18,7 +18,7 @@ class MonthlyExpenceTable extends StatelessWidget {
   Widget build(BuildContext context) {
     //*use this to show data .
     //*after confirmed by user, make a month detail object which will
-    //*be later used to show previous month details
+    //*be later used to show previoufs month details
     CurrentFlatInfoProvider currentFlat =
         Provider.of<CurrentFlatInfoProvider>(context);
 
@@ -55,11 +55,11 @@ class MonthlyExpenceTable extends StatelessWidget {
           children: [
             purposeTitle(titleIcon: AppIcons.electricityUrl, title: 'বিদ্যুৎ'),
             Text(
-              // Bill.setRenter(renter: currentFlat.renter!)
-              //     .getElectricBill
-              //     .toString(),
-              CalculateBill.setRenter(renter: renter).getElectricBill,
-            ),
+                // Bill.setRenter(renter: currentFlat.renter!)
+                //     .getElectricBill
+                //     .toString(),
+                // CalculateBill.setRenter(renter: renter).getElectricBill,
+                '32320'),
           ],
         ),
         Padding(
@@ -72,16 +72,17 @@ class MonthlyExpenceTable extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             purposeTitle(titleIcon: AppIcons.otherUrl, title: 'অন্যান্য'),
-            Text(CalculateBill.setRenter(renter: renter).sumOfOtherBills)
+            // Text(CalculateBill.setRenter(renter: renter).sumOfOtherBills)
+            Text('3232'),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 40.0),
-          child: OthersTable(
-            othersList: CalculateBill.setRenter(renter: renter)
-                .otherExpenceListForThisMonth,
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 40.0),
+        //   child: OthersTable(
+        //     othersList: CalculateBill.setRenter(renter: renter)
+        //         .otherExpenceListForThisMonth,
+        //   ),
+        // ),
         transactionDivider(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,9 +92,10 @@ class MonthlyExpenceTable extends StatelessWidget {
               style: textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
             ),
             Text(
-              CalculateBill.setRenter(renter: renter)
-                  .totalBill
-                  .toStringAsFixed(1),
+              '34221',
+              // CalculateBill.setRenter(renter: renter)
+              //     .totalBill
+              //     .toStringAsFixed(1),
               style: textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
             ),
           ],

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/flat_services.dart';
-import 'package:sweet_home/view/app_pages/flat_details_page/flat_details.dart';
+import 'package:sweet_home/view/app_pages/renter_opening_page/renter_opening_backup_page.dart';
 import '../../../models/flat_model.dart';
 import '../../../models/home_model.dart';
 import '../../../providers/flat_info_provider.dart';
@@ -14,7 +14,7 @@ import '../../../view_models/flat_list_viewmodel.dart';
 import '../../app_widgets.dart';
 import '../../resources/app_icons.dart';
 import '../empty_pages/empty_flat_page.dart';
-import '../flat_details_page/flat_details_copy.dart';
+import '../renter_opening_page/renter_opening_page.dart';
 import 'components/flat_menu_popup.dart';
 
 //*ADOPTS VIEW MODEL
@@ -193,7 +193,7 @@ class HomeFlatsPage extends StatelessWidget {
                   )
                 : Navigator.of(context).push(MaterialPageRoute(
                     builder: ((builder) =>
-                        FlatDetailsCopy(renter: flat.renter!))));
+                        RenterOpeningPage(renter: flat.renter!))));
           },
           child: Material(
             //shadowing

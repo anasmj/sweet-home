@@ -185,7 +185,9 @@ class FlatService {
       {required String homeId, required String flatId}) async {
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
-    flatsCollectionRef.doc(flatId).delete().whenComplete(() {
+    flatsCollectionRef
+        .doc(flatId)
+        .update({'renter': FieldValue.delete()}).whenComplete(() {
       response.code = 200;
       response.body = 'deleted successfully';
     }).catchError((e) {
