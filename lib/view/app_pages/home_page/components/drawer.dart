@@ -1,21 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
-import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/providers/new_home_step_provider.dart';
 import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
-import 'package:sweet_home/services/flat_services.dart';
-import 'package:sweet_home/utils/user_flat.dart';
-import 'package:sweet_home/view/app_widgets.dart';
-import '../../../../models/flat_model.dart';
+import 'package:sweet_home/view/app_pages/setting_page/setting_page.dart';
+import 'package:sweet_home/view/app_pages/user_profile_page/user_profile_page.dart';
 import '../../../../models/home_model.dart';
-import '../../../../models/renter.dart';
 import '../../../../services/home_services.dart';
 import '../../../../utils/routes.dart';
-import 'change_theme_button.dart';
+
 import 'homes_popup.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -47,7 +42,13 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            onTap: () => AppWidget.showToast('প্রোফাইলের কাজ চলছে'),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserProfilePage(),
+                  ));
+            },
             leading: const Icon(Icons.account_circle),
             title: Text(
               'প্রোফাইল',
@@ -55,7 +56,11 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            onTap: () => AppWidget.showToast('সেটিংসের কাজ চলছে'),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsPage(),
+                )),
             leading: const Icon(Icons.settings),
             title: Text(
               'সেটিংস',
@@ -63,16 +68,8 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.dark_mode),
-            title: Text(
-              'ডার্ক মোড',
-              style: drawerTextStyle,
-            ),
-            trailing: const ChangeThemeButton(),
-          ),
-          ListTile(
             onTap: () => AppRoute.newHomeStepper(context: context),
-            leading: const Icon(Icons.home_filled),
+            leading: const Icon(Icons.add),
             title: Text(
               'বাড়ী যোগ করুন',
               style: drawerTextStyle,

@@ -44,6 +44,7 @@ class RenterProfile extends StatelessWidget {
               Response res = await FlatService()
                   .deleteRenterFromFlat(homeId: homeId, flatId: flatName);
               if (res.code == 200) {
+                //TODO: NEED TO FIX LAGGING
                 AppWidget.showToast('গ্রাহক মুছে ফেলা হয়েছে');
               }
               // ignore: use_build_context_synchronously
