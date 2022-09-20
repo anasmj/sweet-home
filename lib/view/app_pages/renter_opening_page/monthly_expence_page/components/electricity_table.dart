@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/utils/calculate_bills.dart';
-
-import '../../../../../models/month_details.dart';
 import '../../../../../models/renter.dart';
-import '../../../../../models/year.dart';
 
 // ignore: must_be_immutable
 class ElectricityTable extends StatelessWidget {

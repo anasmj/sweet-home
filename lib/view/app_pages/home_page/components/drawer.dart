@@ -46,7 +46,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => UserProfilePage(),
+                    builder: (context) => const UserProfilePage(),
                   ));
             },
             leading: const Icon(Icons.account_circle),

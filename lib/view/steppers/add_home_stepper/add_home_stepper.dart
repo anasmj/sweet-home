@@ -76,7 +76,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                         if (res.code == 200) {
                           setState(() {
                             isCompletedd = true;
-                            provider.clearControllers();
+                            // provider.clearControllers();//todo: do it from here
                           });
 
                           //failed
@@ -227,7 +227,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
           state: _currentStep > 1 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 1,
           title: const Text('বিলসমূহ'),
-          content: SecondPage(),
+          content: const SecondPage(),
         ),
       ];
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/view/app_pages/flat_info_page/flat_info_page.dart';
 import 'package:sweet_home/view/app_pages/home_detail_page/update_button.dart';
 import '../../../providers/current_home.dart';
 import '../../../providers/theme_provider.dart';
@@ -12,7 +11,8 @@ import '../../../models/response.dart';
 import '../../../utils/compare_values.dart';
 import '../../../models/home_model.dart';
 import '../../resources/app_icons.dart';
-import 'delete_button.dart';
+import '../flat_info_pages/all_flat_info_page.dart';
+import '../shared_widgets/delete_button.dart';
 
 //* Takes a Home object and displaies its property allowing to fields in database
 class HomeDetail extends StatelessWidget {
@@ -135,7 +135,7 @@ class HomeDetail extends StatelessWidget {
             othersListTile(),
             ListTile(
               onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => FlatInfoPage())),
+                  MaterialPageRoute(builder: (context) => AllFlatsInfoPage())),
               leading: const Icon(Icons.home_work_sharp),
               title: const Text('ফ্ল্যাটের তথ্যাবলি'),
               subtitle: const Text('অন্যান্য খরচ'),
@@ -148,7 +148,7 @@ class HomeDetail extends StatelessWidget {
               height: 10,
             ),
             DeleteButton(
-              onHomeDeleted: () => onHomeDeleted(context),
+              action: () => onHomeDeleted(context),
             ),
             const SizedBox(
               height: 10,

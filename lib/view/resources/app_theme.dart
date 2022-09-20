@@ -66,8 +66,7 @@ class AppTheme {
 
   static ThemeData appDarkTheme() {
     return ThemeData(
-      drawerTheme: DrawerThemeData(
-          backgroundColor: Colors.grey.shade600.withOpacity(0.97)),
+      drawerTheme: DrawerThemeData(backgroundColor: Colors.grey.shade200),
       iconTheme: const IconThemeData(
         color: Colors.white,
       ),

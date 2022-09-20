@@ -6,6 +6,7 @@ import 'package:sweet_home/providers/theme_provider.dart';
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
+  final _appDefaultTitleStyle = const TextStyle(fontSize: 16);
   @override
   Widget build(BuildContext context) {
     ThemeProvider theme = context.watch<ThemeProvider>();
@@ -38,10 +39,15 @@ class SettingsPage extends StatelessWidget {
 
   SettingsSection regionalSection() {
     return SettingsSection(
-      title: const Text('Regional'),
+      title: const Text(
+        'Regional',
+      ),
       tiles: <SettingsTile>[
         SettingsTile.navigation(
-          title: const Text('Language'),
+          title: Text(
+            'Language',
+            style: _appDefaultTitleStyle,
+          ),
           leading: const Icon(Icons.language_rounded),
           trailing: const Icon(
             Icons.arrow_forward_ios_rounded,
@@ -58,21 +64,21 @@ class SettingsPage extends StatelessWidget {
       title: const Text('Account'),
       tiles: <SettingsTile>[
         SettingsTile.navigation(
-          title: const Text('Phone number'),
+          title: Text('Phone number', style: _appDefaultTitleStyle),
           leading: const Icon(Icons.phone),
         ),
         SettingsTile.navigation(
-          title: const Text('Email'),
+          title: Text('Email', style: _appDefaultTitleStyle),
           leading: const Icon(Icons.mail),
         ),
         SettingsTile.navigation(
-          title: const Text('Password'),
+          title: Text('Password', style: _appDefaultTitleStyle),
           leading: const Icon(Icons.password_rounded),
         ),
         SettingsTile.navigation(
-          title: const Text(
+          title: Text(
             'Username',
-            style: TextStyle(fontSize: 16),
+            style: _appDefaultTitleStyle,
           ),
           leading: const Icon(Icons.person),
         ),
@@ -90,16 +96,16 @@ class SettingsPage extends StatelessWidget {
           },
           initialValue: isDark,
           leading: const Icon(Icons.dark_mode),
-          title: const Text('Dark Mode'),
+          title: Text('Dark Mode', style: _appDefaultTitleStyle),
         ),
         SettingsTile.switchTile(
           onToggle: (value) {},
           initialValue: false,
           leading: const Icon(Icons.notifications_active_outlined),
-          title: const Text('Notification'),
+          title: Text('Notification', style: _appDefaultTitleStyle),
         ),
         SettingsTile.navigation(
-          title: const Text('Font size'),
+          title: Text('Font size', style: _appDefaultTitleStyle),
           leading: const Icon(Icons.format_align_left_sharp),
           trailing: const Icon(
             Icons.arrow_forward_ios_rounded,

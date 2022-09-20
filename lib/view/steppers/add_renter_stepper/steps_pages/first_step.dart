@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
-import 'package:sweet_home/providers/home_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/view/steppers/add_renter_stepper/steps_pages/components/occupation_dropdown.dart';
 import '../../../../utils/form_validators.dart';

@@ -22,7 +22,7 @@ class AppHomePage extends StatefulWidget {
 class _AppHomePage extends State<AppHomePage> {
   final double _appIconHeight = 20;
   final double _appIconWidth = 20;
-  int _currentTabIndex = 0;
+  int _currentTabIndex = 1;
   final double _appBarHeight = 280;
   bool isInitialState = false;
 

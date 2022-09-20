@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 import '../../../../providers/newrenter_step_provider.dart';
-import 'components/nid_Image_containers.dart';
+import 'components/nid_image_containers.dart';
 
 class ThirdStepPage extends StatelessWidget {
   ThirdStepPage({super.key});

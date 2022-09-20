@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/utils/calculate_bills.dart';
 import 'package:sweet_home/view/app_pages/empty_pages/empty_tarnsaction.dart';
 import 'package:sweet_home/view/app_pages/renter_profile_page.dart';
 import '../../../models/renter.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
-import 'transactoin_list_page/transaction_list_page.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
 import 'transaction_entry_page/transaction_entry_page.dart';
 
@@ -86,7 +84,6 @@ class RenterOpeningPage extends StatelessWidget {
                         )));
             break;
           case 'রিপোর্ট':
-            print(value);
             break;
           case 'তাগাদা দিন':
             break;

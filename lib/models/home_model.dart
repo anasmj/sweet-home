@@ -1,10 +1,6 @@
 // import 'package:rent_home/models/others_model.dart';
 // import 'flat_model.dart';
 
-import 'package:sweet_home/models/renter.dart';
-
-import 'flat_model.dart';
-
 class Home {
   String homeId;
   final String homeName;

@@ -7,7 +7,7 @@ import 'package:sweet_home/view/steppers/shared_components/stepper_textfield.dar
 import '../../../../providers/new_home_step_provider.dart';
 
 class SecondPage extends StatefulWidget {
-  SecondPage({super.key});
+  const SecondPage({super.key});
 
   @override
   State<SecondPage> createState() => _SecondPageState();

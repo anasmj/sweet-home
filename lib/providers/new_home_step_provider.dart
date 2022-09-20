@@ -64,13 +64,4 @@ class NewHomeStepProvider extends ChangeNotifier {
   // bool _advanceSelected = false;
   // double _advanceAmount = 0.00;
 
-  void clearControllers() {
-    homeNameController.clear();
-    addressController.clear();
-    rentController.clear();
-    electricityController.clear();
-    gasController.clear();
-    waterController.clear();
-    print('new home step provider: colntroller should be cleared up');
-  }
 }

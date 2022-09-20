@@ -15,6 +15,8 @@ import '../../app_widgets.dart';
 import '../../resources/app_icons.dart';
 import '../empty_pages/empty_flat_page.dart';
 import '../renter_opening_page/renter_opening_page.dart';
+import '../flat_info_pages/single_flat_info_page.dart';
+import 'components/falt_option_modal_sheet.dart';
 import 'components/flat_menu_popup.dart';
 
 //*ADOPTS VIEW MODEL
@@ -195,6 +197,11 @@ class HomeFlatsPage extends StatelessWidget {
                     builder: ((builder) =>
                         RenterOpeningPage(renter: flat.renter!))));
           },
+          onLongPress: () => AppWidget.getModalSheet(
+              context: context,
+              isDark: isDark,
+              modalSheetContent: buildFlatOptionContent(context)),
+          // flatOptionModalSheet(context: context, isDark: isDark),
           child: Material(
             //shadowing
             shape: RoundedRectangleBorder(
@@ -236,20 +243,11 @@ class HomeFlatsPage extends StatelessWidget {
                     //BOTTOM INFORMATION ABOUT FLAT
                     flat.renter != null
                         ? ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  flat.renter!.renterName,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.fade,
-                                  softWrap: true,
-                                ),
-                                const CircleAvatar(
-                                  radius: 6,
-                                  backgroundColor: Colors.green,
-                                ),
-                              ],
+                            title: Text(
+                              flat.renter!.renterName,
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                              softWrap: true,
                             ),
                             subtitle: Text(flat.renter != null
                                 ? '${CustomFormatter().monthYear(flat.renter!.entryDate!)} থেকে আছেন'
@@ -290,6 +288,47 @@ class HomeFlatsPage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Column buildFlatOptionContent(context) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 20),
+          ListTile(
+            onTap: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) {
+              return SingleFlatInfo();
+            })),
+            leading: const Icon(
+              Icons.info_outline,
+              color: Colors.pink,
+            ),
+            title: const Text('ফ্ল্যাটের বিস্তারিত'),
+          ),
+          const ListTile(
+            leading: Icon(
+              Icons.add,
+              color: Colors.blue,
+            ),
+            title: Text('গ্রাহক যুক্ত'),
+          ),
+          const ListTile(
+            leading: Icon(
+              Icons.remove_circle_outline_rounded,
+              color: Colors.orange,
+            ),
+            title: Text('গ্রাহক মুছুন'),
+          ),
+          const ListTile(
+            leading: Icon(
+              Icons.delete_outline_outlined,
+              color: Colors.red,
+            ),
+            title: Text('ফ্ল্যাট ডিলিট'),
+          ),
+        ]);
   }
 
   Row rentAmountText(Flat flat, TextTheme appTextTheme, bool isDark) {

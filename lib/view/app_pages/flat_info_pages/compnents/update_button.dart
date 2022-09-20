@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../providers/current_home.dart';
+import '../../../../providers/current_home.dart';
 
 // ignore: must_be_immutable
 class UpdateButton extends StatelessWidget {
