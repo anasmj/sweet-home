@@ -42,9 +42,7 @@ class AppTheme {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        labelStyle: const TextStyle(
-          color: Colors.black,
-        ),
+        labelStyle: const TextStyle(color: Colors.black, fontSize: 14),
         fillColor: Colors.grey.shade200,
         prefixIconColor: Colors.grey.shade700,
         contentPadding:

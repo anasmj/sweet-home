@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/flat_services.dart';
-import 'package:sweet_home/view/app_pages/renter_opening_page/renter_opening_backup_page.dart';
 import '../../../models/flat_model.dart';
 import '../../../models/home_model.dart';
 import '../../../providers/flat_info_provider.dart';
@@ -16,8 +15,6 @@ import '../../resources/app_icons.dart';
 import '../empty_pages/empty_flat_page.dart';
 import '../renter_opening_page/renter_opening_page.dart';
 import '../flat_info_pages/single_flat_info_page.dart';
-import 'components/falt_option_modal_sheet.dart';
-import 'components/flat_menu_popup.dart';
 
 //*ADOPTS VIEW MODEL
 // ignore: must_be_immutable
@@ -27,17 +24,7 @@ class HomeFlatsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Home? home = context.watch<CurrentHomeProvider>().currentHome;
-    // return Center(
-    //   child: SizedBox(
-    //     height: 250,
-    //     width: 200,
-    //     child: makeFlat(
-    //       context,
-    //       0,
-    //       Flat(),
-    //     ),
-    //   ),
-    // );
+
     return home == null ? const EmptyFlatPage() : futureBuilderMethod(home);
   }
 
@@ -188,14 +175,13 @@ class HomeFlatsPage extends StatelessWidget {
         InkWell(
           onTap: () {
             Provider.of<CurrentFlatInfoProvider>(context, listen: false)
-                .newSelectedFlat = flat.flatName;
+                .newSelectedFlat = flat;
             flat.renter == null
                 ? AppRoute.newRenterStepper(
                     context: context,
                   )
                 : Navigator.of(context).push(MaterialPageRoute(
-                    builder: ((builder) =>
-                        RenterOpeningPage(renter: flat.renter!))));
+                    builder: ((builder) => RenterOpeningPage())));
           },
           onLongPress: () => AppWidget.getModalSheet(
               context: context,

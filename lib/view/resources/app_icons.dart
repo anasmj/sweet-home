@@ -38,4 +38,5 @@ class AppIcons {
   static String homePopUp = 'assets/lotties/homePopUp.json';
   static String arrowDown = 'assets/lotties/arrow_down.json';
   static String searching = 'assets/lotties/searching.json';
+  static String buildingHomeRed = 'assets/lotties/building_home_red.json';
 }

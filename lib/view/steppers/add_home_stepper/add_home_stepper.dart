@@ -9,6 +9,7 @@ import 'package:sweet_home/view/steppers/add_home_stepper/steps_pages/first_page
 import 'package:sweet_home/view/steppers/add_home_stepper/steps_pages/second_page.dart';
 import '../../../models/response.dart';
 import '../../../services/home_services.dart';
+import '../../app_pages/waiting_pages/making_home_indicator.dart';
 import '../../app_widgets.dart';
 import '../../resources/app_icons.dart';
 
@@ -40,7 +41,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
       ),
       body: !isCompletedd
           ? isLoading
-              ? buildingHomeLoadingIndicator()
+              ? const MakingHomeIndicator()
               : Stepper(
                   type: StepperType.horizontal,
                   currentStep: _currentStep,
@@ -54,23 +55,25 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                         setState(() {
                           isLoading = true;
                         });
+
                         Response res = await HomeCrud().addHome(
-                            homeName: provider.homeNameController.text.trim(),
-                            location: provider.addressController.text.trim(),
-                            rentAmount:
-                                double.parse(provider.rentController.text),
-                            gasBill: provider.waterController.text.isNotEmpty
-                                ? double.parse(provider.gasController.text)
-                                : 0.0,
-                            waterBill: provider.waterController.text.isNotEmpty
-                                ? double.parse(provider.waterController.text)
-                                : 0.0,
-                            numOfFloor: provider.floorLength,
-                            flatPerFloor: provider.flatLength,
-                            flatNames: UserFlats.getFlatList(
-                              floorRange: provider.floorLength,
-                              flatRange: provider.flatLength,
-                            ));
+                          homeName: provider.homeNameController.text.trim(),
+                          location: provider.addressController.text.trim(),
+                          rentAmount:
+                              double.parse(provider.rentController.text),
+                          gasBill: provider.waterController.text.isNotEmpty
+                              ? double.parse(provider.gasController.text)
+                              : 0.0,
+                          waterBill: provider.waterController.text.isNotEmpty
+                              ? double.parse(provider.waterController.text)
+                              : 0.0,
+                          numOfFloor: provider.floorLength,
+                          flatPerFloor: provider.flatLength,
+                          flatNames: UserFlats.getFlatList(
+                            floorRange: provider.floorLength,
+                            flatRange: provider.flatLength,
+                          ),
+                        );
 
                         // Successful
                         if (res.code == 200) {
@@ -140,10 +143,18 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
 
   Center buildingHomeLoadingIndicator() {
     return Center(
-      child: Lottie.asset(
-        AppIcons.blueCircleIndicator,
-        height: 150,
-        repeat: true,
+      child: Column(
+        children: [
+          Lottie.asset(
+            AppIcons.blueCircleIndicator,
+            height: 40,
+            repeat: true,
+          ),
+          const Text(
+            'hello',
+            style: TextStyle(color: Colors.black),
+          ),
+        ],
       ),
     );
   }

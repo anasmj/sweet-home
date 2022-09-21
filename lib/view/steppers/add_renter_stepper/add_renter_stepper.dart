@@ -11,6 +11,7 @@ import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../services/flat_services.dart';
+import '../../app_pages/waiting_pages/addingRenterIndicator.dart';
 
 class AddRenterStepper extends StatefulWidget {
   const AddRenterStepper({super.key});
@@ -25,7 +26,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
   // bool isValidInfo = false;
   Future<Response> addRenterToDatabase(BuildContext context) async {
     final provider = Provider.of<NewRenterStepProvider>(context, listen: false);
-    final flatName = context.read<CurrentFlatInfoProvider>().selectedFlat;
+    final flat = context.read<CurrentFlatInfoProvider>().selectedFlat;
     String homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
         .currentHome!
         .homeId;
@@ -34,7 +35,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
         : 0.00;
     Response response = await FlatService().addRenterToFlat(
       homeId: homeId,
-      flatId: flatName,
+      flatId: flat!.flatName,
       renterName: provider.renterNameController.text,
       phoneNo: provider.phoneController.text,
       alternatePhoneNo: provider.altPhoneController.text,
@@ -59,12 +60,10 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
         .currentHome!
         .homeId;
     final provider = Provider.of<NewRenterStepProvider>(context);
-    double advanceAmount = provider.advanceController.text.isNotEmpty
-        ? double.parse(provider.advanceController.text)
-        : 0.00;
+    double advanceAmount;
 
     //used to validate state of form
-    final flatName = context.read<CurrentFlatInfoProvider>().selectedFlat;
+    final flat = context.read<CurrentFlatInfoProvider>().selectedFlat;
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
     return Scaffold(
@@ -77,7 +76,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
       ),
       body: !isCompletedd
           ? isLoading
-              ? addingRenterIndicator()
+              ? const AddingRenterIndicator()
               : Stepper(
                   type: StepperType.horizontal,
                   currentStep: _currentStep,
@@ -88,16 +87,19 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
                         // isCompletedd = true;
                         // clearPreviousRenterInfo(context);
                       });
+                      advanceAmount = provider.advanceController.text.isNotEmpty
+                          ? double.parse(provider.advanceController.text)
+                          : 0.00;
 
                       Response res = await FlatService().addRenterToFlat(
                         homeId: homeId,
-                        flatId: flatName,
+                        flatId: flat!.flatName,
                         renterName: provider.renterNameController.text,
                         phoneNo: provider.phoneController.text,
                         alternatePhoneNo: provider.altPhoneController.text,
                         occupation: provider.occupation,
                         noOfPerson: provider.memberNo,
-                        entryDate: DateTime.now(),
+                        entryDate: provider.entryDate,
                         previousLocation:
                             provider.previousLocationController.text,
                         village: provider.villageController.text,
@@ -165,22 +167,6 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
     provider.districtController.clear();
     provider.villageController.clear();
   }
-
-  Widget addingRenterIndicator() => Center(
-        child: SizedBox(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              CircularProgressIndicator(),
-              SizedBox(height: 20),
-              Text(
-                'গ্রাহক যুক্ত করা হচ্ছে . .',
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
-          ),
-        ),
-      );
 
   Row getNavButtons(
       ControlsDetails details, BuildContext context, bool isLastStep) {

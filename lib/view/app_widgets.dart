@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/monthly_record_provider.dart';
 
 class AppWidget {
   static void showToast(String message) => Fluttertoast.showToast(
@@ -96,6 +99,84 @@ class AppWidget {
               ),
               onPressed: () {
                 Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static TextSpan get taka => TextSpan(
+        text: '৳',
+        style: TextStyle(
+          color: Colors.red[900],
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+        ),
+      );
+
+  static Future<void> showElectricityUnitDialog(
+      {required BuildContext context}) async {
+    GlobalKey<FormState>? formKey = GlobalKey();
+    TextEditingController unitController = TextEditingController();
+    MonthlyRecordProvider providerRead = context.read<MonthlyRecordProvider>();
+
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          iconColor: Colors.red,
+          icon: const Icon(
+            Icons.gas_meter_outlined,
+            size: 40,
+          ),
+          title: const Text('মিটারের রিডিং নেয়া হয়নি'),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          // title: Text(title),
+
+          content: Form(
+            key: formKey,
+            child: TextFormField(
+              controller: unitController,
+              // validator: (value) =>
+              //     value!.isEmpty ? 'হিসাবের জন্য তথ্যটি প্রয়োজন' : null,
+              validator: (value) {
+                if (value!.isEmpty) return 'হিসাবের জন্য তথ্যটি প্রয়োজন';
+                if (double.parse(value) <= 0) {
+                  return 'তথ্যটি সঠিক নয়';
+                }
+                return null;
+              },
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                label: Text('ইউনিট'),
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'এখন নয়',
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text(
+                'ঠিক আছে',
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  providerRead.setMeterReading =
+                      double.parse(unitController.text);
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ],

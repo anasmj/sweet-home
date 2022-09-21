@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/new_home_step_provider.dart';
 import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
+import 'package:sweet_home/services/renter_services.dart';
+import 'package:sweet_home/utils/compare_values.dart';
+import 'package:sweet_home/utils/custom_date_time_formatter.dart';
 import 'package:sweet_home/view/app_pages/setting_page/setting_page.dart';
 import 'package:sweet_home/view/app_pages/user_profile_page/user_profile_page.dart';
+import 'package:sweet_home/view/test_page.dart';
 import '../../../../models/home_model.dart';
+import '../../../../models/renter.dart';
+import '../../../../providers/newrenter_step_provider.dart';
 import '../../../../services/home_services.dart';
 import '../../../../utils/routes.dart';
 
+import '../../../resources/app_icons.dart';
 import 'homes_popup.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -76,7 +84,17 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            onTap: () async {},
+            onTap: () async {
+              // RenterService().createMonthlyRecord(
+              //   homeId: home!.homeId,
+              //   flatName: '1A',
+              //   renter: Renter(renterName: 'Ashfaq', phoneNo: '0203022'),
+              //   issueDate: DateTime.parse('2022-05-10'),
+              // );
+
+              // RenterService().findMonthlyRecord(
+              //     homeId: home!.homeId, flatName: '1A', monthId: '2022-09');
+            },
             leading: const Icon(Icons.edit),
             title: Text(
               'test',

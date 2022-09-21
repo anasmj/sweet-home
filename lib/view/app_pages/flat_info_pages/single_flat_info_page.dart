@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'compnents/flat_info_list.dart';
 
 class SingleFlatInfo extends StatelessWidget {
-  SingleFlatInfo({super.key});
+  const SingleFlatInfo({super.key});
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

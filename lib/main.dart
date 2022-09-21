@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/monthly_record_provider.dart';
 import 'package:sweet_home/utils/shared_pref.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/new_home_step_provider.dart';
@@ -46,6 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => CurrentHomeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MonthlyRecordProvider(),
         ),
         ChangeNotifierProxyProvider<CurrentHomeProvider, FlatListViweModel>(
           create: (BuildContext context) => FlatListViweModel(),

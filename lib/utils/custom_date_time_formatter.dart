@@ -20,10 +20,19 @@ class CustomFormatter {
   ];
 
   DateTime now = DateTime.now();
+  //23 Jan '22
+  String buttonFormat(DateTime timeStamp) =>
+      '${timeStamp.day} ${months[timeStamp.month - 1]} ${timeStamp.year.toString().substring(2, 4)}';
 
   //Oct '22
   String monthYear(DateTime date) => "${months[date.month - 1]} "
       "'${date.year.toString().substring(2, 4)}";
+
+  //convert date in 2022-09-20 format
+  String makeId({required DateTime date}) => DateFormat('yyyy-MM').format(date);
+
+  //2022-09-20 currentDate
+  String yearMonthDate() => DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   //Oct '22
   String previousMonthYear() => "${months[DateTime.now().month - 2]} "
@@ -55,8 +64,7 @@ class CustomFormatter {
   // String previousMonthAndYear() =>
   //     "${months[now.month - 2]}, " "${now.year}"; //Aug, 2022
 
-  // String year() =>
-  //     DateFormat('y').format(DateTime.now()).substring(0, 2); //2022;
+  // String year() => DateFormat('y').format(DateTime.now()); //2022;
 
   // String weekDay() =>
   //     DateFormat('EEEE').format(DateTime.now()).substring(0, 3); // Tue

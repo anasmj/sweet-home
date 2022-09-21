@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/view/app_pages/home_detail_page/update_button.dart';
+import 'package:sweet_home/view/app_pages/home_info_page/update_button.dart';
 import '../../../providers/current_home.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../services/home_services.dart';
 import '../../../utils/home_crud.dart';
+import '../../../utils/routes.dart';
 import '../../app_widgets.dart';
-import 'package:sweet_home/view/app_pages/home_detail_page/edit_textfield.dart';
+import 'package:sweet_home/view/app_pages/home_info_page/edit_textfield.dart';
 import '../../../models/response.dart';
 import '../../../utils/compare_values.dart';
 import '../../../models/home_model.dart';
@@ -15,8 +16,8 @@ import '../flat_info_pages/all_flat_info_page.dart';
 import '../shared_widgets/delete_button.dart';
 
 //* Takes a Home object and displaies its property allowing to fields in database
-class HomeDetail extends StatelessWidget {
-  HomeDetail({required this.home, super.key});
+class HomeInfoPage extends StatelessWidget {
+  HomeInfoPage({required this.home, super.key});
 
   Home home;
   final Color colorInLightMode = Colors.grey.shade700;
@@ -24,7 +25,7 @@ class HomeDetail extends StatelessWidget {
   final Color modalSheetBgLight = Colors.white;
   final Color colorInDarkMode = Colors.white;
   // GlobalKey<FormState> editFormKey = GlobalKey<FormState>();
-
+  final String addNewHome = 'বাড়ী যুক্ত';
   @override
   Widget build(BuildContext context) {
     CurrentHomeProvider provider = context.read<CurrentHomeProvider>();
@@ -32,6 +33,11 @@ class HomeDetail extends StatelessWidget {
       appBar: AppBar(
         title: Text(home.homeName),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () => AppRoute.newHomeStepper(context: context),
+              icon: const Icon(Icons.add)),
+        ],
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),

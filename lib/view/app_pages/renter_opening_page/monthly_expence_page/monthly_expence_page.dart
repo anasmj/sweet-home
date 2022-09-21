@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/utils/custom_date_time_formatter.dart';
-import '../../../../models/renter.dart';
+
 import 'components/bottom_banner.dart';
 import 'components/monthly_expence_table.dart';
 
 // ignore: must_be_immutable
 class MonthlyExpencePage extends StatelessWidget {
-  MonthlyExpencePage({
-    required this.renter,
+  const MonthlyExpencePage({
     Key? key,
   }) : super(key: key);
 
-  Renter renter;
   @override
   Widget build(BuildContext context) {
     TextStyle colTitleText = Theme.of(context).textTheme.headline6!;
@@ -68,7 +66,8 @@ class MonthlyExpencePage extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               children: [
                 SingleChildScrollView(
-                  child: MonthlyExpenceTable(renter: renter),
+                  physics: const BouncingScrollPhysics(),
+                  child: MonthlyExpenceTable(),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(bottom: 20),

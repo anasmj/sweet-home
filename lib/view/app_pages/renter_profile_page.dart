@@ -15,7 +15,8 @@ class RenterProfile extends StatelessWidget {
   Renter renter;
   @override
   Widget build(BuildContext context) {
-    String flatName = context.watch<CurrentFlatInfoProvider>().selectedFlat;
+    String flatName =
+        context.watch<CurrentFlatInfoProvider>().selectedFlat!.flatName;
     String homeId = context.watch<CurrentHomeProvider>().currentHome!.homeId;
     return Scaffold(
       appBar: AppBar(

@@ -58,17 +58,20 @@ class NewRenterStepProvider extends ChangeNotifier {
   }
 
   //THIRD STEP
+
   bool _advanceSelected = false;
   // double _advanceAmount = 0.00;
   TextEditingController advanceController = TextEditingController();
 
   // set setAdvanceAmount(double amount) => _advanceAmount = amount;
   // double get getAdvanceAmount => _advanceAmount;
+  DateTime _entryDate = DateTime.now();
+  DateTime get entryDate => _entryDate;
+  set setEntryDate(DateTime newDateTime) => _entryDate = newDateTime;
 
   bool get advanceStatus => _advanceSelected;
   void setAdvanceStatus(bool value) {
     _advanceSelected = value;
-    advanceController.clear();
     notifyListeners();
   }
 

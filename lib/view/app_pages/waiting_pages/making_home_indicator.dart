@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 
-class Test extends StatelessWidget {
-  const Test({super.key});
+class MakingHomeIndicator extends StatelessWidget {
+  const MakingHomeIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {

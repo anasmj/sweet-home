@@ -13,7 +13,7 @@ import '../models/renter.dart';
 class CurrentFlatInfoProvider extends ChangeNotifier {
   //ALL EXPENCES THAT WILL create a MonthDetail object to save record
 
-  String _selectedFlat = '';
+  Flat? _selectedFlat;
 
   String _flatName = '';
   double? _flatRentAmount;
@@ -23,31 +23,31 @@ class CurrentFlatInfoProvider extends ChangeNotifier {
   double? _electricityUnitPrice; // = 0.00;
   Renter? _renter;
 
-  set newSelectedFlat(String name) => _selectedFlat = name;
+  set newSelectedFlat(Flat newFame) => _selectedFlat = newFame;
+  Flat? get selectedFlat => _selectedFlat;
 
   ///whenever user taps on a flat this class gets updated.
-  void updateFlatInfo({
-    required Flat currentFlat,
-  }) {
-    _flatName = currentFlat.flatName;
+  // void updateFlatInfo({
+  //   required Flat currentFlat,
+  // }) {
+  //   _flatName = currentFlat.flatName;
 
-    _flatRentAmount = currentFlat.flatRentAmount; //*updates
-    _flatGasBill = currentFlat.flatGasBill;
-    _flatWaterBill = currentFlat.flatWaterBill;
-    _flatOtherExpences = currentFlat.flatOtherExpences ??= [];
-    // _electricityUnitPrice = currentFlat.electricityUnitPrice ??= 0.00;
-    _renter = currentFlat.renter;
-    notifyListeners();
-  }
+  //   _flatRentAmount = currentFlat.flatRentAmount; //*updates
+  //   _flatGasBill = currentFlat.flatGasBill;
+  //   _flatWaterBill = currentFlat.flatWaterBill;
+  //   _flatOtherExpences = currentFlat.flatOtherExpences ??= [];
+  //   // _electricityUnitPrice = currentFlat.electricityUnitPrice ??= 0.00;
+  //   _renter = currentFlat.renter;
+  //   notifyListeners();
+  // }
 
   //GETTERS
-  String get flatName => _flatName;
-  double get flatRentAmount => _flatRentAmount ??= 0;
-  String get selectedFlat => _selectedFlat;
+  // String get flatName => _flatName;
+  // double get flatRentAmount => _flatRentAmount ??= 0;
 
-  double get flatGasBill => _flatGasBill ??= 0.00;
-  double get flatWaterBill => _flatWaterBill ??= 0.00;
-  List<OthersExpence> get flatOtherExpences => _flatOtherExpences ??= [];
-  double get electricityUnitPrice => _electricityUnitPrice ??= 0.00;
-  Renter? get renter => _renter;
+  // double get flatGasBill => _flatGasBill ??= 0.00;
+  // double get flatWaterBill => _flatWaterBill ??= 0.00;
+  // List<OthersExpence> get flatOtherExpences => _flatOtherExpences ??= [];
+  // double get electricityUnitPrice => _electricityUnitPrice ??= 0.00;
+  // Renter? get renter => _renter;
 }

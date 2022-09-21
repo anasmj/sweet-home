@@ -24,20 +24,12 @@ class FlatService {
     return flatsCollectionRef;
   }
 
-  //GET ALL FLATS INLCUDING RENTER INFORMATION
+  //READ ALL FLATS
   Future<List<Flat>> getAllFlats({required String homeId}) async {
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
     final flatsSnapshot = await flatsCollectionRef.get();
     final flatList = flatsSnapshot.docs.map((flat) {
-      Renter? renter;
-
-      try {
-        var renterData = flat['renter'] as Map<String, dynamic>;
-        if (renterData.isNotEmpty) {
-          renter = Renter.fromJson(renterData);
-        }
-      } catch (e) {}
       return Flat.fromJson(flat.data() as Map<String, dynamic>);
     }).toList();
     return flatList;
@@ -180,7 +172,7 @@ class FlatService {
     return response;
   }
 
-  //DELETE RENTR
+  //REMOVE RENTR FROM FLAT
   Future<Response> deleteRenterFromFlat(
       {required String homeId, required String flatId}) async {
     CollectionReference flatsCollectionRef =

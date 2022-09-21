@@ -38,14 +38,14 @@ class Flat {
     // flatWaterBill ??= HomeProvider().globalWaterBill;
   }
   static Flat fromJson(Map<String, dynamic> json) {
-    Renter? renter;
+    Renter? renterObj;
     try {
       Map<String, dynamic> renterData = json['renter'] as Map<String, dynamic>;
-      renter = Renter.fromJson(renterData);
+      renterObj = Renter.fromJson(renterData);
     } catch (e) {}
     return Flat(
       flatName: json['flatName'] ?? '',
-      renter: renter,
+      renter: renterObj,
       flatRentAmount: json['rentAmount'] ?? 0.00,
       flatGasBill: json['gasBill'] ?? 0.00,
       flatWaterBill: json['waterBill'] ?? 0.00,

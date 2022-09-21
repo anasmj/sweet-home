@@ -49,7 +49,7 @@ class Renter {
       union: json['union'] ?? '',
       subDistrict: json['subDistrict'] ?? '',
       district: json['district'] ?? '',
-      advance: json['advance'],
+      advance: json['advance'] ?? 0.0,
     );
 
     return renter;
@@ -58,17 +58,17 @@ class Renter {
   Map<String, dynamic> toJson() => {
         'renterName': renterName,
         'phoneNo': phoneNo,
-        'alternatePhoneNo': alternatePhoneNo,
-        'occupation': occupation,
-        'noOfPerson': numOfPerson,
+        'alternatePhoneNo': alternatePhoneNo ?? '',
+        'occupation': occupation ?? '',
+        'noOfPerson': numOfPerson ?? 1,
         'entryDate': entryDate.toString(),
-        'previousLocation': previousLocation,
-        'village': village,
-        'policeStation:': policeStation,
-        'union:': union,
-        'subDistrict ': subDistrict,
-        'district': district,
-        'advance': advance,
+        'previousLocation': previousLocation ?? '',
+        'village': village ?? '',
+        'policeStation:': policeStation ?? '',
+        'union:': union ?? '',
+        'subDistrict ': subDistrict ?? '',
+        'district': district ?? '',
+        'advance': advance ?? 0.0,
       };
 }
 

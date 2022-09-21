@@ -3,8 +3,7 @@ import '../../../../../models/renter.dart';
 
 // ignore: must_be_immutable
 class ElectricityTable extends StatelessWidget {
-  ElectricityTable({required this.renter, super.key});
-  Renter renter;
+  ElectricityTable({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +62,7 @@ class ElectricityTable extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // Text("মূল্য ($usedUnit * ${currentMonth.electricityUnitPrice!})"),
-              Text('sdfsd'),
+              Text('0.7'),
               // Text(electricBill.toString()),
               Text('32333')
             ],

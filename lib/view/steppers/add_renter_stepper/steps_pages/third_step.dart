@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 import '../../../../providers/newrenter_step_provider.dart';
+import 'components/entry_date_picker.dart';
 import 'components/nid_image_containers.dart';
 
 class ThirdStepPage extends StatelessWidget {
@@ -51,6 +52,8 @@ class ThirdStepPage extends StatelessWidget {
             getAdvanceTextField(context, advanceAmountTextController),
           ],
         ),
+        const SizedBox(height: 20),
+        const EntryDatePicker(),
       ],
     );
   }

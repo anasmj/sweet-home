@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/view/steppers/add_renter_stepper/steps_pages/components/occupation_dropdown.dart';
+import '../../../../models/flat_model.dart';
 import '../../../../utils/form_validators.dart';
 import '../../shared_components/stepper_textfield.dart';
 
@@ -22,7 +23,7 @@ class RenterInfoStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<NewRenterStepProvider>(context);
-    String flatName = context.watch<CurrentFlatInfoProvider>().selectedFlat;
+    Flat? flat = context.watch<CurrentFlatInfoProvider>().selectedFlat;
 
     // nameController.text = provider.getRenterName;
     provider.firstPageFormKey = firstPageFormKey;
@@ -32,8 +33,10 @@ class RenterInfoStep extends StatelessWidget {
       provider.renterNameController.clear();
       provider.phoneController.clear();
       provider.altPhoneController.clear();
+      provider.advanceController.clear();
       provider.setOccupation('');
       provider.setMemberNo = 2;
+      provider.advanceController.clear();
     }
 
     return WillPopScope(
@@ -48,7 +51,7 @@ class RenterInfoStep extends StatelessWidget {
         // autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
-            flatNameChip(context, flatName),
+            flatNameChip(context, flat!.flatName),
             const SizedBox(
               height: 20,
             ),

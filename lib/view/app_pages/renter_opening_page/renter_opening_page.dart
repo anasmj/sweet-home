@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/view/app_pages/empty_pages/empty_tarnsaction.dart';
 import 'package:sweet_home/view/app_pages/renter_profile_page.dart';
-import '../../../models/renter.dart';
+import 'package:sweet_home/view/app_widgets.dart';
+import '../../../models/flat_model.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
 import 'transaction_entry_page/transaction_entry_page.dart';
@@ -12,23 +15,26 @@ import 'transaction_entry_page/transaction_entry_page.dart';
 //called from flat list page
 // ignore: must_be_immutable
 class RenterOpeningPage extends StatelessWidget {
-  RenterOpeningPage({required this.renter, super.key});
+  RenterOpeningPage({super.key});
   final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);
 
-  List<String> menuTitles = ['গ্রাহকের প্রোফাইল', 'রিপোর্ট', 'তাগাদা দিন'];
-
-  Renter renter;
+  List<String> menuTitles = [
+    'গ্রাহকের প্রোফাইল',
+    'ফ্ল্যাটের তথ্যাবলী',
+    'তাগাদা দিন'
+  ];
 
   @override
   Widget build(BuildContext context) {
     TextTheme appTextTheme = Theme.of(context).textTheme;
+    Flat? flat = context.watch<CurrentFlatInfoProvider>().selectedFlat;
 
     return DefaultTabController(
       initialIndex: 0,
       length: 3,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(150),
+          preferredSize: const Size.fromHeight(160),
           child: AppBar(
             elevation: 0.0,
             actions: [
@@ -36,16 +42,16 @@ class RenterOpeningPage extends StatelessWidget {
             ],
             flexibleSpace: Padding(
               padding: const EdgeInsets.only(top: 50.0, left: 80),
-              child: appBarContent(appTextTheme),
+              child: appBarContent(appTextTheme, flat!),
             ),
             bottom: TabBar(
               indicatorColor: Colors.white,
               indicatorWeight: 3,
               labelStyle: _tabBarTextStyle,
               tabs: const [
-                Text('মাসিক হিসাব'),
-                Text('হিসাব এন্ট্রি'),
-                Text('লেনদেনসমূহ'),
+                Tab(text: 'মাসিক হিসাব'),
+                Tab(text: 'হিসাব এন্ট্রি'),
+                Tab(text: 'লেনদেনসমূহ'),
               ],
             ),
           ),
@@ -53,7 +59,7 @@ class RenterOpeningPage extends StatelessWidget {
         body: TabBarView(
           children: [
             // const Center(child: Text('Monthly Expence')),
-            MonthlyExpencePage(renter: renter),
+            const MonthlyExpencePage(),
             const EntryPage(),
             // TransactionListPage(renter: renter),
             EmptyContent.getEmptyTransactionPage(),
@@ -64,6 +70,7 @@ class RenterOpeningPage extends StatelessWidget {
   }
 
   PopupMenuButton<String> renterPopupMenu(BuildContext context) {
+    Flat? flat = context.watch<CurrentFlatInfoProvider>().selectedFlat;
     return PopupMenuButton(
       itemBuilder: (BuildContext context) {
         return menuTitles
@@ -77,13 +84,15 @@ class RenterOpeningPage extends StatelessWidget {
         switch (value) {
           case 'গ্রাহকের প্রোফাইল':
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => RenterProfile(
-                          renter: renter,
-                        )));
+              context,
+              MaterialPageRoute(
+                builder: (context) => RenterProfile(
+                  renter: flat!.renter!,
+                ),
+              ),
+            );
             break;
-          case 'রিপোর্ট':
+          case 'ফ্ল্যাটের তথ্যাবলী':
             break;
           case 'তাগাদা দিন':
             break;
@@ -92,10 +101,10 @@ class RenterOpeningPage extends StatelessWidget {
     );
   }
 
-  ListTile appBarContent(TextTheme appTextTheme) {
+  ListTile appBarContent(TextTheme appTextTheme, Flat flat) {
     return ListTile(
       title: Text(
-        renter.renterName,
+        flat.renter!.renterName,
         style: appTextTheme.headline5!,
         maxLines: 1,
         overflow: TextOverflow.fade,
@@ -104,15 +113,8 @@ class RenterOpeningPage extends StatelessWidget {
       subtitle: RichText(
         text: TextSpan(
           children: [
-            TextSpan(text: 'পাবো ', style: appTextTheme.subtitle1),
-            WidgetSpan(
-              child: Image(
-                height: 18,
-                width: 18,
-                color: Colors.red[900],
-                image: AssetImage(AppIcons.takaUrl),
-              ),
-            ),
+            TextSpan(text: 'পাবো  ', style: appTextTheme.subtitle1),
+            AppWidget.taka,
             TextSpan(
               text: ' 23412\n',
               // '${CalculateBill.setRenter(renter: renter).totalBill.toStringAsFixed(1)} \n',

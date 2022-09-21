@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sweet_home/models/monthly_record.dart';
 import 'package:sweet_home/models/response.dart';
 
 import '../models/flat_model.dart';
 import '../models/home_model.dart';
+import '../utils/custom_date_time_formatter.dart';
 
 class HomeCrud {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -88,9 +90,33 @@ class HomeCrud {
 
     //create flats colection, where doc id = flat name
     CollectionReference flatCollectionRef = homeDocRef.collection('flats');
-    flatNames.forEach((flatName) => flatCollectionRef
-        .doc(flatName)
-        .set(Flat().toJson(flatName: flatName, rentAmount: rentAmount)));
+
+    flatNames.forEach(
+      (flatName) => flatCollectionRef.doc(flatName).set(
+            Flat().toJson(
+              flatName: flatName,
+              rentAmount: rentAmount,
+              gasBill: gasBill ?? 0.00,
+              waterBill: waterBill ?? 0.00,
+            ),
+          ),
+    );
+    String monthlyRecordId = CustomFormatter().makeId(date: DateTime.now());
+    DateTime issueDate = DateTime.now();
+    flatNames.forEach((flat) {
+      flatCollectionRef
+          .doc(flat)
+          .collection('records')
+          .doc(monthlyRecordId)
+          .set(MonthlyRecord(
+            issueDate: issueDate,
+            rentAmount: rentAmount,
+            meterReading: 0.0,
+            // usedElectricityUnit: 0.0,
+            gasBill: gasBill,
+            waterBill: waterBill,
+          ).toJson());
+    });
 
     final data = Home(
       homeId: homeDocRef.id, // assign auto generated doc id to home id

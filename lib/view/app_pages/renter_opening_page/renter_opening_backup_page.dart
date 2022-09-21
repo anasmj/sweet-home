@@ -66,7 +66,7 @@ class FlatDetails extends StatelessWidget {
         body: TabBarView(
           children: [
             Center(
-              child: MonthlyExpencePage(renter: renter),
+              child: MonthlyExpencePage(),
             ),
             const EntryPage(),
             TransactionListPage(renter: renter),
