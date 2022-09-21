@@ -43,7 +43,10 @@ class AppDrawer extends StatelessWidget {
           drawerHeader(context),
           ListTile(
             onTap: () => AppRoute.toCurrentHomeDetail(context),
-            leading: const Icon(Icons.home),
+            leading: const Icon(
+              Icons.home,
+              color: Colors.pinkAccent,
+            ),
             title: Text(
               'আপনার বাড়ী',
               style: drawerTextStyle,
@@ -57,7 +60,10 @@ class AppDrawer extends StatelessWidget {
                     builder: (context) => const UserProfilePage(),
                   ));
             },
-            leading: const Icon(Icons.account_circle),
+            leading: const Icon(
+              Icons.account_circle,
+              color: Colors.deepOrange,
+            ),
             title: Text(
               'প্রোফাইল',
               style: drawerTextStyle,
@@ -69,7 +75,10 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => const SettingsPage(),
                 )),
-            leading: const Icon(Icons.settings),
+            leading: const Icon(
+              Icons.settings,
+              color: Colors.indigo,
+            ),
             title: Text(
               'সেটিংস',
               style: drawerTextStyle,
@@ -77,30 +86,33 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () => AppRoute.newHomeStepper(context: context),
-            leading: const Icon(Icons.add),
+            leading: const Icon(
+              Icons.group,
+              color: Colors.teal,
+            ),
             title: Text(
-              'বাড়ী যোগ করুন',
+              'সকল গ্রাহক',
               style: drawerTextStyle,
             ),
           ),
-          ListTile(
-            onTap: () async {
-              // RenterService().createMonthlyRecord(
-              //   homeId: home!.homeId,
-              //   flatName: '1A',
-              //   renter: Renter(renterName: 'Ashfaq', phoneNo: '0203022'),
-              //   issueDate: DateTime.parse('2022-05-10'),
-              // );
+          // ListTile(
+          //   onTap: () async {
+          //     RenterService().createMonthlyRecord(
+          //       homeId: home!.homeId,
+          //       flatName: '1A',
+          //       renter: Renter(renterName: 'Ashfaq', phoneNo: '0203022'),
+          //       issueDate: DateTime.parse('2022-05-10'),
+          //     );
 
-              // RenterService().findMonthlyRecord(
-              //     homeId: home!.homeId, flatName: '1A', monthId: '2022-09');
-            },
-            leading: const Icon(Icons.edit),
-            title: Text(
-              'test',
-              style: drawerTextStyle,
-            ),
-          ),
+          //     RenterService().findMonthlyRecord(
+          //         homeId: home!.homeId, flatName: '1A', monthId: '2022-09');
+          //   },
+          //   leading: const Icon(Icons.edit),
+          //   title: Text(
+          //     'test',
+          //     style: drawerTextStyle,
+          //   ),
+          // ),
           const Spacer(),
           ListTile(
             onTap: () {
@@ -110,6 +122,7 @@ class AppDrawer extends StatelessWidget {
             // onTap: () => AuthService().signOut(),
             leading: const Icon(
               Icons.logout_outlined,
+              color: Colors.blueGrey,
             ),
             title: Text(
               'লগ আউট ',
