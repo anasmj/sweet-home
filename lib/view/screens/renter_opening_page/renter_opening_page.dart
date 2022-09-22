@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
-import 'package:sweet_home/view/app_pages/empty_pages/empty_tarnsaction.dart';
-import 'package:sweet_home/view/app_pages/renter_profile_page.dart';
+import 'package:sweet_home/view/screens/empty_pages/empty_tarnsaction.dart';
 import 'package:sweet_home/view/app_widgets.dart';
 import '../../../models/flat_model.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
+import '../profile_pages/renter_profile_page.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
 import 'transaction_entry_page/transaction_entry_page.dart';
 

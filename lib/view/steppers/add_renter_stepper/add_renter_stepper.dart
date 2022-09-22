@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sweet_home/models/response.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
-import 'package:sweet_home/view/app_pages/successful_pages/renter_add_successful.dart';
+import 'package:sweet_home/view/screens/successful_pages/renter_add_successful.dart';
 import 'package:sweet_home/view/app_widgets.dart';
 import 'package:sweet_home/view/steppers/add_renter_stepper/steps_pages/second_step.dart';
 import 'package:sweet_home/view/steppers/add_renter_stepper/steps_pages/third_step.dart';
@@ -11,7 +11,8 @@ import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../services/flat_services.dart';
-import '../../app_pages/waiting_pages/addingRenterIndicator.dart';
+import '../../../services/renter_service.dart';
+import '../../screens/waiting_pages/addingRenterIndicator.dart';
 
 class AddRenterStepper extends StatefulWidget {
   const AddRenterStepper({super.key});
@@ -33,7 +34,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
     double advanceAmount = provider.advanceController.text.isNotEmpty
         ? double.parse(provider.advanceController.text)
         : 0.00;
-    Response response = await FlatService().addRenterToFlat(
+    Response response = await RenterService().addRenterToFlat(
       homeId: homeId,
       flatId: flat!.flatName,
       renterName: provider.renterNameController.text,
@@ -91,7 +92,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
                           ? double.parse(provider.advanceController.text)
                           : 0.00;
 
-                      Response res = await FlatService().addRenterToFlat(
+                      Response res = await RenterService().addRenterToFlat(
                         homeId: homeId,
                         flatId: flat!.flatName,
                         renterName: provider.renterNameController.text,

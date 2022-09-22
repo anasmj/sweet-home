@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/theme_provider.dart';
 
 import 'package:sweet_home/view/resources/app_icons.dart';
 
@@ -36,11 +38,16 @@ class InputTextField extends StatelessWidget {
             minWidth: 20,
             maxWidth: 30,
           ),
-          prefixIcon: Image(
-            color: Colors.black.withOpacity(0.9),
-            height: 10,
-            image: AssetImage(
-              AppIcons.takaUrl,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Image(
+              color: !context.watch<ThemeProvider>().isDarkMode
+                  ? Colors.black.withOpacity(0.9)
+                  : Colors.white,
+              height: 10,
+              image: AssetImage(
+                AppIcons.takaUrl,
+              ),
             ),
           ),
         ),

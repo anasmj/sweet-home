@@ -39,6 +39,7 @@ class Flat {
   }
   static Flat fromJson(Map<String, dynamic> json) {
     Renter? renterObj;
+    //IF flat is booked, fetch renter
     try {
       Map<String, dynamic> renterData = json['renter'] as Map<String, dynamic>;
       renterObj = Renter.fromJson(renterData);

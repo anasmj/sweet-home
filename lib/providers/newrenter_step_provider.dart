@@ -10,6 +10,8 @@ class NewRenterStepProvider extends ChangeNotifier {
   TextEditingController renterNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController altPhoneController = TextEditingController();
+  TextEditingController occupationController = TextEditingController();
+  TextEditingController noOfMemberController = TextEditingController();
   String _occupation = '';
   int _noOfMember = 2;
 

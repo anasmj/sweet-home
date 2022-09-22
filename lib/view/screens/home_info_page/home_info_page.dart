@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/view/app_pages/home_info_page/update_button.dart';
+import 'package:sweet_home/view/screens/home_info_page/update_button.dart';
 import '../../../providers/current_home.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../services/home_services.dart';
 import '../../../utils/home_crud.dart';
 import '../../../utils/routes.dart';
 import '../../app_widgets.dart';
-import 'package:sweet_home/view/app_pages/home_info_page/edit_textfield.dart';
+import 'package:sweet_home/view/screens/home_info_page/edit_textfield.dart';
 import '../../../models/response.dart';
 import '../../../utils/compare_values.dart';
 import '../../../models/home_model.dart';

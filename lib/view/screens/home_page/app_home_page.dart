@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
-import 'package:sweet_home/view/app_pages/pending_page/pending_page.dart';
+import 'package:sweet_home/view/screens/pending_page/pending_page.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 import '../../../models/home_model.dart';
 import '../../../services/home_services.dart';

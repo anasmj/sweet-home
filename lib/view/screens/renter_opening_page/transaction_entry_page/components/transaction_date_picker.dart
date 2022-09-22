@@ -4,8 +4,8 @@ import 'package:sweet_home/utils/custom_date_time_formatter.dart';
 
 import '../../../../../providers/newrenter_step_provider.dart';
 
-class EntryDatePicker extends StatelessWidget {
-  const EntryDatePicker({
+class TransactionDatePicker extends StatelessWidget {
+  const TransactionDatePicker({
     Key? key,
   }) : super(key: key);
 
@@ -22,7 +22,7 @@ class EntryDatePicker extends StatelessWidget {
             firstDate: DateTime(2000),
             lastDate: DateTime(3000));
         if (selectedDate == null) return;
-        provider.setEntryDate = selectedDate;
+        // provider.setEntryDate = selectedDate;
       },
       // child: Text(provider.entryDate.toIso8601String()),
       child: Row(

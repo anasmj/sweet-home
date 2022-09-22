@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/models/monthly_record.dart';
@@ -9,7 +7,7 @@ import 'package:sweet_home/utils/custom_date_time_formatter.dart';
 import '../models/flat_model.dart';
 import '../models/renter.dart';
 
-class RenterService {
+class RecordService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -32,7 +30,35 @@ class RenterService {
     return recordCollectionRef;
   }
 
-  //OPEN A RECORD IF NOT EXISTS
+  //READ ONE
+  Future<Response> readMonthlyRecord(
+      {required String homeId,
+      required String flatName,
+      required String idMonth}) async {
+    late MonthlyRecord monthlyRecord;
+    final recordCollecRef =
+        await getRecordCollectionRef(homeId: homeId, flatName: flatName);
+    DocumentReference monthyRecordDocRef = recordCollecRef.doc(idMonth);
+    await monthyRecordDocRef.get().then((data) {
+      if (data.exists) {
+        monthlyRecord =
+            MonthlyRecord.fromJson(data.data() as Map<String, dynamic>);
+        response.code = 200;
+        response.body = 'record found';
+        response.monthlyRecord = monthlyRecord;
+      }
+    }).catchError((e) {
+      response.code = 300;
+      response.body = e.toString();
+    });
+
+    return response;
+
+    // final docQuerySnap = await docRef.get();
+    // print(docQuerySnap.data());
+  }
+
+  //CREATE RECORD INTO FLAT IF NOT EXISTS
   Future<Response> createMonthlyRecord({
     required String homeId,
     required Flat flat,
@@ -61,22 +87,5 @@ class RenterService {
       response.body = e.toString();
     });
     return response;
-  }
-
-  //READ RECORD
-  void findMonthlyRecord({
-    required String homeId,
-    required String flatName,
-    required String monthId,
-  }) async {
-    print('trying');
-    CollectionReference recordCollectionRef =
-        await getRecordCollectionRef(homeId: homeId, flatName: flatName);
-    DocumentReference monthDocRef = recordCollectionRef.doc(monthId);
-    final docSnap = await monthDocRef.get();
-
-    MonthlyRecord mr =
-        MonthlyRecord.fromJson(docSnap.data() as Map<String, dynamic>);
-    print(mr);
   }
 }

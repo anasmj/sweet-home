@@ -3,7 +3,7 @@ import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/view/authenticate_pages/authenticate.dart';
 import '../models/app_user.dart';
-import 'app_pages/home_page/app_home_page.dart';
+import 'screens/home_page/app_home_page.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({super.key});

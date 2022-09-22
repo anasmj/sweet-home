@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/home_provider.dart';
 import 'package:sweet_home/services/home_services.dart';
-import 'package:sweet_home/view/app_pages/empty_pages/empty_home_page.dart';
-import 'package:sweet_home/view/app_pages/empty_pages/empty_flat_page.dart';
+import 'package:sweet_home/view/screens/empty_pages/empty_home_page.dart';
+import 'package:sweet_home/view/screens/empty_pages/empty_flat_page.dart';
 import '../models/flat_model.dart';
 import '../models/home_model.dart';
 import '../services/flat_services.dart';
-import '../view/app_pages/loading_widget.dart';
+import '../view/screens/loading_widget.dart';
 
 //2nd try with enum
 enum LoadingStatus { completed, searching, empty }

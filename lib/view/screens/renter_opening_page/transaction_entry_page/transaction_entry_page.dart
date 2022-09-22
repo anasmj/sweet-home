@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/bottom_button.dart';
-import 'components/calender_button.dart';
+import 'components/transaction_date_picker.dart';
 import 'components/input_textfield.dart';
 
 class EntryPage extends StatelessWidget {
@@ -16,7 +16,7 @@ class EntryPage extends StatelessWidget {
         const InputTextField(),
         const Padding(
           padding: EdgeInsets.only(top: 10.0),
-          child: CalenderButton(),
+          child: TransactionDatePicker(),
         ),
         const Spacer(),
         Padding(

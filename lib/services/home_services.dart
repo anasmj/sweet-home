@@ -101,6 +101,7 @@ class HomeCrud {
             ),
           ),
     );
+    //CREATING OPENING MONTHLY RECORD FOR EACH FLAT
     String monthlyRecordId = CustomFormatter().makeId(date: DateTime.now());
     DateTime issueDate = DateTime.now();
     flatNames.forEach((flat) {

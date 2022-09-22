@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import '../models/home_model.dart';
 import '../services/home_services.dart';
-import '../view/app_pages/empty_pages/empty_home_page.dart';
-import '../view/app_pages/home_info_page/home_info_page.dart';
-import '../view/app_pages/home_options_page.dart';
+import '../view/screens/empty_pages/empty_home_page.dart';
+import '../view/screens/home_info_page/home_info_page.dart';
+import '../view/screens/home_options_page.dart';
 
 class UserHomes extends StatefulWidget {
   const UserHomes({super.key});

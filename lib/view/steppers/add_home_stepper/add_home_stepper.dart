@@ -9,7 +9,7 @@ import 'package:sweet_home/view/steppers/add_home_stepper/steps_pages/first_page
 import 'package:sweet_home/view/steppers/add_home_stepper/steps_pages/second_page.dart';
 import '../../../models/response.dart';
 import '../../../services/home_services.dart';
-import '../../app_pages/waiting_pages/making_home_indicator.dart';
+import '../../screens/waiting_pages/making_home_indicator.dart';
 import '../../app_widgets.dart';
 import '../../resources/app_icons.dart';
 

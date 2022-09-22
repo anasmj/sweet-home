@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/models/response.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
-import 'package:sweet_home/services/renter_services.dart';
+import 'package:sweet_home/services/record_services.dart';
 import 'package:sweet_home/view/app_widgets.dart';
 
 import '../../../../models/flat_model.dart';
@@ -39,7 +39,7 @@ class BottomButton extends StatelessWidget {
           AppWidget.showElectricityUnitDialog(context: context);
         }
         if (homeId != null && flat != null && meterReading != null) {
-          Response res = await RenterService().createMonthlyRecord(
+          Response res = await RecordService().createMonthlyRecord(
             homeId: homeId,
             flat: flat,
             issueDate: issueDate,
