@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../providers/new_home_step_provider.dart';
+import '../../../../providers/home_stepper_provider.dart';
 
 // ignore: must_be_immutable
 class FlatFloorCounter extends StatelessWidget {
@@ -23,8 +23,8 @@ class FlatFloorCounter extends StatelessWidget {
               iconSize: 22,
               onPressed: () {
                 isFlatCounter
-                    ? context.read<NewHomeStepProvider>().decreaseFlat()
-                    : context.read<NewHomeStepProvider>().decreaseFloor();
+                    ? context.read<HomeStepperProvider>().decreaseFlat()
+                    : context.read<HomeStepperProvider>().decreaseFloor();
               },
               icon: const Icon(
                 Icons.remove,
@@ -34,9 +34,9 @@ class FlatFloorCounter extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
               child: Text(
                 isFlatCounter
-                    ? context.watch<NewHomeStepProvider>().flatLength.toString()
+                    ? context.watch<HomeStepperProvider>().flatLength.toString()
                     : context
-                        .watch<NewHomeStepProvider>()
+                        .watch<HomeStepperProvider>()
                         .floorLength
                         .toString(),
                 style: Theme.of(context).textTheme.headline6,
@@ -46,8 +46,8 @@ class FlatFloorCounter extends StatelessWidget {
               iconSize: 22,
               onPressed: () {
                 isFlatCounter
-                    ? context.read<NewHomeStepProvider>().increaseFlat()
-                    : context.read<NewHomeStepProvider>().increaseFloor();
+                    ? context.read<HomeStepperProvider>().increaseFlat()
+                    : context.read<HomeStepperProvider>().increaseFloor();
               },
               icon: const Icon(
                 Icons.add,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/providers/new_home_step_provider.dart';
+import 'package:sweet_home/providers/home_stepper_provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/utils/user_flat.dart';
 import 'package:sweet_home/view/steppers/add_home_stepper/steps_pages/confirmation_home_page.dart';
@@ -26,7 +26,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<NewHomeStepProvider>();
+    final provider = context.watch<HomeStepperProvider>();
     //needs to be changed
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
@@ -48,7 +48,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                   onStepContinue: () async {
                     if (isLastStep) {
                       if (context
-                          .read<NewHomeStepProvider>()
+                          .read<HomeStepperProvider>()
                           .secondPageFormKey!
                           .currentState!
                           .validate()) {
@@ -95,7 +95,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                     } else {
                       //first step
                       if (context
-                          .read<NewHomeStepProvider>()
+                          .read<HomeStepperProvider>()
                           .firstPageFormKey!
                           .currentState!
                           .validate()) {

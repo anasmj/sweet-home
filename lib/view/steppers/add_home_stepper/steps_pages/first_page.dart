@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/utils/form_validators.dart';
-import 'package:sweet_home/providers/new_home_step_provider.dart';
+import 'package:sweet_home/providers/home_stepper_provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/view/steppers/shared_components/stepper_textfield.dart';
 
@@ -13,7 +13,7 @@ class FristPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NewHomeStepProvider>(context);
+    final provider = Provider.of<HomeStepperProvider>(context);
     provider.firstPageFormKey = _firstPageFormKey;
     return Form(
       key: provider.firstPageFormKey,

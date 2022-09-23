@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class NewHomeStepProvider extends ChangeNotifier {
+class HomeStepperProvider extends ChangeNotifier {
   GlobalKey<FormState>? firstPageFormKey;
   GlobalKey<FormState>? secondPageFormKey;
 

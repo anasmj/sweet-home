@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/monthly_record_provider.dart';
 import 'package:sweet_home/utils/shared_pref.dart';
 import 'package:sweet_home/providers/current_home.dart';
-import 'package:sweet_home/providers/new_home_step_provider.dart';
+import 'package:sweet_home/providers/home_stepper_provider.dart';
 import 'package:sweet_home/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           create: (context) => NewRenterStepProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => NewHomeStepProvider(),
+          create: (context) => HomeStepperProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => CurrentHomeProvider(),

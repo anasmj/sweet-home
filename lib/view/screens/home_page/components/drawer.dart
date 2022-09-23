@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
-import 'package:sweet_home/providers/new_home_step_provider.dart';
+import 'package:sweet_home/providers/home_stepper_provider.dart';
 import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
-import 'package:sweet_home/services/flat_services.dart';
 import 'package:sweet_home/services/record_services.dart';
-import 'package:sweet_home/utils/compare_values.dart';
-import 'package:sweet_home/utils/custom_date_time_formatter.dart';
-import 'package:sweet_home/view/screens/setting_page/setting_page.dart';
-import 'package:sweet_home/view/screens/user_profile_page/user_profile_page.dart';
-import 'package:sweet_home/view/test_page.dart';
 import '../../../../models/home_model.dart';
-import '../../../../models/renter.dart';
-import '../../../../providers/newrenter_step_provider.dart';
 import '../../../../services/home_services.dart';
 import '../../../../utils/routes.dart';
-
-import '../../../resources/app_icons.dart';
 import '../../profile_pages/owner_profile_page.dart';
+import '../../setting_page/setting_page.dart';
 import 'homes_popup.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -34,7 +25,7 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     Home? home = context.watch<CurrentHomeProvider>().currentHome;
     bool isDark = context.watch<ThemeProvider>().isDarkMode;
-    NewHomeStepProvider newHome = context.watch<NewHomeStepProvider>();
+    HomeStepperProvider newHome = context.watch<HomeStepperProvider>();
     return Drawer(
       width: 300,
       elevation: 3.0,
@@ -97,8 +88,8 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () async {
-              RecordService().readMonthlyRecord(
-                  homeId: home!.homeId, flatName: '1A', idMonth: '2022-09');
+              // RecordService().readMonthlyRecord(
+              //     homeId: home!.homeId, flatName: '1A', idMonth: '2022-09');
             },
             leading: const Icon(Icons.edit),
             title: Text(

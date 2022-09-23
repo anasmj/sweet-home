@@ -11,7 +11,7 @@ import 'package:sweet_home/view/resources/app_icons.dart';
 
 // ignore: must_be_immutable
 class MonthlyExpenceTable extends StatelessWidget {
-  MonthlyExpenceTable({super.key});
+  const MonthlyExpenceTable({super.key});
 
   @override
   Widget build(BuildContext context) {

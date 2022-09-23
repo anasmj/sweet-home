@@ -4,7 +4,7 @@ import 'package:sweet_home/utils/form_validators.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/view/steppers/shared_components/stepper_textfield.dart';
 
-import '../../../../providers/new_home_step_provider.dart';
+import '../../../../providers/home_stepper_provider.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({super.key});
@@ -21,7 +21,7 @@ class _SecondPageState extends State<SecondPage> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NewHomeStepProvider>(context);
+    final provider = Provider.of<HomeStepperProvider>(context);
     provider.secondPageFormKey = _secondPageFormKey;
 
     TextStyle? formTextStyle = Theme.of(context).textTheme.subtitle1;
