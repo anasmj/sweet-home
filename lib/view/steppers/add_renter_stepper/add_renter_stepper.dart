@@ -27,7 +27,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
   // bool isValidInfo = false;
   Future<Response> addRenterToDatabase(BuildContext context) async {
     final provider = Provider.of<NewRenterStepProvider>(context, listen: false);
-    final flat = context.read<CurrentFlatInfoProvider>().selectedFlat;
+    final flat = context.read<SelectedFlatProvider>().selectedFlat;
     String homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
         .currentHome!
         .homeId;
@@ -64,7 +64,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
     double advanceAmount;
 
     //used to validate state of form
-    final flat = context.read<CurrentFlatInfoProvider>().selectedFlat;
+    final flat = context.read<SelectedFlatProvider>().selectedFlat;
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
     return Scaffold(

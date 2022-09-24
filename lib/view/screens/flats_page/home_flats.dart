@@ -19,7 +19,7 @@ import '../flat_info_pages/single_flat_info_page.dart';
 //*ADOPTS VIEW MODEL
 // ignore: must_be_immutable
 class HomeFlatsPage extends StatelessWidget {
-  HomeFlatsPage({super.key});
+  const HomeFlatsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -174,8 +174,9 @@ class HomeFlatsPage extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Provider.of<CurrentFlatInfoProvider>(context, listen: false)
+            Provider.of<SelectedFlatProvider>(context, listen: false)
                 .newSelectedFlat = flat;
+
             flat.renter == null
                 ? AppRoute.newRenterStepper(
                     context: context,
@@ -210,22 +211,16 @@ class HomeFlatsPage extends StatelessWidget {
                           width: 45,
                         ),
                         rentAmountText(flat, appTextTheme, isDark),
-                        // const Spacer(),
-
-                        //MENU THAT LEADS TO MODAL SHEET
-                        // const FlatMenuPopup(),
                       ],
                     ),
                     flat.renter == null
-                        ? SvgPicture.asset(
-                            AppIcons.personAddUrl,
-                            height: 40,
-                            // width: 90,
-                            color: isDark
-                                ? Colors.white.withOpacity(0.6)
-                                : Colors.black.withOpacity(0.6),
-                          )
-                        : const Text(''),
+                        ? personAddIcon(isDark)
+                        : AspectRatio(
+                            aspectRatio: 2 / 1,
+                            child: Center(
+                              child: noMeterReadingIndicator(),
+                            ),
+                          ),
                     //BOTTOM INFORMATION ABOUT FLAT
                     flat.renter != null
                         ? ListTile(
@@ -276,6 +271,44 @@ class HomeFlatsPage extends StatelessWidget {
     );
   }
 
+  SizedBox noMeterReadingIndicator() {
+    return SizedBox(
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.topRight,
+        children: [
+          Image.asset(
+            AppIcons.meterUrl,
+          ),
+          const Positioned(
+            top: -8,
+            right: 6,
+            child: CircleAvatar(
+              radius: 10,
+              backgroundColor: Colors.red,
+              child: Icon(
+                Icons.question_mark_outlined,
+                size: 16,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  SvgPicture personAddIcon(bool isDark) {
+    return SvgPicture.asset(
+      AppIcons.personAddUrl,
+      height: 40,
+      // width: 90,
+      color: isDark
+          ? Colors.white.withOpacity(0.6)
+          : Colors.black.withOpacity(0.6),
+    );
+  }
+
   Column buildFlatOptionContent(context) {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -285,7 +318,7 @@ class HomeFlatsPage extends StatelessWidget {
           ListTile(
             onTap: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) {
-              return SingleFlatInfo();
+              return const SingleFlatInfo();
             })),
             leading: const Icon(
               Icons.info_outline,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
+import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/providers/home_stepper_provider.dart';
 import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/providers/theme_provider.dart';

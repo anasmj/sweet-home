@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/view_models/renter_opening_page_view_model.dart';
 
 import '../providers/monthly_record_provider.dart';
 
@@ -120,7 +121,8 @@ class AppWidget {
       {required BuildContext context}) async {
     GlobalKey<FormState>? formKey = GlobalKey();
     TextEditingController unitController = TextEditingController();
-    MonthlyRecordProvider providerRead = context.read<MonthlyRecordProvider>();
+    RenterOpeningViewModel providerRead =
+        context.read<RenterOpeningViewModel>();
 
     return showDialog<void>(
       context: context,

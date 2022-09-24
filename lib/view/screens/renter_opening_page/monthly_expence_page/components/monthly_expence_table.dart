@@ -9,6 +9,8 @@ import 'package:sweet_home/view/app_widgets.dart';
 import '../../../../../models/flat_model.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 
+import '../../../../../view_models/renter_opening_page_view_model.dart';
+
 // ignore: must_be_immutable
 class MonthlyExpenceTable extends StatelessWidget {
   const MonthlyExpenceTable({super.key});
@@ -18,9 +20,8 @@ class MonthlyExpenceTable extends StatelessWidget {
     //*use this to show data .
     //*after confirmed by user, make a month detail object which will
     //*be later used to show previoufs month details
-    Flat? currentFlat =
-        Provider.of<CurrentFlatInfoProvider>(context).selectedFlat;
-    double? meterReading = context.watch<MonthlyRecordProvider>().meterReading;
+    Flat? currentFlat = Provider.of<SelectedFlatProvider>(context).selectedFlat;
+    double? meterReading = context.watch<RenterOpeningViewModel>().meterReading;
 
     TextTheme textTheme = Theme.of(context).textTheme;
     return Column(

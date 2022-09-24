@@ -9,6 +9,7 @@ import 'package:sweet_home/view/app_widgets.dart';
 import '../../../../models/flat_model.dart';
 import '../../../../models/renter.dart';
 import '../../../../providers/monthly_record_provider.dart';
+import '../../../../view_models/renter_opening_page_view_model.dart';
 
 // ignore: must_be_immutable
 class BottomButton extends StatelessWidget {
@@ -20,13 +21,13 @@ class BottomButton extends StatelessWidget {
   String text;
   @override
   Widget build(BuildContext context) {
-    MonthlyRecordProvider providerWatch =
-        context.watch<MonthlyRecordProvider>();
+    RenterOpeningViewModel providerWatch =
+        context.watch<RenterOpeningViewModel>();
     String? homeId = context.watch<CurrentHomeProvider>().currentHome?.homeId;
-    Flat? flat = context.watch<CurrentFlatInfoProvider>().selectedFlat;
+    Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
     DateTime issueDate = DateTime.now();
 
-    double? meterReading = context.watch<MonthlyRecordProvider>().meterReading;
+    double? meterReading = context.watch<RenterOpeningViewModel>().meterReading;
 
     return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

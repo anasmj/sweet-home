@@ -10,8 +10,7 @@ class PayerNameButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Flat? currentFlat =
-        Provider.of<CurrentFlatInfoProvider>(context).selectedFlat;
+    Flat? currentFlat = Provider.of<SelectedFlatProvider>(context).selectedFlat;
     return TextButton(
       onPressed: () async {
         showNamePicker(context: context);

@@ -23,6 +23,7 @@ class AppIcons {
   static String noListUrl = "assets/icons/no_list.svg";
   static String homeLogoUrl = "assets/icons/landing_logo.jpeg";
   static String addHomeUrl = "assets/icons/addHomeIcon.jpg";
+  static String meterUrl = "assets/icons/meter.png";
 
   //implement LOTTIES like this
   // Lottie.asset(

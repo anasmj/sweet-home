@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/models/monthly_record.dart';
 import 'package:sweet_home/models/response.dart';
+import 'package:sweet_home/services/home_services.dart';
 import 'package:sweet_home/utils/custom_date_time_formatter.dart';
 
 import '../models/flat_model.dart';
@@ -30,7 +31,9 @@ class RecordService {
     return recordCollectionRef;
   }
 
-  //READ ONE
+  //RECORD IS CREATED FOR EACH FLAT DURING CREATION OF HOME
+
+  //READ A RECORD
   Future<Response> readMonthlyRecord(
       {required String homeId,
       required String flatName,
@@ -81,7 +84,7 @@ class RecordService {
             renter: flat.renter,
           ).toJson());
       response.code = 200;
-      response.body = 'Created Record Successfully';
+      response.body = 'Record created Successfully';
     }).catchError((e) {
       response.code = 300;
       response.body = e.toString();

@@ -9,6 +9,7 @@ import '../../../services/home_services.dart';
 import '../../../view_models/flat_list_viewmodel.dart';
 import '../current_month_page/current_month_details.dart';
 import '../flats_page/home_flats.dart';
+import '../waiting_pages/searching_for_home.dart';
 import 'components/custom_appbar.dart';
 import 'components/drawer.dart';
 
@@ -22,7 +23,7 @@ class AppHomePage extends StatefulWidget {
 class _AppHomePage extends State<AppHomePage> {
   final double _appIconHeight = 20;
   final double _appIconWidth = 20;
-  int _currentTabIndex = 0;
+  int _currentTabIndex = 1;
   final double _appBarHeight = 280;
   bool isInitialState = false;
 
@@ -41,7 +42,7 @@ class _AppHomePage extends State<AppHomePage> {
             future: HomeCrud().getAllHome(),
             builder: (context, AsyncSnapshot<List<Home>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return searchingForHome(context);
+                return const SearchingForHome();
               }
               if (!snapshot.hasData) {}
               List<Home>? homes = snapshot.data;
@@ -76,14 +77,6 @@ class _AppHomePage extends State<AppHomePage> {
       body: getUserSelectedPage(_currentTabIndex),
     );
   }
-
-  Widget searchingForHome(context) => Scaffold(
-        body: Center(
-          child: Lottie.asset(
-            AppIcons.searching,
-          ),
-        ),
-      );
 
   //ALTERNATE OF SWITH-CASE
   Widget getUserSelectedPage(int selectedIndex) {

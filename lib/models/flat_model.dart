@@ -74,7 +74,4 @@ class Flat {
         'isDiningExists': diningRoom,
         'isDrawingExists': drawingRoom,
       };
-  // static void setRenter(Renter renter) {
-  //   renter = renter;
-  // }
 }

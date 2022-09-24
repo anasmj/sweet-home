@@ -23,7 +23,7 @@ class RenterInfoStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<NewRenterStepProvider>(context);
-    Flat? flat = context.watch<CurrentFlatInfoProvider>().selectedFlat;
+    Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
 
     // nameController.text = provider.getRenterName;
     provider.firstPageFormKey = firstPageFormKey;

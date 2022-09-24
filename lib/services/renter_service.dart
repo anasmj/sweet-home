@@ -3,16 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/models/renter.dart';
 import 'package:sweet_home/models/response.dart';
 
-import '../models/flat_model.dart';
-import '../models/home_model.dart';
-
 class RenterService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   Response response = Response();
 
-  //FLAT CRUD
-  //get flats collection
+  //get flats collection first
   Future<CollectionReference> getFlatsCollectionRef(
       {required String homeId}) async {
     DocumentReference currentUserDocRef =
@@ -24,7 +20,7 @@ class RenterService {
     return flatsCollectionRef;
   }
 
-  //Create
+  //Create renter in flat
   Future<Response> addRenterToFlat({
     required String homeId,
     required String flatId,

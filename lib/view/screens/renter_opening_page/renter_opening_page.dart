@@ -27,7 +27,7 @@ class RenterOpeningPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme appTextTheme = Theme.of(context).textTheme;
-    Flat? flat = context.watch<CurrentFlatInfoProvider>().selectedFlat;
+    Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
 
     return DefaultTabController(
       initialIndex: 0,
@@ -72,7 +72,7 @@ class RenterOpeningPage extends StatelessWidget {
   }
 
   PopupMenuButton<String> renterPopupMenu(BuildContext context) {
-    Flat? flat = context.watch<CurrentFlatInfoProvider>().selectedFlat;
+    Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
     return PopupMenuButton(
       itemBuilder: (BuildContext context) {
         return menuTitles

@@ -53,7 +53,7 @@ class RenterProfile extends StatelessWidget {
     renterProvider.noOfMemberController.text = renter.numOfPerson.toString();
 
     String flatName =
-        context.watch<CurrentFlatInfoProvider>().selectedFlat!.flatName;
+        context.watch<SelectedFlatProvider>().selectedFlat!.flatName;
     String homeId = context.watch<CurrentHomeProvider>().currentHome!.homeId;
     return Scaffold(
       body: SingleChildScrollView(

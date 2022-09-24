@@ -84,28 +84,7 @@ class UserFlatList extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Image(
-                      width: 20,
-                      image: AssetImage(AppIcons.takaUrl),
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    SizedBox(
-                      width: 70,
-                      child: Text(
-                        flat.flatRentAmount.toString(),
-                        style: appTextTheme.headline6,
-                      ),
-                    ),
-
-                    //MENU THAT LEADS TO MODAL SHEET
-                    optionsButton(context: context),
-                  ],
-                ),
+                flatRentAmount(flat, appTextTheme, context),
                 SvgPicture.asset(
                   AppIcons.personAddUrl,
                   height: 40,
@@ -140,6 +119,31 @@ class UserFlatList extends StatelessWidget {
             ),
           ),
         ),
+      ],
+    );
+  }
+
+  Row flatRentAmount(Flat flat, TextTheme appTextTheme, context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Image(
+          width: 20,
+          image: AssetImage(AppIcons.takaUrl),
+        ),
+        const SizedBox(
+          width: 6,
+        ),
+        SizedBox(
+          width: 70,
+          child: Text(
+            flat.flatRentAmount.toString(),
+            style: appTextTheme.headline6,
+          ),
+        ),
+
+        //MENU THAT LEADS TO MODAL SHEET
+        optionsButton(context: context),
       ],
     );
   }
