@@ -1,3 +1,4 @@
+import 'package:sweet_home/models/monthly_record.dart';
 import 'package:sweet_home/models/others_model.dart';
 import 'package:sweet_home/models/renter.dart';
 
@@ -16,6 +17,9 @@ class Flat {
   //for that month.
   double flatGasBill;
   double flatWaterBill;
+  // double? currentMonthMeterReading;
+  double? currentMeterReading;
+  double? previousMeterReading;
 
   List<OthersExpence>? flatOtherExpences;
 
@@ -30,6 +34,8 @@ class Flat {
     this.varanda = 1,
     this.diningRoom = false,
     this.drawingRoom = false,
+    this.currentMeterReading,
+    this.previousMeterReading,
   }) {
     // flatRentAmount ??= HomeProvider().globalRentAmount;
     // flatOtherExpences ??= HomeProvider().globalOtherExpences;
@@ -45,24 +51,29 @@ class Flat {
       renterObj = Renter.fromJson(renterData);
     } catch (e) {}
     return Flat(
-      flatName: json['flatName'] ?? '',
-      renter: renterObj,
-      flatRentAmount: json['rentAmount'] ?? 0.00,
-      flatGasBill: json['gasBill'] ?? 0.00,
-      flatWaterBill: json['waterBill'] ?? 0.00,
-      noOfBed: json['noOfBed'] ?? 1,
-      bath: json['bath'] ?? 1,
-      varanda: json['varanda'] ?? 0,
-      diningRoom: json['isDiningExists'] ?? false,
-      drawingRoom: json['isDrawingExists'] ?? false,
-    );
+        flatName: json['flatName'] ?? '',
+        renter: renterObj,
+        flatRentAmount: json['rentAmount'] ?? 0.00,
+        flatGasBill: json['gasBill'] ?? 0.00,
+        flatWaterBill: json['waterBill'] ?? 0.00,
+        noOfBed: json['noOfBed'] ?? 1,
+        bath: json['bath'] ?? 1,
+        varanda: json['varanda'] ?? 0,
+        diningRoom: json['isDiningExists'] ?? false,
+        drawingRoom: json['isDrawingExists'] ?? false,
+        currentMeterReading: json['currentMeterReading'],
+        // currentMonthMeterReading: json['currentMonthMeterReading'] ?? 0.0,
+        previousMeterReading:
+            double.parse(json['previousMeterReading'].toString()));
   }
 
-  Map<String, dynamic> toJson(
-          {required String flatName,
-          required double rentAmount,
-          double gasBill = 0.00,
-          double waterBill = 0.00}) =>
+  Map<String, dynamic> toJson({
+    required String flatName,
+    required double rentAmount,
+    double gasBill = 0.00,
+    double waterBill = 0.00,
+    double? previousMeterReading = 0,
+  }) =>
       {
         'flatName': flatName,
         'rentAmount': rentAmount,
@@ -73,5 +84,10 @@ class Flat {
         'varanda': varanda,
         'isDiningExists': diningRoom,
         'isDrawingExists': drawingRoom,
+        'currentMeterReading': currentMeterReading,
+        'previousMeterReading': previousMeterReading,
       };
+  // static void setRenter(Renter renter) {
+  //   renter = renter;
+  // }
 }

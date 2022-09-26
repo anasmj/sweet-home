@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/flat_info_provider.dart';
+import 'package:sweet_home/view/screens/flat_info_pages/electricity_page.dart';
 import 'package:sweet_home/view/screens/home_info_page/update_button.dart';
 import 'package:sweet_home/view/app_widgets.dart';
 import 'package:sweet_home/view/screens/home_info_page/edit_textfield.dart';
 
+import '../../../../models/flat_model.dart';
 import '../../../../providers/current_home.dart';
 import '../../../../providers/theme_provider.dart';
 import '../../../resources/app_icons.dart';
@@ -21,98 +24,116 @@ class FlatInfoList extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isDark = context.watch<ThemeProvider>().isDarkMode;
     CurrentHomeProvider providerRead = context.read<CurrentHomeProvider>();
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
+    Flat? flat = context.read<SelectedFlatProvider>().selectedFlat;
+    return flat == null
+        ? const SizedBox()
+        : SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: dividerHorizontalSpacing),
+                  child: flatInfoDivider(context: context, text: 'বিল সমূহ'),
+                ),
+                ListTile(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => ElectricityPage()))),
+                  leading: const Icon(Icons.electric_bolt_outlined),
+                  title: const Text('বৈদ্যুতিক মিটার'),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 16,
+                  ),
+                ),
+                makeSingleListTile(
+                  context: context,
+                  assetUrl: AppIcons.takaUrl,
+                  title: 'ভাড়া',
+                  subtitleText: '22400',
+                  willNumeric: false,
+                ),
+                makeSingleListTile(
+                  context: context,
+                  leadingIcon: Icons.gas_meter_outlined,
+                  title: 'গ্যাস',
+                  subtitleText: '800',
+                  willNumeric: false,
+                ),
+                makeSingleListTile(
+                  context: context,
+                  leadingIcon: Icons.water_drop_outlined,
+                  title: 'পানি',
+                  subtitleText: '300',
+                  willNumeric: false,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: dividerHorizontalSpacing),
-            child: flatInfoDivider(context: context, text: 'ফ্ল্যাটের তথ্য'),
-          ),
-          makeSingleListTile(
-            context: context,
-            leadingIcon: Icons.bed,
-            title: 'বেড ',
-            subtitleText: '3',
-            willNumeric: false,
-          ),
-          makeSingleListTile(
-            context: context,
-            leadingIcon: Icons.bathtub_outlined,
-            title: 'বাথ ',
-            subtitleText: '2',
-            willNumeric: false,
-          ),
-          makeSingleListTile(
-            context: context,
-            leadingIcon: Icons.camera_outdoor_outlined,
-            title: 'বারান্দা ',
-            subtitleText: '1',
-            willNumeric: false,
-          ),
-          makeSingleListTile(
-            context: context,
-            leadingIcon: Icons.dining_outlined,
-            title: 'ডাইনিং ',
-            subtitleText: '1',
-            willNumeric: false,
-          ),
-          makeSingleListTile(
-            context: context,
-            leadingIcon: Icons.chair,
-            title: 'ড্রইং ',
-            subtitleText: '1',
-            willNumeric: false,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: dividerHorizontalSpacing),
-            child: flatInfoDivider(context: context, text: 'বিল সমূহ'),
-          ),
-          makeSingleListTile(
-            context: context,
-            assetUrl: AppIcons.takaUrl,
-            title: 'ভাড়া',
-            subtitleText: '22400',
-            willNumeric: false,
-          ),
-          makeSingleListTile(
-            context: context,
-            leadingIcon: Icons.gas_meter_outlined,
-            title: 'গ্যাস',
-            subtitleText: '800',
-            willNumeric: false,
-          ),
-          makeSingleListTile(
-            context: context,
-            leadingIcon: Icons.water_drop_outlined,
-            title: 'পানি',
-            subtitleText: '300',
-            willNumeric: false,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          //delete flat if renter does not exist
-          DeleteButton(
-            action: () {},
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-        ],
-      ),
-    );
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: dividerHorizontalSpacing),
+                  child:
+                      flatInfoDivider(context: context, text: 'ফ্ল্যাটের তথ্য'),
+                ),
+
+                makeSingleListTile(
+                  context: context,
+                  leadingIcon: Icons.bed,
+                  title: 'বেড ',
+                  subtitleText: '3',
+                  willNumeric: false,
+                ),
+                makeSingleListTile(
+                  context: context,
+                  leadingIcon: Icons.bathtub_outlined,
+                  title: 'বাথ ',
+                  subtitleText: '2',
+                  willNumeric: false,
+                ),
+                makeSingleListTile(
+                  context: context,
+                  leadingIcon: Icons.camera_outdoor_outlined,
+                  title: 'বারান্দা ',
+                  subtitleText: '1',
+                  willNumeric: false,
+                ),
+                makeSingleListTile(
+                  context: context,
+                  leadingIcon: Icons.dining_outlined,
+                  title: 'ডাইনিং ',
+                  subtitleText: '1',
+                  willNumeric: false,
+                ),
+                makeSingleListTile(
+                  context: context,
+                  leadingIcon: Icons.chair,
+                  title: 'ড্রইং ',
+                  subtitleText: '1',
+                  willNumeric: false,
+                ),
+
+                //delete flat if renter does not exist
+                DeleteButton(
+                  action: () {},
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          );
   }
 
   ListTile makeSingleListTile({
     required BuildContext context,
     IconData? leadingIcon,
     required String title,
-    required String subtitleText,
+    String subtitleText = '',
     bool isDouble = false,
     bool isInt = false,
     String? Function(String?)? validationFunciton,

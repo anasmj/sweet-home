@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/flat_info_provider.dart';
+import '../../../../../models/flat_model.dart';
 import '../../../../../models/renter.dart';
 
 // ignore: must_be_immutable
@@ -7,6 +10,14 @@ class ElectricityTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
+    double? currentUnit = flat!.currentMeterReading;
+    double? previousUnit = flat.previousMeterReading;
+    double? usedUnit;
+    if (currentUnit != null && previousUnit != null) {
+      usedUnit = currentUnit - previousUnit;
+    }
+
     //TODO: keep it to the kitchen
     //! this is for demo purpose, it can be null in real scenario if not changed
     // Year currentYear = renter
@@ -30,9 +41,9 @@ class ElectricityTable extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("আগের মাসের ইউনিট"),
+              const Text('বর্তমান ইউনিট'),
               Text(
-                '23423',
+                currentUnit != null ? currentUnit.toString() : '',
                 // CalculateBill.setRenter(renter: renter).previousMonthReading,
               )
             ],
@@ -40,9 +51,9 @@ class ElectricityTable extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("এ মাসের ইউনিট"),
+              const Text('পূর্বের ইউনিট'),
               Text(
-                '23432',
+                previousUnit.toString(),
                 // CalculateBill.setRenter(renter: renter).currentMonthReading,
               ),
             ],
@@ -52,15 +63,13 @@ class ElectricityTable extends StatelessWidget {
             children: [
               const Text("ব্যাবহৃত ইউনিট"),
               Text(
-                '23432',
-
-                // CalculateBill.setRenter(renter: renter).usedUnitOfElectricity,
+                usedUnit != null ? usedUnit.toString() : '',
               ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: const [
               // Text("মূল্য ($usedUnit * ${currentMonth.electricityUnitPrice!})"),
               Text('0.7'),
               // Text(electricBill.toString()),

@@ -1,34 +1,40 @@
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:sweet_home/providers/home_provider.dart';
+//add renter
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/response.dart';
+import '../providers/current_home.dart';
+import '../providers/flat_info_provider.dart';
+import '../providers/newrenter_step_provider.dart';
+import '../services/renter_service.dart';
 
-// import '../models/flat_model.dart';
-// import '../models/renter.dart';
-// import '../providers/newrenter_step_provider.dart';
+class RenterManagement {
+  static Future<Response> addRenterToDatabase(BuildContext context) async {
+    final provider = Provider.of<NewRenterStepProvider>(context, listen: false);
+    final flat = context.read<SelectedFlatProvider>().selectedFlat;
+    String homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
+        .currentHome!
+        .homeId;
+    double advanceAmount = provider.advanceController.text.isNotEmpty
+        ? double.parse(provider.advanceController.text)
+        : 0.00;
+    Response response = await RenterService().addRenterToFlat(
+      homeId: homeId,
+      flatId: flat!.flatName,
+      renterName: provider.renterNameController.text,
+      phoneNo: provider.phoneController.text,
+      alternatePhoneNo: provider.altPhoneController.text,
+      occupation: provider.occupation,
+      noOfPerson: provider.memberNo,
+      entryDate: DateTime.now(),
+      previousLocation: provider.previousLocationController.text,
+      village: provider.villageController.text,
+      policeStation: provider.thanaController.text,
+      union: provider.unionController.text,
+      subDistrict: provider.subDistrictController.text,
+      district: provider.districtController.text,
+      advance: advanceAmount,
+    );
 
-// class RenterManagement {
-//   static void addRenterToFlat({required BuildContext context}) {
-//     int flatNo = context.read<NewRenterStepProvider>().selectedFlatNo;
-//     List<Flat> flatList = context.read<HomeProvider>().flats;
-
-//     //making renter object
-//     final newRenterInfo = context.read<NewRenterStepProvider>();
-//     String renterName = newRenterInfo.getRenterName;
-//     DateTime dateOfEntry = DateTime.parse('2022-03-12');
-
-//     int noOfPerson = newRenterInfo.memberNo;
-//     Flat flat = flatList[flatNo];
-//     // print(flat.flatName);
-//     // print(renterName);
-//     // print(dateOfEntry.toIso8601String());
-//     flat.renter = Renter(
-//       renterName: renterName,
-//       entryDate: dateOfEntry,
-//       records: [],
-//       numOfPerson: noOfPerson,
-//     );
-//     // if (flatList[flatNo].renter != null) {
-//     //   print(flatList[flatNo].renter!.name);
-//     // }
-//   }
-// }
+    return response;
+  }
+}

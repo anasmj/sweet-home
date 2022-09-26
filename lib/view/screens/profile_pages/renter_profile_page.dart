@@ -51,6 +51,7 @@ class RenterProfile extends StatelessWidget {
     renterProvider.districtController.text = renter.district ?? '';
     renterProvider.occupationController.text = renter.occupation ?? '';
     renterProvider.noOfMemberController.text = renter.numOfPerson.toString();
+    renterProvider.nIdController.text = renter.nIdNumber.toString();
 
     String flatName =
         context.watch<SelectedFlatProvider>().selectedFlat!.flatName;
@@ -99,6 +100,9 @@ class RenterProfile extends StatelessWidget {
                 controller: renterProvider.subDistrictController),
             MakeProfileTextField(
                 title: 'জেলা', controller: renterProvider.districtController),
+            MakeProfileTextField(
+                title: 'ভোটার আইডি কার্ড নম্বর',
+                controller: renterProvider.districtController),
             entryDateStamp(context),
             TextButton(
               onPressed: () async {

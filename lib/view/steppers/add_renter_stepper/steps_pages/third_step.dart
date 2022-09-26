@@ -15,26 +15,27 @@ class ThirdStepPage extends StatelessWidget {
 
     return Column(
       children: [
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Text('NID কার্ড-এর ছবি যুক্ত করুন'),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          children: const [
-            Expanded(child: FrontNid()),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(child: BackNid()),
-          ],
-        ),
-        const Text(
-          '** NID কার্ডের সুবিধাটি এখনও চালু করা হয়নি **',
-          style: TextStyle(color: Colors.red),
-        ),
+        // const Align(
+        //   alignment: Alignment.centerLeft,
+        //   child: Text('NID কার্ড-এর ছবি যুক্ত করুন'),
+        // ),
+        // const SizedBox(
+        //   height: 10,
+        // ),
+        // Row(
+        //   children: const [
+        //     Expanded(child: FrontNid()),
+        //     SizedBox(
+        //       width: 10,
+        //     ),
+        //     Expanded(child: BackNid()),
+        //   ],
+        // ),
+        // const Text(
+        //   '** NID কার্ডের সুবিধাটি এখনও চালু করা হয়নি **',
+        //   style: TextStyle(color: Colors.red),
+        // ),
+
         const SizedBox(
           height: 10,
         ),

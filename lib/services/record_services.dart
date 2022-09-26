@@ -31,6 +31,29 @@ class RecordService {
     return recordCollectionRef;
   }
 
+  //UPDATE RECORD
+
+  Future<Response> updateRecord({
+    required String homeId,
+    required String flatName,
+    required String fieldName,
+    required String newReading,
+    required DateTime recordDate,
+  }) async {
+    String recordDocId = CustomFormatter().makeId(date: recordDate);
+    final recordCollectionRef =
+        await getRecordCollectionRef(homeId: homeId, flatName: flatName);
+    recordCollectionRef
+        .doc(recordDocId)
+        .update({fieldName: newReading}).whenComplete(() {
+      response.code = 200;
+      response.body = 'updated';
+    }).catchError((e) {
+      response.code = 300;
+      response.body = e.toString();
+    });
+    return response;
+  }
   //RECORD IS CREATED FOR EACH FLAT DURING CREATION OF HOME
 
   //READ A RECORD

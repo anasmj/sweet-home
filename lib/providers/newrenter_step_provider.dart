@@ -12,6 +12,7 @@ class NewRenterStepProvider extends ChangeNotifier {
   TextEditingController altPhoneController = TextEditingController();
   TextEditingController occupationController = TextEditingController();
   TextEditingController noOfMemberController = TextEditingController();
+  TextEditingController nIdController = TextEditingController();
   String _occupation = '';
   int _noOfMember = 2;
 
@@ -60,6 +61,13 @@ class NewRenterStepProvider extends ChangeNotifier {
   }
 
   //THIRD STEP
+
+  double _unitConsumed = 0;
+  get unitConsumed => _unitConsumed;
+  set setUnitConsumed(double newUnit) {
+    _unitConsumed = newUnit;
+    notifyListeners();
+  }
 
   bool _advanceSelected = false;
   // double _advanceAmount = 0.00;

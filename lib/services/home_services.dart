@@ -79,9 +79,13 @@ class HomeCrud {
     required int numOfFloor,
     required int flatPerFloor,
     required List<String> flatNames,
+    double? meterReading,
     double? gasBill,
     double? waterBill,
   }) async {
+    DateTime currentDate = DateTime.now();
+    DateTime lastMonthDate =
+        DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
     //adding new home to the collection
     CollectionReference users = _db.collection('users');
     DocumentReference docReferencer = users.doc(_auth.currentUser!.uid);
@@ -90,7 +94,6 @@ class HomeCrud {
 
     //create flats colection, where doc id = flat name
     CollectionReference flatCollectionRef = homeDocRef.collection('flats');
-
     flatNames.forEach(
       (flatName) => flatCollectionRef.doc(flatName).set(
             Flat().toJson(
@@ -101,16 +104,18 @@ class HomeCrud {
             ),
           ),
     );
-    //CREATING OPENING MONTHLY RECORD FOR EACH FLAT
-    String monthlyRecordId = CustomFormatter().makeId(date: DateTime.now());
-    DateTime issueDate = DateTime.now();
+
+    //CREATING OPENING MONTHLY RECORD FOR PREVIOUS MONTH FOR EACH FLAT
+    String previousMonthlRecordId =
+        CustomFormatter().makeId(date: lastMonthDate);
+    // String currentMonthlRecordId = CustomFormatter().makeId(date: currentDate);
+    DateTime issueDate = lastMonthDate;
     flatNames.forEach((flat) {
-      flatCollectionRef
-          .doc(flat)
-          .collection('records')
-          .doc(monthlyRecordId)
-          .set(MonthlyRecord(
-            issueDate: issueDate,
+      //creating record for last month
+      CollectionReference recordCollectionRef =
+          flatCollectionRef.doc(flat).collection('records');
+      recordCollectionRef.doc(previousMonthlRecordId).set(MonthlyRecord(
+            issueDate: lastMonthDate,
             rentAmount: rentAmount,
             meterReading: 0.0,
             // usedElectricityUnit: 0.0,
@@ -118,7 +123,6 @@ class HomeCrud {
             waterBill: waterBill,
           ).toJson());
     });
-
     final data = Home(
       homeId: homeDocRef.id, // assign auto generated doc id to home id
       homeName: homeName,

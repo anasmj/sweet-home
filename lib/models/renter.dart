@@ -7,7 +7,7 @@ class Renter {
   String? occupation;
   int? numOfPerson;
   DateTime? entryDate;
-
+  int? nIdNumber;
   String? previousLocation;
   String? village;
   String? policeStation;
@@ -16,7 +16,7 @@ class Renter {
   String? district;
 
   double? advance;
-
+  double? unitConsumed;
   List<Year>? records;
   Renter({
     required this.renterName,
@@ -33,10 +33,14 @@ class Renter {
     this.subDistrict,
     this.district,
     this.advance,
+    this.unitConsumed,
+    this.nIdNumber,
   });
 
   static Renter fromJson(Map<String, dynamic> json) {
-    Renter renter = Renter(
+    Renter renter;
+
+    renter = Renter(
       renterName: json['renterName'],
       phoneNo: json['phoneNo'],
       alternatePhoneNo: json['alternatePhoneNo'] ?? '',
@@ -50,6 +54,8 @@ class Renter {
       subDistrict: json['subDistrict'] ?? '',
       district: json['district'] ?? '',
       advance: json['advance'] ?? 0.0,
+      nIdNumber: json['nIdNumber'],
+      // unitConsumed: json['unitConsumed'] ?? 0.0,
     );
 
     return renter;
@@ -69,11 +75,12 @@ class Renter {
         'subDistrict ': subDistrict ?? '',
         'district': district ?? '',
         'advance': advance ?? 0.0,
+        'unitConsumed': unitConsumed ?? 0.0,
+        'nIdNumber': nIdNumber,
       };
 }
 
-
-//! do not delete without thinking 
+//! do not delete without thinking
 //class for pie chart
 // class Renter {
 //   String name, flatNo, id;

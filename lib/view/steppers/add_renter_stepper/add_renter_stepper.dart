@@ -25,35 +25,38 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
   bool isCompletedd = false;
   bool isLoading = false;
   // bool isValidInfo = false;
-  Future<Response> addRenterToDatabase(BuildContext context) async {
-    final provider = Provider.of<NewRenterStepProvider>(context, listen: false);
-    final flat = context.read<SelectedFlatProvider>().selectedFlat;
-    String homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
-        .currentHome!
-        .homeId;
-    double advanceAmount = provider.advanceController.text.isNotEmpty
-        ? double.parse(provider.advanceController.text)
-        : 0.00;
-    Response response = await RenterService().addRenterToFlat(
-      homeId: homeId,
-      flatId: flat!.flatName,
-      renterName: provider.renterNameController.text,
-      phoneNo: provider.phoneController.text,
-      alternatePhoneNo: provider.altPhoneController.text,
-      occupation: provider.occupation,
-      noOfPerson: provider.memberNo,
-      entryDate: DateTime.now(),
-      previousLocation: provider.previousLocationController.text,
-      village: provider.villageController.text,
-      policeStation: provider.thanaController.text,
-      union: provider.unionController.text,
-      subDistrict: provider.subDistrictController.text,
-      district: provider.districtController.text,
-      advance: advanceAmount,
-    );
+  // Future<Response> addRenterToDatabase(BuildContext context) async {
+  //   final provider = Provider.of<NewRenterStepProvider>(context, listen: false);
+  //   final flat = context.read<SelectedFlatProvider>().selectedFlat;
+  //   String homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
+  //       .currentHome!
+  //       .homeId;
+  //   double advanceAmount = provider.advanceController.text.isNotEmpty
+  //       ? double.parse(provider.advanceController.text)
+  //       : 0.00;
+  //   Response response = await RenterService().addRenterToFlat(
+  //     homeId: homeId,
+  //     flatId: flat!.flatName,
+  //     renterName: provider.renterNameController.text,
+  //     phoneNo: provider.phoneController.text,
+  //     alternatePhoneNo: provider.altPhoneController.text,
+  //     occupation: provider.occupation,
+  //     noOfPerson: provider.memberNo,
+  //     entryDate: DateTime.now(),
+  //     previousLocation: provider.previousLocationController.text,
+  //     village: provider.villageController.text,
+  //     policeStation: provider.thanaController.text,
+  //     union: provider.unionController.text,
+  //     subDistrict: provider.subDistrictController.text,
+  //     district: provider.districtController.text,
+  //     advance: advanceAmount,
+  //   );
 
-    return response;
-  }
+  //   return response;
+  // }
+
+  int? nIdNumber;
+  double? advanceAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +64,6 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
         .currentHome!
         .homeId;
     final provider = Provider.of<NewRenterStepProvider>(context);
-    double advanceAmount;
 
     //used to validate state of form
     final flat = context.read<SelectedFlatProvider>().selectedFlat;
@@ -73,7 +75,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
         centerTitle: true,
         automaticallyImplyLeading: _currentStep != 0
             ? false
-            : true, //disable back button when user not in first page
+            : true, //disable back button when user not in first pag
       ),
       body: !isCompletedd
           ? isLoading
@@ -91,6 +93,9 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
                       advanceAmount = provider.advanceController.text.isNotEmpty
                           ? double.parse(provider.advanceController.text)
                           : 0.00;
+                      nIdNumber = provider.nIdController.text.isNotEmpty
+                          ? int.parse(provider.nIdController.text)
+                          : null;
 
                       Response res = await RenterService().addRenterToFlat(
                         homeId: homeId,
@@ -107,16 +112,31 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
                         policeStation: provider.thanaController.text,
                         union: provider.unionController.text,
                         subDistrict: provider.subDistrictController.text,
+                        nIdNumber: nIdNumber,
                         district: provider.districtController.text,
                         advance: advanceAmount,
                       );
 
                       // success
                       if (res.code == 200) {
+                        provider.renterNameController.clear();
+                        provider.phoneController.clear();
+                        provider.altPhoneController.clear();
+                        provider.setOccupation('');
+                        provider.setMemberNo = 1;
+                        provider.setEntryDate = DateTime.now();
+
+                        provider.previousLocationController.clear();
+                        provider.villageController.clear();
+                        provider.thanaController.clear();
+                        provider.unionController.clear();
+                        provider.subDistrictController.clear();
+                        provider.districtController.clear();
                         setState(() {
                           isLoading = false;
+
+                          advanceAmount = 0;
                           isCompletedd = true;
-                          clearPreviousRenterInfo(context);
                         });
 
                         //failed
@@ -280,7 +300,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
         Step(
           state: _currentStep > 2 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 2,
-          title: const Text('ছবি'),
+          title: const Text('পেমেন্ট'),
           content: ThirdStepPage(),
         ),
       ];

@@ -149,6 +149,14 @@ class RenterInfoStep extends StatelessWidget {
                 ),
               ],
             ),
+            const Align(
+                alignment: Alignment.centerLeft,
+                child: Text('ভোটার আইডি কার্ডের নম্বরঃ ')),
+            StepperTextField(
+              isNumeric: true,
+              textEditingController: provider.nIdController,
+            ),
+
             // Align(
             //   alignment: Alignment.bottomLeft,
             //   child: Text(

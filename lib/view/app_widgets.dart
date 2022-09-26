@@ -53,6 +53,7 @@ class AppWidget {
         content: Text(msg),
       );
 
+  //TODO: make this bottom shit usable for all
   static Future getModalSheet(
       {required BuildContext context,
       required bool isDark,
@@ -134,7 +135,7 @@ class AppWidget {
             Icons.gas_meter_outlined,
             size: 40,
           ),
-          title: const Text('মিটারের রিডিং নেয়া হয়নি'),
+          title: const Text('বর্তমান ইউনিট দেয়া হয়নি'),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           // title: Text(title),

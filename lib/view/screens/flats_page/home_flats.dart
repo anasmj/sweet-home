@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/flat_services.dart';
+import 'package:sweet_home/view_models/renter_opening_page_view_model.dart';
 import '../../../models/flat_model.dart';
 import '../../../models/home_model.dart';
 import '../../../providers/flat_info_provider.dart';
@@ -168,6 +169,8 @@ class HomeFlatsPage extends StatelessWidget {
   Widget makeFlat(context, index, Flat flat) {
     TextTheme appTextTheme = Theme.of(context).textTheme;
     bool isDark = Provider.of<ThemeProvider>(context).isDarkMode;
+    RenterOpeningViewModel viewModel =
+        Provider.of<RenterOpeningViewModel>(context, listen: false);
 
     return Stack(
       clipBehavior: Clip.none,
@@ -184,10 +187,14 @@ class HomeFlatsPage extends StatelessWidget {
                 : Navigator.of(context).push(MaterialPageRoute(
                     builder: ((builder) => RenterOpeningPage())));
           },
-          onLongPress: () => AppWidget.getModalSheet(
-              context: context,
-              isDark: isDark,
-              modalSheetContent: buildFlatOptionContent(context)),
+          onLongPress: () {
+            Provider.of<SelectedFlatProvider>(context, listen: false)
+                .newSelectedFlat = flat;
+            AppWidget.getModalSheet(
+                context: context,
+                isDark: isDark,
+                modalSheetContent: buildFlatOptionContent(context));
+          },
           // flatOptionModalSheet(context: context, isDark: isDark),
           child: Material(
             //shadowing
