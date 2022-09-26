@@ -7,7 +7,7 @@ class MonthlyRecord {
   double? rentAmount;
   double? gasBill;
   double? waterBill;
-  double meterReading;
+  double? meterReading;
   // double usedElectricityUnit;
   Renter? renter;
 
@@ -16,7 +16,7 @@ class MonthlyRecord {
     required this.rentAmount,
     this.gasBill,
     this.waterBill,
-    required this.meterReading,
+    this.meterReading,
     // required this.usedElectricityUnit,
     this.renter,
   });

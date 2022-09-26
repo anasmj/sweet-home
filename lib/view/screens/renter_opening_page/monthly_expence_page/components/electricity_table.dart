@@ -7,33 +7,20 @@ import '../../../../../models/renter.dart';
 // ignore: must_be_immutable
 class ElectricityTable extends StatelessWidget {
   ElectricityTable({super.key});
-
+  double? usedUnit;
+  double? totalCost;
   @override
   Widget build(BuildContext context) {
     Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
     double? currentUnit = flat!.currentMeterReading;
     double? previousUnit = flat.previousMeterReading;
-    double? usedUnit;
+
+    double CONST_FACTOR = 0.7;
+
     if (currentUnit != null && previousUnit != null) {
-      usedUnit = currentUnit - previousUnit;
+      usedUnit = (currentUnit - previousUnit);
+      if (usedUnit != null) totalCost = usedUnit! * CONST_FACTOR;
     }
-
-    //TODO: keep it to the kitchen
-    //! this is for demo purpose, it can be null in real scenario if not changed
-    // Year currentYear = renter
-    //     .records![renter.records!.length - 1]; //last element of List<year>
-    // MonthDetails currentMonth =
-    //     currentYear.months[currentYear.months.length - 1];
-    // MonthDetails previousMonth =
-    //     currentYear.months[currentYear.months.length - 2];
-
-    // double usedUnit = double.parse((currentMonth.readingOfElecctricMeter -
-    //         previousMonth.readingOfElecctricMeter)
-    //     .toStringAsFixed(1));
-
-    // String electricBill = CalculateBill.setRenter(renter: renter)
-    //     .getElectricBill; //returns current electeric bill
-
     return SizedBox(
       width: 200,
       child: Column(
@@ -53,29 +40,33 @@ class ElectricityTable extends StatelessWidget {
             children: [
               const Text('পূর্বের ইউনিট'),
               Text(
-                previousUnit.toString(),
+                previousUnit != null ? previousUnit.toString() : '-',
                 // CalculateBill.setRenter(renter: renter).currentMonthReading,
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("ব্যাবহৃত ইউনিট"),
-              Text(
-                usedUnit != null ? usedUnit.toString() : '',
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              // Text("মূল্য ($usedUnit * ${currentMonth.electricityUnitPrice!})"),
-              Text('0.7'),
-              // Text(electricBill.toString()),
-              Text('32333')
-            ],
-          ),
+          totalCost == null
+              ? const SizedBox()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("ব্যাবহৃত ইউনিট"),
+                    Text(
+                      usedUnit != null ? usedUnit.toString() : '',
+                    ),
+                  ],
+                ),
+          totalCost == null
+              ? const SizedBox()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('$usedUnit x 0.8'),
+                    // Text('0.7'),
+                    // Text(electricBill.toString()),
+                    Text('৳ $totalCost')
+                  ],
+                ),
         ],
       ),
     );

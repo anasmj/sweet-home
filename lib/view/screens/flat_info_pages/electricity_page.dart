@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/models/response.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
+import 'package:sweet_home/services/flat_services.dart';
 import 'package:sweet_home/services/record_services.dart';
 
 import '../../../models/flat_model.dart';
@@ -12,25 +14,25 @@ import '../home_info_page/update_button.dart';
 
 class ElectricityPage extends StatelessWidget {
   ElectricityPage({super.key});
-  final previousController = TextEditingController();
-  final currentController = TextEditingController();
 
   DateTime currentDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
+    final previousController = TextEditingController();
+    final currentController = TextEditingController();
+
     DateTime lastMonthDate =
         DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
-
+    String homeId = context.watch<CurrentHomeProvider>().currentHome!.homeId;
     Flat? flat = context.read<SelectedFlatProvider>().selectedFlat;
-    double? currentReading = flat?.currentMeterReading;
-    double? previousReading = flat?.previousMeterReading;
+
+    double currentReading = flat?.currentMeterReading ?? 0.00;
+    double previousReading = flat?.previousMeterReading ?? 0.00;
     bool isDark = context.watch<ThemeProvider>().isDarkMode;
 
-    previousController.text =
-        currentReading != null ? currentReading.toString() : '';
-    currentController.text =
-        previousReading != null ? previousReading.toString() : '';
+    // previousController.text = flat!.previousMeterReading.toString();
+    previousController.text = previousReading.toString();
 
     return WillPopScope(
       onWillPop: () async {
@@ -71,8 +73,8 @@ class ElectricityPage extends StatelessWidget {
                           child: Form(
                             key:
                                 context.read<CurrentHomeProvider>().editFormKey,
-                            child: TextField(
-                              controller: currentController,
+                            child: const TextField(
+                              // controller: currentController,
                               keyboardType: TextInputType.number,
                             ),
                           ),
@@ -81,7 +83,9 @@ class ElectricityPage extends StatelessWidget {
                           height: 50,
                         ),
                         UpdateButton(
-                          onUpdated: () {},
+                          onUpdated: () {
+                            Navigator.of(context).pop();
+                          },
                         ),
                       ],
                     ),
@@ -123,15 +127,32 @@ class ElectricityPage extends StatelessWidget {
                           height: 50,
                         ),
                         UpdateButton(
-                          onUpdated: () {
-                            print(previousController.text);
-                            // RecordService().updateRecord(
-                            //   homeId: homeId,
-                            //   flatName: flat!.flatName,
-                            //   fieldName: 'meterReading',
-                            //   newReading: previousController.text,
-                            //   recordDate: lastMonthDate,
-                            // );
+                          onUpdated: () async {
+                            // update record
+                            Response res = await RecordService()
+                                .updateRecord(
+                              homeId: homeId,
+                              flatName: flat?.flatName ?? '',
+                              fieldName: 'meterReading',
+                              newReading: double.parse(previousController.text),
+                              recordDate: lastMonthDate,
+                            )
+                                .whenComplete(() {
+                              FlatService().updateFlat(
+                                  homeId: homeId,
+                                  flatName: flat?.flatName ?? '',
+                                  fieldName: 'previousMonthMeterReading',
+                                  newValue:
+                                      double.parse(previousController.text));
+                            });
+                            if (res.code == 200) {
+                              AppWidget.showToast('পরিবর্তন করা হয়েছে');
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).pop();
+                            } else {
+                              AppWidget.showToast('পরিবর্তন করা সম্ভব হয়নি');
+                            }
+                            //update flat field
                           },
                         ),
                       ],

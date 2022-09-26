@@ -7,6 +7,7 @@ import 'package:sweet_home/providers/home_stepper_provider.dart';
 import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
+import 'package:sweet_home/services/flat_services.dart';
 import 'package:sweet_home/services/record_services.dart';
 import 'package:sweet_home/utils/custom_date_time_formatter.dart';
 import '../../../../models/home_model.dart';
@@ -89,7 +90,13 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            onTap: () async {},
+            onTap: () async {
+              FlatService().updateFlat(
+                  homeId: home!.homeId,
+                  flatName: '1A',
+                  fieldName: 'previousMonthMeterReading',
+                  newValue: 50.0);
+            },
             leading: const Icon(Icons.edit),
             title: Text(
               'test',

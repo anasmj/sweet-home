@@ -37,7 +37,7 @@ class RecordService {
     required String homeId,
     required String flatName,
     required String fieldName,
-    required String newReading,
+    required dynamic newReading,
     required DateTime recordDate,
   }) async {
     String recordDocId = CustomFormatter().makeId(date: recordDate);

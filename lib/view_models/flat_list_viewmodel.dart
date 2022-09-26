@@ -39,11 +39,11 @@ class FlatListViweModel extends ChangeNotifier {
     if (currentUserHome != null) {
       setLoading(true);
       status = LoadingStatus.searching;
-      List<Flat> flatList =
-          await FlatService().getAllFlats(homeId: currentUserHome!.homeId);
-      if (flatList.isNotEmpty) {
-        status = LoadingStatus.completed;
-      }
+      // List<Flat> flatList =
+      //     await FlatService().getAllFlats(homeId: currentUserHome!.homeId);
+      // if (flatList.isNotEmpty) {
+      //   status = LoadingStatus.completed;
+      // }
       setLoading(false);
     }
     if (currentUserHome == null) {

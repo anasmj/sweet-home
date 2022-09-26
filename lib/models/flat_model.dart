@@ -63,8 +63,9 @@ class Flat {
         drawingRoom: json['isDrawingExists'] ?? false,
         currentMeterReading: json['currentMeterReading'],
         // currentMonthMeterReading: json['currentMonthMeterReading'] ?? 0.0,
-        previousMeterReading:
-            double.parse(json['previousMeterReading'].toString()));
+        previousMeterReading: json['previousMeterReading'] != null
+            ? double.parse(json['previousMeterReading'].toString())
+            : null);
   }
 
   Map<String, dynamic> toJson({
@@ -72,7 +73,7 @@ class Flat {
     required double rentAmount,
     double gasBill = 0.00,
     double waterBill = 0.00,
-    double? previousMeterReading = 0,
+    double? previousMeterReading,
   }) =>
       {
         'flatName': flatName,

@@ -222,12 +222,23 @@ class HomeFlatsPage extends StatelessWidget {
                     ),
                     flat.renter == null
                         ? personAddIcon(isDark)
-                        : AspectRatio(
-                            aspectRatio: 2 / 1,
-                            child: Center(
-                              child: noMeterReadingIndicator(),
-                            ),
-                          ),
+                        : flat.previousMeterReading == null
+                            ? AspectRatio(
+                                aspectRatio: 2 / 0.8,
+                                child: Center(
+                                  child: noMeterReadingIndicator(),
+                                ),
+                              )
+                            : const SizedBox(),
+
+                    // flat.previousMeterReading != null
+                    //     ? personAddIcon(isDark)
+                    //     : AspectRatio(
+                    //         aspectRatio: 2 / 0.8,
+                    //         child: Center(
+                    //           child: noMeterReadingIndicator(),
+                    //         ),
+                    //       ),
                     //BOTTOM INFORMATION ABOUT FLAT
                     flat.renter != null
                         ? ListTile(

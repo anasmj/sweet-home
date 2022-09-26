@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:sweet_home/models/monthly_record.dart';
 import 'package:sweet_home/models/response.dart';
 import 'package:sweet_home/utils/custom_date_time_formatter.dart';
@@ -22,7 +23,6 @@ class FlatService {
     return flatsCollectionRef;
   }
 
-  //READ ALL FLATS
   Future<List<Flat>> getAllFlats({required String homeId}) async {
     DateTime currentDate = DateTime.now();
     DateTime lastMonthDate =
@@ -42,11 +42,14 @@ class FlatService {
           .collection('records')
           .doc(previousMonthRecordId)
           .get();
-      final previousReading = previousMonthRecordDocRef.get('meterReading');
-      double previousReadingDouble = double.parse(previousReading.toString());
-      flatsCollectionRef
-          .doc(flat.get('flatName'))
-          .update({'previousMeterReading': previousReadingDouble});
+
+      if (previousMonthRecordDocRef.get('meterReading') != null) {
+        double previousReading =
+            previousMonthRecordDocRef.get('meterReading') as double;
+        flatsCollectionRef
+            .doc(flat.get('flatName'))
+            .update({'previousMeterReading': previousReading});
+      }
     }).toList();
     final flatList = flatsSnapshot.docs.map((flat) {
       return Flat.fromJson(flat.data() as Map<String, dynamic>);
@@ -72,5 +75,25 @@ class FlatService {
     //   }
     // });
     return flatList;
+  }
+
+  //update flat
+  Future<Response> updateFlat(
+      {required String homeId,
+      required String flatName,
+      required String fieldName,
+      required dynamic newValue}) async {
+    CollectionReference flatCollecntionRef =
+        await getFlatsCollectionRef(homeId: homeId);
+    flatCollecntionRef
+        .doc(flatName)
+        .update({fieldName: newValue}).whenComplete(() {
+      response.code = 200;
+      response.body = 'successfull';
+    }).catchError((e) {
+      response.code = 300;
+      response.body = e.toString();
+    });
+    return response;
   }
 }

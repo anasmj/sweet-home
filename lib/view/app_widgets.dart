@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/current_home.dart';
+import 'package:sweet_home/providers/flat_info_provider.dart';
+import 'package:sweet_home/services/flat_services.dart';
+import 'package:sweet_home/services/record_services.dart';
 import 'package:sweet_home/view_models/renter_opening_page_view_model.dart';
 
+import '../models/flat_model.dart';
 import '../providers/monthly_record_provider.dart';
 
 class AppWidget {
@@ -122,6 +127,8 @@ class AppWidget {
       {required BuildContext context}) async {
     GlobalKey<FormState>? formKey = GlobalKey();
     TextEditingController unitController = TextEditingController();
+    Flat? flat = context.read<SelectedFlatProvider>().selectedFlat;
+    String homeId = context.read<CurrentHomeProvider>().currentHome!.homeId;
     RenterOpeningViewModel providerRead =
         context.read<RenterOpeningViewModel>();
 
@@ -144,12 +151,13 @@ class AppWidget {
             key: formKey,
             child: TextFormField(
               controller: unitController,
-              // validator: (value) =>
-              //     value!.isEmpty ? 'হিসাবের জন্য তথ্যটি প্রয়োজন' : null,
               validator: (value) {
                 if (value!.isEmpty) return 'হিসাবের জন্য তথ্যটি প্রয়োজন';
                 if (double.parse(value) <= 0) {
                   return 'তথ্যটি সঠিক নয়';
+                }
+                if (double.parse(value) <= flat!.previousMeterReading!) {
+                  return 'মিটারের রিডিং আগের মাসের থেকে কম';
                 }
                 return null;
               },
@@ -178,6 +186,12 @@ class AppWidget {
                 if (formKey.currentState!.validate()) {
                   providerRead.setMeterReading =
                       double.parse(unitController.text);
+                  FlatService().updateFlat(
+                    homeId: homeId,
+                    flatName: flat!.flatName,
+                    fieldName: 'currentMeterReading',
+                    newValue: providerRead.meterReading,
+                  );
                   Navigator.of(context).pop();
                 }
               },

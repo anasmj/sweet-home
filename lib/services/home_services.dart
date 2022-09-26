@@ -117,7 +117,7 @@ class HomeCrud {
       recordCollectionRef.doc(previousMonthlRecordId).set(MonthlyRecord(
             issueDate: lastMonthDate,
             rentAmount: rentAmount,
-            meterReading: 0.0,
+            meterReading: null,
             // usedElectricityUnit: 0.0,
             gasBill: gasBill,
             waterBill: waterBill,

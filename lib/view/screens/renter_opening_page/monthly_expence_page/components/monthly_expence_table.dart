@@ -21,7 +21,12 @@ class MonthlyExpenceTable extends StatelessWidget {
     //*after confirmed by user, make a month detail object which will
     //*be later used to show previoufs month details
     Flat? currentFlat = Provider.of<SelectedFlatProvider>(context).selectedFlat;
-    double? meterReading = context.watch<RenterOpeningViewModel>().meterReading;
+    double? currentReading =
+        context.watch<SelectedFlatProvider>().selectedFlat!.currentMeterReading;
+    double? prevReading = context
+        .watch<SelectedFlatProvider>()
+        .selectedFlat!
+        .previousMeterReading;
 
     TextTheme textTheme = Theme.of(context).textTheme;
     return Column(
@@ -57,11 +62,10 @@ class MonthlyExpenceTable extends StatelessWidget {
             getPurposeTitle(
               titleIcon: AppIcons.electricityUrl,
               title: 'বিদ্যুৎ',
-              widget: meterReading == null
+              widget: prevReading == null
                   ? IconButton(
                       onPressed: () async {
-                        await AppWidget.showElectricityUnitDialog(
-                            context: context);
+                        await noPrevReadingAlert(context);
                       },
                       icon: const Icon(
                         Icons.info_outline,
@@ -69,10 +73,35 @@ class MonthlyExpenceTable extends StatelessWidget {
                         color: Colors.red,
                       ),
                     )
-                  : const SizedBox(),
+                  : currentReading == null
+                      ? IconButton(
+                          onPressed: () async {
+                            await AppWidget.showElectricityUnitDialog(
+                                context: context);
+                          },
+                          icon: const Icon(
+                            Icons.info_outline,
+                            size: 16,
+                            color: Colors.red,
+                          ),
+                        )
+                      : const SizedBox(),
+              // widget: currentReading == null
+              //     ? IconButton(
+              //         onPressed: () async {
+              //           await AppWidget.showElectricityUnitDialog(
+              //               context: context);
+              //         },
+              //         icon: const Icon(
+              //           Icons.info_outline,
+              //           size: 16,
+              //           color: Colors.red,
+              //         ),
+              //       )
+              //     : const SizedBox(),
             ),
 
-            Text('৳ 923'),
+            Text('121'),
 
             // Text(
             //     Bill.setRenter(renter: currentFlat.renter!)
@@ -160,6 +189,25 @@ class MonthlyExpenceTable extends StatelessWidget {
               child: e))
           .toList(),
     );
+  }
+
+  Future<dynamic> noPrevReadingAlert(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              content: Row(
+                children: const [
+                  Icon(
+                    Icons.info_outline,
+                    color: Colors.red,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text('পূর্বের ইউনিট ঠিক করা হয়নি'),
+                ],
+              ),
+            ));
   }
 
   Widget getPurposeTitle(
