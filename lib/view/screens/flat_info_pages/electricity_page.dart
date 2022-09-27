@@ -19,6 +19,7 @@ class ElectricityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> _readingKey = GlobalKey();
     final previousController = TextEditingController();
     final currentController = TextEditingController();
 
@@ -28,11 +29,12 @@ class ElectricityPage extends StatelessWidget {
     Flat? flat = context.read<SelectedFlatProvider>().selectedFlat;
 
     double currentReading = flat?.currentMeterReading ?? 0.00;
-    double previousReading = flat?.previousMeterReading ?? 0.00;
+    double? previousReading = flat?.previousMeterReading;
     bool isDark = context.watch<ThemeProvider>().isDarkMode;
 
     // previousController.text = flat!.previousMeterReading.toString();
-    previousController.text = previousReading.toString();
+    previousController.text =
+        previousReading == null ? '' : previousReading.toString();
 
     return WillPopScope(
       onWillPop: () async {
@@ -101,7 +103,7 @@ class ElectricityPage extends StatelessWidget {
                   context: context,
                   isDark: isDark,
                   modalSheetContent: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.50,
+                    height: MediaQuery.of(context).size.height * 0.70,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -118,9 +120,16 @@ class ElectricityPage extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            controller: previousController,
+                          child: Form(
+                            key: _readingKey,
+                            child: TextFormField(
+                              validator: (String? value) {
+                                if (value!.isEmpty)
+                                  return 'কোনও তথ্য দেয়া হয়নি';
+                              },
+                              keyboardType: TextInputType.number,
+                              controller: previousController,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -128,30 +137,34 @@ class ElectricityPage extends StatelessWidget {
                         ),
                         UpdateButton(
                           onUpdated: () async {
-                            // update record
-                            Response res = await RecordService()
-                                .updateRecord(
-                              homeId: homeId,
-                              flatName: flat?.flatName ?? '',
-                              fieldName: 'meterReading',
-                              newReading: double.parse(previousController.text),
-                              recordDate: lastMonthDate,
-                            )
-                                .whenComplete(() {
-                              FlatService().updateFlat(
-                                  homeId: homeId,
-                                  flatName: flat?.flatName ?? '',
-                                  fieldName: 'previousMonthMeterReading',
-                                  newValue:
-                                      double.parse(previousController.text));
-                            });
-                            if (res.code == 200) {
-                              AppWidget.showToast('পরিবর্তন করা হয়েছে');
-                              // ignore: use_build_context_synchronously
-                              Navigator.of(context).pop();
-                            } else {
-                              AppWidget.showToast('পরিবর্তন করা সম্ভব হয়নি');
+                            if (_readingKey.currentState!.validate()) {
+                              // update record
+                              Response res = await RecordService()
+                                  .updateRecord(
+                                homeId: homeId,
+                                flatName: flat?.flatName ?? '',
+                                fieldName: 'meterReading',
+                                newReading:
+                                    double.parse(previousController.text),
+                                recordDate: lastMonthDate,
+                              )
+                                  .whenComplete(() {
+                                FlatService().updateFlat(
+                                    homeId: homeId,
+                                    flatName: flat?.flatName ?? '',
+                                    fieldName: 'previousMonthMeterReading',
+                                    newValue:
+                                        double.parse(previousController.text));
+                              });
+                              if (res.code == 200) {
+                                AppWidget.showToast('পরিবর্তন করা হয়েছে');
+                                // ignore: use_build_context_synchronously
+                                Navigator.of(context).pop();
+                              } else {
+                                AppWidget.showToast('পরিবর্তন করা সম্ভব হয়নি');
+                              }
                             }
+
                             //update flat field
                           },
                         ),

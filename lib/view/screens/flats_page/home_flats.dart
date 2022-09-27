@@ -117,6 +117,8 @@ class HomeFlatsPage extends StatelessWidget {
   }
 
   Padding showFlats(BuildContext context, List<Flat> flatList) {
+    Home? home = context.watch<CurrentHomeProvider>().currentHome;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: Column(
@@ -144,20 +146,23 @@ class HomeFlatsPage extends StatelessWidget {
           ),
 
           Expanded(
-            child: GridView.builder(
-              physics: const BouncingScrollPhysics(),
-              //childAspectRatio: (itemWidth / itemHeight),
-              itemCount: flatList.length,
-              itemBuilder: (context, index) {
-                Flat flat = flatList[index];
+            child: RefreshIndicator(
+              onRefresh: () => FlatService().getAllFlats(homeId: home!.homeId),
+              child: GridView.builder(
+                physics: const BouncingScrollPhysics(),
+                //childAspectRatio: (itemWidth / itemHeight),
+                itemCount: flatList.length,
+                itemBuilder: (context, index) {
+                  Flat flat = flatList[index];
 
-                return makeFlat(context, index, flat);
-              },
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 30,
-                crossAxisSpacing: 10,
-                childAspectRatio: 0.76,
+                  return makeFlat(context, index, flat);
+                },
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 30,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 0.76,
+                ),
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/models/response.dart';
+import 'package:sweet_home/providers/bills_provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/services/record_services.dart';
@@ -23,11 +24,12 @@ class BottomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     RenterOpeningViewModel providerWatch =
         context.watch<RenterOpeningViewModel>();
+
     String? homeId = context.watch<CurrentHomeProvider>().currentHome?.homeId;
     Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
     DateTime issueDate = DateTime.now();
 
-    double? meterReading = context.watch<RenterOpeningViewModel>().meterReading;
+    // double? meterReading = context.watch<RenterOpeningViewModel>().meterReading;
 
     return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -36,17 +38,22 @@ class BottomButton extends StatelessWidget {
       color: Theme.of(context).secondaryHeaderColor,
       disabledColor: Colors.grey,
       onPressed: () async {
-        if (providerWatch.meterReading == null) {
+        if (flat!.currentMeterReading == null) {
           AppWidget.showElectricityUnitDialog(context: context);
         }
-        if (homeId != null && flat != null && meterReading != null) {
-          Response res = await RecordService().createMonthlyRecord(
-            homeId: homeId,
-            flat: flat,
-            issueDate: issueDate,
-            meterReading: meterReading,
-          );
-          print(res.code); //todo: fix lagging
+        if (homeId != null && flat.currentMeterReading != null) {
+          print(flat.flatRentAmount);
+          print(flat.flatGasBill);
+          print(flat.flatWaterBill);
+          print(context.read<BillsProvider>().electricBill);
+
+          // Response res = await RecordService().createMonthlyRecord(
+          //   homeId: homeId,
+          //   flat: flat,
+          //   issueDate: issueDate,
+          //   meterReading: flat.currentMeterReading!,
+          // );
+          // print(res.code); //todo: fix lagging
         }
       },
       child: Text(

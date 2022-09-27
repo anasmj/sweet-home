@@ -20,6 +20,10 @@ class RenterOpeningViewModel extends ChangeNotifier {
   Widget uiWidget = const Center(
     child: CircularProgressIndicator(),
   );
+  void printSomething() {
+    print(currentHomeProvider!.currentHome!.homeName);
+  }
+
   set setMeterReading(double value) {
     _meterReading = value;
 

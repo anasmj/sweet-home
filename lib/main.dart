@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/bills_provider.dart';
 import 'package:sweet_home/providers/monthly_record_provider.dart';
 import 'package:sweet_home/utils/shared_pref.dart';
 import 'package:sweet_home/providers/current_home.dart';
@@ -46,9 +47,23 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => HomeStepperProvider(),
         ),
+
+        ChangeNotifierProxyProvider<SelectedFlatProvider, BillsProvider>(
+          update: (context, value, previous) => BillsProvider(
+              flatProvider:
+                  Provider.of<SelectedFlatProvider>(context, listen: false)),
+          create: (context) => BillsProvider(
+              flatProvider:
+                  Provider.of<SelectedFlatProvider>(context, listen: false)),
+        ),
         ChangeNotifierProvider(
           create: (context) => CurrentHomeProvider(),
         ),
+        // ChangeNotifierProxyProvider<CurrentHomeProvider, FlatListViweModel>(
+        //   create: (BuildContext context) => FlatListViweModel(),
+        //   update: (BuildContext context, currentHome, viewModel) =>
+        //       FlatListViweModel(),
+        // ),
         ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatProvider,
             RenterOpeningViewModel>(
           update: (context, currentHome, currentFlat, prevRenterOpeningVM) =>
@@ -57,17 +72,14 @@ class MyApp extends StatelessWidget {
                   selectedFlatProvider: currentFlat),
           create: (context) => RenterOpeningViewModel(),
         ),
+
         // ChangeNotifierProxyProvider<SelectedFlatProvider,
         //     RenterOpeningViewModel>(
         //   update: (context, currentFlat, prevRenterOpeningVM) =>
         //       RenterOpeningViewModel(currentFlat),
         //   create: (context) => RenterOpeningViewModel(null),
         // ),
-        ChangeNotifierProxyProvider<CurrentHomeProvider, FlatListViweModel>(
-          create: (BuildContext context) => FlatListViweModel(),
-          update: (BuildContext context, currentHome, viewModel) =>
-              FlatListViweModel(),
-        ),
+
         ChangeNotifierProvider(
           create: (context) => FlatListViweModel(),
         ),

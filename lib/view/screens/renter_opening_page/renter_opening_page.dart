@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/bills_provider.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/view/screens/empty_pages/empty_tarnsaction.dart';
 import 'package:sweet_home/view/app_widgets.dart';
+import 'package:sweet_home/view/screens/flat_info_pages/single_flat_info_page.dart';
 import '../../../models/flat_model.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 import '../profile_pages/renter_profile_page.dart';
@@ -44,7 +46,7 @@ class RenterOpeningPage extends StatelessWidget {
             ],
             flexibleSpace: Padding(
               padding: const EdgeInsets.only(top: 50.0, left: 80),
-              child: appBarContent(appTextTheme, flat!),
+              child: appBarContent(context, appTextTheme, flat!),
             ),
             bottom: TabBar(
               indicatorColor: Colors.white,
@@ -95,6 +97,13 @@ class RenterOpeningPage extends StatelessWidget {
             );
             break;
           case 'ফ্ল্যাটের তথ্যাবলী':
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SingleFlatInfo(),
+              ),
+            );
+
             break;
           case 'তাগাদা দিন':
             break;
@@ -103,7 +112,9 @@ class RenterOpeningPage extends StatelessWidget {
     );
   }
 
-  ListTile appBarContent(TextTheme appTextTheme, Flat flat) {
+  ListTile appBarContent(
+      BuildContext context, TextTheme appTextTheme, Flat flat) {
+    double totalBill = context.watch<BillsProvider>().totalBill ?? 0;
     return ListTile(
       title: Text(
         flat.renter!.renterName,
@@ -118,7 +129,7 @@ class RenterOpeningPage extends StatelessWidget {
             TextSpan(text: 'পাবো  ', style: appTextTheme.subtitle1),
             AppWidget.taka,
             TextSpan(
-              text: ' 23412\n',
+              text: ' ${totalBill.toStringAsFixed(1)} \n',
               // '${CalculateBill.setRenter(renter: renter).totalBill.toStringAsFixed(1)} \n',
               style: appTextTheme.headline6!.copyWith(
                   color: Colors.red[900], fontWeight: FontWeight.w600),

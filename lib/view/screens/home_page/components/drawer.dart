@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/bills_provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/providers/home_stepper_provider.dart';
@@ -10,6 +11,8 @@ import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/services/flat_services.dart';
 import 'package:sweet_home/services/record_services.dart';
 import 'package:sweet_home/utils/custom_date_time_formatter.dart';
+import 'package:sweet_home/view_models/renter_opening_page_view_model.dart';
+import '../../../../models/flat_model.dart';
 import '../../../../models/home_model.dart';
 import '../../../../services/home_services.dart';
 import '../../../../utils/routes.dart';
@@ -90,13 +93,7 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            onTap: () async {
-              FlatService().updateFlat(
-                  homeId: home!.homeId,
-                  flatName: '1A',
-                  fieldName: 'previousMonthMeterReading',
-                  newValue: 50.0);
-            },
+            onTap: () async {},
             leading: const Icon(Icons.edit),
             title: Text(
               'test',
