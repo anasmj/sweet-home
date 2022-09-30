@@ -69,7 +69,7 @@ class FlatDetails extends StatelessWidget {
               child: MonthlyExpencePage(),
             ),
             const EntryPage(),
-            TransactionListPage(renter: renter),
+            // TransactionListPage(renter: renter),
           ],
         ),
       ),

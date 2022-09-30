@@ -48,11 +48,11 @@ class MonthlyDataTable extends StatelessWidget {
                           Center(child: Text('1A')),
                         ),
                         DataCell(
-                          Center(child: Text('30433')),
+                          Center(child: Text('৳ 26450')),
                         ),
 
                         DataCell(
-                          Center(child: Text('310')),
+                          Center(child: Text('৳ 64')),
                         ),
                         DataCell(
                           Center(
@@ -80,14 +80,14 @@ class MonthlyDataTable extends StatelessWidget {
                     DataRow(
                       cells: [
                         DataCell(
-                          Center(child: Text('1A')),
+                          Center(child: Text('1B')),
                         ),
                         DataCell(
-                          Center(child: Text('30433')),
+                          Center(child: Text('৳ 0')),
                         ),
 
                         DataCell(
-                          Center(child: Text('310')),
+                          Center(child: Text('৳ 27420')),
                         ),
                         DataCell(
                           Center(
@@ -115,14 +115,14 @@ class MonthlyDataTable extends StatelessWidget {
                     DataRow(
                       cells: [
                         DataCell(
-                          Center(child: Text('1A')),
+                          Center(child: Text('3A')),
                         ),
                         DataCell(
-                          Center(child: Text('30433')),
+                          Center(child: Text('৳ 26420')),
                         ),
 
                         DataCell(
-                          Center(child: Text('310')),
+                          Center(child: Text('৳ 20')),
                         ),
                         DataCell(
                           Center(

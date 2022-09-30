@@ -1,16 +1,14 @@
-# rent_home
+# Sweet Home
 
-A new Flutter project.
+## A solution for keeping track of your renters, their payments and many more! 
 
-## Getting Started
+<h3> As a house owner, you can-</h2><br>
 
-This project is a starting point for a Flutter application.
+<!-- As a house owner, you can-  <br> -->
+1. Add as many home as you want 
+2. See your monthly due from both individual and all renters
+3. See payment status of renter and all previous history at a glance
+4. Keep your renters activity and history in your hand to be secured  
+5. See all transaction with their details at one place, so no mistake anymore!  
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<h3>Let's have a look on app itself</h2><br>

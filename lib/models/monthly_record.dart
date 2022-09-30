@@ -8,12 +8,13 @@ class MonthlyRecord {
   double? gasBill;
   double? waterBill;
   double? meterReading;
-  // double usedElectricityUnit;
+  double? renterPayable;
   Renter? renter;
 
   MonthlyRecord({
     required this.issueDate,
     required this.rentAmount,
+    required this.renterPayable,
     this.gasBill,
     this.waterBill,
     this.meterReading,
@@ -28,6 +29,7 @@ class MonthlyRecord {
     return MonthlyRecord(
       issueDate: DateTime.parse(json['issueDate']),
       rentAmount: json['rentAmount'],
+      renterPayable: json['renterPayable'],
       // usedElectricityUnit: json['usedElectricityUnit'],
       meterReading: json['meterReading'],
       waterBill: json['waterBill'],
@@ -42,6 +44,7 @@ class MonthlyRecord {
       'rentAmount': rentAmount,
       'gasBill': gasBill,
       'waterBill': waterBill,
+      'renterPayable': renterPayable,
       // 'usedElectricityUnit': usedElectricityUnit,
       'meterReading': meterReading,
       'renter': renter != null ? renter!.toJson() : null,

@@ -32,7 +32,6 @@ class RecordService {
   }
 
   //UPDATE RECORD
-
   Future<Response> updateRecord({
     required String homeId,
     required String flatName,
@@ -54,8 +53,8 @@ class RecordService {
     });
     return response;
   }
-  //RECORD IS CREATED FOR EACH FLAT DURING CREATION OF HOME
 
+  //RECORD IS CREATED FOR EACH FLAT DURING CREATION OF HOME
   //READ A RECORD
   Future<Response> readMonthlyRecord(
       {required String homeId,
@@ -90,6 +89,7 @@ class RecordService {
     required Flat flat,
     required DateTime issueDate,
     required double meterReading,
+    required double renterPayable,
     // Renter? renter,
   }) async {
     CollectionReference recordCollectionRef =
@@ -101,6 +101,7 @@ class RecordService {
             issueDate: issueDate,
             rentAmount: flat.flatRentAmount,
             meterReading: meterReading,
+            renterPayable: renterPayable,
             // usedElectricityUnit: 200,
             gasBill: flat.flatGasBill,
             waterBill: flat.flatWaterBill,

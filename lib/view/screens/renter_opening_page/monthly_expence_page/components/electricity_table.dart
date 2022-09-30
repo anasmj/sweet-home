@@ -21,9 +21,11 @@ class ElectricityTable extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('বর্তমান ইউনিট'),
-              Text(
-                billsProvider.currentReading.toString(),
-              )
+              billsProvider.currentReading != null
+                  ? Text(
+                      billsProvider.currentReading.toString(),
+                    )
+                  : const SizedBox(),
             ],
           ),
           Row(
@@ -41,21 +43,26 @@ class ElectricityTable extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text("ব্যাবহৃত ইউনিট"),
-                    Text(
-                      billsProvider.usedUnit.toString(),
-                    ),
+                    billsProvider.currentReading != null
+                        ? Text(
+                            billsProvider.usedUnit.toString(),
+                          )
+                        : const SizedBox(),
                   ],
                 ),
-          billsProvider.totalBill == null
-              ? const SizedBox()
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                        '${billsProvider.usedUnit} x ${billsProvider.CONST_FACTOR}'),
-                    Text('৳ ${billsProvider.electricBill.toStringAsFixed(1)}'),
-                  ],
-                ),
+          billsProvider.currentReading != null
+              ? billsProvider.totalBill == null
+                  ? const SizedBox()
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            '${billsProvider.usedUnit} x ${billsProvider.CONST_FACTOR}'),
+                        Text(
+                            '৳ ${billsProvider.electricBill.toStringAsFixed(1)}'),
+                      ],
+                    )
+              : const SizedBox(),
         ],
       ),
     );

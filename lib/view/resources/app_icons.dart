@@ -24,6 +24,7 @@ class AppIcons {
   static String homeLogoUrl = "assets/icons/landing_logo.jpeg";
   static String addHomeUrl = "assets/icons/addHomeIcon.jpg";
   static String meterUrl = "assets/icons/meter.png";
+  static String defaultProfileUrl = "assets/icons/default_profile.png";
 
   //implement LOTTIES like this
   // Lottie.asset(

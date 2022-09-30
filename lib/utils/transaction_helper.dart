@@ -22,14 +22,14 @@ class TransactionHelper {
         .records![renter.records!.length - 1]; //last element of List<year>
     currentMonth = currentYear.months[currentYear.months.length - 1];
 
-    List<Transaction> userTransactionList = currentMonth.transactions!;
-    userTransactionList.add(Transaction(
+    List<TransactionPrev> userTransactionList = currentMonth.transactions!;
+    userTransactionList.add(TransactionPrev(
         takenAmount: 45, timeStamp: DateTime.parse('2022-03-33 20:18:04Z')));
   }
 
   //returns list of transactions made by a user
-  List<Transaction> listOfAllTransactions() {
-    List<Transaction> transactionList = [];
+  List<TransactionPrev> listOfAllTransactions() {
+    List<TransactionPrev> transactionList = [];
     renter.records!.forEach(
       (year) => year.months.forEach(
         (monthDetail) {

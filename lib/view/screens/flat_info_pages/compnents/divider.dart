@@ -5,7 +5,7 @@ Row flatInfoDivider({required BuildContext context, String text = ''}) {
     children: [
       Text(
         text,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.subtitle2,
       ),
       const SizedBox(
         width: 10,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
+import 'package:sweet_home/providers/profile.dart';
 import 'package:sweet_home/view/screens/pending_page/pending_page.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 import '../../../models/home_model.dart';
@@ -23,7 +24,7 @@ class AppHomePage extends StatefulWidget {
 class _AppHomePage extends State<AppHomePage> {
   final double _appIconHeight = 20;
   final double _appIconWidth = 20;
-  int _currentTabIndex = 1;
+  int _currentTabIndex = 0;
   final double _appBarHeight = 280;
   bool isInitialState = false;
 
@@ -74,12 +75,12 @@ class _AppHomePage extends State<AppHomePage> {
               icon: Icon(Icons.pending), label: 'বকেয়া সমূহ'),
         ],
       ),
-      body: getUserSelectedPage(_currentTabIndex),
+      body: getUserSelectedPage(context, _currentTabIndex),
     );
   }
 
   //ALTERNATE OF SWITH-CASE
-  Widget getUserSelectedPage(int selectedIndex) {
+  Widget getUserSelectedPage(BuildContext context, int selectedIndex) {
     if (selectedIndex == 0) {
       return CustomScrollView(
         controller: ScrollController(),
@@ -97,7 +98,7 @@ class _AppHomePage extends State<AppHomePage> {
     }
     // if (selectedIndex == _flatListPageIndex) return FlatListPage();
     if (selectedIndex == _flatListPageIndex) {
-      return HomeFlatsPage();
+      return const HomeFlatsPage();
       // return context.watch<FlatListViweModel>().getWidget(context);
     }
     if (selectedIndex == _pendingPageIndex) return PendingPage();

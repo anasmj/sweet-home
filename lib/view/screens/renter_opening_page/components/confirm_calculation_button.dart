@@ -4,6 +4,7 @@ import 'package:sweet_home/models/response.dart';
 import 'package:sweet_home/providers/bills_provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
+import 'package:sweet_home/providers/transaction_provider.dart';
 import 'package:sweet_home/services/record_services.dart';
 import 'package:sweet_home/view/app_widgets.dart';
 
@@ -13,8 +14,8 @@ import '../../../../providers/monthly_record_provider.dart';
 import '../../../../view_models/renter_opening_page_view_model.dart';
 
 // ignore: must_be_immutable
-class BottomButton extends StatelessWidget {
-  BottomButton({
+class ConfirmCalculationButton extends StatelessWidget {
+  ConfirmCalculationButton({
     required this.text,
     Key? key,
   }) : super(key: key);
@@ -27,6 +28,7 @@ class BottomButton extends StatelessWidget {
 
     String? homeId = context.watch<CurrentHomeProvider>().currentHome?.homeId;
     Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
+    TransactionProvider trasaction = context.watch<TransactionProvider>();
     DateTime issueDate = DateTime.now();
 
     // double? meterReading = context.watch<RenterOpeningViewModel>().meterReading;
@@ -37,25 +39,26 @@ class BottomButton extends StatelessWidget {
       height: 50,
       color: Theme.of(context).secondaryHeaderColor,
       disabledColor: Colors.grey,
-      onPressed: () async {
-        if (flat!.currentMeterReading == null) {
-          AppWidget.showElectricityUnitDialog(context: context);
-        }
-        if (homeId != null && flat.currentMeterReading != null) {
-          print(flat.flatRentAmount);
-          print(flat.flatGasBill);
-          print(flat.flatWaterBill);
-          print(context.read<BillsProvider>().electricBill);
-
-          // Response res = await RecordService().createMonthlyRecord(
-          //   homeId: homeId,
-          //   flat: flat,
-          //   issueDate: issueDate,
-          //   meterReading: flat.currentMeterReading!,
-          // );
-          // print(res.code); //todo: fix lagging
-        }
-      },
+      onPressed: flat!.renter != null
+          ? () async {
+              Response res;
+              if (flat.currentMeterReading == null) {
+                AppWidget.showElectricityUnitDialog(context: context);
+              }
+              if (homeId != null && flat.currentMeterReading != null) {
+                if (context.read<BillsProvider>().totalBill != null) {
+                  res = await RecordService().createMonthlyRecord(
+                    homeId: homeId,
+                    flat: flat,
+                    issueDate: issueDate,
+                    meterReading: flat.currentMeterReading!,
+                    renterPayable: context.read<BillsProvider>().totalBill!,
+                  );
+                  if (res.code == 200) {}
+                }
+              }
+            }
+          : null,
       child: Text(
         text,
         style: Theme.of(context).textTheme.headline6,

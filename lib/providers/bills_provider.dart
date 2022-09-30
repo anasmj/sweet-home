@@ -12,7 +12,7 @@ class BillsProvider extends ChangeNotifier {
 
   BillsProvider({required this.flatProvider}) {
     _previousReading = flatProvider!.selectedFlat?.previousMeterReading ?? 0;
-    _currentReading = flatProvider!.selectedFlat?.currentMeterReading ?? 0;
+    _currentReading = flatProvider!.selectedFlat?.currentMeterReading;
   }
   final double CONST_FACTOR = 0.6;
 
@@ -21,6 +21,11 @@ class BillsProvider extends ChangeNotifier {
   double? get currentReading => _currentReading;
   double get usedUnit => _usedUnit;
   Flat? get flat => flatProvider!.selectedFlat;
+
+  set setCurrentReading(double reading) {
+    _currentReading = reading;
+    notifyListeners();
+  }
 
   double? get totalBill =>
       flat!.flatRentAmount +

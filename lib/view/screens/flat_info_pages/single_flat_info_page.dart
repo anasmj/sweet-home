@@ -17,7 +17,7 @@ class SingleFlatInfo extends StatelessWidget {
             length: 2,
             child: Scaffold(
               appBar: AppBar(
-                title: Text(flat.flatName),
+                title: Text('ফ্ল্যাটঃ ${flat.flatName}'),
                 centerTitle: true,
                 elevation: 0.0,
                 bottom: TabBar(

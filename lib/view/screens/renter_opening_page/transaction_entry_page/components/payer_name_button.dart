@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/transaction_provider.dart';
 import 'package:sweet_home/view/screens/renter_opening_page/transaction_entry_page/components/payer_name_taker.dart';
 
 import '../../../../../models/flat_model.dart';
@@ -11,6 +12,8 @@ class PayerNameButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Flat? currentFlat = Provider.of<SelectedFlatProvider>(context).selectedFlat;
+    // context.read<TransactionProvider>().payerController.text =
+    //     currentFlat!.renter!.renterName;
     return TextButton(
       onPressed: () async {
         showNamePicker(context: context);
@@ -20,7 +23,7 @@ class PayerNameButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            currentFlat!.renter!.renterName,
+            context.read<TransactionProvider>().payerName,
             style: const TextStyle(fontSize: 18),
           ),
           const SizedBox(

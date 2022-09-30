@@ -1,53 +1,83 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_home/models/renter.dart';
+import 'package:sweet_home/providers/current_home.dart';
+import 'package:sweet_home/providers/flat_info_provider.dart';
+import 'package:sweet_home/services/transaction_service.dart';
 import 'package:sweet_home/utils/custom_date_time_formatter.dart';
 import 'package:sweet_home/utils/transaction_helper.dart';
 
+import '../../../../models/renter_transaction.dart';
 import '../../../../models/transaction_model.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 
 // ignore: must_be_immutable
-class TransactionListPage extends StatelessWidget {
-  TransactionListPage({required this.renter, super.key});
 
-  //TODO: make grouped by year
-  Renter renter;
+// ignore: must_be_immutable
+class TransactionList extends StatelessWidget {
+  const TransactionList({super.key});
+
   @override
   Widget build(BuildContext context) {
-    List<Transaction> transactionList =
-        TransactionHelper(renter: renter).listOfAllTransactions();
+    String homeId = context.read<CurrentHomeProvider>().currentHome!.homeId;
+    String flatId = context.read<SelectedFlatProvider>().selectedFlat!.flatName;
+    print(flatId);
+    // return shwoNoTransaction();
+    List<RenterTransaction?> transactions;
+    return FutureBuilder<List<RenterTransaction?>>(
+        future: TransactionService()
+            .readAllTransactionB(homeId: homeId, flatId: flatId),
+        builder: (BuildContext context,
+            AsyncSnapshot<List<RenterTransaction?>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.data != null) {
+              transactions = snapshot.data!;
+              if (transactions.length <= 1) {
+                return shwoNoTransaction();
+              }
+              return showTransactionList(transactions);
+            }
+          }
+          return const Center(child: CircularProgressIndicator());
+        });
+  }
 
-    return transactionList.isNotEmpty
-        ? ListView.builder(
-            itemCount: transactionList.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10),
-                child: TransactionCard(
-                  transaction: transactionList[index],
-                ),
-              );
-            },
-          )
-        : Center(
-            child: Text(
-              'দুঃক্ষিত!\nগ্রাহকের কোনও লেনদেন নেই',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          );
+  Center shwoNoTransaction() {
+    return const Center(
+      child: Text(
+        'কোনও লেনদেন পাওয়া যায়নি',
+        style: TextStyle(fontSize: 18),
+      ),
+    );
   }
 }
 
-// ignore: must_be_immutable
+Widget showTransactionList(List<RenterTransaction?> transactions) {
+  late RenterTransaction renterTransaction;
+  return ListView.builder(
+    itemCount: transactions.length,
+    itemBuilder: (context, index) {
+      if (transactions[index] != null) {
+        renterTransaction = transactions[index]!;
+      }
+      return transactions[index] == null
+          ? const SizedBox()
+          : Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: TransactionCard(renterTransaction: renterTransaction),
+            );
+    },
+  );
+}
+
 class TransactionCard extends StatelessWidget {
   TransactionCard({
-    required this.transaction,
+    required this.renterTransaction,
     Key? key,
   }) : super(key: key);
-  Transaction transaction;
+  RenterTransaction renterTransaction;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -55,53 +85,48 @@ class TransactionCard extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         ListTile(
-          style: ListTileStyle.drawer,
-          tileColor: Theme.of(context).secondaryHeaderColor.withOpacity(0.5),
+            style: ListTileStyle.drawer,
+            tileColor: Theme.of(context).secondaryHeaderColor.withOpacity(0.5),
 
-          //PROFILE CIRCLE VATER
-          leading: CircleAvatar(
-            radius: 22,
-            child: transaction.transactionBy != null
-                ? Text(transaction.transactionBy!.substring(0, 2))
-                : const Text(''),
-          ),
+            //PROFILE CIRCLE VATER
+            leading: CircleAvatar(
+              radius: 22,
+              child: Text(renterTransaction.paidBy.substring(0, 2)),
+            ),
 
-          //TRANSACTION AMOUNT
-          title: RichText(
-            text: TextSpan(
-              style: Theme.of(context).textTheme.headline6!.copyWith(
-                    color: Colors.green[900],
-                  ),
-              children: [
-                const TextSpan(text: '+'),
-                WidgetSpan(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 4.0, vertical: 2),
-                    child: Image(
-                      height: 20,
+            //TRANSACTION AMOUNT
+            title: RichText(
+              text: TextSpan(
+                style: Theme.of(context).textTheme.headline6!.copyWith(
                       color: Colors.green[900],
-                      image: AssetImage(AppIcons.takaUrl),
+                    ),
+                children: [
+                  // const TextSpan(text: '+'),
+                  WidgetSpan(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 4.0, vertical: 2),
+                      child: Image(
+                        height: 20,
+                        color: Colors.green[900],
+                        image: AssetImage(AppIcons.takaUrl),
+                      ),
                     ),
                   ),
-                ),
-                TextSpan(
-                  text: transaction.takenAmount.toStringAsFixed(1),
-                ),
-              ],
+                  TextSpan(
+                    text: renterTransaction.amount.toStringAsFixed(1),
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          //TRAILING: TRANSACTION BY
-          subtitle: transaction.transactionBy != null
-              ? Text('${transaction.transactionBy} এর মাধ্যমে')
-              : const Text(''),
+            //TRAILING: TRANSACTION BY
+            subtitle: Text(' ${renterTransaction.paidBy} এর মাধ্যমে'),
 
-          //DUE
-          trailing: transaction.due == 0
-              ? checkMark()
-              : DueWidget(transaction: transaction),
-        ),
+            //DUE
+            trailing: checkMark()
+            //DueWidget(transaction: transaction),
+            ),
 
         //TIME STAMP
         Positioned(
@@ -114,7 +139,7 @@ class TransactionCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4),
               child: Text(
-                  CustomFormatter().transactionTime(transaction.timeStamp)),
+                  CustomFormatter().transactionTime(renterTransaction.time)),
             ),
           ),
         ),
@@ -140,7 +165,7 @@ class DueWidget extends StatelessWidget {
     required this.transaction,
   }) : super(key: key);
 
-  final Transaction transaction;
+  final TransactionPrev transaction;
   final Color? red = Colors.red[900];
   final Color? green = Colors.green[900];
   final String plus = '+';

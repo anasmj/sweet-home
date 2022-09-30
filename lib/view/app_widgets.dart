@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/bills_provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/services/flat_services.dart';
@@ -8,6 +9,7 @@ import 'package:sweet_home/services/record_services.dart';
 import 'package:sweet_home/view_models/renter_opening_page_view_model.dart';
 
 import '../models/flat_model.dart';
+import '../models/response.dart';
 import '../providers/monthly_record_provider.dart';
 
 class AppWidget {
@@ -182,16 +184,22 @@ class AppWidget {
                 'ঠিক আছে',
                 style: TextStyle(fontSize: 16),
               ),
-              onPressed: () {
+              onPressed: () async {
                 if (formKey.currentState!.validate()) {
                   providerRead.setMeterReading =
                       double.parse(unitController.text);
-                  FlatService().updateFlat(
+                  Response res = await FlatService().updateFlat(
                     homeId: homeId,
                     flatName: flat!.flatName,
                     fieldName: 'currentMeterReading',
                     newValue: providerRead.meterReading,
                   );
+                  if (res.code == 200) {
+                    // ignore: use_build_context_synchronously
+                    context.read<BillsProvider>().setCurrentReading =
+                        providerRead.meterReading ?? 0;
+                  }
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
                 }
               },

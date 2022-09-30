@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/profile.dart';
 import '../../../../providers/theme_provider.dart';
 import '../../current_month_page/components/monthly_summary_card.dart';
 import '../../current_month_page/components/summary_container.dart';
@@ -16,7 +17,7 @@ class CustomSliverAppbarDelegate extends SliverPersistentHeaderDelegate {
 
   appear(double shrinkOffset) => shrinkOffset / expandedHeight;
   dissapear(double shrinkOffset) => (1 - (shrinkOffset / expandedHeight));
-
+  bool showWithData = Profile.userName == 'Tanzid';
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -69,19 +70,19 @@ class CustomSliverAppbarDelegate extends SliverPersistentHeaderDelegate {
               summaryColor: mode.isDarkMode
                   ? Colors.green.shade300
                   : Colors.green.shade400,
-              num: 5,
+              num: showWithData ? 5 : 0,
             ),
             SummaryContainer(
                 txt: 'আংশিক',
                 summaryColor: mode.isDarkMode
                     ? Colors.yellow.shade300
                     : Colors.yellow.shade400,
-                num: 1),
+                num: showWithData ? 5 : 0),
             SummaryContainer(
               txt: 'বাকি',
               summaryColor:
                   mode.isDarkMode ? Colors.red.shade300 : Colors.red.shade400,
-              num: 1,
+              num: showWithData ? 5 : 0,
             ),
           ],
         ),

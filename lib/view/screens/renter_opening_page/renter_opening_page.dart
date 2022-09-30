@@ -5,6 +5,8 @@ import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/view/screens/empty_pages/empty_tarnsaction.dart';
 import 'package:sweet_home/view/app_widgets.dart';
 import 'package:sweet_home/view/screens/flat_info_pages/single_flat_info_page.dart';
+import 'package:sweet_home/view/screens/renter_opening_page/transactoin_list_page/transaction_list_page%20copy.dart';
+import 'package:sweet_home/view/screens/renter_opening_page/transactoin_list_page/transaction_list_page.dart';
 import '../../../models/flat_model.dart';
 import 'package:sweet_home/view/resources/app_icons.dart';
 import '../profile_pages/renter_profile_page.dart';
@@ -21,8 +23,8 @@ class RenterOpeningPage extends StatelessWidget {
   final TextStyle _tabBarTextStyle = const TextStyle(fontSize: 18);
 
   List<String> menuTitles = [
-    'গ্রাহকের প্রোফাইল',
     'ফ্ল্যাটের তথ্যাবলী',
+    'গ্রাহকের প্রোফাইল',
     'তাগাদা দিন'
   ];
 
@@ -65,8 +67,8 @@ class RenterOpeningPage extends StatelessWidget {
             // const Center(child: Text('Monthly Expence')),
             const MonthlyExpencePage(),
             const EntryPage(),
-            // TransactionListPage(renter: renter),
-            EmptyContent.getEmptyTransactionPage(),
+            TransactionList(),
+            // EmptyContent.getEmptyTransactionPage(),
           ],
         ),
       ),

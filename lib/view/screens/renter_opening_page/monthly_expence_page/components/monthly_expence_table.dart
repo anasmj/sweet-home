@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/bills_provider.dart';
 import 'package:sweet_home/providers/monthly_record_provider.dart';
-import 'package:sweet_home/view/screens/renter_opening_page/components/bottom_button.dart';
+import 'package:sweet_home/view/screens/renter_opening_page/components/confirm_calculation_button.dart';
 import 'package:sweet_home/view/screens/renter_opening_page/monthly_expence_page/components/electricity_table.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
 import 'package:sweet_home/view/app_widgets.dart';
@@ -183,7 +183,9 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
-                child: Center(child: BottomButton(text: 'হিসাবটি নিশ্চিত করি')),
+                child: Center(
+                    child:
+                        ConfirmCalculationButton(text: 'হিসাবটি নিশ্চিত করি')),
               ),
               const SizedBox(
                 height: 70,

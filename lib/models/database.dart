@@ -33,10 +33,10 @@ List<Flat> databaseFlatList = [
               readingOfElecctricMeter: 7458.00, //random electricity unit
 
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-04-03 20:18:04Z"),
                   takenAmount: 8000.00,
-                  transactionBy: 'আশরাফুল আলম',
+                  transactionPrevBy: 'আশরাফুল আলম',
                   isAdvance: true,
                   due: 0,
                 ),
@@ -46,9 +46,9 @@ List<Flat> databaseFlatList = [
               monthNmae: 'May',
               readingOfElecctricMeter: 7338.39, //first month usage is zero
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-05-07 20:18:04Z"),
-                  transactionBy: 'আশরাফুল আলম',
+                  transactionPrevBy: 'আশরাফুল আলম',
                   takenAmount: 8450.00,
                   due: -230,
                 ),
@@ -58,9 +58,9 @@ List<Flat> databaseFlatList = [
               monthNmae: 'Jun',
               readingOfElecctricMeter: 7450.00,
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-06-06 20:18:04Z"),
-                  transactionBy: 'আশরাফুল আলম',
+                  transactionPrevBy: 'আশরাফুল আলম',
                   takenAmount: 8760.00,
                   due: 12,
                 ),
@@ -90,7 +90,7 @@ List<Flat> databaseFlatList = [
               monthNmae: 'Nov',
               readingOfElecctricMeter: 7458.00, //random electricity unit
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-11-05"),
                   takenAmount: 16000.00,
                   isAdvance: true,
@@ -101,7 +101,7 @@ List<Flat> databaseFlatList = [
               monthNmae: 'Dec',
               readingOfElecctricMeter: 7338.39,
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-12-10"),
                   takenAmount: 8450.00,
                 ),
@@ -118,7 +118,7 @@ List<Flat> databaseFlatList = [
               monthNmae: 'Jan',
               readingOfElecctricMeter: 7450.00,
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-10-04"),
                   takenAmount: 8760.00,
                 ),
@@ -128,7 +128,7 @@ List<Flat> databaseFlatList = [
               monthNmae: 'Feb',
               readingOfElecctricMeter: 7450.00,
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-10-04"),
                   takenAmount: 8760.00,
                 ),
@@ -138,7 +138,7 @@ List<Flat> databaseFlatList = [
               monthNmae: 'Mar',
               readingOfElecctricMeter: 8450.00,
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-10-04"),
                   takenAmount: 8760.00,
                 ),
@@ -169,7 +169,7 @@ List<Flat> databaseFlatList = [
               monthNmae: 'Aug',
               readingOfElecctricMeter: 7458.00, //random electricity unit
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-08-05"),
                   takenAmount: 16000.00,
                   isAdvance: true,
@@ -180,7 +180,7 @@ List<Flat> databaseFlatList = [
               monthNmae: 'Sep',
               readingOfElecctricMeter: 7338.39,
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-09-10"),
                   takenAmount: 8450.00,
                 ),
@@ -190,7 +190,7 @@ List<Flat> databaseFlatList = [
               monthNmae: 'Oct',
               readingOfElecctricMeter: 7450.00,
               transactions: [
-                Transaction(
+                TransactionPrev(
                   timeStamp: DateTime.parse("2022-10-02"),
                   takenAmount: 8760.00,
                 ),

@@ -13,7 +13,7 @@ class MonthDetails {
   double? gasbill;
   double? myWaterBill;
   List<OthersExpence>? myOthersExpences;
-  List<Transaction>? transactions = [];
+  List<TransactionPrev>? transactions = [];
 
   MonthDetails({
     required this.monthNmae,

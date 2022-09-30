@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/flat_services.dart';
+import 'package:sweet_home/view/resources/image_urls.dart';
 import 'package:sweet_home/view_models/renter_opening_page_view_model.dart';
 import '../../../models/flat_model.dart';
 import '../../../models/home_model.dart';
@@ -176,6 +177,19 @@ class HomeFlatsPage extends StatelessWidget {
     bool isDark = Provider.of<ThemeProvider>(context).isDarkMode;
     RenterOpeningViewModel viewModel =
         Provider.of<RenterOpeningViewModel>(context, listen: false);
+    String profileImageUrl = '';
+    // dynamic imageProvider;
+
+    try {
+      profileImageUrl = ImageUrl.imageList[index];
+      // imageProvider = flat.renter != null
+      //     ? NetworkImage(profileImageUrl)
+      //     : AssetImage(
+      //         AppIcons.defaultProfileUrl,
+      //       );
+    } catch (e) {
+      //do nothing
+    }
 
     return Stack(
       clipBehavior: Clip.none,
@@ -218,11 +232,18 @@ class HomeFlatsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          width: 45,
+                        Text(
+                          flat.flatName,
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        rentAmountText(flat, appTextTheme, isDark),
+                        // const SizedBox(
+                        //   width: 45,
+                        // ),
+
+                        // rentAmountText(flat, appTextTheme, isDark),
                       ],
                     ),
                     flat.renter == null
@@ -234,7 +255,21 @@ class HomeFlatsPage extends StatelessWidget {
                                   child: noMeterReadingIndicator(),
                                 ),
                               )
-                            : const SizedBox(),
+                            // ignore: prefer_const_constructors
+                            : flat.flatName == '2A'
+                                ? const CircleAvatar(
+                                    backgroundColor: Colors.green,
+                                    child: Icon(Icons.check))
+                                : flat.flatName == '1A'
+                                    ? CircleAvatar(
+                                        backgroundColor:
+                                            Colors.orange.withOpacity(0.8),
+                                        child: const Icon(
+                                          Icons.more_horiz_rounded,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : const SizedBox(),
 
                     // flat.previousMeterReading != null
                     //     ? personAddIcon(isDark)
@@ -276,18 +311,23 @@ class HomeFlatsPage extends StatelessWidget {
           child: CircleAvatar(
             backgroundColor:
                 isDark ? Colors.grey.shade900 : Colors.blue.shade200,
-            radius: 22,
-            child: CircleAvatar(
-              backgroundColor: Theme.of(context).secondaryHeaderColor,
-              radius: 20,
-              child: Text(
-                flat.flatName,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2!
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-            ),
+            radius: 24,
+            child: flat.renter != null
+                ? CircleAvatar(
+                    backgroundColor: Theme.of(context).secondaryHeaderColor,
+                    radius: 20,
+                    backgroundImage: NetworkImage(
+                        flat.renter != null ? profileImageUrl : ''),
+                  )
+                : CircleAvatar(
+                    backgroundColor: Theme.of(context).secondaryHeaderColor,
+                    radius: 20,
+                    child: Image.asset(
+                      AppIcons.defaultProfileUrl,
+                      height: 20,
+                      width: 22,
+                      fit: BoxFit.cover,
+                    )),
           ),
         ),
       ],

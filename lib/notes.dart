@@ -1,0 +1,1 @@
+//todo: need to clear advance amount after adding a renter 

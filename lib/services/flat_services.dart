@@ -85,7 +85,7 @@ class FlatService {
       required dynamic newValue}) async {
     CollectionReference flatCollecntionRef =
         await getFlatsCollectionRef(homeId: homeId);
-    flatCollecntionRef
+    await flatCollecntionRef
         .doc(flatName)
         .update({fieldName: newValue}).whenComplete(() {
       response.code = 200;

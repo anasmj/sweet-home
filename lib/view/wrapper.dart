@@ -27,7 +27,9 @@ class Wrapper extends StatelessWidget {
         } else {
           //trying to fetch data
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            body: Center(
+                child: SizedBox(
+                    height: 20, width: 20, child: CircularProgressIndicator())),
           );
         }
       },

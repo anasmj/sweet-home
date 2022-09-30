@@ -25,7 +25,7 @@ class AuthService {
     return _auth.userChanges().map(toAppUserModel);
     // return _auth.userChanges().map((User? user) => toAppUserModel(user));
   }
-
+  
   // CREATE NEW USER
   Future<Response> registerWithEmailAndPass({
     required String email,

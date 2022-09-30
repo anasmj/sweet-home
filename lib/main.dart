@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/providers/bills_provider.dart';
 import 'package:sweet_home/providers/monthly_record_provider.dart';
+import 'package:sweet_home/providers/transaction_provider.dart';
 import 'package:sweet_home/utils/shared_pref.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/home_stepper_provider.dart';
@@ -46,6 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => HomeStepperProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TransactionProvider(),
         ),
 
         ChangeNotifierProxyProvider<SelectedFlatProvider, BillsProvider>(

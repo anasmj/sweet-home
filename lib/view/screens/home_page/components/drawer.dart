@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:sweet_home/models/renter_transaction.dart';
 import 'package:sweet_home/providers/bills_provider.dart';
 import 'package:sweet_home/providers/current_home.dart';
 import 'package:sweet_home/providers/flat_info_provider.dart';
@@ -10,6 +11,7 @@ import 'package:sweet_home/providers/theme_provider.dart';
 import 'package:sweet_home/services/auth_service.dart';
 import 'package:sweet_home/services/flat_services.dart';
 import 'package:sweet_home/services/record_services.dart';
+import 'package:sweet_home/services/transaction_service.dart';
 import 'package:sweet_home/utils/custom_date_time_formatter.dart';
 import 'package:sweet_home/view_models/renter_opening_page_view_model.dart';
 import '../../../../models/flat_model.dart';
@@ -92,14 +94,18 @@ class AppDrawer extends StatelessWidget {
               style: drawerTextStyle,
             ),
           ),
-          ListTile(
-            onTap: () async {},
-            leading: const Icon(Icons.edit),
-            title: Text(
-              'test',
-              style: drawerTextStyle,
-            ),
-          ),
+          // ListTile(
+          //   onTap: () async {
+          //     List<RenterTransaction?> list = await TransactionService()
+          //         .readAllTransactionB(homeId: home!.homeId, flatId: '1A');
+          //     print(list.length);
+          //   },
+          //   leading: const Icon(Icons.edit),
+          //   title: Text(
+          //     'test',
+          //     style: drawerTextStyle,
+          //   ),
+          // ),
           const Spacer(),
           ListTile(
             onTap: () {

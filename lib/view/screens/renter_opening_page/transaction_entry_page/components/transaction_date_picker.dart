@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/providers/transaction_provider.dart';
 import 'package:sweet_home/utils/custom_date_time_formatter.dart';
 
 import '../../../../../providers/newrenter_step_provider.dart';
@@ -11,8 +12,9 @@ class TransactionDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<NewRenterStepProvider>();
-    String date = CustomFormatter().buttonFormat(provider.entryDate);
+    final provider = context.read<TransactionProvider>();
+    String buttonDate =
+        CustomFormatter().buttonFormat(provider.transactionDateTime);
 
     return OutlinedButton(
       onPressed: () async {
@@ -22,7 +24,7 @@ class TransactionDatePicker extends StatelessWidget {
             firstDate: DateTime(2000),
             lastDate: DateTime(3000));
         if (selectedDate == null) return;
-        // provider.setEntryDate = selectedDate;
+        provider.transactionDateTime = selectedDate;
       },
       // child: Text(provider.entryDate.toIso8601String()),
       child: Row(
@@ -30,7 +32,7 @@ class TransactionDatePicker extends StatelessWidget {
         children: [
           const Icon(Icons.calendar_month_outlined),
           const SizedBox(width: 8),
-          Text(date),
+          Text(buttonDate),
         ],
       ),
     );

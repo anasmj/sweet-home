@@ -26,11 +26,11 @@ class BottomBanner extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'বুঝে পেয়েছি 40349',
+            'বুঝে পেয়েছি ৳ 2355 ',
             style: Theme.of(context).textTheme.subtitle1,
           ),
           Text(
-            '23 Aug \'22d',
+            '23 Aug \'22',
             style: Theme.of(context).textTheme.labelMedium,
           ),
         ],

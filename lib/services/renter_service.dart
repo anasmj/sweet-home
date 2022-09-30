@@ -75,7 +75,7 @@ class RenterService {
       {required String homeId, required String flatId}) async {
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
-    flatsCollectionRef
+    await flatsCollectionRef
         .doc(flatId)
         .update({'renter': FieldValue.delete()}).whenComplete(() {
       response.code = 200;
