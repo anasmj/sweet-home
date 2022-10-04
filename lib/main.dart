@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/providers/bills_provider.dart';
-import 'package:sweet_home/providers/monthly_record_provider.dart';
-import 'package:sweet_home/providers/transaction_provider.dart';
-import 'package:sweet_home/utils/shared_pref.dart';
-import 'package:sweet_home/providers/current_home.dart';
-import 'package:sweet_home/providers/home_stepper_provider.dart';
-import 'package:sweet_home/providers/newrenter_step_provider.dart';
-import 'package:sweet_home/providers/theme_provider.dart';
-import 'package:sweet_home/services/auth_service.dart';
-import 'package:sweet_home/view/dismiss_keyboard.dart';
-import 'package:sweet_home/providers/flat_info_provider.dart';
-import 'package:sweet_home/providers/home_provider.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sweet_home/view/resources/app_theme.dart';
-import 'package:sweet_home/view/wrapper.dart';
-import 'package:sweet_home/view_models/flat_list_viewmodel.dart';
-import 'package:sweet_home/view_models/renter_opening_page_view_model.dart';
+import 'package:sweet_home/prev/models/home_model.dart';
+import 'package:sweet_home/prev/providers/bills_provider.dart';
+import 'package:sweet_home/mvvm/providers/current_home.dart';
+import 'package:sweet_home/prev/providers/flat_info_provider.dart';
+import 'package:sweet_home/prev/providers/home_stepper_provider.dart';
+import 'package:sweet_home/prev/providers/newrenter_step_provider.dart';
+import 'package:sweet_home/prev/providers/theme_provider.dart';
+import 'package:sweet_home/prev/providers/transaction_provider.dart';
+import 'package:sweet_home/prev/services/auth_service.dart';
+import 'package:sweet_home/prev/utils/shared_pref.dart';
+import 'package:sweet_home/prev/view/dismiss_keyboard.dart';
+import 'package:sweet_home/prev/view/resources/app_theme.dart';
+import 'package:sweet_home/wrapper.dart';
+import 'package:sweet_home/prev/view_models/flat_list_viewmodel.dart';
+import 'package:sweet_home/prev/view_models/renter_opening_page_view_model.dart';
+
+import 'mvvm/view_models/flat_list_view_model.dart';
+import 'mvvm/views/init_home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,14 +63,17 @@ class MyApp extends StatelessWidget {
               flatProvider:
                   Provider.of<SelectedFlatProvider>(context, listen: false)),
         ),
+
         ChangeNotifierProvider(
           create: (context) => CurrentHomeProvider(),
         ),
-        // ChangeNotifierProxyProvider<CurrentHomeProvider, FlatListViweModel>(
-        //   create: (BuildContext context) => FlatListViweModel(),
-        //   update: (BuildContext context, currentHome, viewModel) =>
-        //       FlatListViweModel(),
-        // ),
+        //*it works
+        ChangeNotifierProxyProvider<CurrentHomeProvider, FlatListViewModel>(
+            update: (context, currentHomeProvider,
+                    FlatListViewModel? viewModel) =>
+                FlatListViewModel(currentHome: currentHomeProvider.currentHome),
+            create: ((context) => FlatListViewModel())),
+
         ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatProvider,
             RenterOpeningViewModel>(
           update: (context, currentHome, currentFlat, prevRenterOpeningVM) =>
@@ -84,9 +90,10 @@ class MyApp extends StatelessWidget {
         //   create: (context) => RenterOpeningViewModel(null),
         // ),
 
-        ChangeNotifierProvider(
-          create: (context) => FlatListViweModel(),
-        ),
+        //* delete after confirm
+        // ChangeNotifierProvider(
+        //   create: (context) => FlatListViweModel(),
+        // ),
         ListenableProvider(
           create: (context) => ThemeProvider(),
         ),
