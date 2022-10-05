@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:sweet_home/prev/models/renter_transaction.dart';
-import '../../../../prev/models/flat_model.dart';
-import '../../../../prev/models/home_model.dart';
+import '../../../models/flat_model.dart';
+import '../../../models/home_model.dart';
 import '../../../../prev/models/response.dart';
 import '../../../repositories/home_services.dart';
 
@@ -157,7 +157,7 @@ class AppDrawer extends StatelessWidget {
               watchProvider.currentHome != null
                   ? watchProvider.currentHome!.homeName
                   : '',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           // const Spacer(),

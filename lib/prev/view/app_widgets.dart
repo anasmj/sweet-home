@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
-import '../models/flat_model.dart';
+import '../../mvvm/models/flat_model.dart';
 import '../models/response.dart';
 import '../providers/bills_provider.dart';
 import '../../mvvm/providers/current_home.dart';

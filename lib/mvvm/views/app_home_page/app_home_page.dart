@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/views/app_home_page/sub_pages/current_month_page/current_month_page.dart';
-import 'package:sweet_home/mvvm/views/app_home_page/sub_pages/flats_page/flats.dart';
+import 'package:sweet_home/mvvm/views/app_home_page/sub_pages/current_month/current_month.dart';
+import 'package:sweet_home/mvvm/views/app_home_page/sub_pages/flats/all_flat.dart';
 import '../../providers/current_home.dart';
-import 'sub_pages/flats_page/home_flats.dart';
-import 'sub_pages/pending_page/pending_page.dart';
+import 'sub_pages/flats/home_flats.dart';
+import 'sub_pages/pendings/pending.dart';
 
 import 'components/drawer.dart';
 
@@ -18,10 +18,11 @@ class AppHomePage extends StatefulWidget {
 }
 
 class _AppHomePage extends State<AppHomePage> {
-  int _defaultTabIndex = 0;
+  int _defaultTabIndex = 1;
+  SelectedPage selectedPage = SelectedPage.flats;
+
   final double _appBarHeight = 280;
   bool isInitialState = false;
-  SelectedPage selectedPage = SelectedPage.currentMonth;
 
   //! SETS THE FIRST HOME AS CURRENT HOME IF NO HOME IS SELECTED PREVIOUSLY
   @override
@@ -69,7 +70,7 @@ class _AppHomePage extends State<AppHomePage> {
       return CurrentMonth(appBarHeight: _appBarHeight);
     }
     if (selectedPage == SelectedPage.flats) {
-      return const FlatsPage();
+      return AllFlat();
       // return context.watch<FlatListViweModel>().getWidget(context);
     }
     if (selectedPage == SelectedPage.pendings) return PendingPage();

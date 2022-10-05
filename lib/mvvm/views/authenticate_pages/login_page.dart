@@ -1,40 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sweet_home/prev/models/response.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/providers/current_home.dart';
 
-import '../../services/auth_service.dart';
-import '../app_widgets.dart';
-import '../resources/app_icons.dart';
+import '../../../prev/models/response.dart';
+import '../../../prev/services/auth_service.dart';
+import '../../../prev/view/app_widgets.dart';
+import '../../../prev/view/resources/app_icons.dart';
 import 'components/custom_textfield.dart';
 
-class RegistrationPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   final Function toggleView;
-
-  const RegistrationPage({Key? key, required this.toggleView})
-      : super(key: key);
+  const LoginPage({required this.toggleView, key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => RegisterScreenState();
+  SignInPageState createState() => SignInPageState();
 }
 
-class RegisterScreenState extends State<RegistrationPage> {
-  final _formKey = GlobalKey<FormState>();
-  String errorMsg = '';
+class SignInPageState extends State<LoginPage> {
+  final _signInFormKey = GlobalKey<FormState>();
+  // final String _email = '';
+  // final String _password = '';
 
   bool _isLoading = false;
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
+  final TextEditingController _signInEmailController = TextEditingController();
+  final TextEditingController _signInPassController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    String? emailValidator(String? val) {
+      return val!.isEmpty ? 'ইমেইল দেওয়া হয়নি' : null;
+    }
+
+    String? passwordValidator(String? val) {
+      return val != null
+          ? val.length < 6
+              ? 'পাসওয়ার্ড অন্তত ৬ অক্ষরের দিন'
+              : null
+          : null;
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: _isLoading
           ? Center(
               child: Lottie.asset(
                 AppIcons.tranparentLoad,
-                height: 150,
+                height: 80,
                 repeat: true,
               ),
             )
@@ -42,7 +54,7 @@ class RegisterScreenState extends State<RegistrationPage> {
               padding:
                   const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
               child: Form(
-                key: _formKey,
+                key: _signInFormKey,
                 child: ListView(
                   children: [
                     const SizedBox(
@@ -57,17 +69,8 @@ class RegisterScreenState extends State<RegistrationPage> {
                       height: 30,
                     ),
                     CustomTextField(
-                      label: 'নাম',
-                      textEditingController: _nameController,
-                      validationFunciton: nameValidator,
-                      inputType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    CustomTextField(
                       label: 'ইমেইল',
-                      textEditingController: _emailController,
+                      textEditingController: _signInEmailController,
                       validationFunciton: emailValidator,
                       inputType: TextInputType.emailAddress,
                     ),
@@ -75,17 +78,13 @@ class RegisterScreenState extends State<RegistrationPage> {
                       height: 20,
                     ),
                     CustomTextField(
-                      textEditingController: _passController,
+                      textEditingController: _signInPassController,
                       label: 'পাসওয়ার্ড',
                       validationFunciton: passwordValidator,
                       inputType: TextInputType.visiblePassword,
                     ),
                     const SizedBox(
                       height: 5,
-                    ),
-                    Text(
-                      errorMsg,
-                      style: const TextStyle(fontSize: 14, color: Colors.red),
                     ),
                     const SizedBox(
                       height: 100,
@@ -96,31 +95,31 @@ class RegisterScreenState extends State<RegistrationPage> {
                         borderRadius: BorderRadius.circular(30),
                         child: ElevatedButton(
                           onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
+                            if (_signInFormKey.currentState!.validate()) {
                               setState(() {
                                 _isLoading = true;
                               });
-                              Response response =
-                                  await AuthService().registerWithEmailAndPass(
-                                email: _emailController.text,
-                                password: _passController.text,
-                                userName: _nameController.text,
-                              );
+                              Response response = await AuthService()
+                                  .signInWithEmailAndPass(
+                                      _signInEmailController.text,
+                                      _signInPassController.text);
                               if (response.code != 200) {
                                 // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   AppWidget.snackBarContent(
                                       msg: response.body ??
-                                          'Unknown error occured '),
+                                          'Unknown error occured'),
                                 );
                               }
+                              configureUserHome();
                             }
+                            //todo: fix
                             setState(() {
                               _isLoading = false;
                             });
                           },
                           child: const Text(
-                            'রেজিস্ট্রেশন',
+                            'লগ ইন করুন',
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
@@ -129,7 +128,28 @@ class RegisterScreenState extends State<RegistrationPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    loginButton(),
+                    const Center(child: Text('কোনও একাউন্ট নেই? ')),
+                    SizedBox(
+                      height: 50,
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          side: const BorderSide(
+                            color: Colors.blue,
+                            width: 2,
+                          ),
+                        ),
+                        onPressed: () {
+                          widget.toggleView();
+                        },
+                        child: const Text(
+                          'একাউন্ট খুলুন',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -137,46 +157,8 @@ class RegisterScreenState extends State<RegistrationPage> {
     );
   }
 
-  Row loginButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          'একাউন্ট আছে?',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        TextButton(
-          onPressed: () {
-            widget.toggleView();
-          },
-          child: const Text(
-            'লগ ইন',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ],
-    );
-  }
-
-  String? emailValidator(String? val) {
-    return val!.isEmpty ? 'ইমেইল দেওয়া হয়নি' : null;
-  }
-
-  String? nameValidator(String? val) {
-    // TODO: more logc neededed
-
-    return val!.isEmpty ? 'নাম দেওয়া হয়নি' : null;
-    //more logic
-  }
-
-  String? passwordValidator(String? val) {
-    return val != null
-        ? val.length < 6
-            ? 'পাসওয়ার্ড ৬ অক্ষরের হতে হবে'
-            : null
-        : null;
+  void configureUserHome() async {
+    await Provider.of<CurrentHomeProvider>(context, listen: false)
+        .setUserHome();
   }
 }

@@ -8,7 +8,7 @@ import '../../../utils/routes.dart';
 import '../../app_widgets.dart';
 import '../../../models/response.dart';
 import '../../../utils/compare_values.dart';
-import '../../../models/home_model.dart';
+import '../../../../mvvm/models/home_model.dart';
 import '../../resources/app_icons.dart';
 import '../flat_info_pages/all_flat_info_page.dart';
 import '../flat_info_pages/compnents/edit_textfield.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/views/app_home_page/sub_pages/current_month_page/components/monthly_data_table.dart';
+import 'package:sweet_home/mvvm/views/app_home_page/sub_pages/current_month/components/monthly_data_table.dart';
 
 import '../../../../../../prev/providers/theme_provider.dart';
 import '../../../../../../prev/utils/custom_date_time_formatter.dart';

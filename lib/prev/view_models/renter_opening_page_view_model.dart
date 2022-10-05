@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/prev/models/home_model.dart';
+import 'package:sweet_home/mvvm/models/home_model.dart';
 
-import '../models/flat_model.dart';
+import '../../mvvm/models/flat_model.dart';
 import '../../mvvm/providers/current_home.dart';
 import '../providers/flat_info_provider.dart';
 import '../services/record_services.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/home_model.dart';
+import '../../../mvvm/models/home_model.dart';
 import '../../utils/routes.dart';
 import 'home_info_page/home_info_page.dart';
 

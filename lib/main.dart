@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sweet_home/prev/models/home_model.dart';
+import 'package:sweet_home/mvvm/models/home_model.dart';
 import 'package:sweet_home/prev/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/prev/providers/flat_info_provider.dart';

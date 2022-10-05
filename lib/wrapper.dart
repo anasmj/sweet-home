@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/views/init_home.dart';
-import 'package:sweet_home/prev/models/home_model.dart';
+import 'package:sweet_home/mvvm/models/home_model.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 
 import 'mvvm/views/app_home_page/app_home_page.dart';
 import 'prev/models/app_user.dart';
 import 'prev/providers/profile.dart';
 import 'prev/services/auth_service.dart';
-import 'prev/view/authenticate_pages/authenticate.dart';
+import 'mvvm/views/authenticate_pages/authenticate.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({super.key});

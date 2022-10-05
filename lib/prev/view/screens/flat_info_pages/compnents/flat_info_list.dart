@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../models/flat_model.dart';
+import '../../../../../mvvm/models/flat_model.dart';
 import '../../../../models/response.dart';
 import '../../../../../mvvm/providers/current_home.dart';
 import '../../../../providers/flat_info_provider.dart';

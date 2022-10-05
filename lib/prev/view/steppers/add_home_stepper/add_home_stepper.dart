@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/confirmation_home_page.dart';
 import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/first_page.dart';
 import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/second_page.dart';
@@ -79,8 +80,13 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
 
                         // Successful
                         if (res.code == 200) {
+                          // ignore: use_build_context_synchronously
+                          Provider.of<CurrentHomeProvider>(context,
+                                  listen: false)
+                              .setUserHome();
                           setState(() {
                             isCompletedd = true;
+
                             // provider.clearControllers();//todo: do it from here
                           });
 

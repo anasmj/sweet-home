@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../models/flat_model.dart';
+import '../../../../../../mvvm/models/flat_model.dart';
 import '../../../../../models/renter.dart';
 import '../../../../../providers/bills_provider.dart';
 

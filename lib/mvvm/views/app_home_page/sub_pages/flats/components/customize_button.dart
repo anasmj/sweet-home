@@ -4,7 +4,7 @@
 // import 'package:sweet_home/providers/theme_provider.dart';
 
 // import 'package:sweet_home/view/resources/app_icons.dart';
-
+//!this might be needed later, now i decided to change little bit the ui
 // //THIS BUTTON LETS USER CUSTOMIZE THEIR FLAT INFORMTAION INDIVIDUALLY
 // class CustomizeButton extends StatelessWidget {
 //   const CustomizeButton({super.key});

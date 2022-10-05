@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../prev/models/flat_model.dart';
-import '../../../../../prev/models/home_model.dart';
+import '../../../../models/flat_model.dart';
+import '../../../../models/home_model.dart';
 import '../../../../providers/current_home.dart';
 import '../../../../../prev/providers/flat_info_provider.dart';
 import '../../../../../prev/providers/theme_provider.dart';
@@ -85,7 +85,7 @@ class HomeFlatsPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               children: [
-                noOfFlatText(context, flatList.length),
+                // noOfFlatText(context, flatList.length),
                 const SizedBox(width: 18),
                 Expanded(
                   child: AppWidget.appSearchBar(context: context),
@@ -131,17 +131,6 @@ class HomeFlatsPage extends StatelessWidget {
     String profileImageUrl = '';
     // dynamic imageProvider;
 
-    try {
-      profileImageUrl = ImageUrl.imageList[index];
-      // imageProvider = flat.renter != null
-      //     ? NetworkImage(profileImageUrl)
-      //     : AssetImage(
-      //         AppIcons.defaultProfileUrl,
-      //       );
-    } catch (e) {
-      //do nothing
-    }
-
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -154,8 +143,11 @@ class HomeFlatsPage extends StatelessWidget {
                 ? AppRoute.newRenterStepper(
                     context: context,
                   )
-                : Navigator.of(context).push(MaterialPageRoute(
-                    builder: ((builder) => RenterOpeningPage())));
+                : Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: ((builder) => RenterOpeningPage()),
+                    ),
+                  );
           },
           onLongPress: () {
             Provider.of<SelectedFlatProvider>(context, listen: false)
@@ -325,87 +317,88 @@ class HomeFlatsPage extends StatelessWidget {
 
   Column buildFlatOptionContent(context) {
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: 20),
-          ListTile(
-            onTap: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) {
-              return const SingleFlatInfo();
-            })),
-            leading: const Icon(
-              Icons.info_outline,
-              color: Colors.pink,
-            ),
-            title: const Text('ফ্ল্যাটের বিস্তারিত'),
-          ),
-          const ListTile(
-            leading: Icon(
-              Icons.add,
-              color: Colors.blue,
-            ),
-            title: Text('গ্রাহক যুক্ত'),
-          ),
-          const ListTile(
-            leading: Icon(
-              Icons.remove_circle_outline_rounded,
-              color: Colors.orange,
-            ),
-            title: Text('গ্রাহক মুছুন'),
-          ),
-          const ListTile(
-            leading: Icon(
-              Icons.delete_outline_outlined,
-              color: Colors.red,
-            ),
-            title: Text('ফ্ল্যাট ডিলিট'),
-          ),
-        ]);
-  }
-
-  Row rentAmountText(Flat flat, TextTheme appTextTheme, bool isDark) {
-    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image(
-          width: 16,
-          image: AssetImage(
-            AppIcons.takaUrl,
+        const SizedBox(height: 20),
+        ListTile(
+          onTap: () =>
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return const SingleFlatInfo();
+          })),
+          leading: const Icon(
+            Icons.info_outline,
+            color: Colors.pink,
           ),
-          color: isDark ? Colors.white : Colors.black,
+          title: const Text('ফ্ল্যাটের বিস্তারিত'),
         ),
-        const SizedBox(
-          width: 6,
-        ),
-        SizedBox(
-          width: 80,
-          child: Text(
-            flat.flatRentAmount.toString(),
-            overflow: TextOverflow.ellipsis,
-            softWrap: true,
-            maxLines: 1,
-            style: appTextTheme.headline6,
+        const ListTile(
+          leading: Icon(
+            Icons.add,
+            color: Colors.blue,
           ),
+          title: Text('গ্রাহক যুক্ত'),
+        ),
+        const ListTile(
+          leading: Icon(
+            Icons.remove_circle_outline_rounded,
+            color: Colors.orange,
+          ),
+          title: Text('গ্রাহক মুছুন'),
+        ),
+        const ListTile(
+          leading: Icon(
+            Icons.delete_outline_outlined,
+            color: Colors.red,
+          ),
+          title: Text('ফ্ল্যাট ডিলিট'),
         ),
       ],
     );
   }
 
-  RichText noOfFlatText(BuildContext context, numOfFlat) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: 'ফ্ল্যাট সংখ্যাঃ ',
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          TextSpan(
-            text: numOfFlat.toString(),
-            style: Theme.of(context).textTheme.headline6,
-          ),
-        ],
-      ),
-    );
-  }
+  // Row rentAmountText(Flat flat, TextTheme appTextTheme, bool isDark) {
+  //   return Row(
+  //     mainAxisSize: MainAxisSize.min,
+  //     children: [
+  //       Image(
+  //         width: 16,
+  //         image: AssetImage(
+  //           AppIcons.takaUrl,
+  //         ),
+  //         color: isDark ? Colors.white : Colors.black,
+  //       ),
+  //       const SizedBox(
+  //         width: 6,
+  //       ),
+  //       SizedBox(
+  //         width: 80,
+  //         child: Text(
+  //           flat.flatRentAmount.toString(),
+  //           overflow: TextOverflow.ellipsis,
+  //           softWrap: true,
+  //           maxLines: 1,
+  //           style: appTextTheme.headline6,
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  // RichText noOfFlatText(BuildContext context, numOfFlat) {
+  //   return RichText(
+  //     text: TextSpan(
+  //       children: [
+  //         TextSpan(
+  //           text: 'ফ্ল্যাট সংখ্যাঃ ',
+  //           style: Theme.of(context).textTheme.subtitle1,
+  //         ),
+  //         TextSpan(
+  //           text: numOfFlat.toString(),
+  //           style: Theme.of(context).textTheme.headline6,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

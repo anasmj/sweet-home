@@ -1,50 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sweet_home/prev/models/response.dart';
 
-import '../../models/response.dart';
-import '../../services/auth_service.dart';
-import '../app_widgets.dart';
-import '../resources/app_icons.dart';
+import '../../../prev/services/auth_service.dart';
+import '../../../prev/view/app_widgets.dart';
+import '../../../prev/view/resources/app_icons.dart';
 import 'components/custom_textfield.dart';
 
-class LoginPage extends StatefulWidget {
+class RegistrationPage extends StatefulWidget {
   final Function toggleView;
-  const LoginPage({required this.toggleView, key}) : super(key: key);
+
+  const RegistrationPage({Key? key, required this.toggleView})
+      : super(key: key);
 
   @override
-  SignInPageState createState() => SignInPageState();
+  State<StatefulWidget> createState() => RegisterScreenState();
 }
 
-class SignInPageState extends State<LoginPage> {
-  final _signInFormKey = GlobalKey<FormState>();
-  // final String _email = '';
-  // final String _password = '';
+class RegisterScreenState extends State<RegistrationPage> {
+  final _formKey = GlobalKey<FormState>();
+  String errorMsg = '';
 
   bool _isLoading = false;
-  final TextEditingController _signInEmailController = TextEditingController();
-  final TextEditingController _signInPassController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    String? emailValidator(String? val) {
-      return val!.isEmpty ? 'ইমেইল দেওয়া হয়নি' : null;
-    }
-
-    String? passwordValidator(String? val) {
-      return val != null
-          ? val.length < 6
-              ? 'পাসওয়ার্ড অন্তত ৬ অক্ষরের দিন'
-              : null
-          : null;
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: _isLoading
           ? Center(
               child: Lottie.asset(
                 AppIcons.tranparentLoad,
-                height: 80,
+                height: 150,
                 repeat: true,
               ),
             )
@@ -52,7 +42,7 @@ class SignInPageState extends State<LoginPage> {
               padding:
                   const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
               child: Form(
-                key: _signInFormKey,
+                key: _formKey,
                 child: ListView(
                   children: [
                     const SizedBox(
@@ -67,8 +57,17 @@ class SignInPageState extends State<LoginPage> {
                       height: 30,
                     ),
                     CustomTextField(
+                      label: 'নাম',
+                      textEditingController: _nameController,
+                      validationFunciton: nameValidator,
+                      inputType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    CustomTextField(
                       label: 'ইমেইল',
-                      textEditingController: _signInEmailController,
+                      textEditingController: _emailController,
                       validationFunciton: emailValidator,
                       inputType: TextInputType.emailAddress,
                     ),
@@ -76,13 +75,17 @@ class SignInPageState extends State<LoginPage> {
                       height: 20,
                     ),
                     CustomTextField(
-                      textEditingController: _signInPassController,
+                      textEditingController: _passController,
                       label: 'পাসওয়ার্ড',
                       validationFunciton: passwordValidator,
                       inputType: TextInputType.visiblePassword,
                     ),
                     const SizedBox(
                       height: 5,
+                    ),
+                    Text(
+                      errorMsg,
+                      style: const TextStyle(fontSize: 14, color: Colors.red),
                     ),
                     const SizedBox(
                       height: 100,
@@ -93,14 +96,16 @@ class SignInPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(30),
                         child: ElevatedButton(
                           onPressed: () async {
-                            if (_signInFormKey.currentState!.validate()) {
+                            if (_formKey.currentState!.validate()) {
                               setState(() {
                                 _isLoading = true;
                               });
-                              Response response = await AuthService()
-                                  .signInWithEmailAndPass(
-                                      _signInEmailController.text,
-                                      _signInPassController.text);
+                              Response response =
+                                  await AuthService().registerWithEmailAndPass(
+                                email: _emailController.text,
+                                password: _passController.text,
+                                userName: _nameController.text,
+                              );
                               if (response.code != 200) {
                                 // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -110,13 +115,12 @@ class SignInPageState extends State<LoginPage> {
                                 );
                               }
                             }
-                            //todo: fix
                             setState(() {
                               _isLoading = false;
                             });
                           },
                           child: const Text(
-                            'লগ ইন করুন',
+                            'রেজিস্ট্রেশন',
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
@@ -125,32 +129,54 @@ class SignInPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Center(child: Text('কোনও একাউন্ট নেই? ')),
-                    SizedBox(
-                      height: 50,
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          side: const BorderSide(
-                            color: Colors.blue,
-                            width: 2,
-                          ),
-                        ),
-                        onPressed: () {
-                          widget.toggleView();
-                        },
-                        child: const Text(
-                          'একাউন্ট খুলুন',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                    ),
+                    loginButton(),
                   ],
                 ),
               ),
             ),
     );
+  }
+
+  Row loginButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          'একাউন্ট আছে?',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            widget.toggleView();
+          },
+          child: const Text(
+            'লগ ইন',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ],
+    );
+  }
+
+  String? emailValidator(String? val) {
+    return val!.isEmpty ? 'ইমেইল দেওয়া হয়নি' : null;
+  }
+
+  String? nameValidator(String? val) {
+    // TODO: more logc neededed
+
+    return val!.isEmpty ? 'নাম দেওয়া হয়নি' : null;
+    //more logic
+  }
+
+  String? passwordValidator(String? val) {
+    return val != null
+        ? val.length < 6
+            ? 'পাসওয়ার্ড ৬ অক্ষরের হতে হবে'
+            : null
+        : null;
   }
 }

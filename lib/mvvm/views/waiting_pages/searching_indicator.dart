@@ -3,8 +3,8 @@ import 'package:lottie/lottie.dart';
 
 import '../../../prev/view/resources/app_icons.dart';
 
-class SearchingForHome extends StatelessWidget {
-  const SearchingForHome({
+class SearchingIndicator extends StatelessWidget {
+  const SearchingIndicator({
     Key? key,
   }) : super(key: key);
 

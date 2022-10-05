@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/prev/view/authenticate_pages/registration_page.dart';
+import 'package:sweet_home/mvvm/views/authenticate_pages/registration_page.dart';
 
 import 'login_page.dart';
 

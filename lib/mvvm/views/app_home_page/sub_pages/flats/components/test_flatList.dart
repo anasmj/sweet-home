@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sweet_home/prev/models/flat_model.dart';
+import 'package:sweet_home/mvvm/models/flat_model.dart';
 
 import '../../../../../../prev/view/app_widgets.dart';
 import '../../../../../../prev/view/resources/app_icons.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/prev/view/screens/renter_opening_page/transactoin_list_page/transaction_list_page.dart';
 
-import '../../../models/flat_model.dart';
+import '../../../../mvvm/models/flat_model.dart';
 
 import '../../../providers/bills_provider.dart';
 import '../../../providers/flat_info_provider.dart';

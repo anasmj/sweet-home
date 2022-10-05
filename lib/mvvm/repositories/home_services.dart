@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/prev/models/monthly_record.dart';
 import 'package:sweet_home/prev/models/response.dart';
 
-import '../../prev/models/flat_model.dart';
-import '../../prev/models/home_model.dart';
+import '../models/flat_model.dart';
+import '../models/home_model.dart';
 import '../../prev/utils/custom_date_time_formatter.dart';
 
 class HomeCrud {
@@ -25,6 +25,7 @@ class HomeCrud {
     List<Home> allHome = homeSnapshots.docs.map((homeDoc) {
       return Home.fromJson(homeDoc.data() as Map<String, dynamic>);
     }).toList();
+
     return allHome;
   }
 

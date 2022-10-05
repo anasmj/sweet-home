@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../models/flat_model.dart';
+import '../../../../../../mvvm/models/flat_model.dart';
 
 import '../../../../../providers/bills_provider.dart';
 import '../../../../../providers/flat_info_provider.dart';

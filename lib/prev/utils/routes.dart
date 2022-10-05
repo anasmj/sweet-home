@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-import '../models/flat_model.dart';
+import '../../mvvm/models/flat_model.dart';
 import '../providers/newrenter_step_provider.dart';
 import '../view/screens/renter_opening_page/renter_opening_backup_page.dart';
 import 'get_user_homes.dart';

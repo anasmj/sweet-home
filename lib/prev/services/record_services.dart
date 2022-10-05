@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/prev/models/monthly_record.dart';
 import 'package:sweet_home/prev/models/response.dart';
 
-import '../models/flat_model.dart';
+import '../../mvvm/models/flat_model.dart';
 import '../models/renter.dart';
 import '../utils/custom_date_time_formatter.dart';
 

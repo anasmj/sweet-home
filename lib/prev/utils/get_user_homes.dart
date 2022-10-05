@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../mvvm/repositories/home_services.dart';
-import '../models/home_model.dart';
+import '../../mvvm/models/home_model.dart';
 
 import '../../mvvm/providers/current_home.dart';
 import '../../mvvm/views/empty_pages/empty_home_page.dart';

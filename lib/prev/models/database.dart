@@ -2,7 +2,7 @@ import 'package:sweet_home/prev/models/renter.dart';
 import 'package:sweet_home/prev/models/transaction_model.dart';
 import 'package:sweet_home/prev/models/year.dart';
 
-import 'flat_model.dart';
+import '../../mvvm/models/flat_model.dart';
 import 'month_details.dart';
 import 'others_model.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_home/mvvm/view_models/flat_list_view_model.dart';
 import 'package:sweet_home/prev/models/response.dart';
 
 import 'package:provider/provider.dart';
@@ -120,6 +121,9 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
 
                       // success
                       if (res.code == 200) {
+                        // ignore: use_build_context_synchronously
+                        // Provider.of<FlatListViewModel>(context)
+                        //     .configureFltas(homeId);
                         provider.renterNameController.clear();
                         provider.phoneController.clear();
                         provider.altPhoneController.clear();

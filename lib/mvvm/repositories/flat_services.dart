@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sweet_home/prev/models/monthly_record.dart';
 import 'package:sweet_home/prev/models/response.dart';
-import '../../prev/models/flat_model.dart';
+import '../models/flat_model.dart';
 import '../../prev/utils/custom_date_time_formatter.dart';
 
 class FlatService {
@@ -63,9 +63,8 @@ class FlatService {
     } catch (e) {
       response.code = 300;
       response.body = e.toString();
-    } finally {
-      return response;
     }
+    return response;
   }
 
   Future<List<Flat>> getAllFlats({required String homeId}) async {

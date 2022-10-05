@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/mvvm/views/app_home_page/sub_pages/current_month_page/components/current_month_content.dart';
+import 'package:sweet_home/mvvm/views/app_home_page/sub_pages/current_month/components/current_month_content.dart';
 
 import 'components/custom_appbar.dart';
 

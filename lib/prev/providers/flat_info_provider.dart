@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../models/flat_model.dart';
+import '../../mvvm/models/flat_model.dart';
 
 class SelectedFlatProvider extends ChangeNotifier {
   //ALL EXPENCES THAT WILL create a MonthDetail object to save record

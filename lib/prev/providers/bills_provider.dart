@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../models/flat_model.dart';
+import '../../mvvm/models/flat_model.dart';
 import 'flat_info_provider.dart';
 
 class BillsProvider extends ChangeNotifier {

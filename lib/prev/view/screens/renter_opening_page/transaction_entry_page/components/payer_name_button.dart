@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/prev/view/screens/renter_opening_page/transaction_entry_page/components/payer_name_taker.dart';
 
-import '../../../../../models/flat_model.dart';
+import '../../../../../../mvvm/models/flat_model.dart';
 import '../../../../../providers/flat_info_provider.dart';
 import '../../../../../providers/transaction_provider.dart';
 

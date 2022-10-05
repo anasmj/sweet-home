@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../models/flat_model.dart';
+import '../../../../../mvvm/models/flat_model.dart';
 import '../../../../providers/flat_info_provider.dart';
 import '../../../../providers/transaction_provider.dart';
 import '../components/confirm_calculation_button.dart';
