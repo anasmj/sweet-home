@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../prev/providers/theme_provider.dart';
+import 'package:sweet_home/mvvm/models/theme_provider.dart';
 
 class ChangeThemeButton extends StatelessWidget {
   const ChangeThemeButton({super.key});

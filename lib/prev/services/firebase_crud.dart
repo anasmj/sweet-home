@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../models/response.dart';
+import '../../mvvm/models/response.dart';
 
 //!FOR TESTING PURPOSE
 

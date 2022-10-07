@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../mvvm/models/response.dart';
 import '../../mvvm/repositories/home_services.dart';
 import '../../mvvm/models/home_model.dart';
-import '../models/response.dart';
+
 import '../../mvvm/providers/current_home.dart';
 
-import '../view/app_widgets.dart';
+import '../../mvvm/views/app_widgets.dart';
 
 onHomeDeleted(BuildContext context) async {
   Home? currentHome = context.read<CurrentHomeProvider>().currentHome;

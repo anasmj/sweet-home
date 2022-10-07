@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/mvvm/providers/current_home.dart';
+import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/repositories/flat_services.dart';
-import 'package:sweet_home/prev/models/response.dart';
 
 import '../models/home_model.dart';
 
 class FlatListViewModel extends ChangeNotifier {
+  Response response = Response();
+
   Home? currentHome;
   FlatListViewModel({this.currentHome}) {
     configureFltas(currentHome?.homeId);
@@ -35,11 +36,8 @@ class FlatListViewModel extends ChangeNotifier {
   void configureFltas(String? homeId) async {
     setFlatList([]);
 
-    late Response response;
-
-    if (homeId == null) setFlatList([]);
-    setLoading(true);
     if (homeId != null) {
+      setLoading(true);
       response = await FlatService().getAllFlatsForVm(homeId: homeId);
     }
 

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/response.dart';
+import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/prev/models/renter_transaction.dart';
 import '../../../models/flat_model.dart';
 import '../../../models/home_model.dart';
-import '../../../../prev/models/response.dart';
+
 import '../../../repositories/home_services.dart';
 
 import '../../../providers/current_home.dart';
 import '../../../../prev/providers/profile.dart';
-import '../../../../prev/providers/theme_provider.dart';
-import '../../../../prev/services/auth_service.dart';
+
+import '../../../repositories/auth_service.dart';
 import '../../../../prev/utils/routes.dart';
-import '../../../../prev/view/screens/profile_pages/owner_profile_page.dart';
-import '../../../../prev/view/screens/setting_page/setting_page.dart';
+import '../../profile_pages/owner_profile_page.dart';
+import '../../setting_page/setting_page.dart';
 
 import 'homes_popup.dart';
 

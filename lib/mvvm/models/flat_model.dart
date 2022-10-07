@@ -1,6 +1,6 @@
+import 'package:sweet_home/mvvm/models/renter.dart';
 import 'package:sweet_home/prev/models/monthly_record.dart';
 import 'package:sweet_home/prev/models/others_model.dart';
-import 'package:sweet_home/prev/models/renter.dart';
 
 class Flat {
   //detail info of flat
@@ -8,7 +8,8 @@ class Flat {
   double
       flatRentAmount; // if not given, taken global value from HomeProvider class
   int noOfBed, bath, varanda;
-  bool drawingRoom, diningRoom;
+  bool hasDrawingRoom, hasDiningRoom;
+  // bool drawingRoom, diningRoom;
 
   Renter? renter;
 
@@ -31,9 +32,11 @@ class Flat {
     this.flatWaterBill = 0.00,
     this.noOfBed = 1,
     this.bath = 1,
-    this.varanda = 1,
-    this.diningRoom = false,
-    this.drawingRoom = false,
+    this.varanda = 0,
+    this.hasDiningRoom = false,
+    this.hasDrawingRoom = false,
+    // this.diningRoom = false,
+    // this.drawingRoom = false,
     this.currentMeterReading,
     this.previousMeterReading,
   }) {
@@ -59,8 +62,12 @@ class Flat {
         noOfBed: json['noOfBed'] ?? 1,
         bath: json['bath'] ?? 1,
         varanda: json['varanda'] ?? 0,
-        diningRoom: json['isDiningExists'] ?? false,
-        drawingRoom: json['isDrawingExists'] ?? false,
+        hasDiningRoom: json['hasDiningRoom'] ?? false,
+        hasDrawingRoom: json['hasDrawingRoom'] ?? false,
+        // hasDiningRoom: json['isDiningExists'] ?? false,
+        // hasDrawingRoom: json['isDrawingExists'] ?? false,
+        // diningRoom: json['isDiningExists'] ?? false,
+        // drawingRoom: json['isDrawingExists'] ?? false,
         currentMeterReading: json['currentMeterReading'],
         // currentMonthMeterReading: json['currentMonthMeterReading'] ?? 0.0,
         previousMeterReading: json['previousMeterReading'] != null
@@ -83,8 +90,12 @@ class Flat {
         'noOfBed': noOfBed,
         'bath': bath,
         'varanda': varanda,
-        'isDiningExists': diningRoom,
-        'isDrawingExists': drawingRoom,
+        'hasDiningRoom': hasDiningRoom,
+        'hasDrawingRoom': hasDrawingRoom,
+        // 'isDiningExists': hasDiningRoom,
+        // 'isDrawingExists': hasDrawingRoom,
+        // 'isDiningExists': diningRoom,
+        // 'isDrawingExists': drawingRoom,
         'currentMeterReading': currentMeterReading,
         'previousMeterReading': previousMeterReading,
       };

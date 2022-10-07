@@ -1,11 +1,12 @@
 //add renter
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/response.dart';
+import '../../mvvm/models/response.dart';
+
 import '../../mvvm/providers/current_home.dart';
-import '../providers/flat_info_provider.dart';
+import '../../mvvm/providers/selected_flat_provider.dart';
+import '../../mvvm/repositories/renter_service.dart';
 import '../providers/newrenter_step_provider.dart';
-import '../services/renter_service.dart';
 
 class RenterManagement {
   static Future<Response> addRenterToDatabase(BuildContext context) async {

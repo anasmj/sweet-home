@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/prev/models/monthly_record.dart';
-import 'package:sweet_home/prev/models/response.dart';
+
 import '../models/flat_model.dart';
-import '../../prev/utils/custom_date_time_formatter.dart';
+import '../utils/custom_date_time_formatter.dart';
 
 class FlatService {
   final FirebaseAuth _auth = FirebaseAuth.instance;

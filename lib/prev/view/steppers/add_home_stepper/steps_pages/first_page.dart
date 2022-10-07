@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/theme_provider.dart';
 
 import '../../../../providers/home_stepper_provider.dart';
-import '../../../../providers/theme_provider.dart';
+
 import '../../../../utils/form_validators.dart';
 import '../../shared_components/stepper_textfield.dart';
 import '../components/counter.dart';

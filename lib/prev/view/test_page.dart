@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sweet_home/prev/view/resources/app_icons.dart';
+import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 
 class Test extends StatelessWidget {
   const Test({super.key});

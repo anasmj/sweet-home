@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/views/app_home_page/sub_pages/current_month/current_month.dart';
-import 'package:sweet_home/mvvm/views/app_home_page/sub_pages/flats/all_flat.dart';
+import 'package:sweet_home/mvvm/views/current_month/current_month.dart';
+import 'package:sweet_home/mvvm/views/flats/all_flat.dart';
 import '../../providers/current_home.dart';
-import 'sub_pages/flats/home_flats.dart';
-import 'sub_pages/pendings/pending.dart';
+import '../flats/home_flats.dart';
+import '../pendings/all_pending_page.dart';
 
 import 'components/drawer.dart';
 
@@ -73,7 +73,7 @@ class _AppHomePage extends State<AppHomePage> {
       return AllFlat();
       // return context.watch<FlatListViweModel>().getWidget(context);
     }
-    if (selectedPage == SelectedPage.pendings) return PendingPage();
+    if (selectedPage == SelectedPage.pendings) return AllPendingPage();
     return const SizedBox();
   }
 }

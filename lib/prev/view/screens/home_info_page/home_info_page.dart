@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/prev/view/screens/home_info_page/update_button.dart';
+
 import '../../../../mvvm/providers/current_home.dart';
-import '../../../providers/theme_provider.dart';
 import '../../../utils/home_crud.dart';
 import '../../../utils/routes.dart';
-import '../../app_widgets.dart';
-import '../../../models/response.dart';
+import '../../../../mvvm/views/app_widgets.dart';
 import '../../../utils/compare_values.dart';
 import '../../../../mvvm/models/home_model.dart';
-import '../../resources/app_icons.dart';
-import '../flat_info_pages/all_flat_info_page.dart';
-import '../flat_info_pages/compnents/edit_textfield.dart';
-import '../flat_info_pages/compnents/update_button.dart';
+import '../../../../mvvm/views/resources/app_icons.dart';
+import '../../../../mvvm/views/flat_info_pages/all_flat_info_page.dart';
+import '../../../../mvvm/views/flat_info_pages/sub_pages/flat_info/compnents/edit_textfield.dart';
 import '../shared_widgets/delete_button.dart';
 
 //* Takes a Home object and displaies its property allowing to fields in database

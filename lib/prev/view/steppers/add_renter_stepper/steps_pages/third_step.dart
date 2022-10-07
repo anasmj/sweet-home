@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../providers/newrenter_step_provider.dart';
-import '../../../resources/app_icons.dart';
+import '../../../../../mvvm/views/resources/app_icons.dart';
 import 'components/entry_date_picker.dart';
 import 'components/nid_image_containers.dart';
 

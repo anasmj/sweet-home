@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../mvvm/models/flat_model.dart';
-import '../../../../../models/renter.dart';
-import '../../../../../providers/bills_provider.dart';
+import '../../../../../../mvvm/providers/bills_provider.dart';
 
 // ignore: must_be_immutable
 class ElectricityTable extends StatelessWidget {

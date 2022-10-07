@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../providers/newrenter_step_provider.dart';
-import '../../../../../utils/custom_date_time_formatter.dart';
+import '../../../../../../mvvm/utils/custom_date_time_formatter.dart';
 
 class EntryDatePicker extends StatelessWidget {
   const EntryDatePicker({

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/view_models/flat_list_view_model.dart';
-import 'package:sweet_home/prev/models/response.dart';
 
 import 'package:provider/provider.dart';
 import 'package:sweet_home/prev/view/steppers/add_renter_stepper/steps_pages/first_step.dart';
 import 'package:sweet_home/prev/view/steppers/add_renter_stepper/steps_pages/second_step.dart';
 import 'package:sweet_home/prev/view/steppers/add_renter_stepper/steps_pages/third_step.dart';
+import '../../../../mvvm/models/response.dart';
 import '../../../../mvvm/providers/current_home.dart';
-import '../../../providers/flat_info_provider.dart';
+import '../../../../mvvm/providers/selected_flat_provider.dart';
+import '../../../../mvvm/repositories/renter_service.dart';
 import '../../../providers/newrenter_step_provider.dart';
-import '../../../providers/theme_provider.dart';
 import '../../../../mvvm/repositories/flat_services.dart';
-import '../../../services/renter_service.dart';
-import '../../app_widgets.dart';
-import '../../screens/successful_pages/renter_add_successful.dart';
+
+import '../../../../mvvm/views/app_widgets.dart';
+import '../../../../mvvm/views/successful_pages/renter_add_successful.dart';
 import '../../screens/waiting_pages/addingRenterIndicator.dart';
 
 class AddRenterStepper extends StatefulWidget {
@@ -122,8 +123,8 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
                       // success
                       if (res.code == 200) {
                         // ignore: use_build_context_synchronously
-                        // Provider.of<FlatListViewModel>(context)
-                        //     .configureFltas(homeId);
+                        Provider.of<FlatListViewModel>(context)
+                            .configureFltas(homeId);
                         provider.renterNameController.clear();
                         provider.phoneController.clear();
                         provider.altPhoneController.clear();

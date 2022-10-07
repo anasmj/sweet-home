@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../resources/app_icons.dart';
+import '../../../../mvvm/views/resources/app_icons.dart';
 
 class DeleteButton extends StatelessWidget {
   DeleteButton({
@@ -16,15 +16,15 @@ class DeleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return TextButton(
       onPressed: action,
-      style: OutlinedButton.styleFrom(
-        side: const BorderSide(
-          width: 1,
-          color: Colors.red,
-          style: BorderStyle.solid,
-        ),
-      ),
+      style: TextButton.styleFrom(
+          // side: const BorderSide(
+          //   width: 1,
+          //   color: Colors.red,
+          //   style: BorderStyle.solid,
+          // ),
+          ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,

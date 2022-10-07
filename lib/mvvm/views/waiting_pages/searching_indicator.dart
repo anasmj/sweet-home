@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../prev/view/resources/app_icons.dart';
+import '../resources/app_icons.dart';
 
 class SearchingIndicator extends StatelessWidget {
   const SearchingIndicator({

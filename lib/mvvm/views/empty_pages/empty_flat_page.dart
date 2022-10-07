@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../prev/view/resources/app_icons.dart';
+import '../resources/app_icons.dart';
 
 class NoFlatPage extends StatelessWidget {
   const NoFlatPage({super.key});

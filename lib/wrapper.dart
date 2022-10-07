@@ -7,7 +7,7 @@ import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'mvvm/views/app_home_page/app_home_page.dart';
 import 'prev/models/app_user.dart';
 import 'prev/providers/profile.dart';
-import 'prev/services/auth_service.dart';
+import 'mvvm/repositories/auth_service.dart';
 import 'mvvm/views/authenticate_pages/authenticate.dart';
 
 class Wrapper extends StatelessWidget {

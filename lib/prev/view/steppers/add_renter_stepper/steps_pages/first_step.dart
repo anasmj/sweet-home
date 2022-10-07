@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../mvvm/models/flat_model.dart';
-import '../../../../providers/flat_info_provider.dart';
+import '../../../../../mvvm/providers/selected_flat_provider.dart';
 import '../../../../providers/newrenter_step_provider.dart';
 import '../../../../utils/form_validators.dart';
 import '../../shared_components/stepper_textfield.dart';

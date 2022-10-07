@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/prev/models/monthly_record.dart';
-import 'package:sweet_home/prev/models/response.dart';
 
 import '../models/flat_model.dart';
 import '../models/home_model.dart';
-import '../../prev/utils/custom_date_time_formatter.dart';
+import '../utils/custom_date_time_formatter.dart';
 
 class HomeCrud {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -106,7 +106,7 @@ class HomeCrud {
           ),
     );
 
-    //CREATING OPENING MONTHLY RECORD FOR PREVIOUS MONTH FOR EACH FLAT
+    //CREATING MONTHLY RECORD FOR PREVIOUS MONTH FOR EACH FLAT
     String previousMonthlRecordId =
         CustomFormatter().makeId(date: lastMonthDate);
     // String currentMonthlRecordId = CustomFormatter().makeId(date: currentDate);

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/confirmation_home_page.dart';
 import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/first_page.dart';
 import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/second_page.dart';
 
+import '../../../../mvvm/models/response.dart';
 import '../../../../mvvm/repositories/home_services.dart';
-import '../../../models/response.dart';
 
 import '../../../providers/home_stepper_provider.dart';
-import '../../../providers/theme_provider.dart';
 import '../../../utils/user_flat.dart';
 import '../../screens/waiting_pages/making_home_indicator.dart';
-import '../../app_widgets.dart';
-import '../../resources/app_icons.dart';
+import '../../../../mvvm/views/app_widgets.dart';
+import '../../../../mvvm/views/resources/app_icons.dart';
 
 class AddHomeStepper extends StatefulWidget {
   const AddHomeStepper({super.key});

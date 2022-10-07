@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:sweet_home/prev/models/renter.dart';
+
+import '../../mvvm/models/renter.dart';
 
 //!SUPPORTING FIREBASE
 class MonthlyRecord {
