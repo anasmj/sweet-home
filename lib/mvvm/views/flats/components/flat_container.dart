@@ -6,7 +6,7 @@ import 'package:sweet_home/mvvm/views/flats/components/meter_image.dart';
 import 'package:sweet_home/mvvm/views/flats/components/profile_avatar.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/renter_opening_page.dart';
 import '../../../models/flat_model.dart';
-import '../../../providers/selected_flat_provider.dart';
+import '../../../providers/selected_flat_view_model.dart';
 import '../../../../prev/utils/routes.dart';
 import '../../app_widgets.dart';
 import '../../resources/app_icons.dart';
@@ -113,7 +113,7 @@ class FlatContainer extends StatelessWidget {
       children: [
         InkWell(
           onTap: () async {
-            Provider.of<SelectedFlatProvider>(context, listen: false)
+            Provider.of<SelectedFlatVuewModel>(context, listen: false)
                 .newSelectedFlat = flat;
 
             flat.renter == null
@@ -127,12 +127,10 @@ class FlatContainer extends StatelessWidget {
                   );
           },
           onLongPress: () {
-            Provider.of<SelectedFlatProvider>(context, listen: false)
+            Provider.of<SelectedFlatVuewModel>(context, listen: false)
                 .newSelectedFlat = flat;
             AppWidget.getModalSheet(
-                context: context,
-                isDark: isDark,
-                modalSheetContent: const FlatOptions());
+                context: context, modalSheetContent: const FlatOptions());
           },
           // flatOptionModalSheet(context: context, isDark: isDark),
           child: Material(

@@ -146,7 +146,6 @@ class AllFlatsInfoPage extends StatelessWidget {
           ? null
           : () => AppWidget.getModalSheet(
                 context: context,
-                isDark: isDark,
                 modalSheetContent: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.50,
                   child: Column(

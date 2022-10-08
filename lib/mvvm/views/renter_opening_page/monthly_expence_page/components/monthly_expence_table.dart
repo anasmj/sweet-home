@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 
@@ -28,11 +28,13 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
     //*use this to show data .
     //*after confirmed by user, make a month detail object which will
     //*be later used to show previoufs month details
-    Flat? flat = Provider.of<SelectedFlatProvider>(context).selectedFlat;
-    double? currentReading =
-        context.watch<SelectedFlatProvider>().selectedFlat!.currentMeterReading;
+    Flat? flat = Provider.of<SelectedFlatVuewModel>(context).selectedFlat;
+    double? currentReading = context
+        .watch<SelectedFlatVuewModel>()
+        .selectedFlat!
+        .currentMeterReading;
     double? prevReading = context
-        .watch<SelectedFlatProvider>()
+        .watch<SelectedFlatVuewModel>()
         .selectedFlat!
         .previousMeterReading;
 

@@ -5,13 +5,13 @@ import 'package:sweet_home/mvvm/models/home_model.dart';
 
 import '../models/flat_model.dart';
 import '../providers/current_home.dart';
-import '../providers/selected_flat_provider.dart';
+import '../providers/selected_flat_view_model.dart';
 import '../repositories/record_services.dart';
 
 class RenterOpeningViewModel extends ChangeNotifier {
   RenterOpeningViewModel({this.currentHomeProvider, this.selectedFlatProvider});
 
-  SelectedFlatProvider? selectedFlatProvider;
+  SelectedFlatVuewModel? selectedFlatProvider;
   CurrentHomeProvider? currentHomeProvider;
   double? _meterReading;
   String? homeId;

@@ -3,14 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/views/flat_info_pages/sub_pages/flat_info/flat_info_new.dart';
 
 import '../../models/flat_model.dart';
-import '../../providers/selected_flat_provider.dart';
+import '../../providers/selected_flat_view_model.dart';
 import 'sub_pages/flat_info/flat_info.dart';
 
 class SingleFlatInfo extends StatelessWidget {
   const SingleFlatInfo({super.key});
   @override
   Widget build(BuildContext context) {
-    Flat? flat = context.read<SelectedFlatProvider>().selectedFlat;
+    Flat? flat = context.read<SelectedFlatVuewModel>().selectedFlat;
     return flat == null
         ? const SizedBox()
         : DefaultTabController(

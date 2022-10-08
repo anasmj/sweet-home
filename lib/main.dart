@@ -7,7 +7,7 @@ import 'package:sweet_home/mvvm/models/home_model.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
 import 'package:sweet_home/prev/providers/home_stepper_provider.dart';
 import 'package:sweet_home/prev/providers/newrenter_step_provider.dart';
 
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         //   create: (context) => HomeProvider(),
         // ),
         ChangeNotifierProvider(
-          create: (context) => SelectedFlatProvider(),
+          create: (context) => SelectedFlatVuewModel(),
         ),
         ChangeNotifierProvider(
           create: (context) => NewRenterStepProvider(),
@@ -56,13 +56,13 @@ class MyApp extends StatelessWidget {
           create: (context) => TransactionProvider(),
         ),
 
-        ChangeNotifierProxyProvider<SelectedFlatProvider, BillsProvider>(
+        ChangeNotifierProxyProvider<SelectedFlatVuewModel, BillsProvider>(
           update: (context, value, previous) => BillsProvider(
               flatProvider:
-                  Provider.of<SelectedFlatProvider>(context, listen: false)),
+                  Provider.of<SelectedFlatVuewModel>(context, listen: false)),
           create: (context) => BillsProvider(
               flatProvider:
-                  Provider.of<SelectedFlatProvider>(context, listen: false)),
+                  Provider.of<SelectedFlatVuewModel>(context, listen: false)),
         ),
 
         ChangeNotifierProvider(
@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
                 FlatListViewModel(currentHome: currentHomeProvider.currentHome),
             create: ((context) => FlatListViewModel())),
 
-        ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatProvider,
+        ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatVuewModel,
             RenterOpeningViewModel>(
           update: (context, currentHome, currentFlat, prevRenterOpeningVM) =>
               RenterOpeningViewModel(

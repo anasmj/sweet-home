@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/theme_provider.dart';
 
 import '../models/flat_model.dart';
 
 import '../models/response.dart';
 import '../providers/bills_provider.dart';
 import '../providers/current_home.dart';
-import '../providers/selected_flat_provider.dart';
+import '../providers/selected_flat_view_model.dart';
 import '../../prev/providers/monthly_record_provider.dart';
 import '../repositories/flat_services.dart';
 import '../view_models/renter_opening_page_view_model.dart';
@@ -62,11 +63,10 @@ class AppWidget {
 
   //TODO: make this bottom shit usable for all
   static Future getModalSheet(
-      {required BuildContext context,
-      required bool isDark,
-      required Widget modalSheetContent}) {
+      {required BuildContext context, required Widget modalSheetContent}) {
     final Color modalSheetBgDark = Colors.grey.shade900;
     const Color modalSheetBgLight = Colors.white;
+    bool isDark = Provider.of<ThemeProvider>(context, listen: false).isDarkMode;
 
     return showModalBottomSheet(
         shape: const RoundedRectangleBorder(
@@ -129,7 +129,7 @@ class AppWidget {
       {required BuildContext context}) async {
     GlobalKey<FormState>? formKey = GlobalKey();
     TextEditingController unitController = TextEditingController();
-    Flat? flat = context.read<SelectedFlatProvider>().selectedFlat;
+    Flat? flat = context.read<SelectedFlatVuewModel>().selectedFlat;
     String homeId = context.read<CurrentHomeProvider>().currentHome!.homeId;
     RenterOpeningViewModel providerRead =
         context.read<RenterOpeningViewModel>();

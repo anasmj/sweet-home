@@ -3,7 +3,7 @@ import 'package:sweet_home/mvvm/views/flat_info_pages/sub_pages/flat_info/compne
 import 'compnents/general_bill_list.dart';
 import 'compnents/flat_info_list.dart';
 import 'compnents/meter_reading_list.dart';
-import 'compnents/save_button.dart';
+import 'compnents/info_save_button.dart';
 
 class FlatInfoNew extends StatelessWidget {
   const FlatInfoNew({super.key});
@@ -15,13 +15,12 @@ class FlatInfoNew extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       children: [
         const SizedBox(height: 20),
-        getDivider('বৈদ্যুতিক মিটার'),
         const MeterReadingList(),
         getDivider('বিল সমূহ'),
         const GeneralBillsList(),
         getDivider('ফ্ল্যাটের তথ্যাবলী'),
         const FlatInfoList(),
-        const SaveButton(),
+        InfoSaveButton(),
         const SizedBox(height: 40),
       ],
     );

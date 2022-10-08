@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/prev/models/others_model.dart';
+import 'package:sweet_home/mvvm/models/service_charges.dart';
 
 // ignore: must_be_immutable
 class OthersTable extends StatelessWidget {
   OthersTable({this.othersList, super.key});
-  List<OthersExpence>? othersList;
+  List<ServiceCharge>? othersList;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -17,7 +17,7 @@ class OthersTable extends StatelessWidget {
     );
   }
 
-  Widget buildRow(OthersExpence obj) => Row(
+  Widget buildRow(ServiceCharge obj) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(obj.purpose),

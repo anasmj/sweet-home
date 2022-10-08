@@ -5,7 +5,7 @@ import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/transaction_provider.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
 import 'package:sweet_home/mvvm/repositories/record_services.dart';
 import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
@@ -24,7 +24,7 @@ class ConfirmCalculationButton extends StatelessWidget {
         context.watch<RenterOpeningViewModel>();
 
     String? homeId = context.watch<CurrentHomeProvider>().currentHome?.homeId;
-    Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
+    Flat? flat = context.watch<SelectedFlatVuewModel>().selectedFlat;
     TransactionProvider trasaction = context.watch<TransactionProvider>();
     DateTime issueDate = DateTime.now();
 

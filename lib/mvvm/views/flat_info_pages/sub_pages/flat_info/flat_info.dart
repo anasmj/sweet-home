@@ -8,7 +8,7 @@ import 'package:sweet_home/mvvm/repositories/record_services.dart';
 import '../../../../models/flat_model.dart';
 
 import '../../../../providers/current_home.dart';
-import '../../../../providers/selected_flat_provider.dart';
+import '../../../../providers/selected_flat_view_model.dart';
 import '../../../../repositories/flat_services.dart';
 
 import '../../../app_widgets.dart';
@@ -37,7 +37,7 @@ class FlatInfo extends StatelessWidget {
     DateTime lastMonthDate =
         DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
     String homeId = context.watch<CurrentHomeProvider>().currentHome!.homeId;
-    Flat? flat = context.read<SelectedFlatProvider>().selectedFlat;
+    Flat? flat = context.read<SelectedFlatVuewModel>().selectedFlat;
 
     double currentReading = flat?.currentMeterReading ?? 0.00;
     double? previousReading = flat?.previousMeterReading;
@@ -70,7 +70,6 @@ class FlatInfo extends StatelessWidget {
                 ListTile(
                   onTap: () => AppWidget.getModalSheet(
                     context: context,
-                    isDark: isDark,
                     modalSheetContent: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.50,
                       child: Column(
@@ -121,7 +120,6 @@ class FlatInfo extends StatelessWidget {
                 ListTile(
                   onTap: () => AppWidget.getModalSheet(
                     context: context,
-                    isDark: isDark,
                     modalSheetContent: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.70,
                       child: Column(
@@ -316,7 +314,6 @@ class FlatInfo extends StatelessWidget {
           ? null
           : () => AppWidget.getModalSheet(
                 context: context,
-                isDark: isDark,
                 modalSheetContent: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.50,
                   child: Column(

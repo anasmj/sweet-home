@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
 
 class MeterReadingList extends StatelessWidget {
   const MeterReadingList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Flat? flat = Provider.of<SelectedFlatProvider>(context).selectedFlat;
+    Flat? flat = Provider.of<SelectedFlatVuewModel>(context).selectedFlat;
     String currentReadingString = 'দেওয়া নেই';
     String previousReadingString = 'দেওয়া নেই';
     bool isCurrentReadingNull = true;

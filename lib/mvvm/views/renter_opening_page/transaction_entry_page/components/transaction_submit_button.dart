@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/transaction_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
 import 'package:sweet_home/mvvm/repositories/transaction_service.dart';
 import 'package:sweet_home/mvvm/utils/custom_date_time_formatter.dart';
 
@@ -28,7 +28,8 @@ class TransactionSubmitButton extends StatelessWidget {
             amount: double.parse(provider.paymentController.text),
             dateTime: provider.transactionDateTime,
             homeId: context.read<CurrentHomeProvider>().currentHome!.homeId,
-            flatId: context.read<SelectedFlatProvider>().selectedFlat!.flatName,
+            flatId:
+                context.read<SelectedFlatVuewModel>().selectedFlat!.flatName,
             recordId: recordId,
           );
           if (res.code == 200) {

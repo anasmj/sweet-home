@@ -1,6 +1,5 @@
 import 'package:sweet_home/mvvm/models/renter.dart';
-import 'package:sweet_home/prev/models/monthly_record.dart';
-import 'package:sweet_home/prev/models/others_model.dart';
+import 'package:sweet_home/mvvm/models/service_charges.dart';
 
 class Flat {
   //detail info of flat
@@ -22,7 +21,7 @@ class Flat {
   double? currentMeterReading;
   double? previousMeterReading;
 
-  List<OthersExpence>? flatOtherExpences;
+  List<ServiceCharge>? serviceCharges;
 
   Flat({
     this.flatName = '',
@@ -64,12 +63,7 @@ class Flat {
         varanda: json['varanda'] ?? 0,
         hasDiningRoom: json['hasDiningRoom'] ?? false,
         hasDrawingRoom: json['hasDrawingRoom'] ?? false,
-        // hasDiningRoom: json['isDiningExists'] ?? false,
-        // hasDrawingRoom: json['isDrawingExists'] ?? false,
-        // diningRoom: json['isDiningExists'] ?? false,
-        // drawingRoom: json['isDrawingExists'] ?? false,
         currentMeterReading: json['currentMeterReading'],
-        // currentMonthMeterReading: json['currentMonthMeterReading'] ?? 0.0,
         previousMeterReading: json['previousMeterReading'] != null
             ? double.parse(json['previousMeterReading'].toString())
             : null);
@@ -92,14 +86,7 @@ class Flat {
         'varanda': varanda,
         'hasDiningRoom': hasDiningRoom,
         'hasDrawingRoom': hasDrawingRoom,
-        // 'isDiningExists': hasDiningRoom,
-        // 'isDrawingExists': hasDrawingRoom,
-        // 'isDiningExists': diningRoom,
-        // 'isDrawingExists': drawingRoom,
         'currentMeterReading': currentMeterReading,
         'previousMeterReading': previousMeterReading,
       };
-  // static void setRenter(Renter renter) {
-  //   renter = renter;
-  // }
 }

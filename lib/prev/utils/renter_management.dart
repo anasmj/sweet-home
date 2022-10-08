@@ -4,14 +4,14 @@ import 'package:provider/provider.dart';
 import '../../mvvm/models/response.dart';
 
 import '../../mvvm/providers/current_home.dart';
-import '../../mvvm/providers/selected_flat_provider.dart';
+import '../../mvvm/providers/selected_flat_view_model.dart';
 import '../../mvvm/repositories/renter_service.dart';
 import '../providers/newrenter_step_provider.dart';
 
 class RenterManagement {
   static Future<Response> addRenterToDatabase(BuildContext context) async {
     final provider = Provider.of<NewRenterStepProvider>(context, listen: false);
-    final flat = context.read<SelectedFlatProvider>().selectedFlat;
+    final flat = context.read<SelectedFlatVuewModel>().selectedFlat;
     String homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
         .currentHome!
         .homeId;
