@@ -8,7 +8,7 @@ import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/first
 import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/second_page.dart';
 
 import '../../../../mvvm/models/response.dart';
-import '../../../../mvvm/repositories/home_services.dart';
+import '../../../../mvvm/services/home_services.dart';
 
 import '../../../providers/home_stepper_provider.dart';
 import '../../../utils/user_flat.dart';

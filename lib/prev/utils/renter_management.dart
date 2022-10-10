@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../../mvvm/models/response.dart';
 
 import '../../mvvm/providers/current_home.dart';
-import '../../mvvm/providers/selected_flat_view_model.dart';
-import '../../mvvm/repositories/renter_service.dart';
+import '../../mvvm/view_models/selected_flat_view_model.dart';
+import '../../mvvm/services/renter_service.dart';
 import '../providers/newrenter_step_provider.dart';
 
 class RenterManagement {

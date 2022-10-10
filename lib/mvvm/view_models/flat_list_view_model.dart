@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
-import 'package:sweet_home/mvvm/repositories/flat_services.dart';
+import 'package:sweet_home/mvvm/services/flat_services.dart';
 
 import '../models/home_model.dart';
 

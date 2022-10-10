@@ -23,7 +23,7 @@ class ExpenctOptionsSheetContent extends StatelessWidget {
               FontAwesomeIcons.trashCan,
               color: Colors.red,
             ),
-            title: Text('মুছে ফেলুন'),
+            title: Text('সরিয়ে ফেলুন'),
           ),
         ],
       ),

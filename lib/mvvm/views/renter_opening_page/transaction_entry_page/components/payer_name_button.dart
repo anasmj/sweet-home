@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/transaction_provider.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/transaction_entry_page/components/payer_name_taker.dart';
 import 'package:sweet_home/prev/view/screens/renter_opening_page/transaction_entry_page/components/payer_name_taker.dart';
 

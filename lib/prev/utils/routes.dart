@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/renter_opening_backup_page.dart';
-
 import '../../mvvm/models/flat_model.dart';
-import '../providers/newrenter_step_provider.dart';
-import '../view/screens/renter_opening_page/renter_opening_backup_page.dart';
 import 'get_user_homes.dart';
 import '../view/steppers/add_home_stepper/add_home_stepper.dart';
 import '../view/steppers/add_renter_stepper/add_renter_stepper.dart';
@@ -26,7 +22,7 @@ class AppRoute {
   static void toCurrentHomeDetail(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => UserHomes(),
+        builder: (context) => const UserHomes(),
       ),
     );
   }

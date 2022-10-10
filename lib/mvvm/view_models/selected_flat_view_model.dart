@@ -11,11 +11,11 @@ class SelectedFlatVuewModel extends ChangeNotifier {
   set newSelectedFlat(Flat newFlat) {
     _selectedFlat = newFlat;
     //MODIFYING PURPOSE     s
-    _noOfBed = newFlat.noOfBed;
-    _bath = newFlat.bath;
-    _varanda = newFlat.varanda;
-    _hasDining = newFlat.hasDiningRoom;
-    _hasDrawing = newFlat.hasDrawingRoom;
+    // _noOfBed = newFlat.noOfBed;
+    // _bath = newFlat.bath;
+    // _varanda = newFlat.varanda;
+    // _hasDining = newFlat.hasDiningRoom;
+    // _hasDrawing = newFlat.hasDrawingRoom;
   }
 
   int get noOfBed => _noOfBed;

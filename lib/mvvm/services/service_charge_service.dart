@@ -21,7 +21,7 @@ class OtherExpenceService {
     return flatDocRef;
   }
 
-  //add otherExpence to a flat
+  //get list of service charge of a flat
   Future<Response> getServiceCharges(
       {required String homeId, required String flatId}) async {
     List<ServiceCharge> serviceChargeList = [];

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 
-import '../../repositories/auth_service.dart';
+import '../../services/auth_service.dart';
 import '../app_widgets.dart';
 import '../resources/app_icons.dart';
 import 'components/custom_textfield.dart';

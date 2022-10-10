@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 

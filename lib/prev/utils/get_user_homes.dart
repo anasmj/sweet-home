@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../mvvm/repositories/home_services.dart';
+import '../../mvvm/services/home_services.dart';
 import '../../mvvm/models/home_model.dart';
 
 import '../../mvvm/providers/current_home.dart';
 import '../../mvvm/views/empty_pages/empty_home_page.dart';
-import '../view/screens/home_info_page/home_info_page.dart';
+import '../../mvvm/views/home_info_page/home_info_page.dart';
 import '../view/screens/home_options_page.dart';
 
 class UserHomes extends StatefulWidget {

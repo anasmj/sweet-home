@@ -8,9 +8,9 @@ import '../models/flat_model.dart';
 import '../models/response.dart';
 import '../providers/bills_provider.dart';
 import '../providers/current_home.dart';
-import '../providers/selected_flat_view_model.dart';
+import '../view_models/selected_flat_view_model.dart';
 import '../../prev/providers/monthly_record_provider.dart';
-import '../repositories/flat_services.dart';
+import '../services/flat_services.dart';
 import '../view_models/renter_opening_page_view_model.dart';
 
 class AppWidget {

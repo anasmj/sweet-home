@@ -6,8 +6,8 @@ class Flat {
   String flatName;
   double
       flatRentAmount; // if not given, taken global value from HomeProvider class
-  int noOfBed, bath, varanda;
-  bool hasDrawingRoom, hasDiningRoom;
+  // int noOfBed, bath, varanda;
+  // bool hasDrawingRoom, hasDiningRoom;
   // bool drawingRoom, diningRoom;
 
   Renter? renter;
@@ -29,22 +29,15 @@ class Flat {
     this.flatRentAmount = 0.00,
     this.flatGasBill = 0.00,
     this.flatWaterBill = 0.00,
-    this.noOfBed = 1,
-    this.bath = 1,
-    this.varanda = 0,
-    this.hasDiningRoom = false,
-    this.hasDrawingRoom = false,
-    // this.diningRoom = false,
-    // this.drawingRoom = false,
     this.currentMeterReading,
     this.previousMeterReading,
-  }) {
-    // flatRentAmount ??= HomeProvider().globalRentAmount;
-    // flatOtherExpences ??= HomeProvider().globalOtherExpences;
-    // electricityUnitPrice ??= HomeProvider().electricityUnitPrice;
-    // flatGasBill ??= HomeProvider().globalGasbill;
-    // flatWaterBill ??= HomeProvider().globalWaterBill;
-  }
+    this.serviceCharges,
+    // this.noOfBed = 1,
+    // this.bath = 1,
+    // this.varanda = 0,
+    // this.hasDiningRoom = false,
+    // this.hasDrawingRoom = false,
+  });
   static Flat fromJson(Map<String, dynamic> json) {
     Renter? renterObj;
     //IF flat is booked, fetch renter
@@ -58,11 +51,12 @@ class Flat {
         flatRentAmount: json['rentAmount'] ?? 0.00,
         flatGasBill: json['gasBill'] ?? 0.00,
         flatWaterBill: json['waterBill'] ?? 0.00,
-        noOfBed: json['noOfBed'] ?? 1,
-        bath: json['bath'] ?? 1,
-        varanda: json['varanda'] ?? 0,
-        hasDiningRoom: json['hasDiningRoom'] ?? false,
-        hasDrawingRoom: json['hasDrawingRoom'] ?? false,
+        // noOfBed: json['noOfBed'] ?? 1,
+        // bath: json['bath'] ?? 1,
+        // varanda: json['varanda'] ?? 0,
+        // hasDiningRoom: json['hasDiningRoom'] ?? false,
+        // hasDrawingRoom: json['hasDrawingRoom'] ?? false,
+        // serviceCharges : json['serviceCharges'],
         currentMeterReading: json['currentMeterReading'],
         previousMeterReading: json['previousMeterReading'] != null
             ? double.parse(json['previousMeterReading'].toString())
@@ -81,12 +75,13 @@ class Flat {
         'rentAmount': rentAmount,
         'gasBill': gasBill,
         'waterBill': waterBill,
-        'noOfBed': noOfBed,
-        'bath': bath,
-        'varanda': varanda,
-        'hasDiningRoom': hasDiningRoom,
-        'hasDrawingRoom': hasDrawingRoom,
         'currentMeterReading': currentMeterReading,
         'previousMeterReading': previousMeterReading,
+        'serviceCharget': [],
+        // 'noOfBed': noOfBed,
+        // 'bath': bath,
+        // 'varanda': varanda,
+        // 'hasDiningRoom': hasDiningRoom,
+        // 'hasDrawingRoom': hasDrawingRoom,
       };
 }

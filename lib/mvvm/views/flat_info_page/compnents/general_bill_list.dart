@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
-import 'package:sweet_home/mvvm/views/flat_info_pages/sub_pages/flat_info/service_charge_page/service_charge_page.dart';
+import 'package:sweet_home/mvvm/models/home_model.dart';
+import 'package:sweet_home/mvvm/views/service_charge_page/service_charge_page.dart';
 
 import 'bill_tile.dart';
 
+// ignore: must_be_immutable
 class GeneralBillsList extends StatelessWidget {
-  const GeneralBillsList({super.key});
-
+  GeneralBillsList({super.key, this.home, this.flat});
+  Flat? flat;
+  Home? home;
   @override
   Widget build(BuildContext context) {
-    Flat? flat = Provider.of<SelectedFlatVuewModel>(context).selectedFlat;
-
-    return flat == null
-        ? const SizedBox.shrink()
-        : Column(
+    return flat != null
+        ? Column(
             children: [
               BillTile(
                 onClick: tap,
                 leadingIcon: Icons.home,
                 title: 'ভাড়া',
-                subTitle: '৳ ${flat.flatRentAmount.toStringAsFixed(1)}',
+                subTitle: '৳ ${flat!.flatRentAmount.toStringAsFixed(1)}',
                 isNumeric: false,
               ),
               BillTile(
                 leadingIcon: Icons.gas_meter_outlined,
                 title: 'গ্যাস',
-                subTitle: '৳ ${flat.flatGasBill.toStringAsFixed(1)}',
+                subTitle: '৳ ${flat!.flatGasBill.toStringAsFixed(1)}',
                 isNumeric: false,
               ),
               BillTile(
@@ -36,7 +34,7 @@ class GeneralBillsList extends StatelessWidget {
 
                 // leadingIcon: Icons.water_drop_outlined,
                 title: 'পানি',
-                subTitle: '৳ ${flat.flatWaterBill.toStringAsFixed(1)}',
+                subTitle: '৳ ${flat!.flatWaterBill.toStringAsFixed(1)}',
               ),
               BillTile(
                 onClick: () => Navigator.of(context).push(
@@ -48,6 +46,9 @@ class GeneralBillsList extends StatelessWidget {
                 isNumeric: false,
               )
             ],
+          )
+        : Container(
+            child: Text('home'),
           );
   }
 

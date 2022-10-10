@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../mvvm/models/renter.dart';
-import '../../mvvm/models/response.dart';
+import '../models/renter.dart';
+import '../models/response.dart';
 
 class RenterService {
   final FirebaseAuth _auth = FirebaseAuth.instance;

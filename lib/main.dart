@@ -3,25 +3,23 @@ import 'package:provider/provider.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sweet_home/mvvm/models/home_model.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
 import 'package:sweet_home/prev/providers/home_stepper_provider.dart';
 import 'package:sweet_home/prev/providers/newrenter_step_provider.dart';
 
-import 'package:sweet_home/mvvm/repositories/auth_service.dart';
+import 'package:sweet_home/mvvm/services/auth_service.dart';
 import 'package:sweet_home/mvvm/utils/shared_pref.dart';
 import 'package:sweet_home/prev/view/dismiss_keyboard.dart';
 import 'package:sweet_home/mvvm/views/resources/app_theme.dart';
 import 'package:sweet_home/wrapper.dart';
-import 'package:sweet_home/prev/view_models/flat_list_viewmodel.dart';
 import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
 
 import 'mvvm/models/transaction_provider.dart';
 import 'mvvm/view_models/flat_list_view_model.dart';
-import 'mvvm/views/init_home.dart';
+import 'mvvm/view_models/home_view_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,6 +72,13 @@ class MyApp extends StatelessWidget {
                     FlatListViewModel? viewModel) =>
                 FlatListViewModel(currentHome: currentHomeProvider.currentHome),
             create: ((context) => FlatListViewModel())),
+
+        ChangeNotifierProxyProvider<CurrentHomeProvider, HomeListViewModel>(
+          update: (context, currentHomeProvider,
+                  HomeListViewModel? viewModel) =>
+              HomeListViewModel(currentHome: currentHomeProvider.currentHome),
+          create: (context) => HomeListViewModel(),
+        ),
 
         ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatVuewModel,
             RenterOpeningViewModel>(

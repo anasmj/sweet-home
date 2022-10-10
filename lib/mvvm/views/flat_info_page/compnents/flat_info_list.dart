@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
 
 import 'bill_tile.dart';
 

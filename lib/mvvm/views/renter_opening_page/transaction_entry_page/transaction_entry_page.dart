@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/transaction_provider.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
 import '../../../../../mvvm/models/flat_model.dart';
 
 import '../components/confirm_calculation_button.dart';

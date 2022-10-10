@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:sweet_home/prev/models/renter_transaction.dart';
 
-import '../../mvvm/models/response.dart';
+import '../models/response.dart';
 
 class TransactionService {
   final FirebaseAuth _auth = FirebaseAuth.instance;

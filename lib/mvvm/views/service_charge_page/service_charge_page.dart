@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/models/service_charges.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
-import 'package:sweet_home/mvvm/views/flat_info_pages/sub_pages/flat_info/service_charge_page/components/add_service_charge_sheet_content.dart';
-import 'package:sweet_home/mvvm/views/flat_info_pages/sub_pages/flat_info/service_charge_page/components/service_charge_options_sheet_content.dart';
+import 'package:sweet_home/mvvm/views/service_charge_page/components/add_service_charge_sheet_content.dart';
+import 'package:sweet_home/mvvm/views/service_charge_page/components/service_charge_options_sheet_content.dart';
 
 // ignore: must_be_immutable
 class OtherExpencesPage extends StatelessWidget {

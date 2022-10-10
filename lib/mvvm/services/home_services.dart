@@ -20,6 +20,22 @@ class HomeCrud {
   }
 
   //READ HOMES
+  Future<Response> getAllHomeVM() async {
+    try {
+      final homeSnapshots = await getHomesCollectionRef().get();
+      List<Home> allHome = homeSnapshots.docs.map((homeDoc) {
+        return Home.fromJson(homeDoc.data() as Map<String, dynamic>);
+      }).toList();
+      response.code = 200;
+      response.body = 'ok';
+      response.content = allHome;
+    } catch (e) {
+      response.code = 201;
+      response.body = e.toString();
+    }
+    return response;
+  }
+
   Future<List<Home>> getAllHome() async {
     final homeSnapshots = await getHomesCollectionRef().get();
     List<Home> allHome = homeSnapshots.docs.map((homeDoc) {

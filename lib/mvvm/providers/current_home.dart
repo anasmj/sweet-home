@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sweet_home/mvvm/models/home_model.dart';
 
-import '../repositories/home_services.dart';
+import '../services/home_services.dart';
 import '../views/app_home_page/app_home_page.dart';
 import '../views/waiting_pages/searching_indicator.dart';
 

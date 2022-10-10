@@ -1,6 +1,8 @@
 // import 'package:rent_home/models/others_model.dart';
 // import 'flat_model.dart';
 
+import 'package:sweet_home/mvvm/models/service_charges.dart';
+
 class Home {
   String homeId;
   final String homeName;
@@ -10,6 +12,7 @@ class Home {
   final String location;
   final double? gasBill;
   final double? waterBill;
+  final List<ServiceCharge>? serviceCharges;
   Home({
     this.homeId = '',
     required this.homeName,
@@ -19,27 +22,30 @@ class Home {
     required this.flatPerFloor,
     this.gasBill,
     this.waterBill,
+    this.serviceCharges,
   });
 
   //returns a map
   Map<String, dynamic> toJson() => {
-        'Home Id': homeId,
-        'Home Name': homeName,
-        'Location': location,
-        'Floor': floor,
-        'Flat Per Floor': flatPerFloor,
-        'Rent Amount': rentAmount,
-        'Gas Bill': gasBill ?? 0.00,
-        'Water Bill': waterBill ?? 0.00,
+        'homeId': homeId,
+        'homeName': homeName,
+        'location': location,
+        'floor': floor,
+        'flatPerFloor': flatPerFloor,
+        'rentAmount': rentAmount,
+        'gasBill': gasBill ?? 0.00,
+        'waterBill': waterBill ?? 0.00,
+        'serviceCharges': serviceCharges,
       };
   static Home fromJson(Map<String, dynamic> data) => Home(
-        homeName: data['Home Name'],
-        homeId: data['Home Id'],
-        rentAmount: data['Rent Amount'],
-        location: data['Location'],
-        flatPerFloor: data['Flat Per Floor'],
-        floor: data['Floor'],
-        gasBill: data['Gas Bill'],
-        waterBill: data['Water Bill'],
+        homeName: data['homeName'],
+        homeId: data['homeId'],
+        rentAmount: data['rentAmount'],
+        location: data['location'],
+        flatPerFloor: data['flatPerFloor'],
+        floor: data['floor'],
+        gasBill: data['gasBill'],
+        waterBill: data['waterBill'],
+        // serviceCharges:
       );
 }

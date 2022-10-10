@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../mvvm/providers/current_home.dart';
+import '../../providers/current_home.dart';
 
 //! do not change
 // ignore: must_be_immutable

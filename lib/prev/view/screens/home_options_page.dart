@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../mvvm/models/home_model.dart';
 import '../../utils/routes.dart';
-import 'home_info_page/home_info_page.dart';
+import '../../../mvvm/views/home_info_page/home_info_page.dart';
 
 // ignore: must_be_immutable
 class HomeOptionsPage extends StatelessWidget {

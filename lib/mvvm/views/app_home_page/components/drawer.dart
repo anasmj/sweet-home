@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
-import 'package:sweet_home/prev/models/renter_transaction.dart';
-import '../../../models/flat_model.dart';
+import 'package:sweet_home/mvvm/views/user_home/user_home.dart';
+
 import '../../../models/home_model.dart';
 
-import '../../../repositories/home_services.dart';
+import '../../../services/home_services.dart';
 
 import '../../../providers/current_home.dart';
 import '../../../../prev/providers/profile.dart';
 
-import '../../../repositories/auth_service.dart';
+import '../../../services/auth_service.dart';
 import '../../../../prev/utils/routes.dart';
 import '../../profile_pages/owner_profile_page.dart';
 import '../../setting_page/setting_page.dart';
@@ -20,7 +20,7 @@ import '../../setting_page/setting_page.dart';
 import 'homes_popup.dart';
 
 class AppDrawer extends StatelessWidget {
-  AppDrawer({
+  const AppDrawer({
     Key? key,
   }) : super(key: key);
 
@@ -28,8 +28,6 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Home? home = context.watch<CurrentHomeProvider>().currentHome;
-    bool isDark = context.watch<ThemeProvider>().isDarkMode;
     return Drawer(
       width: 300,
       elevation: 3.0,
@@ -37,7 +35,13 @@ class AppDrawer extends StatelessWidget {
         children: [
           drawerHeader(context),
           ListTile(
-            onTap: () => AppRoute.toCurrentHomeDetail(context),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return const UsesrHome();
+              }));
+            },
+            // onTap: () => AppRoute.toCurrentHomeDetail(context),
             leading: const Icon(
               Icons.home,
               color: Colors.pinkAccent,
@@ -90,18 +94,6 @@ class AppDrawer extends StatelessWidget {
               style: drawerTextStyle,
             ),
           ),
-          // ListTile(
-          //   onTap: () async {
-          //     List<RenterTransaction?> list = await TransactionService()
-          //         .readAllTransactionB(homeId: home!.homeId, flatId: '1A');
-          //     print(list.length);
-          //   },
-          //   leading: const Icon(Icons.edit),
-          //   title: Text(
-          //     'test',
-          //     style: drawerTextStyle,
-          //   ),
-          // ),
           const Spacer(),
           ListTile(
             onTap: () async {

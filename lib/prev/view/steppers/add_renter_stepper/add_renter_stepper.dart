@@ -8,10 +8,10 @@ import 'package:sweet_home/prev/view/steppers/add_renter_stepper/steps_pages/sec
 import 'package:sweet_home/prev/view/steppers/add_renter_stepper/steps_pages/third_step.dart';
 import '../../../../mvvm/models/response.dart';
 import '../../../../mvvm/providers/current_home.dart';
-import '../../../../mvvm/providers/selected_flat_view_model.dart';
-import '../../../../mvvm/repositories/renter_service.dart';
+import '../../../../mvvm/view_models/selected_flat_view_model.dart';
+import '../../../../mvvm/services/renter_service.dart';
 import '../../../providers/newrenter_step_provider.dart';
-import '../../../../mvvm/repositories/flat_services.dart';
+import '../../../../mvvm/services/flat_services.dart';
 
 import '../../../../mvvm/views/app_widgets.dart';
 import '../../../../mvvm/views/successful_pages/renter_add_successful.dart';

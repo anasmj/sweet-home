@@ -6,7 +6,7 @@ import 'package:sweet_home/mvvm/views/flats/components/meter_image.dart';
 import 'package:sweet_home/mvvm/views/flats/components/profile_avatar.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/renter_opening_page.dart';
 import '../../../models/flat_model.dart';
-import '../../../providers/selected_flat_view_model.dart';
+import '../../../view_models/selected_flat_view_model.dart';
 import '../../../../prev/utils/routes.dart';
 import '../../app_widgets.dart';
 import '../../resources/app_icons.dart';

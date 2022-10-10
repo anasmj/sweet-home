@@ -7,10 +7,10 @@ import '../../providers/current_home.dart';
 
 import '../app_widgets.dart';
 import '../resources/app_icons.dart';
-import '../../../prev/view/screens/home_info_page/edit_textfield.dart';
-import '../../../prev/view/screens/home_info_page/update_button.dart';
+import '../home_info_page/update_button.dart';
 import '../../../prev/view/screens/shared_widgets/delete_button.dart';
-import 'sub_pages/flat_info/compnents/divider.dart';
+import '../flat_info_page/compnents/divider.dart';
+import '../shared_widgets/edit_textfield.dart';
 
 //! information ought to be saved for all flats of home
 class AllFlatsInfoPage extends StatelessWidget {

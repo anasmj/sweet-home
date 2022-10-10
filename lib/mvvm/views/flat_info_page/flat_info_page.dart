@@ -3,19 +3,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
-import 'package:sweet_home/mvvm/repositories/record_services.dart';
+import 'package:sweet_home/mvvm/services/record_services.dart';
 
-import '../../../../models/flat_model.dart';
+import '../../models/flat_model.dart';
 
-import '../../../../providers/current_home.dart';
-import '../../../../providers/selected_flat_view_model.dart';
-import '../../../../repositories/flat_services.dart';
+import '../../providers/current_home.dart';
+import '../../view_models/selected_flat_view_model.dart';
+import '../../services/flat_services.dart';
 
-import '../../../app_widgets.dart';
-import '../../../resources/app_icons.dart';
-import '../../../../../prev/view/screens/home_info_page/edit_textfield.dart';
-import '../../../../../prev/view/screens/home_info_page/update_button.dart';
-import '../../../../../prev/view/screens/shared_widgets/delete_button.dart';
+import '../app_widgets.dart';
+import '../resources/app_icons.dart';
+import '../home_info_page/update_button.dart';
+import '../../../prev/view/screens/shared_widgets/delete_button.dart';
+import '../shared_widgets/edit_textfield.dart';
 import 'compnents/divider.dart';
 
 // ignore: must_be_immutable

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/repositories/renter_service.dart';
+import 'package:sweet_home/mvvm/services/renter_service.dart';
 
 import '../../models/renter.dart';
 import '../../providers/current_home.dart';
-import '../../providers/selected_flat_view_model.dart';
+import '../../view_models/selected_flat_view_model.dart';
 import '../../../prev/providers/newrenter_step_provider.dart';
 import '../../utils/custom_date_time_formatter.dart';
 import '../app_widgets.dart';

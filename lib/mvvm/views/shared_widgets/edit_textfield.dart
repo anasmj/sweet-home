@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../providers/current_home.dart';
+import '../../providers/current_home.dart';
 
 // ignore: must_be_immutable
 class EditTextField extends StatelessWidget {
@@ -24,9 +24,7 @@ class EditTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CurrentHomeProvider provider = context.read<CurrentHomeProvider>();
-    TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          color: Colors.black.withOpacity(0.8),
-        );
+
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       enabled: isDisabled,
@@ -35,9 +33,10 @@ class EditTextField extends StatelessWidget {
       cursorHeight: _cursorHeight,
       keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
       decoration: InputDecoration(
+        prefixText: isNumeric ? '৳' : '',
         label: Text(
           label,
-          style: formTextStyle,
+          // style: formTextStyle,
         ),
         suffixIcon: const Icon(Icons.edit),
       ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/views/flat_info_pages/sub_pages/flat_info/flat_info_new.dart';
+import 'package:sweet_home/mvvm/views/flat_info_page/flat_info_new.dart';
 
 import '../../models/flat_model.dart';
-import '../../providers/selected_flat_view_model.dart';
-import 'sub_pages/flat_info/flat_info.dart';
+import '../../view_models/selected_flat_view_model.dart';
+import '../flat_info_page/flat_info_page.dart';
 
 class SingleFlatInfo extends StatelessWidget {
   const SingleFlatInfo({super.key});
@@ -40,7 +40,7 @@ class SingleFlatInfo extends StatelessWidget {
                 children: [
                   // const Center(child: Text('Monthly Expence')),
                   FlatInfo(),
-                  const FlatInfoNew()
+                  FlatInfoNew()
                   // const Center(child: Text('flat history')),
                 ],
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../mvvm/models/response.dart';
-import '../../mvvm/repositories/home_services.dart';
+import '../../mvvm/services/home_services.dart';
 import '../../mvvm/models/home_model.dart';
 
 import '../../mvvm/providers/current_home.dart';
@@ -33,7 +33,7 @@ onHomeDeleted(BuildContext context) async {
 }
 
 //FUNCTION TO UPDATE TEXTFIELD OF HOME
-onUpdateField(
+void onUpdateField(
     {required BuildContext context,
     required dynamic title,
     required Home home,
@@ -72,13 +72,13 @@ onUpdateField(
 String getFirebaseFieldName({required String title}) {
   final displayFieldToDbField = {
     //app field | DB fields
-    'বাড়ীর নাম': 'Home Name',
-    'ভাড়া': 'Rent Amount',
-    'ঠিকানা': 'Location',
+    'বাড়ীর নাম': 'homeName',
+    'ভাড়া': 'rentAmount',
+    'ঠিকানা': 'location',
     'তলা': 'Floor',
-    'ফ্লোরে ফ্ল্যাট সংখ্যা': 'Flat Per Floor',
-    'গ্যাস': 'Gas Bill',
-    'পানি': 'Water Bill',
+    'ফ্লোরে ফ্ল্যাট সংখ্যা': 'flatPerFloor',
+    'গ্যাস': 'gasBill',
+    'পানি': 'waterBill',
     // 'অন্যান্য' : 'Others'
   };
 
