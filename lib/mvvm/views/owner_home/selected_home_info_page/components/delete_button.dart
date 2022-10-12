@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/response.dart';
+import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
+import 'package:sweet_home/mvvm/views/app_widgets.dart';
 
-import '../../../../mvvm/views/resources/app_icons.dart';
+import '../../../resources/app_icons.dart';
 
 class DeleteButton extends StatelessWidget {
   DeleteButton({
-    required this.action,
-    // required this.onHomeDeleted,
     Key? key,
   }) : super(key: key);
-  VoidCallback action;
+
   final String _buttonText = 'ডিলিট';
   final double _iconWidthAndHeight = 16;
   final confirmationCaptcha = 'A1B2C3';
-  // VoidCallback onHomeDeleted;
 
   @override
   Widget build(BuildContext context) {
+    Response response;
+    final provider = Provider.of<HomeListViewModel>(context);
     return TextButton(
-      onPressed: action,
-      style: TextButton.styleFrom(
-          // side: const BorderSide(
-          //   width: 1,
-          //   color: Colors.red,
-          //   style: BorderStyle.solid,
-          // ),
-          ),
+      onPressed: () async {
+        response = await provider.onHomeDeleted();
+        if (response.code == 200) {
+          AppWidget.snackBarContent(msg: 'বাড়ীটি মুছে ফেলা হয়েছে');
+          await provider.getUserHomes();
+        }
+      },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,

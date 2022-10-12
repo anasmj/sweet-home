@@ -28,7 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   charts_flutter: ^0.12.0
-  cloud_firestore: ^3.4.5
+  cloud_firestore: ^3.5.1
   cupertino_icons: ^1.0.2
   firebase_auth: ^3.7.0
   flutter:

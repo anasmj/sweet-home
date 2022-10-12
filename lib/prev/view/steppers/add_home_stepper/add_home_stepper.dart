@@ -59,7 +59,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                           isLoading = true;
                         });
 
-                        Response res = await HomeCrud().addHome(
+                        Response res = await HomeServices().addHome(
                           homeName: provider.homeNameController.text.trim(),
                           location: provider.addressController.text.trim(),
                           rentAmount:

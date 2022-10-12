@@ -13,8 +13,8 @@ import '../../services/flat_services.dart';
 
 import '../app_widgets.dart';
 import '../resources/app_icons.dart';
-import '../home_info_page/update_button.dart';
-import '../../../prev/view/screens/shared_widgets/delete_button.dart';
+import '../owner_home/selected_home_info_page/components/update_button.dart';
+import '../owner_home/selected_home_info_page/components/delete_button.dart';
 import '../shared_widgets/edit_textfield.dart';
 import 'compnents/divider.dart';
 
@@ -284,9 +284,7 @@ class FlatInfo extends StatelessWidget {
                 ),
 
                 //delete flat if renter does not exist
-                DeleteButton(
-                  action: () {},
-                ),
+                DeleteButton(),
                 const SizedBox(
                   height: 10,
                 ),

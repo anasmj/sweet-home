@@ -19,13 +19,13 @@ class AppRoute {
       );
 
   //HOME DETAIL PAGE
-  static void toCurrentHomeDetail(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const UserHomes(),
-      ),
-    );
-  }
+  // static void toCurrentHomeDetail(BuildContext context) {
+  //   Navigator.of(context).push(
+  //     MaterialPageRoute(
+  //       builder: (context) => const UserHomes(),
+  //     ),
+  //   );
+  // }
 
   //CREATE NEW FLAT
   static void newHomeStepper({required BuildContext context}) {

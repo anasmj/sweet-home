@@ -28,11 +28,16 @@ class CurrentHomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setUserHome() async {
-    List<Home> homeList = await HomeCrud().getAllHome();
-    if (homeList.isNotEmpty) {
-      setCurrentHome = homeList.first;
+  Future<void> setUserHome({List<Home>? userHomes}) async {
+    if (userHomes == null) {
+      List<Home> homeList = await HomeServices().getAllHome();
+      if (homeList.isNotEmpty) {
+        setCurrentHome = homeList.first;
+      }
+    } else {
+      setCurrentHome = userHomes.first;
     }
+
     //set current home
     setDisplayWidget = const AppHomePage();
   }

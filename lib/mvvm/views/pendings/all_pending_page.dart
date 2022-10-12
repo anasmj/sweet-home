@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/service_charges.dart';
+import 'package:sweet_home/mvvm/providers/current_home.dart';
+import 'package:sweet_home/mvvm/services/home_services.dart';
+import 'package:sweet_home/mvvm/services/service_charge_service.dart';
 
+import '../../models/response.dart';
 import '../app_widgets.dart';
 import '../resources/app_icons.dart';
 import '../resources/image_urls.dart';
@@ -37,7 +43,7 @@ class AllPendingPage extends StatelessWidget {
                     'গ্রাহকদের কাছ থেকে আপনার মোট বকেয়া',
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle1!
+                        .titleMedium!
                         .copyWith(fontWeight: FontWeight.w600),
                   ),
                   getPendingText(context),
@@ -53,7 +59,7 @@ class AllPendingPage extends StatelessWidget {
                     children: [
                       Text(
                         'গ্রাহক সংখ্যা 5',
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(
                         width: 10,
@@ -62,7 +68,7 @@ class AllPendingPage extends StatelessWidget {
                         //SEARCH BOX
                         child: AppWidget.appSearchBar(context: context),
                       ),
-                      downloadIcon()
+                      downloadIcon(context),
                     ],
                   ),
                 ]
@@ -147,18 +153,27 @@ class AllPendingPage extends StatelessWidget {
       ),
       title: Text(
         renter.name,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       subtitle: Text(
         'সর্বশেষ লেনদেনঃ ${renter.time}',
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
     );
   }
 
-  IconButton downloadIcon() {
+  IconButton downloadIcon(BuildContext context) {
+    String homeId =
+        Provider.of<CurrentHomeProvider>(context).currentHome!.homeId;
     return IconButton(
-      onPressed: () {},
+      onPressed: () async {
+        Response res =
+            await ServiceChargeService().readHomeServiceCharge(homeId: homeId);
+        print(res.code);
+        if (res.code == 200) {
+          print(res.content);
+        }
+      },
       icon: SvgPicture.asset(
         AppIcons.downloadUrl,
         height: 20,
@@ -184,7 +199,7 @@ class AllPendingPage extends StatelessWidget {
           '৳ 15400',
           style: Theme.of(context)
               .textTheme
-              .headline4!
+              .headlineMedium!
               .copyWith(fontWeight: FontWeight.bold, color: Colors.red),
         )
       ],

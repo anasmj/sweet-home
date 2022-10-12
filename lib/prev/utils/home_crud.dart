@@ -8,29 +8,29 @@ import '../../mvvm/providers/current_home.dart';
 
 import '../../mvvm/views/app_widgets.dart';
 
-onHomeDeleted(BuildContext context) async {
-  Home? currentHome = context.read<CurrentHomeProvider>().currentHome;
-  if (currentHome != null) {
-    var homeId = currentHome.homeId;
-    Response response = HomeCrud().deleteHome(homeId);
-    //trying to find other homs
-    context.read<CurrentHomeProvider>().setCurrentHome = null;
-    List<Home> homeList = await HomeCrud().getAllHome();
-    if (homeList.isNotEmpty) {
-      // ignore: use_build_context_synchronously
-      context.read<CurrentHomeProvider>().setCurrentHome = homeList.first;
-    }
-    if (response.code != 200) {
-      AppWidget.snackBarContent(msg: 'বাড়ীটি ডিলিট করা সম্ভব হয়নি');
-    }
-    AppWidget.showToast('বাড়ীটি মুছে ফেলা হয়েছে');
+// onHomeDeleted(BuildContext context) async {
+//   Home? currentHome = context.read<CurrentHomeProvider>().currentHome;
+//   if (currentHome != null) {
+//     var homeId = currentHome.homeId;
+//     Response response = HomeServices().deleteHome(homeId);
+//     //trying to find other homs
+//     context.read<CurrentHomeProvider>().setCurrentHome = null;
+//     List<Home> homeList = await HomeServices().getAllHome();
+//     if (homeList.isNotEmpty) {
+//       // ignore: use_build_context_synchronously
+//       context.read<CurrentHomeProvider>().setCurrentHome = homeList.first;
+//     }
+//     if (response.code != 200) {
+//       AppWidget.snackBarContent(msg: 'বাড়ীটি ডিলিট করা সম্ভব হয়নি');
+//     }
+//     AppWidget.showToast('বাড়ীটি মুছে ফেলা হয়েছে');
 
-    // context.read<CurrentHomeProvider>().setCurrentHome(null);
-    //close drawer
+//     // context.read<CurrentHomeProvider>().setCurrentHome(null);
+//     //close drawer
 
-    Navigator.of(context).pop();
-  }
-}
+//     Navigator.of(context).pop();
+//   }
+// }
 
 //FUNCTION TO UPDATE TEXTFIELD OF HOME
 void onUpdateField(
@@ -50,10 +50,9 @@ void onUpdateField(
 
   //updating the field here
   if (formKey.currentState!.validate()) {
-    CurrentHomeProvider providerWatch = context.read<CurrentHomeProvider>();
-
+    CurrentHomeProvider providerWatch = context.watch<CurrentHomeProvider>();
     CurrentHomeProvider providerRead = context.read<CurrentHomeProvider>();
-    HomeCrud().updatefield(
+    HomeServices().updatefield(
       homeId: home.homeId,
       field: getFirebaseFieldName(title: title),
       newValue: castInCorrectType(
@@ -75,15 +74,15 @@ String getFirebaseFieldName({required String title}) {
     'বাড়ীর নাম': 'homeName',
     'ভাড়া': 'rentAmount',
     'ঠিকানা': 'location',
-    'তলা': 'Floor',
+    'তলা': 'floor',
     'ফ্লোরে ফ্ল্যাট সংখ্যা': 'flatPerFloor',
     'গ্যাস': 'gasBill',
     'পানি': 'waterBill',
+    'অন্যান্য': 'serviceCharges',
     // 'অন্যান্য' : 'Others'
   };
 
-  String selectedFirebaseField;
-  selectedFirebaseField = displayFieldToDbField[title] ?? 'Not found';
+  String selectedFirebaseField = displayFieldToDbField[title] ?? 'Not found';
 
   return selectedFirebaseField;
 }

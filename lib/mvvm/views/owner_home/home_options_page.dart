@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../mvvm/models/home_model.dart';
-import '../../utils/routes.dart';
-import '../../../mvvm/views/home_info_page/home_info_page.dart';
+import '../../models/home_model.dart';
+import '../../../prev/utils/routes.dart';
+import 'selected_home_info_page/home_info_page.dart';
 
 // ignore: must_be_immutable
 class HomeOptionsPage extends StatelessWidget {
@@ -11,24 +11,25 @@ class HomeOptionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-                onPressed: () => AppRoute.newHomeStepper(context: context),
-                icon: const Icon(Icons.add)),
-          ],
-        ),
-        body: ListView(
-          children: userHomes
-              .map((home) => makeListTile(context: context, home: home))
-              .toList(),
-        ));
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () => AppRoute.newHomeStepper(context: context),
+              icon: const Icon(Icons.add)),
+        ],
+      ),
+      body: ListView(
+        children: userHomes
+            .map((home) => makeListTile(context: context, home: home))
+            .toList(),
+      ),
+    );
   }
 
   Widget makeListTile({required BuildContext context, required Home home}) =>
       ListTile(
-        onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => HomeInfoPage(home: home))),
+        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => SelectedHomeInfoPage(home: home))),
         // onTap: () => HomeDetail(home: home),
         title: Text(home.homeName),
         subtitle: Text(home.location),

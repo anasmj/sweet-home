@@ -77,7 +77,7 @@ class Flat {
         'waterBill': waterBill,
         'currentMeterReading': currentMeterReading,
         'previousMeterReading': previousMeterReading,
-        'serviceCharget': [],
+        'serviceCharges': serviceCharges ?? [],
         // 'noOfBed': noOfBed,
         // 'bath': bath,
         // 'varanda': varanda,

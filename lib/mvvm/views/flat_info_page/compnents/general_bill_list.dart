@@ -38,7 +38,7 @@ class GeneralBillsList extends StatelessWidget {
               ),
               BillTile(
                 onClick: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (ctx) => OtherExpencesPage())),
+                    MaterialPageRoute(builder: (ctx) => ServiceChargePage())),
                 leadingIcon: FontAwesomeIcons.ellipsis,
                 trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 18),
                 title: 'অন্যান্য',

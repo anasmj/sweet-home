@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/views/current_month/current_month.dart';
 import 'package:sweet_home/mvvm/views/flats/all_flat.dart';
-import '../../providers/current_home.dart';
-import '../flats/home_flats.dart';
 import '../pendings/all_pending_page.dart';
-
 import 'components/drawer.dart';
 
 enum SelectedPage { currentMonth, flats, pendings }
@@ -28,10 +24,8 @@ class _AppHomePage extends State<AppHomePage> {
   //! SETS THE FIRST HOME AS CURRENT HOME IF NO HOME IS SELECTED PREVIOUSLY
   @override
   Widget build(BuildContext context) {
-    CurrentHomeProvider providerRead = context.watch<CurrentHomeProvider>();
-
     return Scaffold(
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       bottomNavigationBar: getBottomNavBar(),
       body: getUserSelectedPage(context),
     );

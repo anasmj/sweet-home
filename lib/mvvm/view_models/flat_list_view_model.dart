@@ -11,9 +11,10 @@ class FlatListViewModel extends ChangeNotifier {
   Home? currentHome;
   FlatListViewModel({this.currentHome}) {
     configureFltas(currentHome?.homeId);
+    _flatList = [];
   }
   bool _isLoading = false;
-  List<Flat> _flatList = [];
+  late List<Flat> _flatList;
 
   bool _hasError = false;
   bool get hasError => _hasError;

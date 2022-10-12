@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sweet_home/mvvm/views/home_info_page/option_tile.dart';
-import 'package:sweet_home/prev/utils/home_crud.dart';
-import 'package:sweet_home/prev/view/screens/shared_widgets/delete_button.dart';
-import '../../../prev/utils/routes.dart';
-import '../../../prev/utils/compare_values.dart';
-import '../../models/home_model.dart';
-import '../service_charge_page/others_expences_page.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
+import 'package:sweet_home/mvvm/views/owner_home/selected_home_info_page/components/option_tile.dart';
+import 'package:sweet_home/mvvm/views/service_charge_page/service_charge_page.dart';
+import 'package:sweet_home/mvvm/views/owner_home/selected_home_info_page/components/delete_button.dart';
+import '../../../../prev/utils/routes.dart';
+import '../../../../prev/utils/compare_values.dart';
+import '../../../models/home_model.dart';
 
 // ignore: must_be_immutable
-class HomeInfoPage extends StatelessWidget {
-  HomeInfoPage({required this.home, super.key});
-
+class SelectedHomeInfoPage extends StatelessWidget {
+  SelectedHomeInfoPage({super.key, required this.home, this.onDeleted});
+  VoidCallback? onDeleted;
   Home home;
-  final Color colorInLightMode = Colors.grey.shade700;
-  final Color modalSheetBgDark = Colors.grey.shade900;
-  final Color modalSheetBgLight = Colors.white;
-  final Color colorInDarkMode = Colors.white;
-  // GlobalKey<FormState> editFormKey = GlobalKey<FormState>();
+
   final String addNewHome = 'বাড়ী যুক্ত';
   @override
   Widget build(BuildContext context) {
@@ -31,7 +28,18 @@ class HomeInfoPage extends StatelessWidget {
               icon: const Icon(Icons.add)),
         ],
       ),
-      body: Column(
+      body: _ui(home, context),
+    );
+  }
+
+  RefreshIndicator _ui(Home home, BuildContext context) {
+    final provider = Provider.of<HomeListViewModel>(context);
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        await provider.getUserHomes();
+      },
+      child: ListView(
         children: [
           OptionTile(
             home: home,
@@ -105,7 +113,7 @@ class HomeInfoPage extends StatelessWidget {
           ListTile(
             onTap: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (ctx) => OtherExpencesPage()));
+                  MaterialPageRoute(builder: (ctx) => ServiceChargePage()));
             },
             title: const Text('অন্যান্য'),
             leading: const Icon(FontAwesomeIcons.ellipsis),
@@ -141,13 +149,10 @@ class HomeInfoPage extends StatelessWidget {
           //   },
           // ),
           // const Spacer(),
-          const Spacer(),
-          DeleteButton(
-            action: () => onHomeDeleted(context),
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 4,
           ),
-          const SizedBox(
-            height: 30,
-          ),
+          DeleteButton(),
         ],
       ),
     );

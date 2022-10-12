@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/models/theme_provider.dart';
-import 'package:sweet_home/mvvm/views/user_home/user_home.dart';
-
-import '../../../models/home_model.dart';
-
-import '../../../services/home_services.dart';
-
+import 'package:sweet_home/mvvm/views/app_home_page/components/drawer_header.dart';
+import 'package:sweet_home/mvvm/views/owner_home/owner_home.dart';
 import '../../../providers/current_home.dart';
-import '../../../../prev/providers/profile.dart';
-
 import '../../../services/auth_service.dart';
 import '../../../../prev/utils/routes.dart';
 import '../../profile_pages/owner_profile_page.dart';
 import '../../setting_page/setting_page.dart';
-
-import 'homes_popup.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({
@@ -33,12 +23,13 @@ class AppDrawer extends StatelessWidget {
       elevation: 3.0,
       child: Column(
         children: [
-          drawerHeader(context),
+          const Drawerheader(),
+          // drawerHeader(context),
           ListTile(
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (BuildContext context) {
-                return const UsesrHome();
+                return const OwnerHome();
               }));
             },
             // onTap: () => AppRoute.toCurrentHomeDetail(context),
@@ -125,89 +116,90 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Container drawerHeader(BuildContext context) {
-    // context.read<CurrentHomeProvider>().setCurrentHomeName = null;
-    CurrentHomeProvider watchProvider = context.watch<CurrentHomeProvider>();
+  //*seperated into DrawerHeader class. delete if no proble found later
+  // Container drawerHeader(BuildContext context) {
+  //   // context.read<CurrentHomeProvider>().setCurrentHomeName = null;
+  //   CurrentHomeProvider watchProvider = context.watch<CurrentHomeProvider>();
 
-    const double withAndHeight = 8;
-    const double containerHeight = 200;
-    bool isDark = context.read<ThemeProvider>().isDarkMode;
-    return Container(
-      padding: const EdgeInsets.only(left: 20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: isDark
-              ? [Colors.grey.shade900, Colors.grey.shade900]
-              : [Colors.blue.shade400, Colors.blue.shade800],
-        ),
-      ),
-      height: containerHeight,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: Text(
-              watchProvider.currentHome != null
-                  ? watchProvider.currentHome!.homeName
-                  : '',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-          // const Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                getNameAndEmail(),
+  //   const double withAndHeight = 8;
+  //   const double containerHeight = 200;
+  //   bool isDark = context.read<ThemeProvider>().isDarkMode;
+  //   return Container(
+  //     padding: const EdgeInsets.only(left: 20),
+  //     decoration: BoxDecoration(
+  //       gradient: LinearGradient(
+  //         colors: isDark
+  //             ? [Colors.grey.shade900, Colors.grey.shade900]
+  //             : [Colors.blue.shade400, Colors.blue.shade800],
+  //       ),
+  //     ),
+  //     height: containerHeight,
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Padding(
+  //           padding: const EdgeInsets.only(top: 30.0),
+  //           child: Text(
+  //             watchProvider.currentHome != null
+  //                 ? watchProvider.currentHome!.homeName
+  //                 : '',
+  //             style: Theme.of(context).textTheme.titleLarge,
+  //           ),
+  //         ),
+  //         // const Spacer(),
+  //         Padding(
+  //           padding: const EdgeInsets.only(bottom: 10),
+  //           child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               getNameAndEmail(),
 
-                //TODO: to fix alignment problem
-                FutureBuilder<List<Home>>(
-                  future: HomeCrud().getAllHome(),
-                  builder: (context, AsyncSnapshot snapshot) {
-                    if (!snapshot.hasData) {
-                      return const SizedBox();
-                      // return const CircularProgressIndicator();
-                    }
-                    if (snapshot.hasError) return const Text('error Occured');
-                    List<Home> userHomes = snapshot.data;
-                    if (userHomes.isNotEmpty) {
-                      return HomesPopupButton(
-                        userHomes: userHomes,
-                        onHomeDelete: () => closeDrawer(drawerContext: context),
-                      );
-                    }
-                    //show nothing if user have no home
-                    return const SizedBox();
-                  },
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  //               //TODO: to fix alignment problem
+  //               FutureBuilder<List<Home>>(
+  //                 future: HomeServices().getAllHome(),
+  //                 builder: (context, AsyncSnapshot snapshot) {
+  //                   if (!snapshot.hasData) {
+  //                     return const SizedBox();
+  //                     // return const CircularProgressIndicator();
+  //                   }
+  //                   if (snapshot.hasError) return const Text('error Occured');
+  //                   List<Home> userHomes = snapshot.data;
+  //                   if (userHomes.isNotEmpty) {
+  //                     return HomesPopupButton(
+  //                       userHomes: userHomes,
+  //                       onHomeDelete: () => closeDrawer(drawerContext: context),
+  //                     );
+  //                   }
+  //                   //show nothing if user have no home
+  //                   return const SizedBox();
+  //                 },
+  //               ),
+  //             ],
+  //           ),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  void closeDrawer({required BuildContext drawerContext}) {
-    Navigator.pop(drawerContext);
-  }
+  // void closeDrawer({required BuildContext drawerContext}) {
+  //   Navigator.pop(drawerContext);
+  // }
 
-  SizedBox getNameAndEmail() {
-    return SizedBox(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            Profile.userName ?? 'Name not found',
-            style: const TextStyle(fontSize: 18),
-          ),
-          Text(
-            Profile.email ?? 'no email',
-          ),
-        ],
-      ),
-    );
-  }
+  // SizedBox getNameAndEmail() {
+  //   return SizedBox(
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(
+  //           Profile.userName ?? 'Name not found',
+  //           style: const TextStyle(fontSize: 18),
+  //         ),
+  //         Text(
+  //           Profile.email ?? 'no email',
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

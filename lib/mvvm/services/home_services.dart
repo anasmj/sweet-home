@@ -5,9 +5,10 @@ import 'package:sweet_home/prev/models/monthly_record.dart';
 
 import '../models/flat_model.dart';
 import '../models/home_model.dart';
+import '../models/service_charges.dart';
 import '../utils/custom_date_time_formatter.dart';
 
-class HomeCrud {
+class HomeServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
@@ -46,6 +47,22 @@ class HomeCrud {
   }
 
   //GET SINGLE HOME
+  // it doesnt update in real time
+  Stream<Home?> getHomeByIdStream({required String homeId}) async* {
+    Home? home;
+    DocumentReference currentUserDocRef =
+        _db.collection('users').doc(_auth.currentUser!.uid);
+    CollectionReference userHomeCollection =
+        currentUserDocRef.collection('homes');
+    DocumentSnapshot homeSnapshot = await userHomeCollection.doc(homeId).get();
+    if (homeSnapshot.exists) {
+      home = Home.fromJson(homeSnapshot.data() as Map<String, dynamic>);
+    }
+    yield home;
+  }
+
+  //another try to update real time
+
   Future<Home?> getHomeById({required String homeId}) async {
     DocumentReference currentUserDocRef =
         _db.collection('users').doc(_auth.currentUser!.uid);
@@ -99,6 +116,7 @@ class HomeCrud {
     double? meterReading,
     double? gasBill,
     double? waterBill,
+    List<ServiceCharge>? seviceCharges,
   }) async {
     DateTime currentDate = DateTime.now();
     DateTime lastMonthDate =
@@ -150,6 +168,7 @@ class HomeCrud {
       location: location,
       gasBill: gasBill,
       waterBill: waterBill,
+      serviceCharges: seviceCharges ?? [],
     );
     final json = data.toJson();
 
