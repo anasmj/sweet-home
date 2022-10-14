@@ -5,12 +5,12 @@ import 'package:sweet_home/mvvm/models/transaction_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
 import 'package:sweet_home/mvvm/services/transaction_service.dart';
-import 'package:sweet_home/mvvm/utils/custom_date_time_formatter.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 
 class TransactionSubmitButton extends StatelessWidget {
   String text;
   TransactionSubmitButton({required this.text, super.key});
-  final recordId = CustomFormatter().makeId(date: DateTime.now());
+  final recordId = Formatter().makeId(date: DateTime.now());
   @override
   Widget build(BuildContext context) {
     final provider = context.read<TransactionProvider>();

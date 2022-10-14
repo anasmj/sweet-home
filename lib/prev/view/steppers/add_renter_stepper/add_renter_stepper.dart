@@ -147,7 +147,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
 
                         //failed
                       } else {
-                        AppWidget.snackBarContent(
+                        AppWidget.showSnackBarWithMsg(
                             msg: res.body ??
                                 'যুক্ত করা সম্ভব হয়নি, আবার চেষ্টা করুন');
                       }

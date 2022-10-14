@@ -57,7 +57,7 @@ class AppWidget {
     );
   }
 
-  static SnackBar snackBarContent({required String msg}) => SnackBar(
+  static SnackBar showSnackBarWithMsg({required String msg}) => SnackBar(
         content: Text(msg),
       );
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../providers/newrenter_step_provider.dart';
-import '../../../../../../mvvm/utils/custom_date_time_formatter.dart';
+import '../../../../../../mvvm/utils/formatter.dart';
 
 class EntryDatePicker extends StatelessWidget {
   const EntryDatePicker({
@@ -12,7 +12,7 @@ class EntryDatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<NewRenterStepProvider>();
-    String date = CustomFormatter().buttonFormat(provider.entryDate);
+    String date = Formatter().buttonFormat(provider.entryDate);
 
     return OutlinedButton(
       onPressed: () async {

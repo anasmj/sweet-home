@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/views/current_month/components/monthly_data_table.dart';
 
-import '../../../utils/custom_date_time_formatter.dart';
+import '../../../utils/formatter.dart';
 import '../../resources/app_icons.dart';
 
 // Ongoing month summary
@@ -40,7 +40,7 @@ class CurrentMonthContent extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: MonthlyDataTable(
                       title: 'চলতি মাসের হিসাব',
-                      date: CustomFormatter().currentMonthYear(),
+                      date: Formatter().currentMonthYear(),
                     ),
                   ),
                   const SizedBox(height: 40),
@@ -48,7 +48,7 @@ class CurrentMonthContent extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: MonthlyDataTable(
                       title: "আগের মাসের হিসাব",
-                      date: CustomFormatter().previousMonthYear(),
+                      date: Formatter().previousMonthYear(),
                     ),
                   ),
                   const SizedBox(

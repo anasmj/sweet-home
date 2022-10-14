@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sweet_home/mvvm/utils/custom_date_time_formatter.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/prev/models/monthly_record.dart';
 
 import '../models/flat_model.dart';
@@ -37,7 +37,7 @@ class RecordService {
     required dynamic newReading,
     required DateTime recordDate,
   }) async {
-    String recordDocId = CustomFormatter().makeId(date: recordDate);
+    String recordDocId = Formatter().makeId(date: recordDate);
     final recordCollectionRef =
         await getRecordCollectionRef(homeId: homeId, flatName: flatName);
     recordCollectionRef
@@ -92,7 +92,7 @@ class RecordService {
   }) async {
     CollectionReference recordCollectionRef =
         await getRecordCollectionRef(homeId: homeId, flatName: flat.flatName);
-    String customId = CustomFormatter().makeId(date: issueDate);
+    String customId = Formatter().makeId(date: issueDate);
     recordCollectionRef.doc(customId).get().then((docSnapshot) {
       // if (!docSnapshot.exists) {}
       recordCollectionRef.doc(customId).set(MonthlyRecord(

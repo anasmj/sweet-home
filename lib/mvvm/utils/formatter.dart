@@ -3,7 +3,7 @@
 //*TAKES DATETIME OBJECT AND RETURN IN EXPECTED FORMAT
 import 'package:intl/intl.dart';
 
-class CustomFormatter {
+class Formatter {
   var months = [
     "Jan",
     "Feb",
@@ -20,6 +20,16 @@ class CustomFormatter {
   ];
 
   DateTime now = DateTime.now();
+  //convert to bengali number
+  static dynamic toBn({dynamic value, bool includeSymbol = true}) {
+    dynamic res = NumberFormat.currency(
+      locale: 'bn-IN',
+      decimalDigits: 0,
+      symbol: '',
+    ).format(value);
+    return includeSymbol ? '৳ $res' : res;
+  }
+
   //23 Jan '22
   String buttonFormat(DateTime timeStamp) =>
       '${timeStamp.day} ${months[timeStamp.month - 1]} ${timeStamp.year.toString().substring(2, 4)}';

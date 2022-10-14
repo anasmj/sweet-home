@@ -7,6 +7,7 @@ import 'package:sweet_home/mvvm/services/service_charge_service.dart';
 enum Status { loading, completed, empty, error }
 
 class ServiceChargeListViewModel extends ChangeNotifier {
+  Response response = Response();
   ServiceChargeListViewModel({this.homeProvider}) {
     setChargeList([]);
     readAllServiceCharges();
@@ -24,7 +25,6 @@ class ServiceChargeListViewModel extends ChangeNotifier {
   List<ServiceCharge> get chargeList => _serviceChargeList;
   setChargeList(List<ServiceCharge> chargeList) {
     _serviceChargeList = chargeList;
-    // notifyListeners();
   }
 
   Future<void> readAllServiceCharges() async {
@@ -43,5 +43,19 @@ class ServiceChargeListViewModel extends ChangeNotifier {
         setStatus(Status.completed);
       }
     }
+  }
+
+  //add new service charge
+  Future<Response> addNewServiceCharge(
+      {required String title, required double amount}) async {
+    if (homeProvider!.currentHome != null) {
+      response = await ServiceChargeService().addNweServiceCharge(
+          homeId: homeProvider!.currentHome!.homeId,
+          serviceCharge: ServiceCharge(purpose: title, amount: amount));
+    } else {
+      response.code = 301;
+    }
+
+    return response;
   }
 }

@@ -92,7 +92,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
 
                           //failed
                         } else {
-                          AppWidget.snackBarContent(
+                          AppWidget.showSnackBarWithMsg(
                               msg: res.body ?? 'বাড়ী যুক্ত করা সম্ভব হয়নি');
                         }
                         setState(() {

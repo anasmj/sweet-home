@@ -6,7 +6,7 @@ import 'package:sweet_home/prev/models/monthly_record.dart';
 import '../models/flat_model.dart';
 import '../models/home_model.dart';
 import '../models/service_charges.dart';
-import '../utils/custom_date_time_formatter.dart';
+import '../utils/formatter.dart';
 
 class HomeServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -141,8 +141,7 @@ class HomeServices {
     );
 
     //CREATING MONTHLY RECORD FOR PREVIOUS MONTH FOR EACH FLAT
-    String previousMonthlRecordId =
-        CustomFormatter().makeId(date: lastMonthDate);
+    String previousMonthlRecordId = Formatter().makeId(date: lastMonthDate);
     // String currentMonthlRecordId = CustomFormatter().makeId(date: currentDate);
     DateTime issueDate = lastMonthDate;
     flatNames.forEach((flat) {

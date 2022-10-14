@@ -5,7 +5,7 @@ import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/prev/models/monthly_record.dart';
 
 import '../models/flat_model.dart';
-import '../utils/custom_date_time_formatter.dart';
+import '../utils/formatter.dart';
 
 class FlatService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,8 +28,7 @@ class FlatService {
     DateTime currentDate = DateTime.now();
     DateTime lastMonthDate =
         DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
-    String previousMonthRecordId =
-        CustomFormatter().makeId(date: lastMonthDate);
+    String previousMonthRecordId = Formatter().makeId(date: lastMonthDate);
 
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
@@ -72,8 +71,7 @@ class FlatService {
     DateTime currentDate = DateTime.now();
     DateTime lastMonthDate =
         DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
-    String previousMonthRecordId =
-        CustomFormatter().makeId(date: lastMonthDate);
+    String previousMonthRecordId = Formatter().makeId(date: lastMonthDate);
 
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);

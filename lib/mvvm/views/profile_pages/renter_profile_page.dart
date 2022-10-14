@@ -7,7 +7,7 @@ import '../../models/renter.dart';
 import '../../providers/current_home.dart';
 import '../../view_models/selected_flat_view_model.dart';
 import '../../../prev/providers/newrenter_step_provider.dart';
-import '../../utils/custom_date_time_formatter.dart';
+import '../../utils/formatter.dart';
 import '../app_widgets.dart';
 import 'components/profile_app_bar.dart';
 import 'components/profile_textfield.dart';
@@ -28,7 +28,7 @@ class RenterProfile extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
             child: Text(
-              '${CustomFormatter().monthYear(renter.entryDate!)} থেকে আছেন',
+              '${Formatter().monthYear(renter.entryDate!)} থেকে আছেন',
             ),
           ),
         ),

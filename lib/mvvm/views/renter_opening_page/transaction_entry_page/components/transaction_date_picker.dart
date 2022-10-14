@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/transaction_provider.dart';
-import 'package:sweet_home/mvvm/utils/custom_date_time_formatter.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 
 class TransactionDatePicker extends StatelessWidget {
   const TransactionDatePicker({
@@ -11,8 +11,7 @@ class TransactionDatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<TransactionProvider>();
-    String buttonDate =
-        CustomFormatter().buttonFormat(provider.transactionDateTime);
+    String buttonDate = Formatter().buttonFormat(provider.transactionDateTime);
 
     return OutlinedButton(
       onPressed: () async {

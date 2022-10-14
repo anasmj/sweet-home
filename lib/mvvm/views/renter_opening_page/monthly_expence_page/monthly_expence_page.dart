@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/mvvm/utils/custom_date_time_formatter.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 
 import 'components/bottom_banner.dart';
 import 'components/monthly_expence_table.dart';
@@ -23,7 +23,7 @@ class MonthlyExpencePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
                 child: Text(
-                  CustomFormatter().currentMonthYear(),
+                  Formatter().currentMonthYear(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),

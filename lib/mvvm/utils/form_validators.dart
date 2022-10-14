@@ -6,6 +6,13 @@ class FormValidators {
     return null; // null -> no problem
   }
 
+  static String? checkNonZero(String? value) {
+    if (value!.isEmpty) return 'তথ্যটি দেয়া হয়নি';
+    if (value == '.') return 'তথ্যটি সঠিক নয়';
+    if (double.parse(value) <= 0) return 'তথ্যটি সঠিক নয়';
+    return null; // null -> no problem
+  }
+
   static String? checkHomeName(String? value) {
     if (value!.isEmpty) return 'গ্রাহকের নাম দেয়া হয়নি';
 

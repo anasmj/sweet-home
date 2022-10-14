@@ -106,7 +106,7 @@ class SignInPageState extends State<LoginPage> {
                               if (response.code != 200) {
                                 // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  AppWidget.snackBarContent(
+                                  AppWidget.showSnackBarWithMsg(
                                       msg: response.body ??
                                           'Unknown error occured'),
                                 );

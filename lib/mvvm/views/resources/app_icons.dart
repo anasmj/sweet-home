@@ -27,6 +27,7 @@ class AppIcons {
   static String calenderUrl = "assets/icons/calender.png";
   static String meterUrl = "assets/icons/meter.png";
   static String defaultProfileUrl = "assets/icons/default_profile.png";
+
   //jpeg
   static String homeLogoUrl = "assets/icons/landing_logo.jpeg";
 

@@ -23,7 +23,7 @@ class DeleteButton extends StatelessWidget {
       onPressed: () async {
         response = await provider.onHomeDeleted();
         if (response.code == 200) {
-          AppWidget.snackBarContent(msg: 'বাড়ীটি মুছে ফেলা হয়েছে');
+          AppWidget.showSnackBarWithMsg(msg: 'বাড়ীটি মুছে ফেলা হয়েছে');
           await provider.getUserHomes();
         }
       },
