@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
 import 'package:sweet_home/mvvm/views/owner_home/selected_home_info_page/components/option_tile.dart';
 import 'package:sweet_home/mvvm/views/service_charge_page/service_charge_page.dart';
@@ -59,7 +60,8 @@ class SelectedHomeInfoPage extends StatelessWidget {
             leadingIcon: Icons.money_rounded,
             isDouble: true,
             title: 'ভাড়া',
-            subTitle: '৳ ${home.rentAmount.toStringAsFixed(1)}',
+            subTitle: Formatter.toBn(value: home.rentAmount),
+            // subTitle: '৳ ${home.rentAmount.toStringAsFixed(1)}',
             validationFunciton: (String? value) {
               return Utils.compareValues(
                 value: value!,
@@ -87,7 +89,8 @@ class SelectedHomeInfoPage extends StatelessWidget {
             leadingIcon: Icons.gas_meter_outlined,
             title: 'গ্যাস',
             isDouble: true,
-            subTitle: '৳ ${home.gasBill.toString()}',
+            subTitle: Formatter.toBn(value: home.gasBill),
+            // subTitle: '৳ ${home.gasBill.toString()}',
             validationFunciton: (String? value) {
               return Utils.compareValues(
                 value: value!,
@@ -101,7 +104,7 @@ class SelectedHomeInfoPage extends StatelessWidget {
             leadingIcon: Icons.water_drop_outlined,
             title: 'পানি',
             isDouble: true,
-            subTitle: '৳ ${home.waterBill.toString()}',
+            subTitle: Formatter.toBn(value: home.waterBill),
             validationFunciton: (String? value) {
               return Utils.compareValues(
                 value: value!,

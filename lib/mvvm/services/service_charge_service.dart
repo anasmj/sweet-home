@@ -50,8 +50,8 @@ class ServiceChargeService {
     required String homeId,
   }) async {
     List<ServiceCharge> chargeList = [];
-    response.code = 201;
-    response.body = 'unknown error';
+    // response.code = 201;
+    // response.body = 'unknown error';
     try {
       DocumentSnapshot snapshot = await _db
           .collection('users')

@@ -32,7 +32,7 @@ class HomeListViewModel extends ChangeNotifier {
   }
 
   Future<void> getUserHomes() async {
-    // setHomeList([]);
+    setHomeList([]);
     setStatus(Status.loading);
 
     Response response = await HomeServices().getAllHomeVM();

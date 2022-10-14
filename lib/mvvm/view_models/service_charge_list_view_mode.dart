@@ -10,6 +10,7 @@ class ServiceChargeListViewModel extends ChangeNotifier {
   Response response = Response();
   ServiceChargeListViewModel({this.homeProvider}) {
     setChargeList([]);
+
     readAllServiceCharges();
   }
   Status _status = Status.empty;
@@ -28,10 +29,11 @@ class ServiceChargeListViewModel extends ChangeNotifier {
   }
 
   Future<void> readAllServiceCharges() async {
-    if (homeProvider!.currentHome != null) {
-      setStatus(Status.loading);
-      Response response = await ServiceChargeService()
-          .readHomeServiceCharge(homeId: homeProvider!.currentHome!.homeId);
+    setStatus(Status.loading);
+    String? homeId = homeProvider?.currentHome?.homeId;
+    if (homeId != null) {
+      Response response =
+          await ServiceChargeService().readHomeServiceCharge(homeId: homeId);
       if (response.code != 200) {
         setStatus(Status.error);
       }
