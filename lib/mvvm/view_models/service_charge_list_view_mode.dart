@@ -13,6 +13,8 @@ class ServiceChargeListViewModel extends ChangeNotifier {
 
     readAllServiceCharges();
   }
+  TextEditingController chargeEditingController = TextEditingController();
+  GlobalKey<FormState> chargeEditingFormKey = GlobalKey();
   Status _status = Status.empty;
   CurrentHomeProvider? homeProvider;
   List<ServiceCharge> _serviceChargeList = [];
@@ -28,6 +30,11 @@ class ServiceChargeListViewModel extends ChangeNotifier {
     _serviceChargeList = chargeList;
   }
 
+  ServiceCharge? _selectedServiceCharge;
+  ServiceCharge? get selectedServiceCharge => _selectedServiceCharge;
+  set setServiceCharge(ServiceCharge? charge) =>
+      _selectedServiceCharge = charge;
+
   Future<void> readAllServiceCharges() async {
     setStatus(Status.loading);
     String? homeId = homeProvider?.currentHome?.homeId;
@@ -36,6 +43,7 @@ class ServiceChargeListViewModel extends ChangeNotifier {
           await ServiceChargeService().readHomeServiceCharge(homeId: homeId);
       if (response.code != 200) {
         setStatus(Status.error);
+        return;
       }
       setChargeList(response.content as List<ServiceCharge>);
 
@@ -58,6 +66,40 @@ class ServiceChargeListViewModel extends ChangeNotifier {
       response.code = 301;
     }
 
+    return response;
+  }
+
+  //delete a service charge
+  Future<Response> deleteServiceCharge(
+      {required ServiceCharge serviceCharge}) async {
+    String? id = homeProvider?.currentHome?.homeId;
+    if (id == null) {
+      response.code = 404;
+      response.body = 'not found';
+    } else {
+      response = await ServiceChargeService().deleteServiceCharge(
+          homeId: homeProvider!.currentHome!.homeId,
+          serviceCharge: serviceCharge);
+      await readAllServiceCharges();
+    }
+
+    return response;
+  }
+
+  Future<Response?> updateServiceCharge(
+      {required ServiceCharge oldObj, required ServiceCharge newObj}) async {
+    String? homeId = homeProvider?.currentHome?.homeId;
+    if (homeId != null) {
+      response = await ServiceChargeService().updateServiceCharge(
+        homeId: homeId,
+        oldServiceCharge: oldObj,
+        newServiceCharge: newObj,
+      );
+    }
+    if (homeId == null) {
+      response.code = 202;
+      response.body = 'no home id found';
+    }
     return response;
   }
 }

@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/prev/models/monthly_record.dart';
-
 import '../models/flat_model.dart';
 import '../utils/formatter.dart';
 

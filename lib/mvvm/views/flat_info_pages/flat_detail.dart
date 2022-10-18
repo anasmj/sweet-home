@@ -39,8 +39,9 @@ class SingleFlatInfo extends StatelessWidget {
               body: TabBarView(
                 children: [
                   // const Center(child: Text('Monthly Expence')),
-                  FlatInfo(),
-                  FlatInfoNew()
+                  // FlatInfo(),
+                  Container(),
+                  FlatInfoNew(),
                   // const Center(child: Text('flat history')),
                 ],
               ),

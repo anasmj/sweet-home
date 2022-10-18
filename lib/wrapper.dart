@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
 import 'package:sweet_home/mvvm/views/init_home.dart';
 import 'package:sweet_home/mvvm/models/home_model.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
@@ -28,7 +29,6 @@ class Wrapper extends StatelessWidget {
             Profile.userId = appUser.userId;
             Profile.userName = appUser.userName;
             return Provider.of<CurrentHomeProvider>(context).displayWidget;
-            // return const AppHomePage();
           }
         } else {
           //trying to fetch data

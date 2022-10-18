@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
+import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
+import 'package:sweet_home/mvvm/views/shared_widgets/update_button.dart';
 
 import '../../providers/current_home.dart';
 
 import '../app_widgets.dart';
 import '../resources/app_icons.dart';
-import '../owner_home/selected_home_info_page/components/update_button.dart';
 import '../owner_home/selected_home_info_page/components/delete_button.dart';
 import '../flat_info_page/compnents/divider.dart';
 import '../shared_widgets/edit_textfield.dart';
@@ -163,7 +164,7 @@ class AllFlatsInfoPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: Form(
-                          key: context.read<CurrentHomeProvider>().editFormKey,
+                          key: context.read<HomeListViewModel>().editFormKey,
                           child: EditTextField(
                             validationFunciton: validationFunciton,
                             isNumeric: willNumeric ?? false,
@@ -174,7 +175,8 @@ class AllFlatsInfoPage extends StatelessWidget {
                         height: 50,
                       ),
                       UpdateButton(
-                        onUpdated: () {},
+                        buttonTitle: '?',
+                        onPressed: () {},
                       ),
                     ],
                   ),

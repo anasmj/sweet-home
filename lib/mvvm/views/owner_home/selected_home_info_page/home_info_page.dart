@@ -11,12 +11,11 @@ import '../../../../prev/utils/compare_values.dart';
 import '../../../models/home_model.dart';
 
 // ignore: must_be_immutable
-class SelectedHomeInfoPage extends StatelessWidget {
-  SelectedHomeInfoPage({super.key, required this.home, this.onDeleted});
+class HomeInfoPage extends StatelessWidget {
+  HomeInfoPage({super.key, required this.home, this.onDeleted});
   VoidCallback? onDeleted;
   Home home;
 
-  final String addNewHome = 'বাড়ী যুক্ত';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,19 +32,18 @@ class SelectedHomeInfoPage extends StatelessWidget {
     );
   }
 
-  RefreshIndicator _ui(Home home, BuildContext context) {
-    final provider = Provider.of<HomeListViewModel>(context);
-
+  Widget _ui(Home home, BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        await provider.getUserHomes();
+        await context.read<HomeListViewModel>().getUserHomes();
       },
       child: ListView(
         children: [
           OptionTile(
             home: home,
             leadingIcon: Icons.home_filled,
-            title: 'বাড়ীর নাম',
+            sheetTitle: 'বাড়ীর নাম',
+            textFieldContent: home.homeName,
             subTitle: home.homeName,
             validationFunciton: (String? value) {
               return Utils.compareValues(
@@ -59,13 +57,14 @@ class SelectedHomeInfoPage extends StatelessWidget {
             home: home,
             leadingIcon: Icons.money_rounded,
             isDouble: true,
-            title: 'ভাড়া',
+            sheetTitle: 'ভাড়া',
+            textFieldContent: home.rentAmount,
             subTitle: Formatter.toBn(value: home.rentAmount),
             // subTitle: '৳ ${home.rentAmount.toStringAsFixed(1)}',
             validationFunciton: (String? value) {
               return Utils.compareValues(
                 value: value!,
-                compareWith: home.rentAmount.toString(),
+                compareWith: home.rentAmount,
               );
             },
           ),
@@ -73,8 +72,9 @@ class SelectedHomeInfoPage extends StatelessWidget {
           OptionTile(
             home: home,
             leadingIcon: Icons.pin_drop,
-            title: 'ঠিকানা',
+            sheetTitle: 'ঠিকানা',
             subTitle: home.location,
+            textFieldContent: home.location,
             isNumeric: false,
             validationFunciton: (String? value) {
               return Utils.compareValues(
@@ -87,9 +87,10 @@ class SelectedHomeInfoPage extends StatelessWidget {
           OptionTile(
             home: home,
             leadingIcon: Icons.gas_meter_outlined,
-            title: 'গ্যাস',
+            sheetTitle: 'গ্যাস',
             isDouble: true,
             subTitle: Formatter.toBn(value: home.gasBill),
+            textFieldContent: home.gasBill,
             // subTitle: '৳ ${home.gasBill.toString()}',
             validationFunciton: (String? value) {
               return Utils.compareValues(
@@ -102,9 +103,10 @@ class SelectedHomeInfoPage extends StatelessWidget {
           OptionTile(
             home: home,
             leadingIcon: Icons.water_drop_outlined,
-            title: 'পানি',
+            sheetTitle: 'পানি',
             isDouble: true,
             subTitle: Formatter.toBn(value: home.waterBill),
+            textFieldContent: home.waterBill,
             validationFunciton: (String? value) {
               return Utils.compareValues(
                 value: value!,
@@ -115,8 +117,8 @@ class SelectedHomeInfoPage extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (ctx) => ServiceChargePage()));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (ctx) => const ServiceChargePage()));
             },
             title: const Text('অন্যান্য'),
             leading: const Icon(FontAwesomeIcons.ellipsis),
@@ -155,7 +157,7 @@ class SelectedHomeInfoPage extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height / 4,
           ),
-          DeleteButton(),
+          DeleteButton(honeInfoPageContext: context),
         ],
       ),
     );

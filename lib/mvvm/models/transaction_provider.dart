@@ -5,8 +5,8 @@ class TransactionProvider extends ChangeNotifier {
   TextEditingController paymentController = TextEditingController();
   TextEditingController payerController = TextEditingController();
   String tempName = '';
-  GlobalKey<FormState> _paymentKey = GlobalKey();
-  GlobalKey<FormState> _payerKey = GlobalKey();
+  final GlobalKey<FormState> _paymentKey = GlobalKey();
+  final GlobalKey<FormState> _payerKey = GlobalKey();
 
   GlobalKey<FormState> get paymentKey => _paymentKey;
   GlobalKey<FormState> get payerKey => _payerKey;

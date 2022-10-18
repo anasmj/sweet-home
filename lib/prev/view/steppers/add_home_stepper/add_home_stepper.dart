@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
+import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
 import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/confirmation_home_page.dart';
 import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/first_page.dart';
 import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/second_page.dart';
@@ -84,6 +85,12 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                           Provider.of<CurrentHomeProvider>(context,
                                   listen: false)
                               .setUserHome();
+                          provider.homeNameController.clear();
+                          provider.addressController.clear();
+                          provider.rentController.clear();
+                          provider.waterController.clear();
+                          provider.gasController.clear();
+
                           setState(() {
                             isCompletedd = true;
 

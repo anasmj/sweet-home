@@ -9,22 +9,26 @@ import '../../../resources/app_icons.dart';
 class DeleteButton extends StatelessWidget {
   DeleteButton({
     Key? key,
+    this.honeInfoPageContext,
   }) : super(key: key);
 
   final String _buttonText = 'ডিলিট';
   final double _iconWidthAndHeight = 16;
   final confirmationCaptcha = 'A1B2C3';
-
+  BuildContext? honeInfoPageContext;
   @override
   Widget build(BuildContext context) {
     Response response;
     final provider = Provider.of<HomeListViewModel>(context);
     return TextButton(
       onPressed: () async {
-        response = await provider.onHomeDeleted();
+        response = await provider.deleteHome();
         if (response.code == 200) {
           AppWidget.showSnackBarWithMsg(msg: 'বাড়ীটি মুছে ফেলা হয়েছে');
-          await provider.getUserHomes();
+          // ignore: use_build_context_synchronously
+          if (honeInfoPageContext != null) {
+            Navigator.pop(honeInfoPageContext!);
+          }
         }
       },
       child: Row(

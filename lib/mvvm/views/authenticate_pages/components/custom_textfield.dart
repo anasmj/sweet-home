@@ -17,7 +17,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
+    TextStyle formTextStyle = Theme.of(context).textTheme.titleMedium!.copyWith(
           color: Colors.black.withOpacity(0.8),
         );
     return TextFormField(

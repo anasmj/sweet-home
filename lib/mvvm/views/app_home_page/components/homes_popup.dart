@@ -26,9 +26,10 @@ class HomesPopupButton extends StatelessWidget {
             (homeObj) {
               return PopupMenuItem(
                 onTap: () {
-                  updateHome(context, homeObj);
+                  context.read<CurrentHomeProvider>().setCurrentHome = homeObj;
                   Provider.of<FlatListViewModel>(context, listen: false)
                       .configureFltas(homeObj.homeId);
+                  Navigator.pop(context);
                 },
                 value: homeObj.homeId,
                 child: Row(
@@ -38,8 +39,8 @@ class HomesPopupButton extends StatelessWidget {
                       homeObj.homeName,
                     ),
                     currentHome!.homeId == homeObj.homeId
-                        ? getCheckIcon(context)
-                        : const SizedBox(),
+                        ? getCheckIcon()
+                        : const SizedBox.shrink(),
                   ],
                 ),
               );
@@ -48,18 +49,15 @@ class HomesPopupButton extends StatelessWidget {
     );
   }
 
-  Icon getCheckIcon(context) {
-    bool isDark = Provider.of<ThemeProvider>(context, listen: false).isDarkMode;
-
-    return Icon(
-      Icons.check_circle,
-      color: isDark ? Colors.grey.shade900 : Colors.blue,
-      size: 22,
-    );
-  }
-
-  void updateHome(context, Home home) {
-    Provider.of<CurrentHomeProvider>(context, listen: false).setCurrentHome =
-        home;
+  Widget getCheckIcon() {
+    return Builder(builder: (context) {
+      bool isDark =
+          Provider.of<ThemeProvider>(context, listen: false).isDarkMode;
+      return Icon(
+        Icons.check_circle,
+        color: isDark ? Colors.grey.shade900 : Colors.blue,
+        size: 22,
+      );
+    });
   }
 }

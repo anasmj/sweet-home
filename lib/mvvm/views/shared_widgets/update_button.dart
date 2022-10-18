@@ -1,33 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../../../providers/current_home.dart';
 
 //! do not change
 // ignore: must_be_immutable
 class UpdateButton extends StatelessWidget {
   UpdateButton({
     Key? key,
-    required this.onUpdated,
+    required this.buttonTitle,
+    this.onPressed,
   }) : super(key: key);
-  VoidCallback onUpdated;
-
-  String buttonText = 'সেভ';
+  VoidCallback? onPressed;
+  final double buttonFontSize = 16;
+  String buttonTitle;
 
   @override
   Widget build(BuildContext context) {
-    CurrentHomeProvider providerRead = context.read<CurrentHomeProvider>();
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
       ),
-      onPressed: onUpdated,
+      onPressed: onPressed,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Text(buttonText,
-            style: const TextStyle(
-              fontSize: 18,
-            )),
+        child: Text(
+          'আপডেট করুন',
+          style: TextStyle(fontSize: buttonFontSize),
+        ),
       ),
+    );
+  }
+
+  CircularProgressIndicator getWaitingWidget() {
+    return const CircularProgressIndicator(
+      strokeWidth: 3,
+      color: Colors.white,
     );
   }
 }

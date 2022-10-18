@@ -28,7 +28,7 @@ class ServiceChargeService {
     return flatDocRef;
   }
 
-  //add new service charge
+  //ADD
   Future<Response> addNweServiceCharge(
       {required String homeId, required ServiceCharge serviceCharge}) async {
     DocumentReference homeDocRef = await getHomeDocRef(homeId: homeId);
@@ -44,14 +44,63 @@ class ServiceChargeService {
     return response;
   }
 
-  //read all service charges
-  //? need to be completed
+  //UPDATE
+  Future<Response> updateServiceCharge(
+      {required String homeId,
+      required ServiceCharge oldServiceCharge,
+      required ServiceCharge newServiceCharge}) async {
+    Map<String, dynamic> itemMap;
+    try {
+      DocumentReference homeDocRef = await getHomeDocRef(homeId: homeId);
+      DocumentSnapshot snapshot = await _db
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .collection('homes')
+          .doc(homeId)
+          .get();
+      final serviceChargeList = await snapshot.get('serviceCharges');
+      serviceChargeList.forEach((item) {
+        itemMap = item as Map<String, dynamic>;
+        if (itemMap['purpose'] == newServiceCharge.purpose) {
+          homeDocRef.update({
+            'serviceCharges':
+                FieldValue.arrayRemove([oldServiceCharge.toJson()])
+          });
+          homeDocRef.update({
+            'serviceCharges': FieldValue.arrayUnion([newServiceCharge.toJson()])
+          });
+        }
+      });
+      response.code = 200;
+      response.body = 'updated';
+    } catch (e) {
+      response.code = 201;
+      response.body = e.toString();
+    }
+    return response;
+  }
+
+  //DELETE
+  Future<Response> deleteServiceCharge(
+      {required String homeId, ServiceCharge? serviceCharge}) async {
+    DocumentReference homeDocRef = await getHomeDocRef(homeId: homeId);
+    homeDocRef.update({
+      'serviceCharges': FieldValue.arrayRemove([serviceCharge?.toJson()])
+    }).whenComplete(() {
+      response.code = 200;
+      response.body = 'deleted';
+    }).catchError((e) {
+      response.code = 201;
+      response.body = e.toString();
+    });
+    return response;
+  }
+
+  //READ || HOME
   Future<Response> readHomeServiceCharge({
     required String homeId,
   }) async {
     List<ServiceCharge> chargeList = [];
-    // response.code = 201;
-    // response.body = 'unknown error';
     try {
       DocumentSnapshot snapshot = await _db
           .collection('users')
@@ -59,13 +108,23 @@ class ServiceChargeService {
           .collection('homes')
           .doc(homeId)
           .get();
-      final serviceChargeList = snapshot.get('serviceCharges');
-      serviceChargeList.forEach((item) {
-        chargeList.add(ServiceCharge.fromJson(item as Map<String, dynamic>));
+
+      final serviceChargeList = await snapshot.get('serviceCharges');
+      if (serviceChargeList.isEmpty) {
         response.code = 200;
-        response.body = 'ok';
+        response.body = 'empty list';
         response.content = chargeList;
-      });
+      } else {
+        serviceChargeList.forEach(
+          (item) {
+            chargeList
+                .add(ServiceCharge.fromJson(item as Map<String, dynamic>));
+            response.code = 200;
+            response.body = 'ok';
+            response.content = chargeList;
+          },
+        );
+      }
     } catch (e) {
       response.code = 300;
       response.body = e.toString();
@@ -73,7 +132,7 @@ class ServiceChargeService {
     return response;
   }
 
-  //get list of service charge of a flat
+  //READ || FLAT
   Future<Response> getServiceCharges(
       {required String homeId, required String flatId}) async {
     List<ServiceCharge> serviceChargeList = [];

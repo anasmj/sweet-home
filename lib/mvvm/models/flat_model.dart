@@ -44,7 +44,9 @@ class Flat {
     try {
       Map<String, dynamic> renterData = json['renter'] as Map<String, dynamic>;
       renterObj = Renter.fromJson(renterData);
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return Flat(
         flatName: json['flatName'] ?? '',
         renter: renterObj,

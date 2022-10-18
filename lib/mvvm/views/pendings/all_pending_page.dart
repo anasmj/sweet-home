@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/service_charges.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/mvvm/services/home_services.dart';
-import 'package:sweet_home/mvvm/services/service_charge_service.dart';
-
-import '../../models/response.dart';
+import 'package:sweet_home/mvvm/view_models/service_charge_list_view_mode.dart';
 import '../app_widgets.dart';
 import '../resources/app_icons.dart';
 import '../resources/image_urls.dart';
@@ -163,17 +159,12 @@ class AllPendingPage extends StatelessWidget {
   }
 
   IconButton downloadIcon(BuildContext context) {
+    final provider = Provider.of<ServiceChargeListViewModel>(context);
+
     String homeId =
         Provider.of<CurrentHomeProvider>(context).currentHome!.homeId;
     return IconButton(
-      onPressed: () async {
-        Response res =
-            await ServiceChargeService().readHomeServiceCharge(homeId: homeId);
-        print(res.code);
-        if (res.code == 200) {
-          print(res.content);
-        }
-      },
+      onPressed: () async {},
       icon: SvgPicture.asset(
         AppIcons.downloadUrl,
         height: 20,

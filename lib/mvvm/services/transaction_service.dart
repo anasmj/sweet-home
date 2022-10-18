@@ -50,6 +50,7 @@ class TransactionService {
     final recordCollectionRef =
         await getRecordsCollectionRef(homeId: homeId, flatId: flatId);
     final snapShot = await recordCollectionRef.get();
+    // ignore: avoid_function_literals_in_foreach_calls
     snapShot.docs.forEach((monthDoc) {
       Map<String, dynamic> monthMap = monthDoc.data() as Map<String, dynamic>;
       if (monthMap.containsKey('transaction')) {

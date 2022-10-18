@@ -1,5 +1,3 @@
-import 'package:sweet_home/prev/models/year.dart';
-
 class Renter {
   String renterName;
   String phoneNo;

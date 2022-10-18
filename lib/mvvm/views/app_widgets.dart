@@ -2,28 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
-
 import '../models/flat_model.dart';
-
 import '../models/response.dart';
 import '../providers/bills_provider.dart';
 import '../providers/current_home.dart';
 import '../view_models/selected_flat_view_model.dart';
-import '../../prev/providers/monthly_record_provider.dart';
 import '../services/flat_services.dart';
 import '../view_models/renter_opening_page_view_model.dart';
 
 class AppWidget {
-  static void showToast(String message) => Fluttertoast.showToast(
-        msg: message,
-        // msg: "ফ্ল্যাটটি খালি নেই",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.white.withOpacity(0.9),
-        // backgroundColor: Colors.grey.shade50,
-        textColor: Colors.black,
-        fontSize: 14.0,
-      );
+  static void showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      // msg: "ফ্ল্যাটটি খালি নেই",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.grey.shade700.withOpacity(0.95),
+      // backgroundColor: Colors.grey.shade50,
+      textColor: Colors.white,
+      fontSize: 14.0,
+    );
+  }
 
   static Widget appSearchBar({required BuildContext context}) => SizedBox(
         height: 40,
@@ -62,8 +61,10 @@ class AppWidget {
       );
 
   //TODO: make this bottom shit usable for all
-  static Future getModalSheet(
-      {required BuildContext context, required Widget modalSheetContent}) {
+  static Future getModalSheet({
+    required BuildContext context,
+    required Widget modalSheetContent,
+  }) {
     final Color modalSheetBgDark = Colors.grey.shade900;
     const Color modalSheetBgLight = Colors.white;
     bool isDark = Provider.of<ThemeProvider>(context, listen: false).isDarkMode;
@@ -110,6 +111,46 @@ class AppWidget {
                 Navigator.of(context).pop();
               },
             ),
+          ],
+        );
+      },
+    );
+  }
+
+  static Future<void> confirmDialog(
+      {required BuildContext context,
+      required String msg,
+      String title = '',
+      VoidCallback? onAction}) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: Text(title),
+          content: Text(
+            msg,
+            textAlign: TextAlign.center,
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'না',
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              onPressed: onAction,
+              child: const Text(
+                'হ্যাঁ',
+                style: TextStyle(fontSize: 16),
+              ),
+            )
           ],
         );
       },

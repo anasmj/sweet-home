@@ -76,8 +76,8 @@ class HomeServices {
   }
 
   //DELETE HOME
-  Response deleteHome(String homeId) {
-    getHomesCollectionRef().doc(homeId).delete().whenComplete(() {
+  Future<Response> deleteHome(String homeId) async {
+    await getHomesCollectionRef().doc(homeId).delete().whenComplete(() {
       response.code = 200;
       response.body = 'home deleted';
     }).catchError((e) {
@@ -88,11 +88,11 @@ class HomeServices {
   }
 
   //UPDATE HOME
-  Response updatefield(
+  Future<Response> updatefield(
       {required String homeId,
       required String field,
-      required dynamic newValue}) {
-    getHomesCollectionRef()
+      required dynamic newValue}) async {
+    await getHomesCollectionRef()
         .doc(homeId)
         .update({field: newValue}).whenComplete(() {
       response.code = 200;
@@ -129,6 +129,7 @@ class HomeServices {
 
     //create flats colection, where doc id = flat name
     CollectionReference flatCollectionRef = homeDocRef.collection('flats');
+    // ignore: avoid_function_literals_in_foreach_calls
     flatNames.forEach(
       (flatName) => flatCollectionRef.doc(flatName).set(
             Flat().toJson(
@@ -143,7 +144,7 @@ class HomeServices {
     //CREATING MONTHLY RECORD FOR PREVIOUS MONTH FOR EACH FLAT
     String previousMonthlRecordId = Formatter().makeId(date: lastMonthDate);
     // String currentMonthlRecordId = CustomFormatter().makeId(date: currentDate);
-    DateTime issueDate = lastMonthDate;
+    // ignore: avoid_function_literals_in_foreach_calls
     flatNames.forEach((flat) {
       //creating record for last month
       CollectionReference recordCollectionRef =

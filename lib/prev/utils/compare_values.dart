@@ -1,8 +1,10 @@
 class Utils {
   static String? compareValues(
-      {required String value,
-      required String compareWith,
+      {required dynamic value,
+      required dynamic compareWith,
       bool isRequired = true}) {
+    value = value.toString();
+    compareWith = compareWith.toString();
     if (isRequired) {
       if (value.isEmpty) {
         return 'কোনও তথ্য দেয়া হয়নি';

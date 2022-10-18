@@ -10,14 +10,12 @@ import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/service_charge_list_view_mode.dart';
 import 'package:sweet_home/prev/providers/home_stepper_provider.dart';
 import 'package:sweet_home/prev/providers/newrenter_step_provider.dart';
-
 import 'package:sweet_home/mvvm/services/auth_service.dart';
 import 'package:sweet_home/mvvm/utils/shared_pref.dart';
 import 'package:sweet_home/prev/view/dismiss_keyboard.dart';
 import 'package:sweet_home/mvvm/views/resources/app_theme.dart';
 import 'package:sweet_home/wrapper.dart';
 import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
-
 import 'mvvm/models/transaction_provider.dart';
 import 'mvvm/view_models/flat_list_view_model.dart';
 import 'mvvm/view_models/home_list_view_model.dart';
@@ -103,7 +101,7 @@ class MyApp extends StatelessWidget {
         //   update: (context, currentFlat, prevRenterOpeningVM) =>
         //       RenterOpeningViewModel(currentFlat),
         //   create: (context) => RenterOpeningViewModel(null),
-        // ),
+        //
 
         //* delete after confirm
         // ChangeNotifierProvider(

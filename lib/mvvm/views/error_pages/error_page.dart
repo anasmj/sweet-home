@@ -14,7 +14,7 @@ class ErrorPage extends StatelessWidget {
         children: [
           SvgPicture.asset(
             AppIcons.troubleUrl,
-            width: 250,
+            width: 200,
           ),
           Text(
             'কোনও একটি সমস্যা হয়েছে',

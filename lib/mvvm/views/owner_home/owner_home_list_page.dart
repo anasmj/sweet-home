@@ -4,8 +4,8 @@ import '../../../prev/utils/routes.dart';
 import 'selected_home_info_page/home_info_page.dart';
 
 // ignore: must_be_immutable
-class HomeOptionsPage extends StatelessWidget {
-  HomeOptionsPage({required this.userHomes, super.key});
+class OwnerHomeListPage extends StatelessWidget {
+  OwnerHomeListPage({required this.userHomes, super.key});
   final String addNewHome = 'বাড়ী যুক্ত';
   List<Home> userHomes;
   @override
@@ -28,8 +28,11 @@ class HomeOptionsPage extends StatelessWidget {
 
   Widget makeListTile({required BuildContext context, required Home home}) =>
       ListTile(
-        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => SelectedHomeInfoPage(home: home))),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => HomeInfoPage(home: home),
+          ),
+        ),
         // onTap: () => HomeDetail(home: home),
         title: Text(home.homeName),
         subtitle: Text(home.location),

@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/transaction_provider.dart';
 import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
 import '../../../../../mvvm/models/flat_model.dart';
-
-import '../components/confirm_calculation_button.dart';
 import 'components/payer_name_button.dart';
 import 'components/transaction_date_picker.dart';
 import 'components/input_textfield.dart';
@@ -34,7 +32,7 @@ class EntryPage extends StatelessWidget {
         const PayerNameButton(),
         Text(
           'এর মাধ্যমে',
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         const Spacer(),
         Padding(
