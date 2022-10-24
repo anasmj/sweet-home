@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../providers/current_home.dart';
-import 'selected_flat_view_model.dart';
+import '../providers/selected_flat_provider.dart';
 import '../services/record_services.dart';
 
 class RenterOpeningViewModel extends ChangeNotifier {
   RenterOpeningViewModel({this.currentHomeProvider, this.selectedFlatProvider});
 
-  SelectedFlatVuewModel? selectedFlatProvider;
+  SelectedFlatProvider? selectedFlatProvider;
   CurrentHomeProvider? currentHomeProvider;
   double? _meterReading;
   String? homeId;

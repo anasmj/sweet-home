@@ -3,10 +3,10 @@
 import 'package:flutter/cupertino.dart';
 
 import '../models/flat_model.dart';
-import '../view_models/selected_flat_view_model.dart';
+import 'selected_flat_provider.dart';
 
 class BillsProvider extends ChangeNotifier {
-  SelectedFlatVuewModel? flatProvider;
+  SelectedFlatProvider? flatProvider;
 
   double? _previousReading;
   double? _currentReading;

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
-import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 
@@ -28,13 +29,11 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
     //*use this to show data .
     //*after confirmed by user, make a month detail object which will
     //*be later used to show previoufs month details
-    Flat? flat = Provider.of<SelectedFlatVuewModel>(context).selectedFlat;
-    double? currentReading = context
-        .watch<SelectedFlatVuewModel>()
-        .selectedFlat!
-        .currentMeterReading;
+    Flat? flat = Provider.of<SelectedFlatProvider>(context).selectedFlat;
+    double? currentReading =
+        context.watch<SelectedFlatProvider>().selectedFlat!.currentMeterReading;
     double? prevReading = context
-        .watch<SelectedFlatVuewModel>()
+        .watch<SelectedFlatProvider>()
         .selectedFlat!
         .previousMeterReading;
 
@@ -49,7 +48,7 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                 children: [
                   getPurposeTitle(titleIcon: AppIcons.homeUrl, title: 'ভাড়া'),
                   Text(
-                    '৳ ${flat.flatRentAmount.toString()}',
+                    Formatter.toBn(value: flat.flatRentAmount),
                     style: TextStyle(fontSize: _fontSize),
                   ),
                 ],
@@ -59,7 +58,7 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                 children: [
                   getPurposeTitle(titleIcon: AppIcons.flameUrl, title: 'গ্যাস'),
                   Text(
-                    '৳ ${flat.flatGasBill.toStringAsFixed(1)}',
+                    Formatter.toBn(value: flat.flatGasBill),
                     style: TextStyle(fontSize: _fontSize),
                   ),
                 ],
@@ -70,7 +69,7 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                   getPurposeTitle(
                       titleIcon: AppIcons.waterTapUrl, title: 'পানি'),
                   Text(
-                    '৳ ${flat.flatWaterBill.toStringAsFixed(1)}',
+                    Formatter.toBn(value: flat.flatWaterBill),
                     style: TextStyle(fontSize: _fontSize),
                   ),
                 ],
@@ -107,7 +106,8 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                             : const SizedBox(),
                   ),
                   Text(
-                    '৳ ${context.watch<BillsProvider>().electricBill.toStringAsFixed(1)}',
+                    Formatter.toBn(
+                        value: context.watch<BillsProvider>().electricBill),
                     style: TextStyle(fontSize: _fontSize),
                   ),
                 ],
@@ -138,15 +138,17 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                 children: [
                   Text(
                     "মোট",
-                    style: textTheme.subtitle1!
+                    style: textTheme.titleMedium!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '৳ ${context.watch<BillsProvider>().totalBill.toString()}',
+                    Formatter.toBn(
+                        value: context.watch<BillsProvider>().totalBill ?? 0.0),
+                    // '৳ ${context.watch<BillsProvider>().totalBill.toString()}',
                     // CalculateBill.setRenter(renter: renter)
                     //     .totalBill
                     //     .toStringAsFixed(1),
-                    style: textTheme.subtitle1!
+                    style: textTheme.titleMedium!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -156,11 +158,11 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                 children: [
                   Text(
                     "আগের বকেয়া",
-                    style: textTheme.subtitle1,
+                    style: textTheme.titleMedium,
                   ),
                   Text(
-                    '৳ 0',
-                    style: textTheme.subtitle1!.copyWith(
+                    Formatter.toBn(value: 0),
+                    style: textTheme.titleMedium!.copyWith(
                         fontWeight: FontWeight.bold, color: Colors.red[900]),
                   ),
                 ],
@@ -171,12 +173,14 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                 children: [
                   Text(
                     "সর্বমোট",
-                    style: textTheme.subtitle1!
+                    style: textTheme.titleMedium!
                         .copyWith(fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    '৳ ${context.watch<BillsProvider>().totalBill.toString()}',
-                    style: textTheme.subtitle1!
+                    Formatter.toBn(
+                        value: context.watch<BillsProvider>().totalBill ?? 0),
+                    // '৳ ${context.watch<BillsProvider>().totalBill.toString()}',
+                    style: textTheme.titleMedium!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ],

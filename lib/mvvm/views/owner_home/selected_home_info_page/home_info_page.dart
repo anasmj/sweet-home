@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
-import 'package:sweet_home/mvvm/views/owner_home/selected_home_info_page/components/option_tile.dart';
-import 'package:sweet_home/mvvm/views/service_charge_page/service_charge_page.dart';
+import 'package:sweet_home/mvvm/views/owner_home/home_service_charge_page/home_service_charge_page.dart';
+import 'package:sweet_home/mvvm/views/shared_widgets/option_tile.dart';
 import 'package:sweet_home/mvvm/views/owner_home/selected_home_info_page/components/delete_button.dart';
 import '../../../../prev/utils/routes.dart';
 import '../../../../prev/utils/compare_values.dart';
@@ -33,6 +33,8 @@ class HomeInfoPage extends StatelessWidget {
   }
 
   Widget _ui(Home home, BuildContext context) {
+    final viewModel = context.watch<HomeListViewModel>();
+
     return RefreshIndicator(
       onRefresh: () async {
         await context.read<HomeListViewModel>().getUserHomes();
@@ -40,7 +42,8 @@ class HomeInfoPage extends StatelessWidget {
       child: ListView(
         children: [
           OptionTile(
-            home: home,
+            homeListViewModel: viewModel,
+            // home: home,
             leadingIcon: Icons.home_filled,
             sheetTitle: 'বাড়ীর নাম',
             textFieldContent: home.homeName,
@@ -54,7 +57,9 @@ class HomeInfoPage extends StatelessWidget {
             isNumeric: false,
           ),
           OptionTile(
-            home: home,
+            homeListViewModel: viewModel,
+
+            // home: home,
             leadingIcon: Icons.money_rounded,
             isDouble: true,
             sheetTitle: 'ভাড়া',
@@ -70,7 +75,9 @@ class HomeInfoPage extends StatelessWidget {
           ),
 
           OptionTile(
-            home: home,
+            homeListViewModel: viewModel,
+
+            // home: home,
             leadingIcon: Icons.pin_drop,
             sheetTitle: 'ঠিকানা',
             subTitle: home.location,
@@ -80,12 +87,15 @@ class HomeInfoPage extends StatelessWidget {
               return Utils.compareValues(
                 value: value!,
                 compareWith: home.location.toString(),
+                // isRequired: false,
               );
             },
           ),
 
           OptionTile(
-            home: home,
+            homeListViewModel: viewModel,
+
+            // home: home,
             leadingIcon: Icons.gas_meter_outlined,
             sheetTitle: 'গ্যাস',
             isDouble: true,
@@ -96,13 +106,15 @@ class HomeInfoPage extends StatelessWidget {
               return Utils.compareValues(
                 value: value!,
                 compareWith: home.gasBill.toString(),
-                isRequired: false,
+                // isRequired: false,
               );
             },
           ),
           OptionTile(
-            home: home,
-            leadingIcon: Icons.water_drop_outlined,
+            homeListViewModel: viewModel,
+
+            // home: home,
+            leadingIcon: FontAwesomeIcons.shower,
             sheetTitle: 'পানি',
             isDouble: true,
             subTitle: Formatter.toBn(value: home.waterBill),
@@ -111,14 +123,14 @@ class HomeInfoPage extends StatelessWidget {
               return Utils.compareValues(
                 value: value!,
                 compareWith: home.waterBill.toString(),
-                isRequired: false,
+                // isRequired: false,
               );
             },
           ),
           ListTile(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (ctx) => const ServiceChargePage()));
+                  builder: (ctx) => const HomeServiceChargePage()));
             },
             title: const Text('অন্যান্য'),
             leading: const Icon(FontAwesomeIcons.ellipsis),

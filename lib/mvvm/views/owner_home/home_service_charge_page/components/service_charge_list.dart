@@ -4,10 +4,10 @@ import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/service_charges.dart';
 import 'package:sweet_home/mvvm/utils/form_validators.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
-import 'package:sweet_home/mvvm/view_models/service_charge_list_view_mode.dart';
+import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 import 'long_press_sheet_options.dart';
-import '../../shared_widgets/edit_sheet_content.dart';
+import '../../../shared_widgets/edit_modal_sheet.dart';
 
 class ServiceChargeList extends StatelessWidget {
   const ServiceChargeList({
@@ -16,10 +16,10 @@ class ServiceChargeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ServiceChargeListViewModel>(context);
-
+    final provider = Provider.of<HomeServiceChargeListViewModel>(context);
+    //TODO: HANDLE EXCEPTION IF USER TRY TO UPDATE WITH NULL VALUE
     return ListView(
-      children: provider.chargeList.map((item) {
+      children: provider.serviceChargeList.map((item) {
         return ListTile(
           onTap: () {
             AppWidget.getModalSheet(
@@ -29,7 +29,7 @@ class ServiceChargeList extends StatelessWidget {
                 formKey: provider.chargeEditingFormKey,
                 onUpdated: () async {
                   Navigator.of(context).pop();
-                  Response? res = await provider.updateServiceCharge(
+                  Response? res = await provider.updateHomeServiceCharge(
                       oldObj: item,
                       newObj: ServiceCharge(
                           purpose: item.purpose,
@@ -42,7 +42,7 @@ class ServiceChargeList extends StatelessWidget {
                   if (res?.code != 200) return;
                   AppWidget.showToast('আপডেট করা হয়েছে');
                   provider.chargeEditingController.clear();
-                  await provider.readAllServiceCharges();
+                  await provider.readServiceCharges();
                 },
                 validationFunciton: FormValidators.checkEmpty,
                 sheetTitle: item.purpose,
@@ -72,7 +72,7 @@ class ServiceChargeList extends StatelessWidget {
                       } else {
                         AppWidget.showSnackBarWithMsg(
                             msg: 'খরচটি সরিয়ে ফেলা হয়েছে ');
-                        await provider.readAllServiceCharges();
+                        await provider.readServiceCharges();
                       }
                     },
                   );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/components/renter_popup_menu.dart';
 
 // ignore: must_be_immutable
@@ -34,7 +35,8 @@ class RenterAppBar extends StatelessWidget {
                 TextSpan(text: 'পাবো  ', style: appTextTheme.titleMedium),
                 // AppWidget.taka,
                 TextSpan(
-                  text: '৳${totalBill.toStringAsFixed(1)} \n',
+                  text: '${Formatter.toBn(value: totalBill)}\n',
+                  // text: '৳${totalBill.toStringAsFixed(1)} \n',
                   // '${CalculateBill.setRenter(renter: renter).totalBill.toStringAsFixed(1)} \n',
                   style: appTextTheme.headlineSmall!.copyWith(
                       color: Colors.red[900], fontWeight: FontWeight.w600),

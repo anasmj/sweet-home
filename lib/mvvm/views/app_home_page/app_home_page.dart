@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/views/current_month/current_month.dart';
 import 'package:sweet_home/mvvm/views/flats/all_flat.dart';
+import 'package:sweet_home/mvvm/views/flats/all_flats_using_stream.dart';
 import '../pendings/all_pending_page.dart';
 import 'components/drawer.dart';
 
@@ -14,9 +15,9 @@ class AppHomePage extends StatefulWidget {
 }
 
 class _AppHomePage extends State<AppHomePage> {
-  int _defaultTabIndex = 0;
+  int _defaultTabIndex = 1;
   SelectedPage selectedPage =
-      SelectedPage.currentMonth; //! change if default index modified
+      SelectedPage.flats; //! change if default index modified
 
   final double _appBarHeight = 280;
   bool isInitialState = false;
@@ -65,8 +66,8 @@ class _AppHomePage extends State<AppHomePage> {
       return CurrentMonth(appBarHeight: _appBarHeight);
     }
     if (selectedPage == SelectedPage.flats) {
-      return AllFlat();
-      // return context.watch<FlatListViweModel>().getWidget(context);
+      return const AllFlatFromStream();
+      // return AllFlat();
     }
     if (selectedPage == SelectedPage.pendings) return AllPendingPage();
     return const SizedBox();

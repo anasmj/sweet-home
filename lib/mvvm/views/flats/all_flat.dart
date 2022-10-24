@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/providers/current_home.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/view_models/flat_list_view_model.dart';
 import 'package:sweet_home/mvvm/views/empty_pages/empty_flat_page.dart';
 import '../../models/flat_model.dart';
@@ -14,13 +14,16 @@ class AllFlat extends StatelessWidget {
   AllFlat({super.key});
 
   late FlatListViewModel flatListViewModel;
+  //STREAM APPROACH
 
   @override
   Widget build(BuildContext context) {
     flatListViewModel = Provider.of<FlatListViewModel>(context);
-    String? homeId = context.read<CurrentHomeProvider>().currentHome?.homeId;
     List<Flat> flatList = flatListViewModel.flatList;
-    if (flatListViewModel.isLoading) return const SearchingIndicator();
+    if (flatListViewModel.status == Status.loading) {
+      return const SearchingIndicator();
+    }
+    // if (flatListViewModel.isLoading) return const SearchingIndicator();
     if (flatListViewModel.flatList.isEmpty) return const NoFlatPage();
     if (flatListViewModel.hasError) return const SizedBox.shrink();
     return Padding(
@@ -36,7 +39,7 @@ class AllFlat extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     Provider.of<FlatListViewModel>(context, listen: false)
-                        .configureFltas(homeId);
+                        .configureFltas();
                   },
                   icon: const Icon(FontAwesomeIcons.rotate)),
             ],

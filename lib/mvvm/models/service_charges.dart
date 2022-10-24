@@ -9,6 +9,6 @@ class ServiceCharge {
         'amount': amount,
       };
   static ServiceCharge fromJson(Map<String, dynamic> json) => ServiceCharge(
-      purpose: json['purpose'],
+      purpose: json['purpose'] ?? '',
       amount: double.parse(json['amount'].toString()));
 }

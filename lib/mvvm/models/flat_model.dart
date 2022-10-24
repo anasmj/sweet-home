@@ -6,9 +6,6 @@ class Flat {
   String flatName;
   double
       flatRentAmount; // if not given, taken global value from HomeProvider class
-  // int noOfBed, bath, varanda;
-  // bool hasDrawingRoom, hasDiningRoom;
-  // bool drawingRoom, diningRoom;
 
   Renter? renter;
 

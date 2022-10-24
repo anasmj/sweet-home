@@ -1,5 +1,6 @@
 dynamic castToDbFieldValue(
     {required String value, bool isDouble = false, bool isInt = false}) {
+  if (value.isEmpty) return;
   if (isDouble) return double.parse(value);
   if (isInt) return int.parse(value);
   return value;

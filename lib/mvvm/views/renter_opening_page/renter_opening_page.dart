@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/components/renter_app_bar.dart';
 import '../../../../mvvm/models/flat_model.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
@@ -24,7 +24,7 @@ class RenterOpeningPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Flat? flat = context.watch<SelectedFlatVuewModel>().selectedFlat;
+    Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
 
     return DefaultTabController(
       initialIndex: 0,
@@ -37,20 +37,14 @@ class RenterOpeningPage extends StatelessWidget {
           child:
               flat != null ? RenterAppBar(flat: flat) : const SizedBox.shrink(),
         ),
-        body: WillPopScope(
-          onWillPop: () async {
-            //re render flat list
-            return true;
-          },
-          child: const TabBarView(
-            children: [
-              MonthlyExpencePage(),
-              EntryPage(),
-              SizedBox(),
-              // TransactionList(),
-              // EmptyContent.getEmptyTransactionPage(),
-            ],
-          ),
+        body: const TabBarView(
+          children: [
+            MonthlyExpencePage(),
+            EntryPage(),
+            SizedBox(),
+            // TransactionList(),
+            // EmptyContent.getEmptyTransactionPage(),
+          ],
         ),
       ),
     );

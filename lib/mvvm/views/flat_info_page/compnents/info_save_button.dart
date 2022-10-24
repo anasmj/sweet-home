@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 
 // ignore: must_be_immutable
 class InfoSaveButton extends StatelessWidget {
@@ -8,11 +8,11 @@ class InfoSaveButton extends StatelessWidget {
 
   bool hasChanged = false;
 
-  SelectedFlatVuewModel? provider;
+  SelectedFlatProvider? provider;
 
   @override
   Widget build(BuildContext context) {
-    provider = Provider.of<SelectedFlatVuewModel>(context);
+    provider = Provider.of<SelectedFlatProvider>(context);
     // if (provider!.selectedFlat != null) {
     //   hasChanged = provider?.selectedFlat!.noOfBed != provider?.noOfBed ||
     //       provider?.selectedFlat!.bath != provider?.bath ||

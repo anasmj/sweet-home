@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../flat_info_pages/flat_detail.dart';
+import '../../flat_info_page/selected_flat_detail.dart';
 
 class FlatOptions extends StatelessWidget {
   const FlatOptions({
@@ -17,7 +17,7 @@ class FlatOptions extends StatelessWidget {
         ListTile(
           onTap: () =>
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const SingleFlatInfo();
+            return const SelectedFlatDetail();
           })),
           leading: const Icon(
             Icons.info_outline,

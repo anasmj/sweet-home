@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
-import 'package:sweet_home/mvvm/views/init_home.dart';
-import 'package:sweet_home/mvvm/models/home_model.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
-
-import 'mvvm/views/app_home_page/app_home_page.dart';
 import 'prev/models/app_user.dart';
 import 'prev/providers/profile.dart';
 import 'mvvm/services/auth_service.dart';

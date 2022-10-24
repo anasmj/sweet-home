@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
+import 'package:sweet_home/mvvm/models/service_charges.dart';
 import '../models/flat_model.dart';
 import '../utils/formatter.dart';
 
@@ -19,6 +20,35 @@ class FlatService {
     CollectionReference flatsCollectionRef =
         currentHomeDocRef.collection('flats');
     return flatsCollectionRef;
+  }
+
+  Stream<List<Flat>> flatsStream({required String homeId}) {
+    return _db
+        .collection('users')
+        .doc(_auth.currentUser!.uid)
+        .collection('homes')
+        .doc(homeId)
+        .collection('flats')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return Flat.fromJson(doc.data());
+      }).toList();
+    });
+  }
+
+  Stream<Flat> selectedFlatSteram(
+      {required String homeId, required String flatId}) {
+    return _db
+        .collection('users')
+        .doc(_auth.currentUser!.uid)
+        .collection('homes')
+        .doc(homeId)
+        .collection('flats')
+        .doc(flatId)
+        .snapshots()
+        .map((snapshot) =>
+            Flat.fromJson(snapshot.data() as Map<String, dynamic>));
   }
 
   Future<Response> getAllFlatsForVm({required String homeId}) async {
@@ -118,22 +148,54 @@ class FlatService {
   }
 
   //update flat
-  Future<Response> updateFlat(
-      {required String homeId,
-      required String flatName,
-      required String fieldName,
-      required dynamic newValue}) async {
+  Future<Response> updateFlat({
+    required String homeId,
+    required String flatName,
+    required String fieldName,
+    required dynamic newValue,
+    bool removeServiceCharge = false,
+  }) async {
     CollectionReference flatCollecntionRef =
         await getFlatsCollectionRef(homeId: homeId);
-    await flatCollecntionRef
-        .doc(flatName)
-        .update({fieldName: newValue}).whenComplete(() {
-      response.code = 200;
-      response.body = 'successfull';
-    }).catchError((e) {
-      response.code = 300;
-      response.body = e.toString();
-    });
+    if (fieldName == 'serviceCharges' && newValue is ServiceCharge) {
+      //remove service charge
+      //! should not be deleted for further modification
+      // if (removeServiceCharge) {
+      //   ServiceCharge serviceCharge = newValue;
+
+      //   await flatCollecntionRef.doc(flatName).update({
+      //     'serviceCharges': FieldValue.arrayRemove([serviceCharge.toJson()])
+      //   }).whenComplete(() {
+      //     response.code = 200;
+      //     response.body = 'successfull';
+      //   }).catchError((e) {
+      //     response.code = 300;
+      //     response.body = e.toString();
+      //   });
+      // }
+      //add service charge
+      // await flatCollecntionRef.doc(flatName).update({
+      //   'serviceCharges': FieldValue.arrayUnion([newValue.toJson()])
+      // }).whenComplete(() {
+      //   response.code = 200;
+      //   response.body = 'successfull';
+      // }).catchError((e) {
+      //   response.code = 300;
+      //   response.body = e.toString();
+      // });
+    } else {
+      await flatCollecntionRef
+          .doc(flatName)
+          .update({fieldName: newValue}).whenComplete(() {
+        response.code = 200;
+        response.body = 'successfull';
+      }).catchError((e) {
+        response.code = 300;
+        response.body = e.toString();
+      });
+    }
+
     return response;
+    //update other field of a flat
   }
 }

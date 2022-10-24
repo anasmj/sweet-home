@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/transaction_provider.dart';
-import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import '../../../../../mvvm/models/flat_model.dart';
 import 'components/payer_name_button.dart';
 import 'components/transaction_date_picker.dart';
@@ -13,7 +13,7 @@ class EntryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Flat? currentFlat = context.read<SelectedFlatVuewModel>().selectedFlat;
+    Flat? currentFlat = context.read<SelectedFlatProvider>().selectedFlat;
     context.read<TransactionProvider>().payerController.text = context
         .read<TransactionProvider>()
         .payerName = currentFlat!.renter!.renterName;

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/models/home_model.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
 import '../services/home_services.dart';
-
-enum Status { loading, completed, empty, error }
 
 class HomeListViewModel extends ChangeNotifier {
   bool shouldReload;
@@ -30,7 +29,7 @@ class HomeListViewModel extends ChangeNotifier {
   List<Home> get homeList => _homeList;
   setHomeList(List<Home> homeList) {
     _homeList = homeList;
-    notifyListeners();
+    // notifyListeners();
   }
 
   Future<void> getUserHomes() async {

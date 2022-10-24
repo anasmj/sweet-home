@@ -6,7 +6,7 @@ import 'package:sweet_home/mvvm/views/flats/components/meter_image.dart';
 import 'package:sweet_home/mvvm/views/flats/components/profile_avatar.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/renter_opening_page.dart';
 import '../../../models/flat_model.dart';
-import '../../../view_models/selected_flat_view_model.dart';
+import '../../../providers/selected_flat_provider.dart';
 import '../../../../prev/utils/routes.dart';
 import '../../app_widgets.dart';
 import '../../resources/app_icons.dart';
@@ -113,7 +113,7 @@ class FlatContainer extends StatelessWidget {
       children: [
         InkWell(
           onTap: () async {
-            Provider.of<SelectedFlatVuewModel>(context, listen: false)
+            Provider.of<SelectedFlatProvider>(context, listen: false)
                 .newSelectedFlat = flat;
 
             flat.renter == null
@@ -127,8 +127,9 @@ class FlatContainer extends StatelessWidget {
                   );
           },
           onLongPress: () {
-            Provider.of<SelectedFlatVuewModel>(context, listen: false)
+            Provider.of<SelectedFlatProvider>(context, listen: false)
                 .newSelectedFlat = flat;
+
             AppWidget.getModalSheet(
                 context: context, modalSheetContent: const FlatOptions());
           },
@@ -179,7 +180,11 @@ class FlatContainer extends StatelessWidget {
                     child: noPreviousReadingText(),
                   )
                 : flat.currentMeterReading == null
-                    ? noCurrentReadingText()
+                    ? Positioned(
+                        left: 10,
+                        bottom: -30,
+                        child: noCurrentReadingText(),
+                      )
                     : const SizedBox.shrink()
             : const SizedBox.shrink(),
         Positioned(

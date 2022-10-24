@@ -8,20 +8,21 @@ class ErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            AppIcons.troubleUrl,
-            width: 200,
-          ),
-          Text(
-            'কোনও একটি সমস্যা হয়েছে',
-            style: Theme.of(context).textTheme.titleLarge,
-          )
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              AppIcons.troubleUrl,
+              width: 200,
+            ),
+            Text(
+              'কোনও একটি সমস্যা হয়েছে',
+              style: Theme.of(context).textTheme.titleLarge,
+            )
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/mvvm/view_models/selected_flat_view_model.dart';
-import 'package:sweet_home/mvvm/view_models/service_charge_list_view_mode.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
+import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
 import 'package:sweet_home/prev/providers/home_stepper_provider.dart';
 import 'package:sweet_home/prev/providers/newrenter_step_provider.dart';
 import 'package:sweet_home/mvvm/services/auth_service.dart';
@@ -37,11 +36,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // ChangeNotifierProvider(
-        //   create: (context) => HomeProvider(),
-        // ),
         ChangeNotifierProvider(
-          create: (context) => SelectedFlatVuewModel(),
+          create: (context) => CurrentHomeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SelectedFlatProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => NewRenterStepProvider(),
@@ -53,23 +52,24 @@ class MyApp extends StatelessWidget {
           create: (context) => TransactionProvider(),
         ),
 
-        ChangeNotifierProxyProvider<SelectedFlatVuewModel, BillsProvider>(
+        ChangeNotifierProxyProvider<SelectedFlatProvider, BillsProvider>(
           update: (context, value, previous) => BillsProvider(
               flatProvider:
-                  Provider.of<SelectedFlatVuewModel>(context, listen: false)),
+                  Provider.of<SelectedFlatProvider>(context, listen: false)),
           create: (context) => BillsProvider(
               flatProvider:
-                  Provider.of<SelectedFlatVuewModel>(context, listen: false)),
+                  Provider.of<SelectedFlatProvider>(context, listen: false)),
         ),
 
-        ChangeNotifierProvider(
-          create: (context) => CurrentHomeProvider(),
-        ),
         //*it works
-        ChangeNotifierProxyProvider<CurrentHomeProvider, FlatListViewModel>(
-            update: (context, currentHomeProvider,
+        ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatProvider,
+                FlatListViewModel>(
+            update: (context, currentHomeProvider, selectedFlat,
                     FlatListViewModel? viewModel) =>
-                FlatListViewModel(currentHome: currentHomeProvider.currentHome),
+                FlatListViewModel(
+                  currentHome: currentHomeProvider.currentHome,
+                  selectedFlatProvider: selectedFlat,
+                ),
             create: ((context) => FlatListViewModel())),
 
         ChangeNotifierProxyProvider<CurrentHomeProvider, HomeListViewModel>(
@@ -79,15 +79,32 @@ class MyApp extends StatelessWidget {
           create: (context) => HomeListViewModel(),
         ),
 
-        ChangeNotifierProxyProvider<CurrentHomeProvider,
-            ServiceChargeListViewModel>(
-          update: (context, currentHomeProvider,
-                  ServiceChargeListViewModel? viewModel) =>
-              ServiceChargeListViewModel(homeProvider: currentHomeProvider),
-          create: (context) => ServiceChargeListViewModel(),
+        ChangeNotifierProxyProvider2<CurrentHomeProvider, FlatListViewModel,
+            HomeServiceChargeListViewModel>(
+          update: (context, currentHomeProvider, flatListVM,
+                  HomeServiceChargeListViewModel? viewModel) =>
+              HomeServiceChargeListViewModel(
+                  homeProvider: currentHomeProvider, flatListVM: flatListVM),
+          create: (context) => HomeServiceChargeListViewModel(),
         ),
 
-        ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatVuewModel,
+        //? if service charge for home and individual flat is different
+        // ChangeNotifierProxyProvider3<CurrentHomeProvider, FlatListViewModel,
+        //     SelectedFlatProvider, FlatServiceChargeListViewModel>(
+        //   update: (context,
+        //           currentHomeProvider,
+        //           flatListVM,
+        //           SelectedFlatProvider selectedFlat,
+        //           FlatServiceChargeListViewModel? viewModel) =>
+        //       FlatServiceChargeListViewModel(
+        //     homeProvider: currentHomeProvider,
+        //     flatListVM: flatListVM,
+        //     selectedFlatProvider: selectedFlat,
+        //   ),
+        //   create: (context) => FlatServiceChargeListViewModel(),
+        // ),
+
+        ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatProvider,
             RenterOpeningViewModel>(
           update: (context, currentHome, currentFlat, prevRenterOpeningVM) =>
               RenterOpeningViewModel(

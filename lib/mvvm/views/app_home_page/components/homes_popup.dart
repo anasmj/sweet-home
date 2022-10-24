@@ -28,7 +28,7 @@ class HomesPopupButton extends StatelessWidget {
                 onTap: () {
                   context.read<CurrentHomeProvider>().setCurrentHome = homeObj;
                   Provider.of<FlatListViewModel>(context, listen: false)
-                      .configureFltas(homeObj.homeId);
+                      .configureFltas();
                   Navigator.pop(context);
                 },
                 value: homeObj.homeId,

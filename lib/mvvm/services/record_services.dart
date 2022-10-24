@@ -40,7 +40,7 @@ class RecordService {
     String recordDocId = Formatter().makeId(date: recordDate);
     final recordCollectionRef =
         await getRecordCollectionRef(homeId: homeId, flatName: flatName);
-    recordCollectionRef
+    await recordCollectionRef
         .doc(recordDocId)
         .update({fieldName: newReading}).whenComplete(() {
       response.code = 200;

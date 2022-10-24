@@ -5,7 +5,7 @@ import 'package:sweet_home/mvvm/services/renter_service.dart';
 
 import '../../models/renter.dart';
 import '../../providers/current_home.dart';
-import '../../view_models/selected_flat_view_model.dart';
+import '../../providers/selected_flat_provider.dart';
 import '../../../prev/providers/newrenter_step_provider.dart';
 import '../../utils/formatter.dart';
 import '../app_widgets.dart';
@@ -52,7 +52,7 @@ class RenterProfile extends StatelessWidget {
     renterProvider.nIdController.text = renter.nIdNumber.toString();
 
     String flatName =
-        context.watch<SelectedFlatVuewModel>().selectedFlat!.flatName;
+        context.watch<SelectedFlatProvider>().selectedFlat!.flatName;
     String homeId = context.watch<CurrentHomeProvider>().currentHome!.homeId;
     return Scaffold(
       body: SingleChildScrollView(

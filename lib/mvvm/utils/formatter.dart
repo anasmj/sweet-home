@@ -27,7 +27,7 @@ class Formatter {
       decimalDigits: 0,
       symbol: '',
     ).format(value);
-    return includeSymbol ? '৳ $res' : res;
+    return includeSymbol ? '৳$res' : res;
   }
 
   //23 Jan '22

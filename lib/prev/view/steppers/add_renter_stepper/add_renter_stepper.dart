@@ -8,10 +8,9 @@ import 'package:sweet_home/prev/view/steppers/add_renter_stepper/steps_pages/sec
 import 'package:sweet_home/prev/view/steppers/add_renter_stepper/steps_pages/third_step.dart';
 import '../../../../mvvm/models/response.dart';
 import '../../../../mvvm/providers/current_home.dart';
-import '../../../../mvvm/view_models/selected_flat_view_model.dart';
+import '../../../../mvvm/providers/selected_flat_provider.dart';
 import '../../../../mvvm/services/renter_service.dart';
 import '../../../providers/newrenter_step_provider.dart';
-import '../../../../mvvm/services/flat_services.dart';
 
 import '../../../../mvvm/views/app_widgets.dart';
 import '../../../../mvvm/views/successful_pages/renter_add_successful.dart';
@@ -69,7 +68,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
     final provider = Provider.of<NewRenterStepProvider>(context);
 
     //used to validate state of form
-    final flat = context.read<SelectedFlatVuewModel>().selectedFlat;
+    final flat = context.read<SelectedFlatProvider>().selectedFlat;
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
     return Scaffold(
@@ -124,7 +123,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
                       if (res.code == 200) {
                         // ignore: use_build_context_synchronously
                         Provider.of<FlatListViewModel>(context)
-                            .configureFltas(homeId);
+                            .configureFltas();
                         provider.renterNameController.clear();
                         provider.phoneController.clear();
                         provider.altPhoneController.clear();

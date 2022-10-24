@@ -1,8 +1,17 @@
+import 'dart:developer';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/flat_model.dart';
+import 'package:sweet_home/mvvm/models/response.dart';
+import 'package:sweet_home/mvvm/models/service_charges.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/mvvm/view_models/service_charge_list_view_mode.dart';
+import 'package:sweet_home/mvvm/services/flat_services.dart';
+import 'package:sweet_home/mvvm/services/service_charge_service.dart';
+import 'package:sweet_home/mvvm/view_models/flat_list_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
+import 'package:sweet_home/mvvm/views/flat_info_page/flat_service_charge_page/components/service_charge_list.dart';
 import '../app_widgets.dart';
 import '../resources/app_icons.dart';
 import '../resources/image_urls.dart';
@@ -159,10 +168,10 @@ class AllPendingPage extends StatelessWidget {
   }
 
   IconButton downloadIcon(BuildContext context) {
-    final provider = Provider.of<ServiceChargeListViewModel>(context);
-
     String homeId =
         Provider.of<CurrentHomeProvider>(context).currentHome!.homeId;
+    // List<Flat> flatList = Provider.of<FlatListViewModel>(context).flatList;
+    ServiceCharge serviceCharge = ServiceCharge(purpose: 'Test', amount: 200.0);
     return IconButton(
       onPressed: () async {},
       icon: SvgPicture.asset(

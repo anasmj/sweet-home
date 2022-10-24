@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/views/flat_info_page/flat_info_new.dart';
-
+import 'package:sweet_home/mvvm/views/flat_info_page/selected_flat_info.dart';
 import '../../models/flat_model.dart';
-import '../../view_models/selected_flat_view_model.dart';
-import '../flat_info_page/flat_info_page.dart';
+import '../../providers/selected_flat_provider.dart';
 
-class SingleFlatInfo extends StatelessWidget {
-  const SingleFlatInfo({super.key});
+class SelectedFlatDetail extends StatelessWidget {
+  const SelectedFlatDetail({super.key});
   @override
   Widget build(BuildContext context) {
-    Flat? flat = context.read<SelectedFlatVuewModel>().selectedFlat;
+    Flat? flat = context.read<SelectedFlatProvider>().selectedFlat;
     return flat == null
         ? const SizedBox()
         : DefaultTabController(
@@ -22,7 +20,7 @@ class SingleFlatInfo extends StatelessWidget {
                 centerTitle: true,
                 elevation: 0.0,
                 bottom: TabBar(
-                  labelStyle: Theme.of(context).textTheme.subtitle1,
+                  labelStyle: Theme.of(context).textTheme.titleMedium,
                   indicatorColor: Colors.white,
                   indicatorWeight: 3,
                   tabs: const [
@@ -40,8 +38,9 @@ class SingleFlatInfo extends StatelessWidget {
                 children: [
                   // const Center(child: Text('Monthly Expence')),
                   // FlatInfo(),
+                  const SelectedFlatInfo(),
+                  // SelectedFlatRecort() //!not built yet
                   Container(),
-                  FlatInfoNew(),
                   // const Center(child: Text('flat history')),
                 ],
               ),

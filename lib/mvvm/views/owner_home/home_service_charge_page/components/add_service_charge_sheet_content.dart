@@ -1,11 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/utils/form_validators.dart';
-import 'package:sweet_home/mvvm/view_models/service_charge_list_view_mode.dart';
-import 'package:sweet_home/mvvm/views/app_widgets.dart';
+
+import 'add_button.dart';
 
 class AddExpenceSheetContent extends StatelessWidget {
   AddExpenceSheetContent({super.key});
@@ -16,9 +12,6 @@ class AddExpenceSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider =
-        Provider.of<ServiceChargeListViewModel>(context, listen: false);
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18),
       child: SizedBox(
@@ -57,31 +50,12 @@ class AddExpenceSheetContent extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              )),
-              onPressed: () async {
-                if (_nameKey.currentState!.validate() &&
-                    _nameKey.currentState!.validate()) {
-                  Response response = await provider.addNewServiceCharge(
-                    title: _nameController.text,
-                    amount: double.parse(_amountController.text),
-                  );
-                  if (response.code == 200) {
-                    AppWidget.showSnackBarWithMsg(msg: 'খরচটি যুক্ত করা হয়েছে');
-
-                    provider.readAllServiceCharges();
-                  } else {
-                    AppWidget.showSnackBarWithMsg(
-                        msg: 'একটু পরে আবার চেষ্টা করুন');
-                  }
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).pop();
-                }
-              },
-              child: const Text('যুক্ত করি'),
+            AddButton(
+              nameKey: _nameKey,
+              amountKey: _amountKey,
+              nameController: _nameController,
+              amountController: _amountController,
+              sheetContext: context,
             ),
           ],
         ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
-import 'package:sweet_home/mvvm/views/flat_info_pages/flat_detail.dart';
+import 'package:sweet_home/mvvm/views/flat_info_page/selected_flat_detail.dart';
 import 'package:sweet_home/mvvm/views/profile_pages/renter_profile_page.dart';
 
 // ignore: must_be_immutable
@@ -39,7 +39,7 @@ class RenterPopUpMenu extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const SingleFlatInfo(),
+                builder: (context) => const SelectedFlatDetail(),
               ),
             );
 

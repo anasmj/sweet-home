@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
 import 'package:sweet_home/mvvm/views/owner_home/selected_home_info_page/home_info_page.dart';
 import 'package:sweet_home/mvvm/views/owner_home/owner_home_list_page.dart';

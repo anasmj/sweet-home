@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 
 // ignore: must_be_immutable
 class ElectricityTable extends StatelessWidget {
-  ElectricityTable({super.key});
-  final double _fontSize = 14;
+  const ElectricityTable({super.key});
+
   @override
   Widget build(BuildContext context) {
-    double? usedUnit;
     BillsProvider billsProvider = Provider.of<BillsProvider>(context);
     return SizedBox(
       width: 200,
@@ -19,9 +19,9 @@ class ElectricityTable extends StatelessWidget {
             children: [
               const Text('বর্তমান ইউনিট'),
               billsProvider.currentReading != null
-                  ? Text(
-                      billsProvider.currentReading.toString(),
-                    )
+                  ? Text(Formatter.toBn(
+                      value: billsProvider.currentReading,
+                      includeSymbol: false))
                   : const SizedBox(),
             ],
           ),
@@ -30,7 +30,8 @@ class ElectricityTable extends StatelessWidget {
             children: [
               const Text('পূর্বের ইউনিট'),
               Text(
-                billsProvider.previousReading.toString(),
+                Formatter.toBn(
+                    value: billsProvider.previousReading, includeSymbol: false),
               ),
             ],
           ),
@@ -42,7 +43,9 @@ class ElectricityTable extends StatelessWidget {
                     const Text("ব্যাবহৃত ইউনিট"),
                     billsProvider.currentReading != null
                         ? Text(
-                            billsProvider.usedUnit.toString(),
+                            Formatter.toBn(
+                                value: billsProvider.usedUnit,
+                                includeSymbol: false),
                           )
                         : const SizedBox(),
                   ],
@@ -54,9 +57,11 @@ class ElectricityTable extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                            '${billsProvider.usedUnit} x ${billsProvider.CONST_FACTOR}'),
-                        Text(
-                            '৳ ${billsProvider.electricBill.toStringAsFixed(1)}'),
+                            '${Formatter.toBn(value: billsProvider.usedUnit, includeSymbol: false)} x ${Formatter.toBn(value: billsProvider.CONST_FACTOR, includeSymbol: false)} '
+                            // '${billsProvider.usedUnit} x ${billsProvider.CONST_FACTOR}',
+                            ),
+                        Text(Formatter.toBn(value: billsProvider.electricBill)),
+                        // '৳ ${billsProvider.electricBill.toStringAsFixed(1)}'),
                       ],
                     )
               : const SizedBox(),
