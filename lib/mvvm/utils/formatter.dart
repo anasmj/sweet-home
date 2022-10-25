@@ -54,7 +54,9 @@ class Formatter {
 
   //23 Jan '22 03:20pm
   String transactionTime(DateTime timeStamp) =>
-      '${timeStamp.day} ${months[timeStamp.month - 1]} ${DateTime.now().year.toString().substring(2, 4)} ${DateFormat.jm().format(timeStamp)}';
+      '${timeStamp.day} ${months[timeStamp.month - 1]} \'${DateTime.now().year.toString().substring(2, 4)} ${DateFormat.jm().format(timeStamp)}';
+  String appDateTime(DateTime timeStamp) =>
+      '${timeStamp.day} ${months[timeStamp.month - 1]} ${DateFormat.jm().format(timeStamp)}';
 
   // String transactionTime(DateTime timeStamp) =>
   //     "${timeStamp.day} ${months[timeStamp.month - 1]}";

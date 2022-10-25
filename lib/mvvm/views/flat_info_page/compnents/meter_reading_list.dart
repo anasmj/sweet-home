@@ -4,10 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
-import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/mvvm/services/flat_services.dart';
-import 'package:sweet_home/mvvm/services/record_services.dart';
-import 'package:sweet_home/mvvm/utils/form_validators.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_list_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 import 'package:sweet_home/mvvm/views/shared_widgets/update_button.dart';
@@ -27,15 +24,22 @@ class MeterReadingList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? previousMeterDateString =
+        flat.previousMeterReadingUpdateTime != null
+            ? Formatter().appDateTime(flat.previousMeterReadingUpdateTime!)
+            : '';
+    String? presentMeterDateString = flat.presentMeterReadingUpdateTime != null
+        ? Formatter().appDateTime(flat.presentMeterReadingUpdateTime!)
+        : '';
     return Column(
       children: [
         ListTile(
-          trailing: Text('12 jan 03:03pm'),
+          isThreeLine: true,
           leading:
               flat.currentMeterReading == null ? pendingIcon() : tickIcon(),
           title: const Text('বর্তমান  রিডিং'),
           subtitle: Text(flat.currentMeterReading != null
-              ? flat.currentMeterReading.toString()
+              ? '${Formatter.toBn(value: flat.currentMeterReading, includeSymbol: false)}\n$presentMeterDateString'
               : 'দেওয়া নেই'),
           onTap: () => AppWidget.getModalSheet(
             context: context,
@@ -43,13 +47,13 @@ class MeterReadingList extends StatelessWidget {
           ),
         ),
         ListTile(
+          isThreeLine: true,
           leading:
               flat.previousMeterReading == null ? pendingIcon() : tickIcon(),
           title: const Text('পূর্বের রিডিং'),
           subtitle: Text(flat.previousMeterReading != null
-              ? flat.previousMeterReading.toString()
+              ? '${Formatter.toBn(value: flat.previousMeterReading, includeSymbol: false)}\n$previousMeterDateString'
               : 'দেওয়া নেই'),
-          trailing: Text('12 feb 07:03pm'),
           onTap: () => AppWidget.getModalSheet(
             context: context,
             modalSheetContent: updateModalSheetContent(forPreviousMonth: true),
@@ -94,6 +98,9 @@ class MeterReadingList extends StatelessWidget {
                       if (value.isEmpty) return 'তথ্যটি দেয়া হয়নি';
                       if (!forPreviousMonth) {
                         if (double.parse(value) == 0) return 'তথ্যটি সঠিক নয়';
+                        if (flat.previousMeterReading == null) {
+                          return 'পূর্বের রিডিং দেয়া হয়নি';
+                        }
                         if (double.parse(value) <= flat.previousMeterReading!) {
                           return 'বর্তমান রিডিং পূর্বের চেয়ে অধিক হতে হবে';
                         }
@@ -106,9 +113,7 @@ class MeterReadingList extends StatelessWidget {
                       if (double.tryParse(value) == null) {
                         return 'তথ্যটি সঠিক নয়';
                       }
-                      if (flat.previousMeterReading == null) {
-                        return 'পূর্বের রিডিং দেয়া হয়নি';
-                      }
+
                       if (value == '.') return 'তথ্যটি সঠিক নয়';
                       if (double.parse(value) < 0) return 'তথ্যটি সঠিক নয়';
 

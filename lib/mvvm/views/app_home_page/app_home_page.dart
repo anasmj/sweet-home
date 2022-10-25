@@ -14,9 +14,9 @@ class AppHomePage extends StatefulWidget {
 }
 
 class _AppHomePage extends State<AppHomePage> {
-  int _defaultTabIndex = 1;
+  int _defaultTabIndex = 0;
   SelectedPage selectedPage =
-      SelectedPage.flats; //! change if default index modified
+      SelectedPage.currentMonth; //! change if default index modified
 
   final double _appBarHeight = 280;
   bool isInitialState = false;

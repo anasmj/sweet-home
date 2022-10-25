@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:sweet_home/prev/models/renter_transaction.dart';
+import 'package:sweet_home/mvvm/models/transaction.dart';
 
 import '../models/response.dart';
 

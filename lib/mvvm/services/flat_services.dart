@@ -152,6 +152,7 @@ class FlatService {
     required String flatName,
     required String fieldName,
     required dynamic newValue,
+    DateTime? updateTime,
     bool removeServiceCharge = false,
   }) async {
     CollectionReference flatCollecntionRef =
@@ -183,9 +184,36 @@ class FlatService {
       //   response.body = e.toString();
       // });
     } else {
-      await flatCollecntionRef
-          .doc(flatName)
-          .update({fieldName: newValue}).whenComplete(() {
+      if (updateTime != null) {
+        if (fieldName == 'currentMeterReading') {
+          await flatCollecntionRef.doc(flatName).update({
+            fieldName: newValue,
+            'presentMeterReadingUpdateTime': updateTime.toIso8601String(),
+          }).whenComplete(() {
+            response.code = 200;
+            response.body = 'successfull';
+          }).catchError((e) {
+            response.code = 300;
+            response.body = e.toString();
+          });
+        }
+        if (fieldName == 'previousMeterReading') {
+          await flatCollecntionRef.doc(flatName).update({
+            fieldName: newValue,
+            'previousMeterReadingUpdateTime': updateTime.toIso8601String(),
+          }).whenComplete(() {
+            response.code = 200;
+            response.body = 'successfull';
+          }).catchError((e) {
+            response.code = 300;
+            response.body = e.toString();
+          });
+        }
+      }
+
+      await flatCollecntionRef.doc(flatName).update({
+        fieldName: newValue,
+      }).whenComplete(() {
         response.code = 200;
         response.body = 'successfull';
       }).catchError((e) {

@@ -100,6 +100,7 @@ class FlatListViewModel extends ChangeNotifier {
         flatName: selectedFlatName!,
         fieldName: 'currentMeterReading',
         newValue: double.parse(currentMeterController.text),
+        updateTime: DateTime.now(),
       );
       return response;
     } else {
@@ -120,6 +121,7 @@ class FlatListViewModel extends ChangeNotifier {
         flatName: selectedFlatName!,
         fieldName: 'previousMeterReading',
         newValue: double.parse(previousMeterController.text),
+        updateTime: DateTime.now(),
       );
       setLoading(false);
       return response;

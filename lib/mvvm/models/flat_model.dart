@@ -16,19 +16,22 @@ class Flat {
 
   double? currentMeterReading;
   double? previousMeterReading;
+  DateTime? previousMeterReadingUpdateTime, presentMeterReadingUpdateTime;
 
   // List<ServiceCharge>? serviceCharges;
 
-  Flat({
-    this.flatName = '',
-    this.renter,
-    this.flatRentAmount = 0.00,
-    this.flatGasBill = 0.00,
-    this.flatWaterBill = 0.00,
-    this.currentMeterReading,
-    this.previousMeterReading,
-    // this.serviceCharges,
-  });
+  Flat(
+      {this.flatName = '',
+      this.renter,
+      this.flatRentAmount = 0.00,
+      this.flatGasBill = 0.00,
+      this.flatWaterBill = 0.00,
+      this.currentMeterReading,
+      this.previousMeterReading,
+      this.previousMeterReadingUpdateTime,
+      this.presentMeterReadingUpdateTime
+      // this.serviceCharges,
+      });
   static Flat fromJson(Map<String, dynamic> json) {
     Renter? renterObj;
     //IF flat is booked, fetch renter
@@ -40,16 +43,25 @@ class Flat {
     }
     // print(json['serviceCharges']);
     return Flat(
-        flatName: json['flatName'] ?? '',
-        renter: renterObj,
-        flatRentAmount: json['rentAmount'] ?? 0.00,
-        flatGasBill: json['gasBill'] ?? 0.00,
-        flatWaterBill: json['waterBill'] ?? 0.00,
-        // serviceCharges : json['serviceCharges'],
-        currentMeterReading: json['currentMeterReading'],
-        previousMeterReading: json['previousMeterReading'] != null
-            ? double.parse(json['previousMeterReading'].toString())
-            : null);
+      flatName: json['flatName'] ?? '',
+      renter: renterObj,
+      flatRentAmount: json['rentAmount'] ?? 0.00,
+      flatGasBill: json['gasBill'] ?? 0.00,
+      flatWaterBill: json['waterBill'] ?? 0.00,
+      // serviceCharges : json['serviceCharges'],
+      currentMeterReading: json['currentMeterReading'],
+      presentMeterReadingUpdateTime:
+          json['presentMeterReadingUpdateTime'] != null
+              ? DateTime.parse(json['presentMeterReadingUpdateTime'])
+              : null,
+      previousMeterReading: json['previousMeterReading'] != null
+          ? double.parse(json['previousMeterReading'].toString())
+          : null,
+      previousMeterReadingUpdateTime:
+          json['previousMeterReadingUpdateTime'] != null
+              ? DateTime.parse(json['previousMeterReadingUpdateTime'])
+              : null,
+    );
   }
 
   Map<String, dynamic> toJson({
@@ -66,6 +78,8 @@ class Flat {
         'waterBill': waterBill,
         'currentMeterReading': currentMeterReading,
         'previousMeterReading': previousMeterReading,
+        'previousMeterReadingUpdateTime': previousMeterReadingUpdateTime,
+        'presentMeterReadingUpdateTime': presentMeterReadingUpdateTime,
         // 'serviceCharges': serviceCharges ?? [],
       };
 }
