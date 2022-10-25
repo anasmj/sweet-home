@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/renter_opening_backup_page.dart';
 import '../../mvvm/models/flat_model.dart';
-import 'get_user_homes.dart';
 import '../view/steppers/add_home_stepper/add_home_stepper.dart';
-import '../view/steppers/add_renter_stepper/add_renter_stepper.dart';
+import '../../mvvm/views/flats/stepperss/add_renter_stepper/add_renter_stepper.dart';
 
 class AppRoute {
   //DETAIL OF A FLAT FROM FLATLIST

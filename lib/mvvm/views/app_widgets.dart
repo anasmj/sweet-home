@@ -59,8 +59,6 @@ class AppWidget {
   static SnackBar showSnackBarWithMsg({required String msg}) => SnackBar(
         content: Text(msg),
       );
-
-  //TODO: make this bottom shit usable for all
   static Future getModalSheet({
     required BuildContext context,
     required Widget modalSheetContent,

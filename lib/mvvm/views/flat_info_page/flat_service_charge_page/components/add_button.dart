@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/view_models/flat_list_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/flat_service_charge_list_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 
@@ -30,7 +28,6 @@ class AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider =
         Provider.of<FlatServiceChargeListViewModel>(context, listen: false);
-    List<Flat> flatList = Provider.of<FlatListViewModel>(context).flatList;
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(

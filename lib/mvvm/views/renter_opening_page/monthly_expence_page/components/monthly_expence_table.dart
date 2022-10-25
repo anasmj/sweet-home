@@ -112,8 +112,8 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 40.0),
+              const Padding(
+                padding: EdgeInsets.only(left: 40.0),
                 child: ElectricityTable(),
               ),
               // Row(

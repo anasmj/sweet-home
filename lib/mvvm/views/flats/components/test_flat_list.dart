@@ -114,7 +114,7 @@ class UserFlatList extends StatelessWidget {
               flat.flatName,
               style: Theme.of(context)
                   .textTheme
-                  .bodyText2!
+                  .bodyMedium!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
@@ -138,7 +138,7 @@ class UserFlatList extends StatelessWidget {
           width: 70,
           child: Text(
             flat.flatRentAmount.toString(),
-            style: appTextTheme.headline6,
+            style: appTextTheme.titleLarge,
           ),
         ),
 
@@ -154,11 +154,11 @@ class UserFlatList extends StatelessWidget {
         children: [
           TextSpan(
             text: 'ফ্ল্যাট সংখ্যাঃ ',
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           TextSpan(
             text: numOfFlat.toString(),
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ],
       ),

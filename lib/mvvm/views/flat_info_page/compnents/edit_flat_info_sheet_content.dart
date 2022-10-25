@@ -27,10 +27,10 @@ class EditFlatInfoSheetContent extends StatelessWidget {
               width: 20,
             ),
           ),
-          Text(
+          const Text(
             'hello',
             // title,
-            style: const TextStyle(fontSize: 24),
+            style: TextStyle(fontSize: 24),
           ),
           const SizedBox(
             height: 20,

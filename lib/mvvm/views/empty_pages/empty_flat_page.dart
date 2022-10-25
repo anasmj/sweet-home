@@ -19,7 +19,7 @@ class NoFlatPage extends StatelessWidget {
           ),
           Text(
             'আপনার ফ্ল্যাটগুলি এখানে দেখতে পাবেন',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ],
       ),

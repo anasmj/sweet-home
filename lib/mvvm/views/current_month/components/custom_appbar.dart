@@ -10,7 +10,6 @@ class CustomSliverAppbarDelegate extends SliverPersistentHeaderDelegate {
     required this.expandedHeight,
   });
 
-  final double _summaryCardsRowHeight = 90;
   final double _summaryCardHeight = 150;
   final double _fromTop = 90;
 

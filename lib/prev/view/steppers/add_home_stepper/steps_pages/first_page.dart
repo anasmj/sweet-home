@@ -24,7 +24,7 @@ class FristPage extends StatelessWidget {
           Center(
             child: Text(
               'বাড়ীর তথ্যাবলী',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Divider(

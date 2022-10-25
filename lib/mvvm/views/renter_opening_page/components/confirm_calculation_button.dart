@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/models/transaction_provider.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/services/record_services.dart';
-import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 
 // ignore: must_be_immutable
@@ -20,12 +18,8 @@ class ConfirmCalculationButton extends StatelessWidget {
   String text;
   @override
   Widget build(BuildContext context) {
-    RenterOpeningViewModel providerWatch =
-        context.watch<RenterOpeningViewModel>();
-
     String? homeId = context.watch<CurrentHomeProvider>().currentHome?.homeId;
     Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
-    TransactionProvider trasaction = context.watch<TransactionProvider>();
     DateTime issueDate = DateTime.now();
 
     // double? meterReading = context.watch<RenterOpeningViewModel>().meterReading;
@@ -58,7 +52,7 @@ class ConfirmCalculationButton extends StatelessWidget {
           : null,
       child: Text(
         text,
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.titleLarge,
       ),
     );
   }

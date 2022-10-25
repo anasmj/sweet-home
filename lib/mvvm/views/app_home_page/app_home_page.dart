@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/views/current_month/current_month.dart';
-import 'package:sweet_home/mvvm/views/flats/all_flat.dart';
-import 'package:sweet_home/mvvm/views/flats/all_flats_using_stream.dart';
+import 'package:sweet_home/mvvm/views/flats/user_flats.dart';
 import '../pendings/all_pending_page.dart';
 import 'components/drawer.dart';
 
@@ -66,7 +65,7 @@ class _AppHomePage extends State<AppHomePage> {
       return CurrentMonth(appBarHeight: _appBarHeight);
     }
     if (selectedPage == SelectedPage.flats) {
-      return const AllFlatFromStream();
+      return const UserFlats();
       // return AllFlat();
     }
     if (selectedPage == SelectedPage.pendings) return AllPendingPage();

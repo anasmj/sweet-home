@@ -36,7 +36,7 @@ class MonthlyDataTable extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: DataTable(
-                  headingTextStyle: Theme.of(context).textTheme.subtitle1,
+                  headingTextStyle: Theme.of(context).textTheme.titleMedium,
                   showBottomBorder: true,
                   columnSpacing: 30,
                   columns: _tableColumns,
@@ -172,7 +172,7 @@ class MonthlyDataTable extends StatelessWidget {
                   )
                 ]),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: Text(title, style: Theme.of(context).textTheme.subtitle1),
+            child: Text(title, style: Theme.of(context).textTheme.titleMedium),
           ),
         ),
 

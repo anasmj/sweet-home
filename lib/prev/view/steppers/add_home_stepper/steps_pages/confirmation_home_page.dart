@@ -24,7 +24,7 @@ class ConfirmHomePage extends StatelessWidget {
             ),
             Text(
               'বাড়ীটি যুক্ত করা হয়েছে',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(
               height: 60,
@@ -46,7 +46,7 @@ class ConfirmHomePage extends StatelessWidget {
                   'ফিরে যাই',
                   style: Theme.of(context)
                       .textTheme
-                      .headline6!
+                      .titleLarge!
                       .copyWith(color: Colors.white),
                 ),
               ),

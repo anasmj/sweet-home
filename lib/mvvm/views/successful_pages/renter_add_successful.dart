@@ -30,7 +30,7 @@ class AddRenterSuccessfulPage extends StatelessWidget {
             Text(
               'ফ্ল্যাটটিতে গ্রাহক যুক্ত করা হয়েছে',
               // '$assignedFlatNo ফ্ল্যাটে গ্রাহক যুক্ত করা হয়েছে',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(
               height: 150,
@@ -57,7 +57,7 @@ class AddRenterSuccessfulPage extends StatelessWidget {
           'ফিরে যাই',
           style: Theme.of(context)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(color: Colors.white),
         ),
       ),

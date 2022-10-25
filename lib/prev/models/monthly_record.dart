@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 import '../../mvvm/models/renter.dart';
 
 //!SUPPORTING FIREBASE

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../providers/newrenter_step_provider.dart';
+import '../../../../../../view_models/new_renter_view_model.dart';
 
 class LocationRadio extends StatefulWidget {
   const LocationRadio({super.key});
@@ -15,7 +15,7 @@ int _value = 0;
 class _LocationRadioState extends State<LocationRadio> {
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<NewRenterStepProvider>();
+    final provider = context.read<NewRenterViewModel>();
     return Row(
       children: [
         Radio(

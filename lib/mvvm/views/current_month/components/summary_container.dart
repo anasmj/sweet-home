@@ -26,14 +26,14 @@ class SummaryContainer extends StatelessWidget {
             children: [
               Text(
                 txt,
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.grey.shade900,
                     ),
               ),
               Text(
                 num.toString(),
-                style: Theme.of(context).textTheme.headline5!.copyWith(
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
@@ -42,7 +42,7 @@ class SummaryContainer extends StatelessWidget {
                 "জন",
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle2!
+                    .titleSmall!
                     .copyWith(fontSize: 16),
               ),
             ],

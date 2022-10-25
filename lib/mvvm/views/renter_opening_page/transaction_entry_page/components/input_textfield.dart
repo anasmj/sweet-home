@@ -25,7 +25,7 @@ class PaymentInputTextField extends StatelessWidget {
           keyboardType: TextInputType.number,
           style: Theme.of(context)
               .textTheme
-              .headline5!
+              .headlineSmall!
               .copyWith(fontWeight: FontWeight.bold),
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.only(bottom: 25),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 
-import '../../../../../providers/newrenter_step_provider.dart';
+import '../../../../../../view_models/new_renter_view_model.dart';
 
 class OccupationDropdown extends StatefulWidget {
   const OccupationDropdown({super.key});
@@ -21,8 +21,7 @@ final Color dropdownColorDark = Colors.grey.shade800;
 class _OccupationDropdownState extends State<OccupationDropdown> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NewRenterStepProvider>(context);
-    final readProvider = context.read<NewRenterStepProvider>();
+    final provider = Provider.of<NewRenterViewModel>(context);
 
     provider.setOccupation(dropDownValue!);
     // TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(

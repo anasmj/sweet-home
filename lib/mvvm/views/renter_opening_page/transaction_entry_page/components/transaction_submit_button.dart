@@ -7,6 +7,7 @@ import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/services/transaction_service.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 
+// ignore: must_be_immutable
 class TransactionSubmitButton extends StatelessWidget {
   String text;
   TransactionSubmitButton({required this.text, super.key});
@@ -37,6 +38,7 @@ class TransactionSubmitButton extends StatelessWidget {
             provider.paymentController.clear();
             provider.transactionDateTime = DateTime.now();
 
+            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('লেনদেনটি যুক্ত করা হয়েছে')));
           } else {
@@ -49,7 +51,7 @@ class TransactionSubmitButton extends StatelessWidget {
       },
       child: Text(
         text,
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.titleLarge,
       ),
     );
   }

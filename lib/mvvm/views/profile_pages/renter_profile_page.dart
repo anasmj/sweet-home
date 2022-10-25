@@ -6,7 +6,7 @@ import 'package:sweet_home/mvvm/services/renter_service.dart';
 import '../../models/renter.dart';
 import '../../providers/current_home.dart';
 import '../../providers/selected_flat_provider.dart';
-import '../../../prev/providers/newrenter_step_provider.dart';
+import '../../view_models/new_renter_view_model.dart';
 import '../../utils/formatter.dart';
 import '../app_widgets.dart';
 import 'components/profile_app_bar.dart';
@@ -38,7 +38,7 @@ class RenterProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final renterProvider = context.read<NewRenterStepProvider>();
+    final renterProvider = context.read<NewRenterViewModel>();
     renterProvider.renterNameController.text = renter.renterName;
     renterProvider.phoneController.text = renter.phoneNo;
     renterProvider.altPhoneController.text = renter.alternatePhoneNo ?? '';
@@ -106,13 +106,13 @@ class RenterProfile extends StatelessWidget {
               onPressed: () async {
                 Response res = await RenterService()
                     .deleteRenterFromFlat(homeId: homeId, flatId: flatName);
-                if (res.code == 200) {
-                  //TODO: NEED TO FIX LAGGING
+                if (res.code != 200) {
+                  // ignore: use_build_context_synchronously
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('দুঃখিত, একটু পরে আবার চেষ্টা করুন')));
+                } else {
                   AppWidget.showToast('গ্রাহক মুছে ফেলা হয়েছে');
                 }
-                // ignore: use_build_context_synchronously
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('দুঃখিত, একটু পরে আবার চেষ্টা করুন')));
               },
               child: const Text(
                 'গ্রাহক মুছে ফেলুন',
@@ -135,8 +135,10 @@ Container getSection(BuildContext context, String title) {
       padding: const EdgeInsets.all(8.0),
       child: Text(
         title,
-        style:
-            Theme.of(context).textTheme.subtitle1!.copyWith(color: Colors.grey),
+        style: Theme.of(context)
+            .textTheme
+            .titleMedium!
+            .copyWith(color: Colors.grey),
       ),
     ),
   );

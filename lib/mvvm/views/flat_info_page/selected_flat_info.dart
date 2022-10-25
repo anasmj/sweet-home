@@ -45,6 +45,7 @@ class SelectedFlatInfo extends StatelessWidget {
         flat.renter != null
             ? MeterReadingList(flat: flat)
             : const SizedBox.shrink(),
+        const SizedBox(height: 10),
         getDivider('বিল সমূহ'),
         GeneralBillsList(flat: flat),
         const SizedBox(height: 40),

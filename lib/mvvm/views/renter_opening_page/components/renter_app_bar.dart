@@ -42,7 +42,7 @@ class RenterAppBar extends StatelessWidget {
                       color: Colors.red[900], fontWeight: FontWeight.w600),
                 ),
                 TextSpan(
-                    text: 'সর্বশেষ লেনদেনঃ 12 Aug, 22', //TODO: fix
+                    text: 'সর্বশেষ লেনদেনঃ 12 Aug, 22',
                     style: appTextTheme.bodySmall!.copyWith(fontSize: 14)),
               ],
             ),

@@ -6,11 +6,11 @@ import '../../mvvm/models/response.dart';
 import '../../mvvm/providers/current_home.dart';
 import '../../mvvm/providers/selected_flat_provider.dart';
 import '../../mvvm/services/renter_service.dart';
-import '../providers/newrenter_step_provider.dart';
+import '../../mvvm/view_models/new_renter_view_model.dart';
 
 class RenterManagement {
   static Future<Response> addRenterToDatabase(BuildContext context) async {
-    final provider = Provider.of<NewRenterStepProvider>(context, listen: false);
+    final provider = Provider.of<NewRenterViewModel>(context, listen: false);
     final flat = context.read<SelectedFlatProvider>().selectedFlat;
     String homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
         .currentHome!

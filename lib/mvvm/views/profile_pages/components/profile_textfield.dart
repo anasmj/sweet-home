@@ -19,7 +19,7 @@ class MakeProfileTextField extends StatelessWidget {
     return ListTile(
       title: Text(
         title,
-        style: Theme.of(context).textTheme.subtitle2,
+        style: Theme.of(context).textTheme.titleSmall,
       ),
       subtitle: TextField(
         obscureText: isPassword ? true : false,
@@ -72,7 +72,7 @@ class Section extends StatelessWidget {
           title,
           style: Theme.of(context)
               .textTheme
-              .subtitle1!
+              .titleMedium!
               .copyWith(color: Colors.grey),
         ),
       ),

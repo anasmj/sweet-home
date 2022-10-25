@@ -7,8 +7,6 @@ import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/services/flat_services.dart';
 import 'package:sweet_home/mvvm/services/record_services.dart';
-import 'package:sweet_home/mvvm/utils/enums.dart';
-import 'package:sweet_home/mvvm/view_models/flat_list_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 import 'package:sweet_home/mvvm/views/shared_widgets/update_button.dart';
 
@@ -27,8 +25,6 @@ class MeterReadingList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String homeId = context.watch<CurrentHomeProvider>().currentHome!.homeId;
-
     double currentReading = flat.currentMeterReading ?? 0.00;
     double? previousReading = flat.previousMeterReading;
     previousController.text =
@@ -44,7 +40,6 @@ class MeterReadingList extends StatelessWidget {
       previousReadingString = flat.previousMeterReading.toString();
       isPreviousReadingNull = false;
     }
-
     return Column(
       children: [
         ListTile(
@@ -57,13 +52,13 @@ class MeterReadingList extends StatelessWidget {
           ),
         ),
         ListTile(
+          leading: isPreviousReadingNull ? pendingIcon() : tickIcon(),
+          title: const Text('পূর্বের রিডিং'),
+          subtitle: Text(previousReadingString),
           onTap: () => AppWidget.getModalSheet(
             context: context,
             modalSheetContent: updateModalSheetContent(forPreviousMonth: true),
           ),
-          leading: isPreviousReadingNull ? pendingIcon() : tickIcon(),
-          title: const Text('পূর্বের রিডিং'),
-          subtitle: Text(previousReadingString),
         ),
       ],
     );
@@ -145,8 +140,6 @@ class MeterReadingList extends StatelessWidget {
                     AppWidget.showToast('পরিবর্তন করা সম্ভব হয়নি');
                   }
                 }
-
-                //update flat field
               },
             ),
           ],

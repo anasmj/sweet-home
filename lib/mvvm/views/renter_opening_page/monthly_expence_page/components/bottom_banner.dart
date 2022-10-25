@@ -27,7 +27,7 @@ class BottomBanner extends StatelessWidget {
         children: [
           Text(
             'বুঝে পেয়েছি ৳ 2355 ',
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           Text(
             '23 Aug \'22',

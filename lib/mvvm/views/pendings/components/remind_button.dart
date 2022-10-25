@@ -12,7 +12,7 @@ class RemindButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: null,
       style: ElevatedButton.styleFrom(
-          textStyle: Theme.of(context).textTheme.subtitle1,
+          textStyle: Theme.of(context).textTheme.titleMedium,
           elevation: 8,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),

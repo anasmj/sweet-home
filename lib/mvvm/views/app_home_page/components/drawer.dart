@@ -154,7 +154,6 @@ class AppDrawer extends StatelessWidget {
   //             children: [
   //               getNameAndEmail(),
 
-  //               //TODO: to fix alignment problem
   //               FutureBuilder<List<Home>>(
   //                 future: HomeServices().getAllHome(),
   //                 builder: (context, AsyncSnapshot snapshot) {

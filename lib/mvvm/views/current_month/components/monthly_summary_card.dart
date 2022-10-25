@@ -40,13 +40,13 @@ class MonthlySummaryCard extends StatelessWidget {
             dataTextStyle: const TextStyle(fontSize: 18, color: Colors.black),
             headingTextStyle: Theme.of(context)
                 .textTheme
-                .subtitle1!
+                .titleMedium!
                 .copyWith(fontWeight: FontWeight.w600),
             columns: <DataColumn>[
               DataColumn(
                 label: Text(
                   'মোট পাবো',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -55,7 +55,7 @@ class MonthlySummaryCard extends StatelessWidget {
               DataColumn(
                 label: Text(
                   'বুঝে পেয়েছি',
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -92,10 +92,8 @@ class MonthlySummaryCard extends StatelessWidget {
           image: AssetImage(AppIcons.takaUrl),
         ),
       );
-
-  //TODO: make it fancy by puttin comma between digits
   Widget getAmountText(context, int amount) => Text(
-        '৳ ${amount.toString()}', style: Theme.of(context).textTheme.headline6,
+        '৳ ${amount.toString()}', style: Theme.of(context).textTheme.titleLarge,
         // style: TextStyle(
         //   fontWeight: FontWeight.bold,
         //   color: Colors.grey.shade900,

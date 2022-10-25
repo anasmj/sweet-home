@@ -6,6 +6,7 @@ import 'package:sweet_home/mvvm/views/app_widgets.dart';
 
 import '../../../resources/app_icons.dart';
 
+// ignore: must_be_immutable
 class DeleteButton extends StatelessWidget {
   DeleteButton({
     Key? key,

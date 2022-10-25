@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/views/current_month/components/monthly_data_table.dart';
 
 import '../../../utils/formatter.dart';
@@ -16,7 +14,6 @@ class CurrentMonthContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mode = context.watch<ThemeProvider>();
     final screenHeight = MediaQuery.of(context).size.height;
 
     return SingleChildScrollView(

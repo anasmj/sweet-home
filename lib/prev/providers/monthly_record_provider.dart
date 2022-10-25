@@ -6,7 +6,6 @@ class MonthlyRecordProvider extends ChangeNotifier {
   double? get meterReading => _meterReading;
   set setMeterReading(double value) {
     _meterReading = value;
-    print(_meterReading);
     //update records in flat record
     notifyListeners();
   }

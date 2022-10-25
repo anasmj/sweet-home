@@ -10,8 +10,8 @@ import 'package:sweet_home/mvvm/views/waiting_pages/searching_indicator.dart';
 
 import '../empty_pages/empty_flat_page.dart';
 
-class AllFlatFromStream extends StatelessWidget {
-  const AllFlatFromStream({super.key});
+class UserFlats extends StatelessWidget {
+  const UserFlats({super.key});
 
   @override
   Widget build(BuildContext context) {

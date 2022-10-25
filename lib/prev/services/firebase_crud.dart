@@ -35,8 +35,8 @@ class FirebaseCrud {
 
   //READ EMPLOYEE DATA
   static Stream<QuerySnapshot> readEmployee() {
-    CollectionReference _noteCollection = _collection;
-    return _noteCollection.snapshots();
+    CollectionReference noteCollection = _collection;
+    return noteCollection.snapshots();
   }
 
   //UPDATE

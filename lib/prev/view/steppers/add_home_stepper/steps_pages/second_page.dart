@@ -25,7 +25,7 @@ class _SecondPageState extends State<SecondPage> {
     final provider = Provider.of<HomeStepperProvider>(context);
     provider.secondPageFormKey = _secondPageFormKey;
 
-    TextStyle? formTextStyle = Theme.of(context).textTheme.subtitle1;
+    TextStyle? formTextStyle = Theme.of(context).textTheme.titleMedium;
     return Form(
       key: provider.secondPageFormKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -35,7 +35,7 @@ class _SecondPageState extends State<SecondPage> {
           Center(
             child: Text(
               'বিলসমূহ',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Divider(

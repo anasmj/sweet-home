@@ -166,8 +166,6 @@ class RegisterScreenState extends State<RegistrationPage> {
   }
 
   String? nameValidator(String? val) {
-    // TODO: more logc neededed
-
     return val!.isEmpty ? 'নাম দেওয়া হয়নি' : null;
     //more logic
   }

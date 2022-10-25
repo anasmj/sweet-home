@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/models/renter.dart';
-
 import '../resources/app_icons.dart';
-import 'transactoin_list_page/transaction_list_page.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
 import 'transaction_entry_page/transaction_entry_page.dart';
 
@@ -64,12 +62,12 @@ class FlatDetails extends StatelessWidget {
             ),
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             Center(
               child: MonthlyExpencePage(),
             ),
-            const EntryPage(),
+            EntryPage(),
             // TransactionListPage(renter: renter),
           ],
         ),
@@ -81,7 +79,7 @@ class FlatDetails extends StatelessWidget {
     return ListTile(
       title: Text(
         renter.renterName,
-        style: appTextTheme.headline5!,
+        style: appTextTheme.headlineSmall!,
         maxLines: 1,
         overflow: TextOverflow.fade,
         // softWrap: true,
@@ -89,7 +87,7 @@ class FlatDetails extends StatelessWidget {
       subtitle: RichText(
         text: TextSpan(
           children: [
-            TextSpan(text: 'পাবো ', style: appTextTheme.subtitle1),
+            TextSpan(text: 'পাবো ', style: appTextTheme.titleMedium),
             WidgetSpan(
               child: Image(
                 height: 18,
@@ -101,12 +99,12 @@ class FlatDetails extends StatelessWidget {
             TextSpan(
               text: '23412',
               // '${CalculateBill.setRenter(renter: renter).totalBill.toStringAsFixed(1)} \n',
-              style: appTextTheme.headline6!.copyWith(
+              style: appTextTheme.titleLarge!.copyWith(
                   color: Colors.red[900], fontWeight: FontWeight.w600),
             ),
             TextSpan(
-                text: 'সর্বশেষ লেনদেনঃ 12 Aug, 22', //TODO: fix
-                style: appTextTheme.caption!.copyWith(fontSize: 14)),
+                text: 'সর্বশেষ লেনদেনঃ 12 Aug, 22',
+                style: appTextTheme.bodySmall!.copyWith(fontSize: 14)),
           ],
         ),
       ),

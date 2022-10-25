@@ -27,17 +27,17 @@ class AppTheme {
         ),
       ),
       textTheme: TextTheme(
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
           color: Colors.grey.shade900,
           // color: Colors.grey.shade900,
         ),
-        subtitle1: TextStyle(
+        titleMedium: TextStyle(
           color: Colors.grey.shade900,
         ),
-        headline5: TextStyle(
+        headlineSmall: TextStyle(
           color: Colors.grey.shade900,
         ),
-        headline6: TextStyle(
+        titleLarge: TextStyle(
           color: Colors.grey.shade900,
         ),
       ),
@@ -82,17 +82,17 @@ class AppTheme {
 
       //text Theme
       textTheme: TextTheme(
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
           color: Colors.grey.shade300,
           // color: Colors.grey.shade900,
         ),
-        subtitle1: TextStyle(
+        titleMedium: TextStyle(
           color: Colors.grey.shade300,
         ),
-        headline5: TextStyle(
+        headlineSmall: TextStyle(
           color: Colors.grey.shade300,
         ),
-        headline6: TextStyle(
+        titleLarge: TextStyle(
           color: Colors.grey.shade300,
         ),
       ),

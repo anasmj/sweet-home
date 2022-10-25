@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../providers/newrenter_step_provider.dart';
-import '../../../../../mvvm/views/resources/app_icons.dart';
+import '../../../../../view_models/new_renter_view_model.dart';
+import '../../../../resources/app_icons.dart';
 import 'components/entry_date_picker.dart';
-import 'components/nid_image_containers.dart';
 
 class ThirdStepPage extends StatelessWidget {
   ThirdStepPage({super.key});
   final advanceAmountTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    NewRenterStepProvider provider =
-        Provider.of<NewRenterStepProvider>(context);
+    NewRenterViewModel provider = Provider.of<NewRenterViewModel>(context);
 
     return Column(
       children: [
@@ -61,7 +59,7 @@ class ThirdStepPage extends StatelessWidget {
 
   Widget getAdvanceTextField(
       BuildContext context, TextEditingController controller) {
-    final provider = context.watch<NewRenterStepProvider>();
+    final provider = context.watch<NewRenterViewModel>();
 
     return SizedBox(
       width: 120,
@@ -72,7 +70,7 @@ class ThirdStepPage extends StatelessWidget {
         enabled: provider.advanceStatus,
         style: Theme.of(context)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(fontWeight: FontWeight.w500),
         keyboardType: TextInputType.number,
         cursorHeight: 22,

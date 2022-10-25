@@ -39,7 +39,7 @@ class FlatFloorCounter extends StatelessWidget {
                         .watch<HomeStepperProvider>()
                         .floorLength
                         .toString(),
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             IconButton(
@@ -57,7 +57,7 @@ class FlatFloorCounter extends StatelessWidget {
         ),
         Text(
           isFlatCounter ? 'প্রতি তলায়\nফ্ল্যাট সংখ্যা' : 'তলা',
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ],
     );

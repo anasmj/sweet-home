@@ -22,24 +22,25 @@ class RenterService {
   }
 
   //Create renter in flat
-  Future<Response> addRenterToFlat(
-      {required String homeId,
-      required String flatId,
-      required String renterName,
-      required String phoneNo,
-      String? alternatePhoneNo = '',
-      String? occupation = ' ',
-      required int noOfPerson,
-      required DateTime entryDate,
-      String? previousLocation,
-      String? village,
-      String? policeStation,
-      String? union,
-      String? subDistrict,
-      String? district,
-      double? advance,
-      int? nIdNumber,
-      double? unitConsumed}) async {
+  Future<Response> addRenterToFlat({
+    required String homeId,
+    required String flatId,
+    required String renterName,
+    required String phoneNo,
+    String? alternatePhoneNo = '',
+    String? occupation = ' ',
+    required int noOfPerson,
+    required DateTime entryDate,
+    String? previousLocation,
+    String? village,
+    String? policeStation,
+    String? union,
+    String? subDistrict,
+    String? district,
+    double? advance,
+    int? nIdNumber,
+    // double? unitConsumed,
+  }) async {
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
     DocumentReference flatDocRef = flatsCollectionRef.doc(flatId);

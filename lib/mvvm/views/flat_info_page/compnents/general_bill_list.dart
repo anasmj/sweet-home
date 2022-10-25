@@ -5,11 +5,8 @@ import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/models/home_model.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_list_view_model.dart';
-import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
-import 'package:sweet_home/mvvm/views/flat_info_page/flat_service_charge_page/flat_service_charge_page.dart';
 import 'package:sweet_home/mvvm/views/shared_widgets/option_tile.dart';
 import 'package:sweet_home/prev/utils/compare_values.dart';
-import 'bill_tile.dart';
 
 // ignore: must_be_immutable
 class GeneralBillsList extends StatelessWidget {
@@ -19,7 +16,6 @@ class GeneralBillsList extends StatelessWidget {
   final String _rent = 'ভাড়া', _gas = 'গ্যাস', _water = 'পানি';
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<HomeServiceChargeListViewModel>(context);
     final flatViewModel = Provider.of<FlatListViewModel>(context);
 
     //? USE IT IN CASE YOU WANT TO ALLOW USER TO MAKE SERVICE CHARGE FOR INDIVIDUAL FLAT
@@ -104,23 +100,23 @@ class GeneralBillsList extends StatelessWidget {
               //   title: _water,
               //   subTitle: Formatter.toBn(value: flat?.flatWaterBill ?? 0.00),
               // ),
-              BillTile(
-                onClick: () async {
-                  await provider.readServiceCharges();
-                  //?in FlatServicePage user are not allowd to change any service charge
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) => const FlatServiceChargePage(),
-                    ),
-                  );
-                },
-                leadingIcon: FontAwesomeIcons.ellipsis,
-                trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 18),
-                title: 'অন্যান্য',
-                subTitle: '৳ 200',
-                isNumeric: false,
-              )
+              // BillTile(
+              //   onClick: () async {
+              //     await provider.readServiceCharges();
+              //     //?in FlatServicePage user are not allowd to change any service charge
+              //     // ignore: use_build_context_synchronously
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(
+              //         builder: (ctx) => const FlatServiceChargePage(),
+              //       ),
+              //     );
+              //   },
+              //   leadingIcon: FontAwesomeIcons.ellipsis,
+              //   trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 18),
+              //   title: 'অন্যান্য',
+              //   subTitle: '৳ 200',
+              //   isNumeric: false,
+              // )
             ],
           )
         : const Text('No Flat');

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../mvvm/models/flat_model.dart';
-import '../../../../../mvvm/providers/selected_flat_provider.dart';
-import '../../../../providers/newrenter_step_provider.dart';
-import '../../../../../mvvm/utils/form_validators.dart';
-import '../../shared_components/stepper_textfield.dart';
+import '../../../../../models/flat_model.dart';
+import '../../../../../providers/selected_flat_provider.dart';
+import '../../../../../view_models/new_renter_view_model.dart';
+import '../../../../../utils/form_validators.dart';
+import '../../../../../../prev/view/steppers/shared_components/stepper_textfield.dart';
 import 'components/occupation_dropdown.dart';
 
 // ignore: must_be_immutable
@@ -23,7 +23,7 @@ class RenterInfoStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NewRenterStepProvider>(context);
+    final provider = Provider.of<NewRenterViewModel>(context);
     Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
 
     // nameController.text = provider.getRenterName;
@@ -127,7 +127,7 @@ class RenterInfoStep extends StatelessWidget {
                     IconButton(
                       iconSize: 22,
                       onPressed: () {
-                        context.read<NewRenterStepProvider>().incrementMember();
+                        context.read<NewRenterViewModel>().incrementMember();
                       },
                       icon: const Icon(
                         Icons.add,
@@ -135,12 +135,12 @@ class RenterInfoStep extends StatelessWidget {
                     ),
                     Text(
                       provider.memberNo.toString(),
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     IconButton(
                       iconSize: 22,
                       onPressed: () {
-                        context.read<NewRenterStepProvider>().decrementMember();
+                        context.read<NewRenterViewModel>().decrementMember();
                       },
                       icon: const Icon(
                         Icons.remove,
@@ -162,7 +162,7 @@ class RenterInfoStep extends StatelessWidget {
             //   alignment: Alignment.bottomLeft,
             //   child: Text(
             //     'ফ্ল্যাট বাছাই করুনঃ',
-            //     style: Theme.of(context).textTheme.subtitle1,
+            //     style: Theme.of(context).textTheme.titleMedium,
             //   ),
             // ),
             // const SizedBox(
@@ -181,13 +181,13 @@ class RenterInfoStep extends StatelessWidget {
         text: TextSpan(children: [
           TextSpan(
             text: 'ফ্ল্যাট ',
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           TextSpan(
             text: flatName,
             style: Theme.of(context)
                 .textTheme
-                .subtitle1!
+                .titleMedium!
                 .copyWith(fontWeight: FontWeight.bold),
           ),
         ]),

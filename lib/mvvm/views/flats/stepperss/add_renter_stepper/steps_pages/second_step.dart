@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 
-import '../../../../providers/newrenter_step_provider.dart';
-import '../../shared_components/stepper_textfield.dart';
+import '../../../../../view_models/new_renter_view_model.dart';
+import '../../../../../../prev/view/steppers/shared_components/stepper_textfield.dart';
 import 'components/location_radio.dart';
 
 // ignore: must_be_immutable
@@ -23,7 +23,7 @@ class AddressStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NewRenterStepProvider>(context);
+    final provider = Provider.of<NewRenterViewModel>(context);
     return Form(
       //Nothnig to validate
       child: Column(
@@ -97,7 +97,7 @@ class AddressStep extends StatelessWidget {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Text(
         'স্থায়ী ঠিকানা',
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
       const SizedBox(
         width: 10,

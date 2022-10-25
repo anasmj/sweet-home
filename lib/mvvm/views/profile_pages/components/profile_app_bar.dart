@@ -26,7 +26,7 @@ class ProfileAppBar extends StatelessWidget {
           top: 40,
           child: Text(
             'Profile',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
         // getBackButton(context),

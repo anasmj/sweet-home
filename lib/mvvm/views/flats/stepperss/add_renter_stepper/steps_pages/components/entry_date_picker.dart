@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../providers/newrenter_step_provider.dart';
-import '../../../../../../mvvm/utils/formatter.dart';
+import '../../../../../../view_models/new_renter_view_model.dart';
+import '../../../../../../utils/formatter.dart';
 
 class EntryDatePicker extends StatelessWidget {
   const EntryDatePicker({
@@ -11,7 +11,7 @@ class EntryDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<NewRenterStepProvider>();
+    final provider = context.read<NewRenterViewModel>();
     String date = Formatter().buttonFormat(provider.entryDate);
 
     return OutlinedButton(

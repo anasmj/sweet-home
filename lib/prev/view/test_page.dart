@@ -21,7 +21,7 @@ class Test extends StatelessWidget {
           ),
           Text(
             'আপনার বাড়ীটি তৈরি করা হচ্ছে . . ',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ],
       ),

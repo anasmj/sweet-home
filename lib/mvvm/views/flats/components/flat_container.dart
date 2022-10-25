@@ -70,7 +70,7 @@ class FlatContainer extends StatelessWidget {
         ),
         SizedBox(width: 4),
         Text(
-          'পূর্বের রিডিং ঠিক নেই',
+          'পূর্বের রিডিং দেয়া নেই',
           style: TextStyle(color: Colors.red),
         )
       ],
@@ -87,7 +87,7 @@ class FlatContainer extends StatelessWidget {
         ),
         SizedBox(width: 4),
         Text(
-          'বর্তমান রিডিং দেয়া হয়নি',
+          'বর্তমান রিডিং দেয়া নেই',
           style: TextStyle(color: Colors.red),
         )
       ],
