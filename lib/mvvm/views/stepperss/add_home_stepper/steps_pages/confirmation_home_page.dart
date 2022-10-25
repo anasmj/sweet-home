@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../../mvvm/views/resources/app_icons.dart';
+import '../../../resources/app_icons.dart';
 
-class ConfirmHomePage extends StatelessWidget {
-  const ConfirmHomePage({super.key});
+class ConfirmPage extends StatelessWidget {
+  const ConfirmPage({super.key});
 
   @override
   Widget build(BuildContext context) {

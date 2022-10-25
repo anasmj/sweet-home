@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 
-import '../../../../providers/home_stepper_provider.dart';
+import '../../../../../prev/providers/home_stepper_provider.dart';
 
-import '../../../../../mvvm/utils/form_validators.dart';
-import '../../shared_components/stepper_textfield.dart';
+import '../../../../utils/form_validators.dart';
+import '../../components/stepper_textfield.dart';
 import '../components/counter.dart';
 
 class FristPage extends StatelessWidget {
@@ -38,7 +38,7 @@ class FristPage extends StatelessWidget {
           const Text('বাড়ীর নাম'),
           StepperTextField(
             textEditingController: provider.homeNameController,
-            validationFunciton: FormValidators.checkRenterName,
+            validationFunciton: FormValidators.checkHomeName,
           ),
           const SizedBox(
             height: 20,

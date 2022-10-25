@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 
-import '../../../../providers/home_stepper_provider.dart';
+import '../../../../../prev/providers/home_stepper_provider.dart';
 
-import '../../../../../mvvm/utils/form_validators.dart';
-import '../../shared_components/stepper_textfield.dart';
+import '../../../../utils/form_validators.dart';
+import '../../components/stepper_textfield.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({super.key});
@@ -46,35 +46,7 @@ class _SecondPageState extends State<SecondPage> {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: RichText(
-                  text: TextSpan(
-                    style: const TextStyle(color: Colors.black),
-                    children: [
-                      TextSpan(text: 'ভাড়া', style: formTextStyle),
-                      TextSpan(
-                        text: '*',
-                        style: TextStyle(
-                          color: Colors.red[900],
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: StepperTextField(
-                  textEditingController: provider.rentController,
-                  validationFunciton: FormValidators.checkRentAmount,
-                  isNumeric: true,
-                ),
-              ),
-            ],
-          ),
+          RentAmountField(formTextStyle: formTextStyle, provider: provider),
           const SizedBox(
             height: 40,
           ),
@@ -110,6 +82,9 @@ class _SecondPageState extends State<SecondPage> {
               ),
             ],
           ),
+
+          // GasField(provider: provider),
+          // WaterBillField(provider: provider),
           const SizedBox(
             height: 20,
           ),
@@ -117,6 +92,48 @@ class _SecondPageState extends State<SecondPage> {
       ),
     );
   }
+}
 
-  void emptyFiledValidator() {}
+class RentAmountField extends StatelessWidget {
+  const RentAmountField({
+    super.key,
+    required this.formTextStyle,
+    required this.provider,
+  });
+
+  final TextStyle? formTextStyle;
+  final HomeStepperProvider provider;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: RichText(
+            text: TextSpan(
+              style: const TextStyle(color: Colors.black),
+              children: [
+                TextSpan(text: 'ভাড়া', style: formTextStyle),
+                TextSpan(
+                  text: '*',
+                  style: TextStyle(
+                    color: Colors.red[900],
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          child: StepperTextField(
+            textEditingController: provider.rentController,
+            validationFunciton: FormValidators.checkRentAmount,
+            isNumeric: true,
+          ),
+        ),
+      ],
+    );
+  }
 }

@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/confirmation_home_page.dart';
-import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/first_page.dart';
-import 'package:sweet_home/prev/view/steppers/add_home_stepper/steps_pages/second_page.dart';
-
-import '../../../../mvvm/models/response.dart';
-import '../../../../mvvm/services/home_services.dart';
-
-import '../../../providers/home_stepper_provider.dart';
-import '../../../utils/user_flat.dart';
-import '../../screens/waiting_pages/making_home_indicator.dart';
-import '../../../../mvvm/views/app_widgets.dart';
-import '../../../../mvvm/views/resources/app_icons.dart';
+import 'package:sweet_home/mvvm/views/stepperss/add_home_stepper/steps_pages/confirmation_home_page.dart';
+import 'package:sweet_home/mvvm/views/stepperss/add_home_stepper/steps_pages/first_page.dart';
+import 'package:sweet_home/mvvm/views/stepperss/add_home_stepper/steps_pages/second_page.dart';
+import 'package:sweet_home/mvvm/views/stepperss/add_renter_stepper/steps_pages/components/nav_buttons.dart';
+import '../../../models/response.dart';
+import '../../../services/home_services.dart';
+import '../../../../prev/providers/home_stepper_provider.dart';
+import '../../../../prev/utils/user_flat.dart';
+import '../../../../prev/view/screens/waiting_pages/making_home_indicator.dart';
+import '../../app_widgets.dart';
 
 class AddHomeStepper extends StatefulWidget {
   const AddHomeStepper({super.key});
@@ -134,110 +130,25 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                         //dont show back button at first step
                         if (_currentStep != 0)
                           Expanded(
-                            child: backNavigationButton(context, details),
+                            child: BackNavButton(details: details),
                           ),
+
                         if (_currentStep != 0)
                           const SizedBox(
                             width: 20,
                           ),
                         Expanded(
-                          child: forwardNavigationButton(
-                              context: context,
-                              details: details,
-                              isLastStep: isLastStep),
+                          child: ForwardNavButton(
+                            details: details,
+                            isLastStep: isLastStep,
+                          ),
                         ),
                       ],
                     ),
                   ),
                 )
           //confirm user that home is addeed
-          : const ConfirmHomePage(),
-    );
-  }
-
-  Center buildingHomeLoadingIndicator() {
-    return Center(
-      child: Column(
-        children: [
-          Lottie.asset(
-            AppIcons.blueCircleIndicator,
-            height: 40,
-            repeat: true,
-          ),
-          const Text(
-            'hello',
-            style: TextStyle(color: Colors.black),
-          ),
-        ],
-      ),
-    );
-  }
-
-  ElevatedButton forwardNavigationButton(
-      {required BuildContext context,
-      required ControlsDetails details,
-      required bool isLastStep}) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-      onPressed: details.onStepContinue,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              isLastStep ? 'যুক্ত করি' : 'পরবর্তী',
-              style: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(
-              width: 6,
-            ),
-            if (!isLastStep)
-              const Icon(
-                Icons.arrow_forward_rounded,
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  OutlinedButton backNavigationButton(
-      BuildContext context, ControlsDetails details) {
-    bool isDark = context.watch<ThemeProvider>().isDarkMode;
-    return OutlinedButton(
-      style: ElevatedButton.styleFrom(
-        side: BorderSide(
-          color: isDark ? Colors.grey.shade400 : Colors.blue,
-          width: 1,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-      onPressed: details.onStepCancel,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(
-              Icons.arrow_back_rounded,
-            ),
-            SizedBox(
-              width: 4,
-            ),
-            Text(
-              'পেছনে',
-              style: TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-      ),
+          : const ConfirmPage(),
     );
   }
 

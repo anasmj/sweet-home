@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum ButtonState { defaultState, loadingState, updatedState }
+
 //! do not change
 // ignore: must_be_immutable
 class UpdateButton extends StatelessWidget {

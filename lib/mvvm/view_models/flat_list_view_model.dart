@@ -7,14 +7,21 @@ import 'package:sweet_home/mvvm/services/flat_services.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 
 class FlatListViewModel extends ChangeNotifier {
-  Response response = Response();
-
-  Home? currentHome;
-  SelectedFlatProvider? selectedFlatProvider;
   FlatListViewModel({this.currentHome, this.selectedFlatProvider}) {
+    homeId = currentHome?.homeId;
+    selectedFlatName = selectedFlatProvider?.selectedFlat?.flatName;
     configureFltas();
     _flatList = [];
   }
+  Response response = Response();
+  Home? currentHome;
+  String? homeId;
+  String? selectedFlatName;
+  TextEditingController previousMeterController = TextEditingController();
+  TextEditingController currentMeterController = TextEditingController();
+  GlobalKey<FormState> meterReadingKey = GlobalKey();
+  SelectedFlatProvider? selectedFlatProvider;
+
   // bool _isLoading = false;
   late List<Flat> _flatList;
   TextEditingController displayTextController = TextEditingController();
@@ -27,23 +34,22 @@ class FlatListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  void setLoading(bool status) {
+    _isLoading = status;
+    notifyListeners();
+  }
+
   bool _hasError = false;
   bool get hasError => _hasError;
   set setError(bool error) {
     _hasError = true;
   }
-  //delete afer being sure
-  // get isLoading => _isLoading;
-  // setLoading(bool status) async {
-  //   _isLoading = status;
-  //   notifyListeners();
-  // }
 
   List<Flat> get flatList => _flatList;
   setFlatList(List<Flat> flatList) {
     _flatList = flatList;
-
-    // notifyListeners();
   }
 
   Future<void> configureFltas() async {
@@ -86,16 +92,40 @@ class FlatListViewModel extends ChangeNotifier {
       setStatus(Status.error);
     }
   }
-  //   setFlatList([]);
-  //   if (homeId == null) return;
 
-  //   // setLoading(true);
-  //   response = await FlatService().getAllFlatsForVm(homeId: homeId);
+  Future<Response> updateCurrentMonthMeterReading() async {
+    if (homeId != null && selectedFlatName != null) {
+      response = await FlatService().updateFlat(
+        homeId: homeId!,
+        flatName: selectedFlatName!,
+        fieldName: 'currentMeterReading',
+        newValue: double.parse(currentMeterController.text),
+      );
+      return response;
+    } else {
+      response.code = 201;
+      response.body = 'failed';
+      return response;
+    }
+  }
 
-  //   if (response.code == 200) {
-  //     setFlatList(response.content as List<Flat>);
-  //   }
-  //   if (response.code != 200) {}
-  //   // setLoading(false);
-  // }
+  Future<Response> updatePreviousMonthMeterReading() async {
+    DateTime currentDate = DateTime.now();
+    if (homeId != null && selectedFlatName != null) {
+      // DateTime lastMonthDate =
+      //     DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
+      setLoading(true);
+      response = await FlatService().updateFlat(
+        homeId: homeId!,
+        flatName: selectedFlatName!,
+        fieldName: 'previousMeterReading',
+        newValue: double.parse(previousMeterController.text),
+      );
+      setLoading(false);
+      return response;
+    }
+    response.code = 203;
+    response.body = 'failed';
+    return response;
+  }
 }

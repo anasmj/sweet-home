@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 
-import '../../../../../../view_models/new_renter_view_model.dart';
+import '../../../../../view_models/new_renter_view_model.dart';
 
 class OccupationDropdown extends StatefulWidget {
   const OccupationDropdown({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../providers/home_stepper_provider.dart';
+import '../../../../../prev/providers/home_stepper_provider.dart';
 
 // ignore: must_be_immutable
 class FlatFloorCounter extends StatelessWidget {

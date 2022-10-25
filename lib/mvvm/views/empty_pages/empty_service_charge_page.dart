@@ -16,7 +16,7 @@ class EmptyServiceChargePage extends StatelessWidget {
             height: MediaQuery.of(context).size.height / 3,
           ),
           Text(
-            'খরচ যুক্ত করুন',
+            'কোনও খরচ যুক্ত নেই',
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ],

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../models/flat_model.dart';
-import '../../../../../providers/selected_flat_provider.dart';
-import '../../../../../view_models/new_renter_view_model.dart';
-import '../../../../../utils/form_validators.dart';
-import '../../../../../../prev/view/steppers/shared_components/stepper_textfield.dart';
+import '../../../../models/flat_model.dart';
+import '../../../../providers/selected_flat_provider.dart';
+import '../../../../view_models/new_renter_view_model.dart';
+import '../../../../utils/form_validators.dart';
+import '../../components/stepper_textfield.dart';
 import 'components/occupation_dropdown.dart';
 
 // ignore: must_be_immutable

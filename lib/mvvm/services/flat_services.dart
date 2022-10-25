@@ -63,7 +63,6 @@ class FlatService {
     final flatsSnapshot = await flatsCollectionRef.get();
 
     //try: assign last month meter reading to previous reading field in flat document
-
     try {
       flatsSnapshot.docs.map((flat) async {
         final previousMonthRecordDocRef = await flatsCollectionRef

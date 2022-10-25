@@ -42,9 +42,11 @@ class SelectedFlatInfo extends StatelessWidget {
     return ListView(
       children: [
         const SizedBox(height: 20),
-        flat.renter != null
-            ? MeterReadingList(flat: flat)
-            : const SizedBox.shrink(),
+        MeterReadingList(flat: flat),
+
+        // flat.renter != null
+        //     ? MeterReadingList(flat: flat)
+        //     : const SizedBox.shrink(),
         const SizedBox(height: 10),
         getDivider('বিল সমূহ'),
         GeneralBillsList(flat: flat),

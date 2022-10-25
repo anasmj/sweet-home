@@ -17,7 +17,7 @@ class UserFlats extends StatelessWidget {
   Widget build(BuildContext context) {
     String? homeId =
         Provider.of<CurrentHomeProvider>(context).currentHome?.homeId;
-    if (homeId == null) return const Text('null');
+    if (homeId == null) return const NoFlatPage();
     return StreamBuilder<List<Flat>>(
       stream: FlatService().flatsStream(homeId: homeId),
       builder: (context, snapshot) {

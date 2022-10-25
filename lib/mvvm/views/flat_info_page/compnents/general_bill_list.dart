@@ -5,6 +5,7 @@ import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/models/home_model.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_list_view_model.dart';
+import 'package:sweet_home/mvvm/views/flat_info_page/flat_service_charge_page/flat_service_charge_page.dart';
 import 'package:sweet_home/mvvm/views/shared_widgets/option_tile.dart';
 import 'package:sweet_home/prev/utils/compare_values.dart';
 
@@ -14,12 +15,12 @@ class GeneralBillsList extends StatelessWidget {
   Flat? flat;
   Home? home;
   final String _rent = 'ভাড়া', _gas = 'গ্যাস', _water = 'পানি';
+
   @override
   Widget build(BuildContext context) {
     final flatViewModel = Provider.of<FlatListViewModel>(context);
 
     //? USE IT IN CASE YOU WANT TO ALLOW USER TO MAKE SERVICE CHARGE FOR INDIVIDUAL FLAT
-    // final provider = Provider.of<FlatServiceChargeListViewModel>(context);
 
     return flat != null
         ? Column(
@@ -40,29 +41,13 @@ class GeneralBillsList extends StatelessWidget {
                   );
                 },
               ),
-              // BillTile(
-              //   onClick: () {
-              //     AppWidget.getModalSheet(
-              //       context: context,
-              //       modalSheetContent: const EditFlatInfoSheetContent(),
-              //     );
-              //   },
-              //   leadingIcon: Icons.home,
-              //   title: 'ভাড়া',
-              //   subTitle: Formatter.toBn(value: flat?.flatRentAmount ?? 0.00),
-              //   isNumeric: false,
-              // ),
-
               OptionTile(
-                // home: home,
                 flatListViewModel: flatViewModel,
-
                 leadingIcon: Icons.gas_meter_outlined,
                 sheetTitle: _gas,
                 isDouble: true,
                 subTitle: Formatter.toBn(value: flat!.flatGasBill),
                 textFieldContent: flat!.flatGasBill,
-                // subTitle: '৳ ${home.gasBill.toString()}',
                 validationFunciton: (String? value) {
                   return Utils.compareValues(
                     value: value!,
@@ -71,9 +56,7 @@ class GeneralBillsList extends StatelessWidget {
                 },
               ),
               OptionTile(
-                // home: home,
                 flatListViewModel: flatViewModel,
-
                 leadingIcon: FontAwesomeIcons.shower,
                 sheetTitle: _water,
                 isDouble: true,
@@ -86,37 +69,21 @@ class GeneralBillsList extends StatelessWidget {
                   );
                 },
               ),
+              ListTile(
+                onTap: () async {
+                  //?in FlatServicePage user are not allowd to change any service charge
 
-              // BillTile(
-              //   leadingIcon: Icons.gas_meter_outlined,
-              //   title: _gas,
-              //   subTitle: Formatter.toBn(value: flat?.flatGasBill ?? 0.00),
-              //   isNumeric: false,
-              // ),
-              // BillTile(
-              //   leadingIcon: FontAwesomeIcons.shower,
-
-              //   // leadingIcon: Icons.water_drop_outlined,
-              //   title: _water,
-              //   subTitle: Formatter.toBn(value: flat?.flatWaterBill ?? 0.00),
-              // ),
-              // BillTile(
-              //   onClick: () async {
-              //     await provider.readServiceCharges();
-              //     //?in FlatServicePage user are not allowd to change any service charge
-              //     // ignore: use_build_context_synchronously
-              //     Navigator.of(context).push(
-              //       MaterialPageRoute(
-              //         builder: (ctx) => const FlatServiceChargePage(),
-              //       ),
-              //     );
-              //   },
-              //   leadingIcon: FontAwesomeIcons.ellipsis,
-              //   trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 18),
-              //   title: 'অন্যান্য',
-              //   subTitle: '৳ 200',
-              //   isNumeric: false,
-              // )
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => const FlatServiceChargePage(),
+                    ),
+                  );
+                },
+                leading: const Icon(FontAwesomeIcons.ellipsis),
+                trailing: const Icon(Icons.arrow_forward_ios_sharp, size: 18),
+                title: const Text('অন্যান্য'),
+                // subtitle: const Text('৳ 200'),
+              ),
             ],
           )
         : const Text('No Flat');

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../view_models/new_renter_view_model.dart';
-import '../../../../../../utils/formatter.dart';
+import '../../../../../view_models/new_renter_view_model.dart';
+import '../../../../../utils/formatter.dart';
 
 class EntryDatePicker extends StatelessWidget {
   const EntryDatePicker({

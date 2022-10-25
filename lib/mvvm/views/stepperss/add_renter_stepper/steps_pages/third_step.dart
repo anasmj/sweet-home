@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../../view_models/new_renter_view_model.dart';
-import '../../../../resources/app_icons.dart';
+import '../../../../view_models/new_renter_view_model.dart';
+import '../../../resources/app_icons.dart';
 import 'components/entry_date_picker.dart';
 
 class ThirdStepPage extends StatelessWidget {

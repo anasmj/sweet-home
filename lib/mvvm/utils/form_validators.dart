@@ -15,7 +15,7 @@ class FormValidators {
   }
 
   static String? checkHomeName(String? value) {
-    if (value!.isEmpty) return 'গ্রাহকের নাম দেয়া হয়নি';
+    if (value!.isEmpty) return 'বাড়ীর নাম দেয়া হয়নি';
 
     return null; // null -> no problem
   }

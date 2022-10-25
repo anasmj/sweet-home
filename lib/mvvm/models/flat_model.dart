@@ -1,5 +1,4 @@
 import 'package:sweet_home/mvvm/models/renter.dart';
-import 'package:sweet_home/mvvm/models/service_charges.dart';
 
 class Flat {
   //detail info of flat
@@ -14,11 +13,11 @@ class Flat {
   //for that month.
   double flatGasBill;
   double flatWaterBill;
-  // double? currentMonthMeterReading;
+
   double? currentMeterReading;
   double? previousMeterReading;
 
-  List<ServiceCharge>? serviceCharges;
+  // List<ServiceCharge>? serviceCharges;
 
   Flat({
     this.flatName = '',
@@ -28,12 +27,7 @@ class Flat {
     this.flatWaterBill = 0.00,
     this.currentMeterReading,
     this.previousMeterReading,
-    this.serviceCharges,
-    // this.noOfBed = 1,
-    // this.bath = 1,
-    // this.varanda = 0,
-    // this.hasDiningRoom = false,
-    // this.hasDrawingRoom = false,
+    // this.serviceCharges,
   });
   static Flat fromJson(Map<String, dynamic> json) {
     Renter? renterObj;
@@ -44,17 +38,13 @@ class Flat {
     } catch (e) {
       //
     }
+    // print(json['serviceCharges']);
     return Flat(
         flatName: json['flatName'] ?? '',
         renter: renterObj,
         flatRentAmount: json['rentAmount'] ?? 0.00,
         flatGasBill: json['gasBill'] ?? 0.00,
         flatWaterBill: json['waterBill'] ?? 0.00,
-        // noOfBed: json['noOfBed'] ?? 1,
-        // bath: json['bath'] ?? 1,
-        // varanda: json['varanda'] ?? 0,
-        // hasDiningRoom: json['hasDiningRoom'] ?? false,
-        // hasDrawingRoom: json['hasDrawingRoom'] ?? false,
         // serviceCharges : json['serviceCharges'],
         currentMeterReading: json['currentMeterReading'],
         previousMeterReading: json['previousMeterReading'] != null
@@ -76,11 +66,6 @@ class Flat {
         'waterBill': waterBill,
         'currentMeterReading': currentMeterReading,
         'previousMeterReading': previousMeterReading,
-        'serviceCharges': serviceCharges ?? [],
-        // 'noOfBed': noOfBed,
-        // 'bath': bath,
-        // 'varanda': varanda,
-        // 'hasDiningRoom': hasDiningRoom,
-        // 'hasDrawingRoom': hasDrawingRoom,
+        // 'serviceCharges': serviceCharges ?? [],
       };
 }

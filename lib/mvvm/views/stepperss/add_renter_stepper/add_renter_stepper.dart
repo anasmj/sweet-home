@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
-import 'package:sweet_home/mvvm/views/flats/stepperss/add_renter_stepper/steps_pages/first_step.dart';
-import 'package:sweet_home/mvvm/views/flats/stepperss/add_renter_stepper/steps_pages/second_step.dart';
-import 'package:sweet_home/mvvm/views/flats/stepperss/add_renter_stepper/steps_pages/third_step.dart';
-import '../../../../providers/current_home.dart';
-import '../../../../view_models/new_renter_view_model.dart';
-import '../../../app_widgets.dart';
-import '../../../successful_pages/renter_add_successful.dart';
-import '../../../../../prev/view/screens/waiting_pages/adding_renter_indicator.dart';
+import 'package:sweet_home/mvvm/views/stepperss/add_renter_stepper/steps_pages/first_step.dart';
+import 'package:sweet_home/mvvm/views/stepperss/add_renter_stepper/steps_pages/second_step.dart';
+import 'package:sweet_home/mvvm/views/stepperss/add_renter_stepper/steps_pages/third_step.dart';
+import '../../../providers/current_home.dart';
+import '../../../view_models/new_renter_view_model.dart';
+import '../../app_widgets.dart';
+import '../../successful_pages/renter_add_successful.dart';
+import '../../../../prev/view/screens/waiting_pages/adding_renter_indicator.dart';
 import 'steps_pages/components/nav_buttons.dart';
 
 class AddRenterStepper extends StatefulWidget {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/theme_provider.dart';
 
-import '../../../../../view_models/new_renter_view_model.dart';
-import '../../../../../../prev/view/steppers/shared_components/stepper_textfield.dart';
+import '../../../../view_models/new_renter_view_model.dart';
+import '../../components/stepper_textfield.dart';
 import 'components/location_radio.dart';
 
 // ignore: must_be_immutable
