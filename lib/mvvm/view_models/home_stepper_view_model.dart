@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class HomeStepperProvider extends ChangeNotifier {
+class HomeStepperProviderViewModel extends ChangeNotifier {
   GlobalKey<FormState>? firstPageFormKey;
   GlobalKey<FormState>? secondPageFormKey;
 
@@ -63,5 +63,4 @@ class HomeStepperProvider extends ChangeNotifier {
   //THIRD STEP
   // bool _advanceSelected = false;
   // double _advanceAmount = 0.00;
-
 }

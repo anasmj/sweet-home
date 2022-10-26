@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/theme_provider.dart';
+import 'package:sweet_home/mvvm/providers/theme_provider.dart';
 import 'package:sweet_home/mvvm/views/shared_widgets/edit_textfield.dart';
 import 'package:sweet_home/mvvm/views/shared_widgets/update_button.dart';
 

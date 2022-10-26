@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/models/theme_provider.dart';
+import 'package:sweet_home/mvvm/providers/theme_provider.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_list_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/transaction_provider.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
+import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
 
 class TransactionDatePicker extends StatelessWidget {
   const TransactionDatePicker({
@@ -10,18 +10,17 @@ class TransactionDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<TransactionProvider>();
-    String buttonDate = Formatter().buttonFormat(provider.transactionDateTime);
-
+    final viewModel = context.watch<RenterOpeningViewModel>();
     return OutlinedButton(
       onPressed: () async {
         DateTime? selectedDate = await showDatePicker(
             context: context,
-            initialDate: DateTime.now(),
+            initialDate: viewModel.transactionTime,
             firstDate: DateTime(2000),
             lastDate: DateTime(3000));
         if (selectedDate == null) return;
-        provider.transactionDateTime = selectedDate;
+
+        viewModel.setTransactionTime(selectedDate);
       },
       // child: Text(provider.entryDate.toIso8601String()),
       child: Row(
@@ -29,7 +28,9 @@ class TransactionDatePicker extends StatelessWidget {
         children: [
           const Icon(Icons.calendar_month_outlined),
           const SizedBox(width: 8),
-          Text(buttonDate),
+          Text(
+            Formatter().buttonFormat(viewModel.transactionTime),
+          ),
         ],
       ),
     );

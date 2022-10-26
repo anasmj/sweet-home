@@ -31,7 +31,7 @@ class RenterOpeningPage extends StatelessWidget {
       length: 3,
       child: Scaffold(
         resizeToAvoidBottomInset:
-            false, //to avoid overflow error while opening keyboard in payer name dialog
+            true, //to avoid overflow error while opening keyboard in payer name dialog
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(_appBarHeight),
           child:
@@ -40,7 +40,7 @@ class RenterOpeningPage extends StatelessWidget {
         body: const TabBarView(
           children: [
             MonthlyExpencePage(),
-            EntryPage(),
+            TransactionEntryPage(),
             SizedBox(),
             // TransactionList(),
             // EmptyContent.getEmptyTransactionPage(),

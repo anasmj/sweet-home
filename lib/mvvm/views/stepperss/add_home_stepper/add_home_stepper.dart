@@ -7,7 +7,7 @@ import 'package:sweet_home/mvvm/views/stepperss/add_home_stepper/steps_pages/sec
 import 'package:sweet_home/mvvm/views/stepperss/add_renter_stepper/steps_pages/components/nav_buttons.dart';
 import '../../../models/response.dart';
 import '../../../services/home_services.dart';
-import '../../../../prev/providers/home_stepper_provider.dart';
+import '../../../view_models/home_stepper_view_model.dart';
 import '../../../../prev/utils/user_flat.dart';
 import '../../../../prev/view/screens/waiting_pages/making_home_indicator.dart';
 import '../../app_widgets.dart';
@@ -25,7 +25,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<HomeStepperProvider>();
+    final provider = context.watch<HomeStepperProviderViewModel>();
     //needs to be changed
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
@@ -47,7 +47,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                   onStepContinue: () async {
                     if (isLastStep) {
                       if (context
-                          .read<HomeStepperProvider>()
+                          .read<HomeStepperProviderViewModel>()
                           .secondPageFormKey!
                           .currentState!
                           .validate()) {
@@ -105,7 +105,7 @@ class _AddHomeStepperState extends State<AddHomeStepper> {
                     } else {
                       //first step
                       if (context
-                          .read<HomeStepperProvider>()
+                          .read<HomeStepperProviderViewModel>()
                           .firstPageFormKey!
                           .currentState!
                           .validate()) {

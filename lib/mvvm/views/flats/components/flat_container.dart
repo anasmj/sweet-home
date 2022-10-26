@@ -48,7 +48,7 @@ class FlatContainer extends StatelessWidget {
         ),
         subtitle: flat.renter != null
             ? Text(
-                'পাবো ৳ -',
+                ' পাবো ৳ -',
                 style: Theme.of(context).textTheme.titleSmall,
               )
             : const SizedBox.shrink(),

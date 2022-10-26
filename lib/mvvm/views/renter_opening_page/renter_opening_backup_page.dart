@@ -67,7 +67,7 @@ class FlatDetails extends StatelessWidget {
             Center(
               child: MonthlyExpencePage(),
             ),
-            EntryPage(),
+            TransactionEntryPage(),
             // TransactionListPage(renter: renter),
           ],
         ),

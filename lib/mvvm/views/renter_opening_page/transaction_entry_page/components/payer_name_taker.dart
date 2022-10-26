@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/transaction_provider.dart';
+import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
 
 Future<void> showNamePicker(
     {required BuildContext context, String title = ''}) async {
-  late String tempName = '';
+  // final payerController = context.read<TransactionProvider>().payerController;
+  TextEditingController controller = TextEditingController();
+  final GlobalKey<FormState> key = GlobalKey();
+  // final transactionProvider = Provider.of<TransactionProvider>(context);
+
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -13,16 +17,15 @@ Future<void> showNamePicker(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         title: const Text('প্রদানকারীর নাম'),
         content: Form(
-          key: context.read<TransactionProvider>().payerKey,
+          key: key,
+          // key: context.read<TransactionProvider>().payerKey,
           child: TextFormField(
-            controller: context.read<TransactionProvider>().payerController,
-            onChanged: (value) {
-              tempName = value;
-            },
-            // controller: context.read<TransactionProvider>().payerController,
+            controller: controller,
+            // controller: payerController,
+
             validator: (value) {
               if (value!.isEmpty) {
-                return 'প্রদানকারীর নামটি দেয়া হয়নি';
+                return 'প্রদানকারীর নাম দেয়া হয়নি';
               }
               return null;
             },
@@ -31,7 +34,9 @@ Future<void> showNamePicker(
         ),
         actions: <Widget>[
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
             child: const Text(
               'বাতিল',
               style: TextStyle(fontSize: 16),
@@ -43,14 +48,28 @@ Future<void> showNamePicker(
               style: TextStyle(fontSize: 16),
             ),
             onPressed: () {
-              if (context
-                  .read<TransactionProvider>()
-                  .payerKey
-                  .currentState!
-                  .validate()) {
-                context.read<TransactionProvider>().setPayer(tempName);
+              if (key.currentState!.validate()) {
+                Provider.of<RenterOpeningViewModel>(context, listen: false)
+                    .setPayerName(controller.text);
+
+                // print(payerController.text);
+                // payerController.clear();
+                // context.read<TransactionProvider>().setPayer(tempName);
                 Navigator.of(context).pop();
               }
+              // if (context
+              //     .read<TransactionProvider>()
+              //     .payerKey
+              //     .currentState!
+              //     .validate()) {
+              //   Provider.of<TransactionProvider>(context, listen: false)
+              //       .setPayerName(transactionProvider.paymentController.text);
+
+              //   print(payerController.text);
+              //   // payerController.clear();
+              //   // context.read<TransactionProvider>().setPayer(tempName);
+              //   Navigator.of(context).pop();
+              // }
             },
           ),
         ],

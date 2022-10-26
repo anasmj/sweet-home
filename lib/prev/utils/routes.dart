@@ -7,15 +7,15 @@ import '../../mvvm/views/stepperss/add_renter_stepper/add_renter_stepper.dart';
 
 class AppRoute {
   //DETAIL OF A FLAT FROM FLATLIST
-  static void flatDetail(BuildContext context, Flat flat) => Navigator.push(
-        context,
-        PageTransition(
-          child: FlatDetails(
-            renter: flat.renter!,
-          ),
-          type: PageTransitionType.rightToLeft,
-        ),
-      );
+  // static void flatDetail(BuildContext context, Flat flat) => Navigator.push(
+  //       context,
+  //       PageTransition(
+  //         child: FlatDetails(
+  //           renter: flat.renter!,
+  //         ),
+  //         type: PageTransitionType.rightToLeft,
+  //       ),
+  //     );
 
   //HOME DETAIL PAGE
   // static void toCurrentHomeDetail(BuildContext context) {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/home_model.dart';
-import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
+import 'package:sweet_home/mvvm/providers/theme_provider.dart';
 import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_home_page/components/homes_popup.dart';
-import 'package:sweet_home/prev/providers/profile.dart';
+import 'package:sweet_home/mvvm/models/profile.dart';
 
 class Drawerheader extends StatelessWidget {
   const Drawerheader({super.key});

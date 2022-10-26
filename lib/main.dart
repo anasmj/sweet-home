@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sweet_home/mvvm/models/theme_provider.dart';
 import 'package:sweet_home/mvvm/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
+import 'package:sweet_home/mvvm/providers/theme_provider.dart';
 import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
-import 'package:sweet_home/prev/providers/home_stepper_provider.dart';
+import 'package:sweet_home/mvvm/view_models/home_stepper_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/new_renter_view_model.dart';
 import 'package:sweet_home/mvvm/services/auth_service.dart';
 import 'package:sweet_home/mvvm/utils/shared_pref.dart';
@@ -15,7 +15,6 @@ import 'package:sweet_home/prev/view/dismiss_keyboard.dart';
 import 'package:sweet_home/mvvm/views/resources/app_theme.dart';
 import 'package:sweet_home/wrapper.dart';
 import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
-import 'mvvm/models/transaction_provider.dart';
 import 'mvvm/view_models/flat_list_view_model.dart';
 import 'mvvm/view_models/home_list_view_model.dart';
 
@@ -57,10 +56,7 @@ class MyApp extends StatelessWidget {
         //   create: (context) => NewRenterViewModel(),
         // ),
         ChangeNotifierProvider(
-          create: (context) => HomeStepperProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => TransactionProvider(),
+          create: (context) => HomeStepperProviderViewModel(),
         ),
 
         ChangeNotifierProxyProvider<SelectedFlatProvider, BillsProvider>(
@@ -146,7 +142,6 @@ class SweetHome extends StatelessWidget {
       theme: AppTheme.appLightTheme(),
       darkTheme: AppTheme.appDarkTheme(),
 
-      ///dissmiss keyboard is a custom class
       ///to dissmiss keyboard when outsite of keyboard is
       ///touched
       home: const DismissKeyboard(

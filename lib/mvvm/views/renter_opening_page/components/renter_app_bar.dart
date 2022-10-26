@@ -32,7 +32,7 @@ class RenterAppBar extends StatelessWidget {
           subtitle: RichText(
             text: TextSpan(
               children: [
-                TextSpan(text: 'পাবো  ', style: appTextTheme.titleMedium),
+                TextSpan(text: ' পাবো  ', style: appTextTheme.titleMedium),
                 // AppWidget.taka,
                 TextSpan(
                   text: '${Formatter.toBn(value: totalBill)}\n',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../prev/providers/home_stepper_provider.dart';
+import '../../../../view_models/home_stepper_view_model.dart';
 
 // ignore: must_be_immutable
 class FlatFloorCounter extends StatelessWidget {
@@ -23,8 +23,12 @@ class FlatFloorCounter extends StatelessWidget {
               iconSize: 22,
               onPressed: () {
                 isFlatCounter
-                    ? context.read<HomeStepperProvider>().decreaseFlat()
-                    : context.read<HomeStepperProvider>().decreaseFloor();
+                    ? context
+                        .read<HomeStepperProviderViewModel>()
+                        .decreaseFlat()
+                    : context
+                        .read<HomeStepperProviderViewModel>()
+                        .decreaseFloor();
               },
               icon: const Icon(
                 Icons.remove,
@@ -34,9 +38,12 @@ class FlatFloorCounter extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
               child: Text(
                 isFlatCounter
-                    ? context.watch<HomeStepperProvider>().flatLength.toString()
+                    ? context
+                        .watch<HomeStepperProviderViewModel>()
+                        .flatLength
+                        .toString()
                     : context
-                        .watch<HomeStepperProvider>()
+                        .watch<HomeStepperProviderViewModel>()
                         .floorLength
                         .toString(),
                 style: Theme.of(context).textTheme.titleLarge,
@@ -46,8 +53,12 @@ class FlatFloorCounter extends StatelessWidget {
               iconSize: 22,
               onPressed: () {
                 isFlatCounter
-                    ? context.read<HomeStepperProvider>().increaseFlat()
-                    : context.read<HomeStepperProvider>().increaseFloor();
+                    ? context
+                        .read<HomeStepperProviderViewModel>()
+                        .increaseFlat()
+                    : context
+                        .read<HomeStepperProviderViewModel>()
+                        .increaseFloor();
               },
               icon: const Icon(
                 Icons.add,

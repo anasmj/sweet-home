@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'prev/models/app_user.dart';
-import 'prev/providers/profile.dart';
+import 'mvvm/models/profile.dart';
 import 'mvvm/services/auth_service.dart';
 import 'mvvm/views/authenticate_pages/authenticate.dart';
 

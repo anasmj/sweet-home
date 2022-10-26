@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/theme_provider.dart';
+import 'package:sweet_home/mvvm/providers/theme_provider.dart';
 import 'package:sweet_home/mvvm/views/current_month/components/monthly_summary_card.dart';
 import 'package:sweet_home/mvvm/views/current_month/components/summary_container.dart';
 

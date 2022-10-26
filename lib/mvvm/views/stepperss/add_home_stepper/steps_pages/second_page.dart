@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/theme_provider.dart';
-
-import '../../../../../prev/providers/home_stepper_provider.dart';
-
+import 'package:sweet_home/mvvm/providers/theme_provider.dart';
+import '../../../../view_models/home_stepper_view_model.dart';
 import '../../../../utils/form_validators.dart';
 import '../../components/stepper_textfield.dart';
 
@@ -22,7 +20,7 @@ class _SecondPageState extends State<SecondPage> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<HomeStepperProvider>(context);
+    final provider = Provider.of<HomeStepperProviderViewModel>(context);
     provider.secondPageFormKey = _secondPageFormKey;
 
     TextStyle? formTextStyle = Theme.of(context).textTheme.titleMedium;
@@ -102,7 +100,7 @@ class RentAmountField extends StatelessWidget {
   });
 
   final TextStyle? formTextStyle;
-  final HomeStepperProvider provider;
+  final HomeStepperProviderViewModel provider;
 
   @override
   Widget build(BuildContext context) {

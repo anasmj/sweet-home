@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/transaction_provider.dart';
+import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/transaction_entry_page/components/payer_name_taker.dart';
 
+// ignore: must_be_immutable
 class PayerNameButton extends StatelessWidget {
-  const PayerNameButton({Key? key}) : super(key: key);
+  PayerNameButton({
+    Key? key,
+    required this.transactionPageContext,
+  }) : super(key: key);
+  BuildContext transactionPageContext;
 
   @override
   Widget build(BuildContext context) {
-    // context.read<TransactionProvider>().payerController.text =
-    //     currentFlat!.renter!.renterName;
+    final viewModel = Provider.of<RenterOpeningViewModel>(context);
     return TextButton(
       onPressed: () async {
+        FocusScope.of(transactionPageContext).unfocus();
         showNamePicker(context: context);
       },
       child: Row(
@@ -19,7 +24,7 @@ class PayerNameButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            context.read<TransactionProvider>().payerName,
+            viewModel.payerName,
             style: const TextStyle(fontSize: 18),
           ),
           const SizedBox(

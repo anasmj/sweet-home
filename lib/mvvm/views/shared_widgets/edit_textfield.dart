@@ -10,6 +10,7 @@ class EditTextField extends StatelessWidget {
     super.key,
     this.editingController,
     this.textFieldContent,
+    this.withEditIcon = true,
   });
 
   String? Function(String?)? validationFunciton;
@@ -19,6 +20,7 @@ class EditTextField extends StatelessWidget {
   bool isEnabled;
   TextEditingController? editingController;
   dynamic textFieldContent;
+  bool withEditIcon;
 
   final double _cursorHeight = 22;
 
@@ -33,7 +35,8 @@ class EditTextField extends StatelessWidget {
       keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
       decoration: InputDecoration(
         prefixText: isNumeric ? '৳' : '',
-        suffixIcon: const Icon(Icons.edit),
+        suffixIcon:
+            withEditIcon ? const Icon(Icons.edit) : const SizedBox.shrink(),
       ),
     );
   }
