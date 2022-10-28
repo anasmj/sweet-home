@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/utils/form_validators.dart';
-import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 
 class PaymentTextField extends StatelessWidget {
   const PaymentTextField({
@@ -14,9 +14,9 @@ class PaymentTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<RenterOpeningViewModel>(context);
+    final viewModel = Provider.of<RenterViewModel>(context);
     return Form(
-      key: context.watch<RenterOpeningViewModel>().paymentKey,
+      key: context.watch<RenterViewModel>().paymentKey,
       child: SizedBox(
         width: _width,
         child: TextFormField(

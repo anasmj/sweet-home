@@ -68,33 +68,58 @@ class TransactionService {
     // print(snapShot.docs.first.data());
   }
 
-  //ADD TRANSACTION IN RECORD
-  Future<Response> addTransaction({
+  //ADD TO RENTER//!UPDATED
+  Future<Response> addTransactionToRenter({
     required String homeId,
     required String flatId,
-    required String recordId,
-    required String paidBy,
-    required double amount,
-    required DateTime dateTime,
+    required RenterTransaction transaction,
   }) async {
-    final recordsCollection =
-        await getRecordsCollectionRef(homeId: homeId, flatId: flatId);
-    final docRef = recordsCollection.doc(recordId);
+    try {
+      await _db
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .collection('homes')
+          .doc('homeId')
+          .collection('flats')
+          .doc(flatId)
+          .update({
+        'renter.transactions': FieldValue.arrayUnion([transaction.toJson()]),
+      });
 
-    await docRef.update({
-      'transaction': RenterTransaction(
-        paidBy: paidBy,
-        amount: amount,
-        time: dateTime,
-        // unitConsumed: unitConsumed,
-      ).toJson(),
-    }).whenComplete(() {
       response.code = 200;
-      response.body = 'updated';
-    }).catchError((e) {
-      response.code = 300;
+      response.body = 'ok';
+    } catch (e) {
+      response.code = 203;
       response.body = e.toString();
-    });
+    }
     return response;
   }
+  // Future<Response> addTransaction({
+  //   required String homeId,
+  //   required String flatId,
+  //   required String recordId,
+  //   required String paidBy,
+  //   required double amount,
+  //   required DateTime dateTime,
+  // }) async {
+  //   final recordsCollection =
+  //       await getRecordsCollectionRef(homeId: homeId, flatId: flatId);
+  //   final docRef = recordsCollection.doc(recordId);
+
+  //   await docRef.update({
+  //     'transaction': RenterTransaction(
+  //       paidBy: paidBy,
+  //       amount: amount,
+  //       time: dateTime,
+  //       // unitConsumed: unitConsumed,
+  //     ).toJson(),
+  //   }).whenComplete(() {
+  //     response.code = 200;
+  //     response.body = 'updated';
+  //   }).catchError((e) {
+  //     response.code = 300;
+  //     response.body = e.toString();
+  //   });
+  //   return response;
+  // }
 }

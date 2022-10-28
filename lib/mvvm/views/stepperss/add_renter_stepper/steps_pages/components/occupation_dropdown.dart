@@ -14,7 +14,7 @@ class OccupationDropdown extends StatefulWidget {
 
 // String? value;
 String? dropDownValue = 'চাকরিজীবি';
-final List<String> items = ['চাকরিজীবি', 'ব্যাবসায়ী', 'অন্যান্য'];
+
 final Color dropdownColorLight = Colors.grey.shade200;
 final Color dropdownColorDark = Colors.grey.shade800;
 
@@ -23,24 +23,20 @@ class _OccupationDropdownState extends State<OccupationDropdown> {
   Widget build(BuildContext context) {
     final provider = Provider.of<NewRenterViewModel>(context);
 
-    provider.setOccupation(dropDownValue!);
-    // TextStyle formTextStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-    //       color: Colors.black.withOpacity(0.8),
-    //     );
+    provider.setOccupation(occupation: dropDownValue!);
+
     return DropdownButton(
       dropdownColor: context.watch<ThemeProvider>().isDarkMode
           ? dropdownColorDark
           : dropdownColorLight,
       borderRadius: BorderRadius.circular(10),
       value: dropDownValue,
-      // value: dropDownValue,
       elevation: 10,
-
       onChanged: (String? newValue) => setState(() {
         dropDownValue = newValue;
-        provider.setOccupation(newValue!);
+        provider.setOccupation(occupation: newValue!);
       }),
-      items: items
+      items: provider.occupationOptions
           .map<DropdownMenuItem<String>>(
             (String value) => DropdownMenuItem(
               value: value,

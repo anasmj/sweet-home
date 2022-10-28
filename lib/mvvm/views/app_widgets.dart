@@ -8,7 +8,7 @@ import '../providers/bills_provider.dart';
 import '../providers/current_home.dart';
 import '../providers/selected_flat_provider.dart';
 import '../services/flat_services.dart';
-import '../view_models/renter_opening_page_view_model.dart';
+import '../view_models/renter_view_model.dart';
 
 class AppWidget {
   static void showToast(String message) {
@@ -170,8 +170,7 @@ class AppWidget {
     TextEditingController unitController = TextEditingController();
     Flat? flat = context.read<SelectedFlatProvider>().selectedFlat;
     String homeId = context.read<CurrentHomeProvider>().currentHome!.homeId;
-    RenterOpeningViewModel providerRead =
-        context.read<RenterOpeningViewModel>();
+    RenterViewModel providerRead = context.read<RenterViewModel>();
 
     return showDialog<void>(
       context: context,

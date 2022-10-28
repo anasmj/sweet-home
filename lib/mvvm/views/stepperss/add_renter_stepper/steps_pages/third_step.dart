@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
+import 'package:sweet_home/mvvm/views/stepperss/add_renter_stepper/add_renter_stepper.dart';
 import '../../../../view_models/new_renter_view_model.dart';
 import '../../../resources/app_icons.dart';
 import 'components/entry_date_picker.dart';
@@ -13,27 +15,6 @@ class ThirdStepPage extends StatelessWidget {
 
     return Column(
       children: [
-        // const Align(
-        //   alignment: Alignment.centerLeft,
-        //   child: Text('NID কার্ড-এর ছবি যুক্ত করুন'),
-        // ),
-        // const SizedBox(
-        //   height: 10,
-        // ),
-        // Row(
-        //   children: const [
-        //     Expanded(child: FrontNid()),
-        //     SizedBox(
-        //       width: 10,
-        //     ),
-        //     Expanded(child: BackNid()),
-        //   ],
-        // ),
-        // const Text(
-        //   '** NID কার্ডের সুবিধাটি এখনও চালু করা হয়নি **',
-        //   style: TextStyle(color: Colors.red),
-        // ),
-
         const SizedBox(
           height: 10,
         ),

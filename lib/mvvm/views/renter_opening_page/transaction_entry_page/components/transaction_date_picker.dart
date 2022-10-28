@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
-import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 
 class TransactionDatePicker extends StatelessWidget {
-  const TransactionDatePicker({
-    Key? key,
-  }) : super(key: key);
-
+  TransactionDatePicker({Key? key, required this.transactionPageContext})
+      : super(key: key);
+  BuildContext transactionPageContext;
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<RenterOpeningViewModel>();
+    final viewModel = context.watch<RenterViewModel>();
     return OutlinedButton(
       onPressed: () async {
+        FocusScope.of(transactionPageContext).unfocus();
         DateTime? selectedDate = await showDatePicker(
             context: context,
             initialDate: viewModel.transactionTime,

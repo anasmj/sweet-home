@@ -1,41 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/transaction_entry_page/components/payment_textfield.dart';
-import 'components/payer_name_button.dart';
-import 'components/transaction_date_picker.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
+import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
+import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
+import 'components/input_transaction.dart';
 import 'components/transaction_submit_button.dart';
 
 class TransactionEntryPage extends StatelessWidget {
   const TransactionEntryPage({super.key});
 
+  // final double _buttonSpaceFromBottom = 220;
+  adasd() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(
-            height: 30,
-          ),
-          // const PaymentInputTextField(),
-          const PaymentTextField(),
-          const Padding(
-            padding: EdgeInsets.only(top: 10.0),
-            child: TransactionDatePicker(),
-          ),
-          const SizedBox(height: 20),
-          PayerNameButton(transactionPageContext: context),
-          Text(
-            'এর মাধ্যমে',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          // const Spacer(),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.09),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 60.0),
-            child: TransactionSubmitButton(transactionPageContext: context),
-          ),
-        ],
-      ),
+    final viewModel = Provider.of<RenterViewModel>(context);
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      // mainAxisSize: MainAxisSize.min,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(top: 30.0),
+          child: InputTransaction(),
+        ),
+        viewModel.status == Status.completed
+            ? Lottie.asset(
+                AppIcons.success_wallet,
+                height: 120,
+                repeat: false,
+              )
+            : const SizedBox.shrink(),
+        viewModel.isLoading
+            ? const Padding(
+                padding: EdgeInsets.symmetric(vertical: 18.0),
+                child: CircularProgressIndicator(),
+              )
+            : const SizedBox.shrink(),
+        TransactionSubmitButton(transactionPageContext: context),
+      ],
     );
   }
 }

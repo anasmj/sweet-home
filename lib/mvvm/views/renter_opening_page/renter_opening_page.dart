@@ -5,6 +5,7 @@ import 'package:sweet_home/mvvm/views/renter_opening_page/components/renter_app_
 import '../../../../mvvm/models/flat_model.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
 import 'transaction_entry_page/transaction_entry_page.dart';
+import 'transactoin_list_page/transaction_list.dart';
 
 //*SHOWS SUMMARY OF A USER IN APP BAR
 //*PROVIDES TWO TAB BAR 1.MONTHLY EXPENCE, 2.TRANSACTIONS
@@ -31,7 +32,7 @@ class RenterOpeningPage extends StatelessWidget {
       length: 3,
       child: Scaffold(
         resizeToAvoidBottomInset:
-            true, //to avoid overflow error while opening keyboard in payer name dialog
+            false, //to avoid overflow error while opening keyboard in payer name dialog
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(_appBarHeight),
           child:
@@ -41,7 +42,7 @@ class RenterOpeningPage extends StatelessWidget {
           children: [
             MonthlyExpencePage(),
             TransactionEntryPage(),
-            SizedBox(),
+            RenterTransactions(),
             // TransactionList(),
             // EmptyContent.getEmptyTransactionPage(),
           ],

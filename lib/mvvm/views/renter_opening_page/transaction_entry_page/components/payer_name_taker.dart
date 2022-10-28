@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 
 Future<void> showNamePicker(
     {required BuildContext context, String title = ''}) async {
@@ -49,7 +49,7 @@ Future<void> showNamePicker(
             ),
             onPressed: () {
               if (key.currentState!.validate()) {
-                Provider.of<RenterOpeningViewModel>(context, listen: false)
+                Provider.of<RenterViewModel>(context, listen: false)
                     .setPayerName(controller.text);
 
                 // print(payerController.text);

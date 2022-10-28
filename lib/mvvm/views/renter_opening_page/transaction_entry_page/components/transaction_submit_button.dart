@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
+import 'package:sweet_home/mvvm/models/transaction.dart';
 import 'package:sweet_home/mvvm/providers/transaction_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/services/transaction_service.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
-import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 
 // ignore: must_be_immutable
 class TransactionSubmitButton extends StatelessWidget {
-  TransactionSubmitButton({super.key, required this.transactionPageContext});
+  TransactionSubmitButton({
+    super.key,
+    required this.transactionPageContext,
+  });
+
   final recordId = Formatter().makeId(date: DateTime.now());
   BuildContext transactionPageContext;
   final String buttonText = 'বুঝে পেলাম';
+  Response response = Response();
   @override
   Widget build(BuildContext context) {
     // final provider = context.read<TransactionProvider>();
-    final viewModel = context.read<RenterOpeningViewModel>();
+    final viewModel = context.read<RenterViewModel>();
+    final String? homeId = context
+        .watch<CurrentHomeProvider>()
+        .currentHome
+        ?.homeId; //todo: check this line out
 
     return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -27,11 +38,14 @@ class TransactionSubmitButton extends StatelessWidget {
       disabledColor: Colors.grey,
       onPressed: () async {
         FocusScope.of(transactionPageContext).unfocus();
+        if (homeId == null) return;
+        if (viewModel.paymentKey.currentState!.validate()) {
+          response = await viewModel.addTransactionToRenter(homeId: homeId);
+        }
+        // print(viewModel.payerName);
+        // print(viewModel.paymentController.text);
+        // print(viewModel.transactionTime);
 
-        viewModel.paymentKey.currentState!.validate();
-        print(viewModel.payerName);
-        print(viewModel.paymentController.text);
-        print(viewModel.transactionTime);
         // if (provider.paymentKey.currentState!.validate()) {
         //   Response res = await TransactionService().addTransaction(
         //     paidBy: provider.payerName,

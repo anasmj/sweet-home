@@ -1,3 +1,5 @@
+import 'package:sweet_home/mvvm/models/transaction.dart';
+
 class Renter {
   String renterName;
   String phoneNo;
@@ -12,17 +14,19 @@ class Renter {
   String? union;
   String? subDistrict;
   String? district;
+  double account;
+  RenterTransaction? renterTransaction;
 
-  double? advance;
-  double? unitConsumed;
-  // List<Year>? records;
+  // double? advance;
+
+  List<RenterTransaction>? transactions;
+
   Renter({
     required this.renterName,
     required this.phoneNo,
     this.alternatePhoneNo = '',
     this.occupation = '',
     this.entryDate,
-    // this.records,
     this.numOfPerson,
     this.previousLocation,
     this.village,
@@ -30,12 +34,20 @@ class Renter {
     this.union,
     this.subDistrict,
     this.district,
-    this.advance,
-    this.unitConsumed,
+    // this.advance,
     this.nIdNumber,
+    this.transactions,
+    this.account = 0,
+    // this.renterTransaction,
   });
 
   static Renter fromJson(Map<String, dynamic> json) {
+    List<RenterTransaction> transactionList = [];
+    final transactionMap = json['transactions'];
+    transactionMap.forEach((transaction) {
+      transactionList
+          .add(RenterTransaction.fromJson(transaction as Map<String, dynamic>));
+    });
     Renter renter;
 
     renter = Renter(
@@ -51,81 +63,36 @@ class Renter {
       union: json['union'] ?? '',
       subDistrict: json['subDistrict'] ?? '',
       district: json['district'] ?? '',
-      advance: json['advance'] ?? 0.0,
+      // advance: json['advance'] ?? 0.0,
       nIdNumber: json['nIdNumber'],
+      account: json['account'] ?? 0.00,
+      transactions: transactionList,
       // unitConsumed: json['unitConsumed'] ?? 0.0,
     );
-
+    // renter.transactions = transactionList;
     return renter;
   }
 
-  Map<String, dynamic> toJson() => {
-        'renterName': renterName,
-        'phoneNo': phoneNo,
-        'alternatePhoneNo': alternatePhoneNo ?? '',
-        'occupation': occupation ?? '',
-        'noOfPerson': numOfPerson ?? 1,
-        'entryDate': entryDate.toString(),
-        'previousLocation': previousLocation ?? '',
-        'village': village ?? '',
-        'policeStation:': policeStation ?? '',
-        'union:': union ?? '',
-        'subDistrict ': subDistrict ?? '',
-        'district': district ?? '',
-        'advance': advance ?? 0.0,
-        'unitConsumed': unitConsumed ?? 0.0,
-        'nIdNumber': nIdNumber,
-      };
+  Map<String, dynamic> toJson({RenterTransaction? renterTransaction}) {
+    return {
+      'renterName': renterName,
+      'phoneNo': phoneNo,
+      'alternatePhoneNo': alternatePhoneNo ?? '',
+      'occupation': occupation ?? '',
+      'noOfPerson': numOfPerson ?? 1,
+      'entryDate': entryDate.toString(),
+      'previousLocation': previousLocation ?? '',
+      'village': village ?? '',
+      'policeStation:': policeStation ?? '',
+      'union:': union ?? '',
+      'subDistrict ': subDistrict ?? '',
+      'district': district ?? '',
+      // 'advance': advance ?? 0.0,
+      'nIdNumber': nIdNumber,
+      'transactions':
+          renterTransaction != null ? [renterTransaction.toJson()] : [],
+      'account': account,
+      // 'transaction': [renterTransaction.toJson()]
+    };
+  }
 }
-
-//! do not delete without thinking
-//class for pie chart
-// class Renter {
-//   String name, flatNo, id;
-//   int floor;
-//   bool isPaid, isNotified;
-//   List<MonthDetails>? records;
-//   Renter(
-//       {this.id = '',
-//       required this.name,
-//       required this.floor,
-//       this.flatNo = '',
-//       required this.isPaid,
-//       this.isNotified = false,
-//       this.records});
-// }
-
-// List<Renter> renters = [
-//   Renter(
-//     id: '0',
-//     name: 'Ashraful Islam',
-//     floor: 2,
-//     isNotified: true,
-//     isPaid: false,
-//   ),
-//   Renter(id: '1', name: 'Rafia Sultana', floor: 1, isPaid: true),
-//   Renter(
-//     id: '4',
-//     name: 'Rifat Merhaj',
-//     floor: 2,
-//     flatNo: 'A',
-//     isPaid: false,
-//     isNotified: false,
-//   ),
-//   Renter(id: '3', name: 'Rabiul Alam', floor: 2, flatNo: 'B', isPaid: true),
-//   Renter(
-//     id: '5',
-//     name: 'Monirul  Hoque',
-//     floor: 3,
-//     flatNo: 'C',
-//     isPaid: false,
-//     isNotified: false,
-//   ),
-//   Renter(
-//     id: '6',
-//     name: 'Jinia Alam',
-//     floor: 3,
-//     flatNo: 'A',
-//     isPaid: true,
-//   ),
-// ];

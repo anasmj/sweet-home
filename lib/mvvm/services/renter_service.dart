@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sweet_home/mvvm/models/transaction.dart';
 
 import '../models/renter.dart';
 import '../models/response.dart';
@@ -39,11 +40,15 @@ class RenterService {
     String? district,
     double? advance,
     int? nIdNumber,
-    // double? unitConsumed,
   }) async {
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
     DocumentReference flatDocRef = flatsCollectionRef.doc(flatId);
+    RenterTransaction? transaction;
+    if (advance != null) {
+      transaction = RenterTransaction(
+          paidBy: renterName, amount: advance, time: entryDate);
+    }
     await flatDocRef.update({
       'renter': Renter(
         renterName: renterName,
@@ -58,10 +63,10 @@ class RenterService {
         union: union,
         subDistrict: subDistrict,
         district: district,
-        advance: advance,
+        // advance: advance,
         nIdNumber: nIdNumber,
-        // unitConsumed: unitConsumed,
-      ).toJson(),
+        account: advance ?? 0,
+      ).toJson(renterTransaction: transaction),
     }).whenComplete(() {
       response.code = 200;
       response.body = 'successfully added renter to flat';

@@ -1,4 +1,4 @@
-import '../../mvvm/models/renter.dart';
+import 'renter.dart';
 
 //!SUPPORTING FIREBASE
 class MonthlyRecord {

@@ -11,18 +11,18 @@ class EntryDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<NewRenterViewModel>();
+    final provider = Provider.of<NewRenterViewModel>(context, listen: false);
     String date = Formatter().buttonFormat(provider.entryDate);
 
     return OutlinedButton(
       onPressed: () async {
         DateTime? selectedDate = await showDatePicker(
             context: context,
-            initialDate: DateTime.now(),
+            initialDate: provider.entryDate,
             firstDate: DateTime(2000),
             lastDate: DateTime(3000));
         if (selectedDate == null) return;
-        provider.setEntryDate = selectedDate;
+        provider.setEntryDate(selectedDate);
       },
       // child: Text(provider.entryDate.toIso8601String()),
       child: Row(
@@ -30,7 +30,8 @@ class EntryDatePicker extends StatelessWidget {
         children: [
           const Icon(Icons.calendar_month_outlined),
           const SizedBox(width: 8),
-          Text(date),
+          Text(Formatter()
+              .buttonFormat(context.watch<NewRenterViewModel>().entryDate)),
         ],
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:sweet_home/prev/models/app_user.dart';
-import 'package:sweet_home/prev/models/monthly_record.dart';
+import 'package:sweet_home/mvvm/models/monthly_record.dart';
 
 class Response {
   int? code;

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
+import 'package:sweet_home/mvvm/models/transaction.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/services/renter_service.dart';
+import 'package:sweet_home/mvvm/services/transaction_service.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 
 class NewRenterViewModel extends ChangeNotifier {
@@ -9,6 +11,7 @@ class NewRenterViewModel extends ChangeNotifier {
 
   SelectedFlatProvider? selectedFlatProvider;
   String? selectedFlatName;
+  Response response = Response();
 
   GlobalKey<FormState>? firstPageFormKey;
   TextEditingController renterNameController = TextEditingController();
@@ -26,23 +29,36 @@ class NewRenterViewModel extends ChangeNotifier {
   TextEditingController advanceController = TextEditingController();
   bool _advanceSelected = false;
   DateTime _renterEntryDate = DateTime.now();
+  final List<String> occupationOptions = ['চাকরিজীবি', 'ব্যাবসায়ী', 'অন্যান্য'];
   DataStatus _dataStatus = DataStatus.loading;
   DataStatus get status => _dataStatus;
+
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  void setLoading(bool status) {
+    _isLoading = status;
+    notifyListeners();
+  }
+
   void setDataStatus(DataStatus status) {
     _dataStatus = status;
     notifyListeners();
   }
 
   DateTime get entryDate => _renterEntryDate;
-  set setEntryDate(DateTime newDateTime) => _renterEntryDate = newDateTime;
+  void setEntryDate(DateTime newDateTime) {
+    _renterEntryDate = newDateTime;
+
+    notifyListeners();
+  }
 
   bool isThanaSelected = true;
   int _noOfMember = 2;
   String _occupation = '';
 
   String get occupation => _occupation;
-  setOccupation(String occupation) {
-    _occupation = occupation;
+  setOccupation({String? occupation}) {
+    _occupation = occupation ?? 'চাকরিজীবি';
   }
 
   bool get advanceStatus => _advanceSelected;
@@ -71,6 +87,20 @@ class NewRenterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<Response> addTransactionToRenter(
+      {required String homeId, required RenterTransaction transaction}) async {
+    if (selectedFlatName != null) {
+      setLoading(true);
+      response = await TransactionService().addTransactionToRenter(
+          homeId: homeId, flatId: selectedFlatName!, transaction: transaction);
+      setLoading(false);
+    } else {
+      response.code = 201;
+      response.body = 'no flat found';
+    }
+    return response;
+  }
+
   Future<void> addRenter({required String homeId}) async {
     if (selectedFlatName == null) return;
     Response res = await RenterService().addRenterToFlat(
@@ -97,24 +127,21 @@ class NewRenterViewModel extends ChangeNotifier {
     if (res.code != 200) {
       setDataStatus(DataStatus.error);
     } else {
+      renterNameController.clear();
+      phoneController.clear();
+      altPhoneController.clear();
+      setOccupation();
+      setMemberNo = 2;
+      nIdController.clear();
+      previousLocationController.clear();
+      villageController.clear();
+      thanaController.clear();
+      unionController.clear();
+      subDistrictController.clear();
+      districtController.clear();
+      advanceController.clear();
+      setEntryDate(DateTime.now());
       setDataStatus(DataStatus.completed);
     }
-
-    // print(
-    //     '$renterNameController\n $phoneController $altPhoneController $occupationController $noOfMemberController $nIdController $previousLocationController $villageController $unionController $thanaController $subDistrictController $districtController $advanceController');
-    // Response res = await RenterService().addRenterToFlat(
-
-    // );
   }
 }
-
-// set renterName(String name) => _renterName = name;
-// set setPhone(int num) => _phone = num.toString().trim();
-// set setPhoneAlternate(int num) => _phoneAlternate = num.toString().trim();
-
-// String get getRenterName => _renterName;
-
-// double _advanceAmount = 0.00;
-
-// set setAdvanceAmount(double amount) => _advanceAmount = amount;
-// double get getAdvanceAmount => _advanceAmount;

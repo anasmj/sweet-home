@@ -29,13 +29,12 @@ class RenterInfoStep extends StatelessWidget {
     // nameController.text = provider.getRenterName;
     provider.firstPageFormKey = firstPageFormKey;
 
-    var occupationDropdown = const OccupationDropdown();
     clearProviderInfo() {
       provider.renterNameController.clear();
       provider.phoneController.clear();
       provider.altPhoneController.clear();
       provider.advanceController.clear();
-      provider.setOccupation('');
+      provider.setOccupation();
       provider.setMemberNo = 2;
       provider.advanceController.clear();
     }
@@ -103,15 +102,15 @@ class RenterInfoStep extends StatelessWidget {
                 //occupation drop down
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'পেশাঃ ',
                       style: TextStyle(fontSize: 16),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 20,
                     ),
-                    occupationDropdown,
+                    OccupationDropdown(),
                   ],
                 ),
                 const Spacer(),

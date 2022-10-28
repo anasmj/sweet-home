@@ -14,7 +14,7 @@ import 'package:sweet_home/mvvm/utils/shared_pref.dart';
 import 'package:sweet_home/prev/view/dismiss_keyboard.dart';
 import 'package:sweet_home/mvvm/views/resources/app_theme.dart';
 import 'package:sweet_home/wrapper.dart';
-import 'package:sweet_home/mvvm/view_models/renter_opening_page_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 import 'mvvm/view_models/flat_list_view_model.dart';
 import 'mvvm/view_models/home_list_view_model.dart';
 
@@ -95,12 +95,12 @@ class MyApp extends StatelessWidget {
         ),
 
         ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatProvider,
-            RenterOpeningViewModel>(
+            RenterViewModel>(
           update: (context, currentHome, currentFlat, prevRenterOpeningVM) =>
-              RenterOpeningViewModel(
+              RenterViewModel(
                   currentHomeProvider: currentHome,
                   selectedFlatProvider: currentFlat),
-          create: (context) => RenterOpeningViewModel(),
+          create: (context) => RenterViewModel(),
         ),
 
         // ChangeNotifierProxyProvider<SelectedFlatProvider,
