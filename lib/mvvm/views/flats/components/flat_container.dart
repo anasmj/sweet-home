@@ -17,7 +17,7 @@ class FlatContainer extends StatelessWidget {
   Flat flat;
   FlatContainer({required this.flat, super.key});
 
-  Widget widgetForRenter(Flat falt) {
+  Widget getMeterReadingMsg(Flat falt) {
     if (flat.previousMeterReading != null) {
       if (flat.currentMeterReading != null) {
         // all readings are okay
@@ -70,7 +70,7 @@ class FlatContainer extends StatelessWidget {
         ),
         SizedBox(width: 4),
         Text(
-          'পূর্বের রিডিং দেয়া নেই',
+          'পূর্বের রিডিং ঠিক নেই',
           style: TextStyle(color: Colors.red),
         )
       ],
@@ -162,7 +162,7 @@ class FlatContainer extends StatelessWidget {
                     ),
                     flat.renter == null
                         ? personAddIcon(isDark)
-                        : widgetForRenter(flat),
+                        : getMeterReadingMsg(flat),
 
                     //BOTTOM INFORMATION ABOUT FLAT
                     footer(flat),
@@ -175,7 +175,7 @@ class FlatContainer extends StatelessWidget {
         flat.renter != null
             ? flat.previousMeterReading == null
                 ? Positioned(
-                    left: 20,
+                    left: 10,
                     bottom: -30,
                     child: noPreviousReadingText(),
                   )

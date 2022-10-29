@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sweet_home/mvvm/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/providers/theme_provider.dart';
@@ -57,15 +56,6 @@ class MyApp extends StatelessWidget {
         // ),
         ChangeNotifierProvider(
           create: (context) => HomeStepperProviderViewModel(),
-        ),
-
-        ChangeNotifierProxyProvider<SelectedFlatProvider, BillsProvider>(
-          update: (context, value, previous) => BillsProvider(
-              flatProvider:
-                  Provider.of<SelectedFlatProvider>(context, listen: false)),
-          create: (context) => BillsProvider(
-              flatProvider:
-                  Provider.of<SelectedFlatProvider>(context, listen: false)),
         ),
 
         ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatProvider,

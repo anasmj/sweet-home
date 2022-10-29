@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
-import 'package:sweet_home/mvvm/providers/bills_provider.dart';
+import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
+
 import 'package:sweet_home/mvvm/views/renter_opening_page/components/renter_popup_menu.dart';
 
 // ignore: must_be_immutable
 class RenterAppBar extends StatelessWidget {
-  RenterAppBar({required this.flat, super.key});
-  Flat flat;
+  RenterAppBar({super.key});
+
   final double _tabBarFontSize = 18;
   @override
   Widget build(BuildContext context) {
-    double totalBill = context.watch<BillsProvider>().totalBill ?? 0;
-    double account = flat.renter!.account;
+    Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
+    if (flat == null) return const SizedBox();
+    // double totalBill = context.watch<RenterViewModel>().totalBill ?? 0;
+    // double dueAmount = 23923;
+    double dueAmount = flat.renter!.dueAmount;
     TextTheme appTextTheme = Theme.of(context).textTheme;
     return AppBar(
       elevation: 0.0,
@@ -34,15 +38,16 @@ class RenterAppBar extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                    text: account > 0 ? ' দেবো ' : ' পাবো  ',
+                    text: dueAmount < 0 ? ' দেবো ' : ' পাবো  ',
                     style: appTextTheme.titleMedium),
                 // AppWidget.taka,
                 TextSpan(
-                  text: '${Formatter.toBn(value: account.abs())}\n',
+                  text: '${Formatter.toBn(value: dueAmount.abs())}\n',
 
-                  // '${Formatter.toBn(value: account + totalBill)}\n',
+                  // '${Formatter.toBn(value: dueAmount + totalBill)}\n',
                   style: appTextTheme.headlineSmall!.copyWith(
-                      color: account >= 0 ? Colors.green[900] : Colors.red[900],
+                      color:
+                          dueAmount <= 0 ? Colors.green[900] : Colors.red[900],
                       fontWeight: FontWeight.w600),
                 ),
                 TextSpan(

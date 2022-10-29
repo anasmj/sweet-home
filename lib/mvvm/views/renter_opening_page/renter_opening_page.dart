@@ -25,7 +25,6 @@ class RenterOpeningPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
     return DefaultTabController(
       initialIndex: 0,
       length: 3,
@@ -34,11 +33,12 @@ class RenterOpeningPage extends StatelessWidget {
             true, //to avoid overflow error while opening keyboard in payer name dialog
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(_appBarHeight),
-          child:
-              flat != null ? RenterAppBar(flat: flat) : const SizedBox.shrink(),
+          child: RenterAppBar(),
         ),
         body: const TabBarView(
           children: [
+            // SizedBox(),
+
             MonthlyExpencePage(),
             TransactionEntryPage(),
             RenterTransactions(),

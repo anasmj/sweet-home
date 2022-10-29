@@ -7,7 +7,6 @@ import 'selected_flat_provider.dart';
 
 class BillsProvider extends ChangeNotifier {
   SelectedFlatProvider? flatProvider;
-
   double? _previousReading;
   double? _currentReading;
 
@@ -20,8 +19,9 @@ class BillsProvider extends ChangeNotifier {
   double _usedUnit = 0;
   double? get previousReading => _previousReading;
   double? get currentReading => _currentReading;
-  double get usedUnit => _usedUnit;
+
   Flat? get flat => flatProvider!.selectedFlat;
+  double get usedUnit => _usedUnit;
 
   set setCurrentReading(double reading) {
     _currentReading = reading;

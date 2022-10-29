@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/services/record_services.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
+import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/components/meter_reading_dialog.dart';
 
 // ignore: must_be_immutable
 class ConfirmCalculationButton extends StatelessWidget {
@@ -34,16 +36,17 @@ class ConfirmCalculationButton extends StatelessWidget {
           ? () async {
               Response res;
               if (flat.currentMeterReading == null) {
-                AppWidget.showElectricityUnitDialog(context: context);
+                showElectricityUnitDialog(
+                    context: context, unitType: UnitType.present);
               }
               if (homeId != null && flat.currentMeterReading != null) {
-                if (context.read<BillsProvider>().totalBill != null) {
+                if (context.read<RenterViewModel>().totalBill != null) {
                   res = await RecordService().createMonthlyRecord(
                     homeId: homeId,
                     flat: flat,
                     issueDate: issueDate,
                     meterReading: flat.currentMeterReading!,
-                    renterPayable: context.read<BillsProvider>().totalBill!,
+                    renterPayable: context.read<RenterViewModel>().totalBill!,
                   );
                   if (res.code == 200) {}
                 }

@@ -13,6 +13,7 @@ class Flat {
   //for that month.
   double flatGasBill;
   double flatWaterBill;
+  double monthlyDue;
 
   double? currentMeterReading;
   double? previousMeterReading;
@@ -20,18 +21,19 @@ class Flat {
 
   // List<ServiceCharge>? serviceCharges;
 
-  Flat(
-      {this.flatName = '',
-      this.renter,
-      this.flatRentAmount = 0.00,
-      this.flatGasBill = 0.00,
-      this.flatWaterBill = 0.00,
-      this.currentMeterReading,
-      this.previousMeterReading,
-      this.previousMeterReadingUpdateTime,
-      this.presentMeterReadingUpdateTime
-      // this.serviceCharges,
-      });
+  Flat({
+    this.flatName = '',
+    this.renter,
+    this.flatRentAmount = 0.00,
+    this.flatGasBill = 0.00,
+    this.flatWaterBill = 0.00,
+    this.currentMeterReading,
+    this.previousMeterReading,
+    this.previousMeterReadingUpdateTime,
+    this.presentMeterReadingUpdateTime,
+    this.monthlyDue = 0.00,
+    // this.serviceCharges,
+  });
   static Flat fromJson(Map<String, dynamic> json) {
     Renter? renterObj;
     //IF flat is booked, fetch renter
@@ -48,6 +50,7 @@ class Flat {
       flatRentAmount: json['rentAmount'] ?? 0.00,
       flatGasBill: json['gasBill'] ?? 0.00,
       flatWaterBill: json['waterBill'] ?? 0.00,
+      monthlyDue: json['monthlyDue'],
       // serviceCharges : json['serviceCharges'],
       currentMeterReading: json['currentMeterReading'],
       presentMeterReadingUpdateTime:
@@ -80,6 +83,7 @@ class Flat {
         'previousMeterReading': previousMeterReading,
         'previousMeterReadingUpdateTime': previousMeterReadingUpdateTime,
         'presentMeterReadingUpdateTime': presentMeterReadingUpdateTime,
+        'monthlyDue': monthlyDue,
         // 'serviceCharges': serviceCharges ?? [],
       };
 }

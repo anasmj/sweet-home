@@ -142,23 +142,23 @@ class HomeServices {
     );
 
     //CREATING MONTHLY RECORD FOR PREVIOUS MONTH FOR EACH FLAT
-    String previousMonthlRecordId = Formatter().makeId(date: lastMonthDate);
+    // String previousMonthlRecordId = Formatter().makeId(date: lastMonthDate);
     // String currentMonthlRecordId = CustomFormatter().makeId(date: currentDate);
     // ignore: avoid_function_literals_in_foreach_calls
-    flatNames.forEach((flat) {
-      //creating record for last month
-      CollectionReference recordCollectionRef =
-          flatCollectionRef.doc(flat).collection('records');
-      recordCollectionRef.doc(previousMonthlRecordId).set(MonthlyRecord(
-            issueDate: lastMonthDate,
-            rentAmount: rentAmount,
-            renterPayable: 0,
-            meterReading: null,
-            // usedElectricityUnit: 0.0,
-            gasBill: gasBill,
-            waterBill: waterBill,
-          ).toJson());
-    });
+    // flatNames.forEach((flat) {
+    //   //creating record for last month
+    //   CollectionReference recordCollectionRef =
+    //       flatCollectionRef.doc(flat).collection('records');
+    //   recordCollectionRef.doc(previousMonthlRecordId).set(MonthlyRecord(
+    //         issueDate: lastMonthDate,
+    //         rentAmount: rentAmount,
+    //         renterPayable: 0,
+    //         meterReading: null,
+    //         // usedElectricityUnit: 0.0,
+    //         gasBill: gasBill,
+    //         waterBill: waterBill,
+    //       ).toJson());
+    // });
     final data = Home(
       homeId: homeDocRef.id, // assign auto generated doc id to home id
       homeName: homeName,

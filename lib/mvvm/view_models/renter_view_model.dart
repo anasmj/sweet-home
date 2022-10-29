@@ -8,27 +8,40 @@ import '../providers/selected_flat_provider.dart';
 import '../services/record_services.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 
-//todo: INTIGRATE WITH TRANSACTION PROVIDER
+//* CONTAINS ALL LOGIC RELATED TO RENTER
 class RenterViewModel extends ChangeNotifier {
   RenterViewModel({this.currentHomeProvider, this.selectedFlatProvider}) {
     _payerName = selectedFlatProvider?.selectedFlat?.renter?.renterName ?? '';
+    _previousReading =
+        selectedFlatProvider?.selectedFlat?.previousMeterReading ?? 0;
+    _currentReading = selectedFlatProvider?.selectedFlat?.currentMeterReading;
   }
-  Response response = Response();
-  Status _status = Status.empty;
+
   SelectedFlatProvider? selectedFlatProvider;
   CurrentHomeProvider? currentHomeProvider;
+
+  Response response = Response();
+  Status _status = Status.empty;
   double? paymentAmount;
   TextEditingController paymentController = TextEditingController();
-
   DateTime? _transactionTime;
 
   final GlobalKey<FormState> paymentKey = GlobalKey();
-
+  final double kUnitPrice = 1;
   late String _payerName;
 
   double? _meterReading;
   String? homeId;
   String? flatId;
+
+  double? _previousReading;
+  double? _currentReading;
+
+  set setCurrentReading(double reading) {
+    _currentReading = reading;
+    notifyListeners();
+  }
+
   double? get meterReading => _meterReading;
   Widget uiWidget = const Center(
     child: CircularProgressIndicator(),
@@ -59,6 +72,21 @@ class RenterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  double? get totalBill {
+    return selectedFlatProvider!.selectedFlat!.flatRentAmount +
+        selectedFlatProvider!.selectedFlat!.flatGasBill +
+        selectedFlatProvider!.selectedFlat!.flatWaterBill +
+        electricBill;
+  }
+
+  double get electricBill {
+    // if (previousReading != null && currentReading != null) {
+    //   _usedUnit = currentReading! - previousReading!;
+    //   return (currentReading! - previousReading!) * 0.7;
+    // }
+    return 0;
+  }
+
   set setMeterReading(double value) {
     _meterReading = value;
 
@@ -81,7 +109,7 @@ class RenterViewModel extends ChangeNotifier {
       setStatus(Status.loading);
       try {
         double? accountBalance =
-            selectedFlatProvider?.selectedFlat?.renter?.account;
+            selectedFlatProvider?.selectedFlat?.renter?.dueAmount;
         Response addResponse =
             await TransactionService().addTransactionToRenter(
                 homeId: homeId,
@@ -91,17 +119,15 @@ class RenterViewModel extends ChangeNotifier {
                   amount: double.parse(paymentController.text),
                   time: transactionTime,
                 ));
-        //! negative account = owner owes money from renter
-        //! positive account = renter given more money than ownenr owes from him
-        //! SO
-        //! transaciton will be added from renter account
-        //! expences will be deducted from renter  account
+
+        //! transaciton will be deducted from dueAmount
+        //! expences will be added to dueAmount
         double newBalance =
-            accountBalance! + double.parse(paymentController.text);
+            accountBalance! - double.parse(paymentController.text);
         Response updateResponse = await RenterService().updateRenter(
           homeId: homeId,
           flatName: flatName,
-          fieldName: 'account',
+          fieldName: 'dueAmount',
           newValue: newBalance,
         );
 

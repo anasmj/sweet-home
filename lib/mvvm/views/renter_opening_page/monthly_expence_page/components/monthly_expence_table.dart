@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
-import 'package:sweet_home/mvvm/views/app_widgets.dart';
+import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/components/meter_reading_dialog.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 
 import '../../../../../../mvvm/models/flat_model.dart';
@@ -30,62 +31,64 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
     //*after confirmed by user, make a month detail object which will
     //*be later used to show previoufs month details
     Flat? flat = Provider.of<SelectedFlatProvider>(context).selectedFlat;
-    double? currentReading =
-        context.watch<SelectedFlatProvider>().selectedFlat!.currentMeterReading;
-    double? prevReading = context
-        .watch<SelectedFlatProvider>()
-        .selectedFlat!
-        .previousMeterReading;
+
+    double? currentReading = flat?.currentMeterReading;
+    double? prevReading = flat?.previousMeterReading;
 
     TextTheme textTheme = Theme.of(context).textTheme;
-    return flat == null
-        ? const SizedBox.shrink()
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              flatRentRow(flat),
-              gasBillRow(flat),
-              waterBillRow(flat),
-              getElectricityRow(prevReading, context, currentReading),
-              const Padding(
-                padding: EdgeInsets.only(left: 40.0),
-                child: ElectricityTable(),
-              ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     getPurposeTitle(titleIcon: AppIcons.otherUrl, title: 'অন্যান্য'),
-              //     // Text(CalculateBill.setRenter(renter: renter).sumOfOtherBills)
+    if (flat == null) {
+      return const SizedBox.shrink();
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          flatRentRow(flat),
+          gasBillRow(flat),
+          waterBillRow(flat),
+          getElectricityRow(prevReading, context, currentReading),
+          const Padding(
+            padding: EdgeInsets.only(left: 40.0),
+            child: ElectricityTable(),
+          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     getPurposeTitle(titleIcon: AppIcons.otherUrl, title: 'অন্যান্য'),
+          //     // Text(CalculateBill.setRenter(renter: renter).sumOfOtherBills)
 
-              //     Text('৳ 3232'),
-              //   ],
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 40.0),
-              //   child: OthersTable(
-              //     othersList: CalculateBill.setRenter(renter: renter)
-              //         .otherExpenceListForThisMonth,
-              //   ),
-              // ),
-              transactionDivider(),
-              TotaBilllRow(textTheme: textTheme),
-              DueRow(textTheme: textTheme, account: flat.renter!.account),
-              transactionDivider(),
-              GrandTotalRow(textTheme: textTheme),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Center(child: confirmButton),
-              ),
-              const SizedBox(
-                height: 70,
-              ),
-            ]
-                .map((e) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    child: e))
-                .toList(),
-          );
+          //     Text('৳ 3232'),
+          //   ],
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 40.0),
+          //   child: OthersTable(
+          //     othersList: CalculateBill.setRenter(renter: renter)
+          //         .otherExpenceListForThisMonth,
+          //   ),
+          // ),
+          transactionDivider(),
+          TotaBilllRow(textTheme: textTheme),
+          DueRow(textTheme: textTheme, account: flat.renter!.dueAmount),
+          transactionDivider(),
+          GrandTotalRow(textTheme: textTheme),
+          Visibility(
+            visible: false,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Center(child: confirmButton),
+            ),
+          ),
+          const SizedBox(
+            height: 70,
+          ),
+        ]
+            .map((e) => Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: e))
+            .toList(),
+      );
+    }
   }
 
   final Widget confirmButton = Column(
@@ -149,7 +152,9 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
           widget: prevReading == null
               ? IconButton(
                   onPressed: () async {
-                    await noPrevReadingAlert(context);
+                    await showElectricityUnitDialog(
+                        context: context, unitType: UnitType.previous);
+                    // await noPrevReadingAlert(context);
                   },
                   icon: const Icon(
                     Icons.info_outline,
@@ -160,8 +165,8 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
               : currentReading == null
                   ? IconButton(
                       onPressed: () async {
-                        await AppWidget.showElectricityUnitDialog(
-                            context: context);
+                        await showElectricityUnitDialog(
+                            context: context, unitType: UnitType.present);
                       },
                       icon: const Icon(
                         Icons.info_outline,
@@ -172,7 +177,7 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                   : const SizedBox(),
         ),
         Text(
-          Formatter.toBn(value: context.watch<BillsProvider>().electricBill),
+          Formatter.toBn(value: context.watch<RenterViewModel>().electricBill),
           style: TextStyle(fontSize: _fontSize),
         ),
       ],
@@ -242,7 +247,7 @@ class TotaBilllRow extends StatelessWidget {
         ),
         Text(
           Formatter.toBn(
-              value: context.watch<BillsProvider>().totalBill ?? 0.0),
+              value: context.watch<RenterViewModel>().totalBill ?? 0.0),
           style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
         ),
       ],
@@ -268,7 +273,8 @@ class GrandTotalRow extends StatelessWidget {
           style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
         ),
         Text(
-          Formatter.toBn(value: context.watch<BillsProvider>().totalBill ?? 0),
+          Formatter.toBn(
+              value: context.watch<RenterViewModel>().totalBill ?? 0),
           style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
         ),
       ],
