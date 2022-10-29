@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 
 //returns summaray in the box
 // ignore: must_be_immutable
@@ -32,7 +33,7 @@ class SummaryContainer extends StatelessWidget {
                     ),
               ),
               Text(
-                num.toString(),
+                Formatter.toBn(value: num, includeSymbol: false),
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,

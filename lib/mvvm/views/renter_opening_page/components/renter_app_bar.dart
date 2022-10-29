@@ -13,6 +13,7 @@ class RenterAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double totalBill = context.watch<BillsProvider>().totalBill ?? 0;
+    double account = flat.renter!.account;
     TextTheme appTextTheme = Theme.of(context).textTheme;
     return AppBar(
       elevation: 0.0,
@@ -32,14 +33,17 @@ class RenterAppBar extends StatelessWidget {
           subtitle: RichText(
             text: TextSpan(
               children: [
-                TextSpan(text: ' পাবো  ', style: appTextTheme.titleMedium),
+                TextSpan(
+                    text: account > 0 ? ' দেবো ' : ' পাবো  ',
+                    style: appTextTheme.titleMedium),
                 // AppWidget.taka,
                 TextSpan(
-                  text: '${Formatter.toBn(value: totalBill)}\n',
-                  // text: '৳${totalBill.toStringAsFixed(1)} \n',
-                  // '${CalculateBill.setRenter(renter: renter).totalBill.toStringAsFixed(1)} \n',
+                  text: '${Formatter.toBn(value: account.abs())}\n',
+
+                  // '${Formatter.toBn(value: account + totalBill)}\n',
                   style: appTextTheme.headlineSmall!.copyWith(
-                      color: Colors.red[900], fontWeight: FontWeight.w600),
+                      color: account >= 0 ? Colors.green[900] : Colors.red[900],
+                      fontWeight: FontWeight.w600),
                 ),
                 TextSpan(
                     text: 'সর্বশেষ লেনদেনঃ 12 Aug, 22',

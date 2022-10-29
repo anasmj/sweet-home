@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 
+// ignore: must_be_immutable
 class TransactionDatePicker extends StatelessWidget {
   TransactionDatePicker({Key? key, required this.transactionPageContext})
       : super(key: key);

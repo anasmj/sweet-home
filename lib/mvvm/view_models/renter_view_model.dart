@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/transaction.dart';
+import 'package:sweet_home/mvvm/services/renter_service.dart';
 import 'package:sweet_home/mvvm/services/transaction_service.dart';
 import '../providers/current_home.dart';
 import '../providers/selected_flat_provider.dart';
@@ -72,31 +73,57 @@ class RenterViewModel extends ChangeNotifier {
   }
 
 //!UPDATED
-  Future<Response> addTransactionToRenter({required String homeId}) async {
+  Future<void> addTransactionToRenter({required String homeId}) async {
     if (selectedFlatProvider?.selectedFlat != null) {
       String? flatName = selectedFlatProvider!.selectedFlat!.flatName;
+
       setLoading(true);
       setStatus(Status.loading);
-      response = await TransactionService().addTransactionToRenter(
-        homeId: homeId,
-        flatId: flatName,
-        transaction: RenterTransaction(
-          paidBy: payerName,
-          amount: double.parse(paymentController.text),
-          time: transactionTime,
-        ),
-      );
+      try {
+        double? accountBalance =
+            selectedFlatProvider?.selectedFlat?.renter?.account;
+        Response addResponse =
+            await TransactionService().addTransactionToRenter(
+                homeId: homeId,
+                flatId: flatName,
+                transaction: RenterTransaction(
+                  paidBy: payerName,
+                  amount: double.parse(paymentController.text),
+                  time: transactionTime,
+                ));
+        //! negative account = owner owes money from renter
+        //! positive account = renter given more money than ownenr owes from him
+        //! SO
+        //! transaciton will be added from renter account
+        //! expences will be deducted from renter  account
+        double newBalance =
+            accountBalance! + double.parse(paymentController.text);
+        Response updateResponse = await RenterService().updateRenter(
+          homeId: homeId,
+          flatName: flatName,
+          fieldName: 'account',
+          newValue: newBalance,
+        );
+
+        if (addResponse.code == 200 && updateResponse.code == 200) {
+          response.code = 200;
+          response.body = 'transaction successfull';
+        }
+      } catch (e) {
+        response.code = 203;
+        response.body = 'transaction failed';
+      }
+
       if (response.code == 200) {
+        setTransactionTime(DateTime.now());
         paymentController.clear();
         setStatus(Status.completed);
       }
       setLoading(false);
     } else {
-      response.code = 201;
-      response.body = 'no flat found';
+      // response.code = 201;
+      // response.body = 'no flat found';
       setStatus(Status.error);
     }
-
-    return response;
   }
 }

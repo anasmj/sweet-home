@@ -111,7 +111,6 @@ class FlatListViewModel extends ChangeNotifier {
   }
 
   Future<Response> updatePreviousMonthMeterReading() async {
-    DateTime currentDate = DateTime.now();
     if (homeId != null && selectedFlatName != null) {
       // DateTime lastMonthDate =
       //     DateTime(currentDate.year, currentDate.month - 1, currentDate.day);

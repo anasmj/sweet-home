@@ -40,7 +40,7 @@ class AppIcons {
   static String arrowDown = 'assets/lotties/arrow_down.json';
   static String searching = 'assets/lotties/searching.json';
   static String buildingHomeRed = 'assets/lotties/building_home_red.json';
-  static String success_wallet = 'assets/lotties/success_wallet.json';
+  static String successWallet = 'assets/lotties/success_wallet.json';
   //implement LOTTIES like this
   // Lottie.asset(
   //           AppIcons.homeLoadingIndicator,

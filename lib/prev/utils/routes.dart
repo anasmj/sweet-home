@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/renter_opening_backup_page.dart';
-import '../../mvvm/models/flat_model.dart';
 import '../../mvvm/views/stepperss/add_home_stepper/add_home_stepper.dart';
 import '../../mvvm/views/stepperss/add_renter_stepper/add_renter_stepper.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import '../../resources/app_icons.dart';
 
 //*complete
@@ -66,14 +67,22 @@ class MonthlySummaryCard extends StatelessWidget {
               DataRow(cells: <DataCell>[
                 DataCell(Row(
                   children: [
-                    // getIcon(AppIcons.takaUrl),
-                    getAmountText(context, 56000),
+                    Text(
+                      Formatter.toBn(value: 56000),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 22,
+                      ),
+                    ),
                   ],
                 )),
                 DataCell(Row(
                   children: [
-                    // getIcon(AppIcons.takaUrl),
-                    getAmountText(context, 12000)
+                    Text(Formatter.toBn(value: 12000),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 22,
+                        )),
                   ],
                 )),
               ]),

@@ -38,16 +38,19 @@ class RenterService {
     String? union,
     String? subDistrict,
     String? district,
-    double? advance,
+    double? advanceAmount,
     int? nIdNumber,
   }) async {
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
     DocumentReference flatDocRef = flatsCollectionRef.doc(flatId);
     RenterTransaction? transaction;
-    if (advance != null) {
+    if (advanceAmount != null) {
       transaction = RenterTransaction(
-          paidBy: renterName, amount: advance, time: entryDate);
+          paidBy: renterName,
+          amount: advanceAmount,
+          time: entryDate,
+          isAdvance: true);
     }
     await flatDocRef.update({
       'renter': Renter(
@@ -63,9 +66,9 @@ class RenterService {
         union: union,
         subDistrict: subDistrict,
         district: district,
-        // advance: advance,
         nIdNumber: nIdNumber,
-        account: advance ?? 0,
+        //? advance is not added to account due to solvency of further calculation
+        // account: advanceAmount ?? 0,
       ).toJson(renterTransaction: transaction),
     }).whenComplete(() {
       response.code = 200;
@@ -92,6 +95,26 @@ class RenterService {
       response.body = e.toString();
     });
 
+    return response;
+  }
+
+  //UPDATE
+  Future<Response> updateRenter({
+    required String homeId,
+    required String flatName,
+    required String fieldName,
+    required dynamic newValue,
+  }) async {
+    final flatCollecRef = await getFlatsCollectionRef(homeId: homeId);
+    await flatCollecRef
+        .doc(flatName)
+        .update({'renter.$fieldName': newValue}).whenComplete(() {
+      response.code = 200;
+      response.body = 'successful';
+    }).catchError((e) {
+      response.code = 204;
+      response.body = 'failed';
+    });
     return response;
   }
 }

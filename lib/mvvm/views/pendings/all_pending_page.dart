@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
-import '../resources/app_icons.dart';
+import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 import '../resources/image_urls.dart';
 import 'components/remind_button.dart';
 
@@ -156,9 +156,27 @@ class AllPendingPage extends StatelessWidget {
   }
 
   IconButton downloadIcon(BuildContext context) {
-    // List<Flat> flatList = Provider.of<FlatListViewModel>(context).flatList;
+    // final homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
+    //     .currentHome!
+    //     .homeId;
+    // final flatName = Provider.of<SelectedFlatProvider>(context, listen: false)
+    //     .selectedFlat
+    //     ?.flatName;
+    // final viewModel = Provider.of<RenterViewModel>(context, listen: false);
     return IconButton(
-      onPressed: () async {},
+      onPressed: () async {
+        // RenterService().updateRenter(
+        //   homeId: homeId,
+        //   flatName: flatName!,
+        //   fieldName: 'account',
+        //   newValue: 30.20,
+        // );
+        // final fieldName = 'renterName';
+        // print('renter.$fieldName');
+        // CollectionReference ref =
+        //     await RenterService().getFlatsCollectionRef(homeId: homeId);
+        // ref.doc('1A').update({'renter.$fieldName': 'Mofiz'});
+      },
       icon: SvgPicture.asset(
         AppIcons.downloadUrl,
         height: 20,

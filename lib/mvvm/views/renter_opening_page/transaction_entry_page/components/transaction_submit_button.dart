@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/models/transaction.dart';
-import 'package:sweet_home/mvvm/providers/transaction_provider.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
-import 'package:sweet_home/mvvm/services/transaction_service.dart';
-import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 
@@ -40,7 +35,7 @@ class TransactionSubmitButton extends StatelessWidget {
         FocusScope.of(transactionPageContext).unfocus();
         if (homeId == null) return;
         if (viewModel.paymentKey.currentState!.validate()) {
-          response = await viewModel.addTransactionToRenter(homeId: homeId);
+          await viewModel.addTransactionToRenter(homeId: homeId);
         }
         // print(viewModel.payerName);
         // print(viewModel.paymentController.text);

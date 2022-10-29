@@ -77,6 +77,15 @@ class MyApp extends StatelessWidget {
                   selectedFlatProvider: selectedFlat,
                 ),
             create: ((context) => FlatListViewModel())),
+        // ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatProvider,
+        //         UserTransactionListViewModel>(
+        //     update: (context, currentHomeProvider, selectedFlat,
+        //             UserTransactionListViewModel? viewModel) =>
+        //         UserTransactionListViewModel(
+        //           currentHome: currentHomeProvider.currentHome,
+        //           selectedFlatProvider: selectedFlat,
+        //         ),
+        //     create: ((context) => UserTransactionListViewModel())),
 
         ChangeNotifierProxyProvider2<CurrentHomeProvider, FlatListViewModel,
             HomeServiceChargeListViewModel>(

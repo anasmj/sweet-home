@@ -12,7 +12,6 @@ class EntryDatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<NewRenterViewModel>(context, listen: false);
-    String date = Formatter().buttonFormat(provider.entryDate);
 
     return OutlinedButton(
       onPressed: () async {

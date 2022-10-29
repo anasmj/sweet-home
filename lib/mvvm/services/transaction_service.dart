@@ -79,7 +79,7 @@ class TransactionService {
           .collection('users')
           .doc(_auth.currentUser!.uid)
           .collection('homes')
-          .doc('homeId')
+          .doc(homeId)
           .collection('flats')
           .doc(flatId)
           .update({
@@ -91,6 +91,36 @@ class TransactionService {
     } catch (e) {
       response.code = 203;
       response.body = e.toString();
+    }
+    return response;
+  }
+
+  //READ FOR RENTER
+  Future<Response> getRenterTransactions(
+      {required String homeId, required String flatId}) async {
+    List<RenterTransaction> transList = [];
+    try {
+      await _db
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .collection('homes')
+          .doc(homeId)
+          .collection('flats')
+          .doc(flatId)
+          .get()
+          .then((snapshot) {
+        final transactions = snapshot.get('renter.transactions');
+        transactions.forEach((transaction) {
+          transList.add(RenterTransaction.fromJson(transaction));
+        });
+        response.code = 200;
+        response.body = 'ok';
+        response.content = transList;
+      });
+    } catch (e) {
+      response.code = 223;
+      response.body = e.toString();
+      response.content;
     }
     return response;
   }

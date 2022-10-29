@@ -33,7 +33,7 @@ class RenterManagement {
       union: provider.unionController.text,
       subDistrict: provider.subDistrictController.text,
       district: provider.districtController.text,
-      advance: advanceAmount,
+      advanceAmount: advanceAmount,
     );
 
     return response;

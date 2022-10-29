@@ -21,7 +21,8 @@ class PaymentTextField extends StatelessWidget {
         width: _width,
         child: TextFormField(
           controller: viewModel.paymentController,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          //! this line keep showing error after clearing the  textifeld
+          // autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: FormValidators.checkNonZero,
           style: TextStyle(fontSize: _fontSize),
           cursorHeight: _cursorHeight,

@@ -39,79 +39,14 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
     return flat == null
-        ? const SizedBox()
+        ? const SizedBox.shrink()
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  getPurposeTitle(titleIcon: AppIcons.homeUrl, title: 'ভাড়া'),
-                  Text(
-                    Formatter.toBn(value: flat.flatRentAmount),
-                    style: TextStyle(fontSize: _fontSize),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  getPurposeTitle(titleIcon: AppIcons.flameUrl, title: 'গ্যাস'),
-                  Text(
-                    Formatter.toBn(value: flat.flatGasBill),
-                    style: TextStyle(fontSize: _fontSize),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  getPurposeTitle(
-                      titleIcon: AppIcons.waterTapUrl, title: 'পানি'),
-                  Text(
-                    Formatter.toBn(value: flat.flatWaterBill),
-                    style: TextStyle(fontSize: _fontSize),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  getPurposeTitle(
-                    titleIcon: AppIcons.electricityUrl,
-                    title: 'বিদ্যুৎ',
-                    widget: prevReading == null
-                        ? IconButton(
-                            onPressed: () async {
-                              await noPrevReadingAlert(context);
-                            },
-                            icon: const Icon(
-                              Icons.info_outline,
-                              size: 16,
-                              color: Colors.red,
-                            ),
-                          )
-                        : currentReading == null
-                            ? IconButton(
-                                onPressed: () async {
-                                  await AppWidget.showElectricityUnitDialog(
-                                      context: context);
-                                },
-                                icon: const Icon(
-                                  Icons.info_outline,
-                                  size: 16,
-                                  color: Colors.red,
-                                ),
-                              )
-                            : const SizedBox(),
-                  ),
-                  Text(
-                    Formatter.toBn(
-                        value: context.watch<BillsProvider>().electricBill),
-                    style: TextStyle(fontSize: _fontSize),
-                  ),
-                ],
-              ),
+              flatRentRow(flat),
+              gasBillRow(flat),
+              waterBillRow(flat),
+              getElectricityRow(prevReading, context, currentReading),
               const Padding(
                 padding: EdgeInsets.only(left: 40.0),
                 child: ElectricityTable(),
@@ -133,63 +68,13 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
               //   ),
               // ),
               transactionDivider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "মোট",
-                    style: textTheme.titleMedium!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    Formatter.toBn(
-                        value: context.watch<BillsProvider>().totalBill ?? 0.0),
-                    // '৳ ${context.watch<BillsProvider>().totalBill.toString()}',
-                    // CalculateBill.setRenter(renter: renter)
-                    //     .totalBill
-                    //     .toStringAsFixed(1),
-                    style: textTheme.titleMedium!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "আগের বকেয়া",
-                    style: textTheme.titleMedium,
-                  ),
-                  Text(
-                    Formatter.toBn(value: 0),
-                    style: textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold, color: Colors.red[900]),
-                  ),
-                ],
-              ),
+              TotaBilllRow(textTheme: textTheme),
+              DueRow(textTheme: textTheme, account: flat.renter!.account),
               transactionDivider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "সর্বমোট",
-                    style: textTheme.titleMedium!
-                        .copyWith(fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    Formatter.toBn(
-                        value: context.watch<BillsProvider>().totalBill ?? 0),
-                    // '৳ ${context.watch<BillsProvider>().totalBill.toString()}',
-                    style: textTheme.titleMedium!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+              GrandTotalRow(textTheme: textTheme),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
-                child: Center(
-                    child:
-                        ConfirmCalculationButton(text: 'হিসাবটি নিশ্চিত করি')),
+                child: Center(child: confirmButton),
               ),
               const SizedBox(
                 height: 70,
@@ -201,6 +86,97 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                     child: e))
                 .toList(),
           );
+  }
+
+  final Widget confirmButton = Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        '* হিসাবটি আপডেট করতে ক্লিক করুন',
+        style: TextStyle(color: Colors.red.shade700),
+      ),
+      // const SizedBox(height: ),
+      ConfirmCalculationButton(text: 'হিসাবটি নিশ্চিত করি'),
+    ],
+  );
+  Row flatRentRow(Flat flat) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        getPurposeTitle(titleIcon: AppIcons.homeUrl, title: 'ভাড়া'),
+        Text(
+          Formatter.toBn(value: flat.flatRentAmount),
+          style: TextStyle(fontSize: _fontSize),
+        ),
+      ],
+    );
+  }
+
+  Row gasBillRow(Flat flat) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        getPurposeTitle(titleIcon: AppIcons.flameUrl, title: 'গ্যাস'),
+        Text(
+          Formatter.toBn(value: flat.flatGasBill),
+          style: TextStyle(fontSize: _fontSize),
+        ),
+      ],
+    );
+  }
+
+  Row waterBillRow(Flat flat) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        getPurposeTitle(titleIcon: AppIcons.waterTapUrl, title: 'পানি'),
+        Text(
+          Formatter.toBn(value: flat.flatWaterBill),
+          style: TextStyle(fontSize: _fontSize),
+        ),
+      ],
+    );
+  }
+
+  Row getElectricityRow(
+      double? prevReading, BuildContext context, double? currentReading) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        getPurposeTitle(
+          titleIcon: AppIcons.electricityUrl,
+          title: 'বিদ্যুৎ',
+          widget: prevReading == null
+              ? IconButton(
+                  onPressed: () async {
+                    await noPrevReadingAlert(context);
+                  },
+                  icon: const Icon(
+                    Icons.info_outline,
+                    size: 16,
+                    color: Colors.red,
+                  ),
+                )
+              : currentReading == null
+                  ? IconButton(
+                      onPressed: () async {
+                        await AppWidget.showElectricityUnitDialog(
+                            context: context);
+                      },
+                      icon: const Icon(
+                        Icons.info_outline,
+                        size: 16,
+                        color: Colors.red,
+                      ),
+                    )
+                  : const SizedBox(),
+        ),
+        Text(
+          Formatter.toBn(value: context.watch<BillsProvider>().electricBill),
+          style: TextStyle(fontSize: _fontSize),
+        ),
+      ],
+    );
   }
 
   Future<dynamic> noPrevReadingAlert(BuildContext context) {
@@ -245,4 +221,82 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
         thickness: 2,
         color: Colors.black.withOpacity(0.6),
       );
+}
+
+class TotaBilllRow extends StatelessWidget {
+  const TotaBilllRow({
+    super.key,
+    required this.textTheme,
+  });
+
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "মোট",
+          style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
+        ),
+        Text(
+          Formatter.toBn(
+              value: context.watch<BillsProvider>().totalBill ?? 0.0),
+          style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+}
+
+class GrandTotalRow extends StatelessWidget {
+  const GrandTotalRow({
+    super.key,
+    required this.textTheme,
+  });
+
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "সর্বমোট",
+          style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
+        ),
+        Text(
+          Formatter.toBn(value: context.watch<BillsProvider>().totalBill ?? 0),
+          style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class DueRow extends StatelessWidget {
+  DueRow({super.key, required this.textTheme, required this.account});
+
+  final TextTheme textTheme;
+  double account;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "আগের বকেয়া",
+          style: textTheme.titleMedium,
+        ),
+        Text(
+          Formatter.toBn(value: account.abs()),
+          style: textTheme.titleMedium!
+              .copyWith(fontWeight: FontWeight.bold, color: Colors.red[900]),
+        ),
+      ],
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/providers/theme_provider.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 
 // ignore: must_be_immutable
 class MonthlyDataTable extends StatelessWidget {
@@ -40,20 +41,20 @@ class MonthlyDataTable extends StatelessWidget {
                   showBottomBorder: true,
                   columnSpacing: 30,
                   columns: _tableColumns,
-                  rows: const [
+                  rows: [
                     DataRow(
                       cells: [
-                        DataCell(
+                        const DataCell(
                           Center(child: Text('1A')),
                         ),
                         DataCell(
-                          Center(child: Text('৳ 26450')),
+                          Center(child: Text(Formatter.toBn(value: 26450))),
                         ),
 
-                        DataCell(
+                        const DataCell(
                           Center(child: Text('৳ 64')),
                         ),
-                        DataCell(
+                        const DataCell(
                           Center(
                             child: SizedBox(
                               width: 100,
@@ -68,7 +69,7 @@ class MonthlyDataTable extends StatelessWidget {
                         ),
 
                         //phone num
-                        DataCell(
+                        const DataCell(
                           Center(
                             child: Text('01202223892'),
                           ),
@@ -78,17 +79,17 @@ class MonthlyDataTable extends StatelessWidget {
                     ),
                     DataRow(
                       cells: [
-                        DataCell(
+                        const DataCell(
                           Center(child: Text('1B')),
                         ),
-                        DataCell(
+                        const DataCell(
                           Center(child: Text('৳ 0')),
                         ),
 
                         DataCell(
-                          Center(child: Text('৳ 27420')),
+                          Center(child: Text(Formatter.toBn(value: 27420))),
                         ),
-                        DataCell(
+                        const DataCell(
                           Center(
                             child: SizedBox(
                               width: 100,
@@ -103,7 +104,7 @@ class MonthlyDataTable extends StatelessWidget {
                         ),
 
                         //phone num
-                        DataCell(
+                        const DataCell(
                           Center(
                             child: Text('01202223892'),
                           ),
@@ -113,17 +114,17 @@ class MonthlyDataTable extends StatelessWidget {
                     ),
                     DataRow(
                       cells: [
-                        DataCell(
+                        const DataCell(
                           Center(child: Text('3A')),
                         ),
                         DataCell(
-                          Center(child: Text('৳ 26420')),
+                          Center(child: Text(Formatter.toBn(value: 26420))),
                         ),
 
                         DataCell(
-                          Center(child: Text('৳ 20')),
+                          Center(child: Text(Formatter.toBn(value: 20))),
                         ),
-                        DataCell(
+                        const DataCell(
                           Center(
                             child: SizedBox(
                               width: 100,
@@ -138,7 +139,7 @@ class MonthlyDataTable extends StatelessWidget {
                         ),
 
                         //phone num
-                        DataCell(
+                        const DataCell(
                           Center(
                             child: Text('01202223892'),
                           ),

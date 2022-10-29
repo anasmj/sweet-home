@@ -5,11 +5,12 @@ import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 
 class TransactionCard extends StatelessWidget {
-  const TransactionCard({
+  TransactionCard({
     Key? key,
     required this.transaction,
   }) : super(key: key);
   final RenterTransaction transaction;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -17,27 +18,29 @@ class TransactionCard extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         ListTile(
-            style: ListTileStyle.drawer,
-            tileColor: Theme.of(context).secondaryHeaderColor.withOpacity(0.5),
+          style: ListTileStyle.drawer,
+          tileColor: Theme.of(context).secondaryHeaderColor,
 
-            //PROFILE CIRCLE VATER
-            leading: CircleAvatar(
-              radius: 22,
-              child: Text(transaction.paidBy.substring(0, 2)),
-            ),
+          //PROFILE CIRCLE VATER
+          leading: CircleAvatar(
+            radius: 22,
+            child: Text(transaction.paidBy.substring(0, 2)),
+          ),
 
-            //TRANSACTION AMOUNT
-            title: Text(
-              Formatter.toBn(value: transaction.amount),
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: Colors.green[900], fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text('${transaction.paidBy} এর মাধ্যমে'),
+          //TRANSACTION AMOUNT
+          title: Text(
+            Formatter.toBn(value: transaction.amount),
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Colors.green[900], fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text('${transaction.paidBy} এর মাধ্যমে'),
+          trailing:
+              Visibility(visible: transaction.isAdvance, child: advanceText),
 
-            //DUE
-            trailing: checkMark()
-            //DueWidget(transaction: transaction),
-            ),
+          //DUE
+          // trailing: checkMark()
+          //DueWidget(transaction: transaction),
+        ),
 
         //TIME STAMP
         TimeStampWidget(transaction: transaction),
@@ -45,16 +48,23 @@ class TransactionCard extends StatelessWidget {
     );
   }
 
-  Padding checkMark() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 12.0),
-      child: SvgPicture.asset(
-        AppIcons.checmarkUrl,
-        // color: Colors.green,
-        width: 36,
-      ),
-    );
-  }
+  final Widget checkMark = Padding(
+    padding: const EdgeInsets.only(top: 12.0),
+    child: SvgPicture.asset(
+      AppIcons.checmarkUrl,
+      // color: Colors.green,
+      width: 36,
+    ),
+  );
+
+  final Widget advanceText = Container(
+    decoration: BoxDecoration(
+      color: Colors.cyan.shade300,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+    child: const Text('অগ্রীম'),
+  );
 }
 
 class TimeStampWidget extends StatelessWidget {

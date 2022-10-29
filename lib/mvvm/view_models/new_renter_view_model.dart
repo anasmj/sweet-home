@@ -121,7 +121,7 @@ class NewRenterViewModel extends ChangeNotifier {
       subDistrict: subDistrictController.text,
       district: districtController.text,
       //3rd page
-      advance: double.tryParse(advanceController.text),
+      advanceAmount: double.tryParse(advanceController.text),
       entryDate: entryDate,
     );
     if (res.code != 200) {

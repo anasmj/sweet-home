@@ -11,16 +11,12 @@ class TransactionEntryPage extends StatelessWidget {
   const TransactionEntryPage({super.key});
 
   // final double _buttonSpaceFromBottom = 220;
-  adasd() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<RenterViewModel>(context);
+    if (viewModel.status == Status.completed) {
+      countDown(viewModel);
+    }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -32,7 +28,7 @@ class TransactionEntryPage extends StatelessWidget {
         ),
         viewModel.status == Status.completed
             ? Lottie.asset(
-                AppIcons.success_wallet,
+                AppIcons.successWallet,
                 height: 120,
                 repeat: false,
               )
@@ -43,8 +39,16 @@ class TransactionEntryPage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               )
             : const SizedBox.shrink(),
-        TransactionSubmitButton(transactionPageContext: context),
+        viewModel.status == Status.completed
+            ? const SizedBox.shrink()
+            : TransactionSubmitButton(transactionPageContext: context),
       ],
     );
+  }
+
+  void countDown(RenterViewModel viewModel) async {
+    const int waitingSecond = 3;
+    await Future.delayed(const Duration(seconds: waitingSecond));
+    viewModel.setStatus(Status.empty);
   }
 }

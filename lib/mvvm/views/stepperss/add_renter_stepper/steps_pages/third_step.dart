@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
-import 'package:sweet_home/mvvm/views/stepperss/add_renter_stepper/add_renter_stepper.dart';
 import '../../../../view_models/new_renter_view_model.dart';
 import '../../../resources/app_icons.dart';
 import 'components/entry_date_picker.dart';

@@ -7,8 +7,7 @@ class FormValidators {
   }
 
   static String? checkNonZero(String? value) {
-    if (value == null) return 'তথ্যটি দেয়া হয়নি';
-    if (value.isEmpty) return 'তথ্যটি দেয়া হয়নি';
+    if (value!.isEmpty) return 'তথ্যটি দেয়া হয়নি';
     if (value == '.') return 'তথ্যটি সঠিক নয়';
     if (double.parse(value) <= 0) return 'তথ্যটি সঠিক নয়';
     return null; // null -> no problem
