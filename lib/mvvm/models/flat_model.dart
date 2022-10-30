@@ -14,7 +14,7 @@ class Flat {
   double flatGasBill;
   double flatWaterBill;
   double monthlyDue;
-
+  //TODO: make it 'present meter reading'
   double? currentMeterReading;
   double? previousMeterReading;
   DateTime? previousMeterReadingUpdateTime, presentMeterReadingUpdateTime;

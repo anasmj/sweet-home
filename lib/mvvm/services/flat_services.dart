@@ -22,6 +22,21 @@ class FlatService {
     return flatsCollectionRef;
   }
 
+  Future<Response> getSingleFlat(
+      {required String homeId, required String flatName}) async {
+    final collectionRef = await getFlatsCollectionRef(homeId: homeId);
+    await collectionRef.doc(flatName).get().then((snapshot) {
+      Flat flat = Flat.fromJson(snapshot.data() as Map<String, dynamic>);
+      response.code = 200;
+      response.body = 'ok';
+      response.content = flat;
+    }).catchError((e) {
+      response.code = 202;
+      response.body = e.toString();
+    });
+    return response;
+  }
+
   Stream<List<Flat>> flatsStream({required String homeId}) {
     return _db
         .collection('users')

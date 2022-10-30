@@ -88,7 +88,7 @@ class HomeServices {
   }
 
   //UPDATE HOME
-  Future<Response> updatefield(
+  Future<Response> updateHomeField(
       {required String homeId,
       required String field,
       required dynamic newValue}) async {

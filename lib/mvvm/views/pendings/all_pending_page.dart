@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/response.dart';
+import 'package:sweet_home/mvvm/providers/current_home.dart';
+import 'package:sweet_home/mvvm/services/flat_services.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 import '../resources/image_urls.dart';
@@ -156,26 +160,18 @@ class AllPendingPage extends StatelessWidget {
   }
 
   IconButton downloadIcon(BuildContext context) {
-    // final homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
-    //     .currentHome!
-    //     .homeId;
+    final homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
+        .currentHome!
+        .homeId;
     // final flatName = Provider.of<SelectedFlatProvider>(context, listen: false)
     //     .selectedFlat
     //     ?.flatName;
     // final viewModel = Provider.of<RenterViewModel>(context, listen: false);
     return IconButton(
       onPressed: () async {
-        // RenterService().updateRenter(
-        //   homeId: homeId,
-        //   flatName: flatName!,
-        //   fieldName: 'account',
-        //   newValue: 30.20,
-        // );
-        // final fieldName = 'renterName';
-        // print('renter.$fieldName');
-        // CollectionReference ref =
-        //     await RenterService().getFlatsCollectionRef(homeId: homeId);
-        // ref.doc('1A').update({'renter.$fieldName': 'Mofiz'});
+        // Response res =
+        //     await FlatService().getSingleFlat(homeId: homeId, flatName: '1A');
+        // print(res.code);
       },
       icon: SvgPicture.asset(
         AppIcons.downloadUrl,

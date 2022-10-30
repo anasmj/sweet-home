@@ -74,7 +74,7 @@ class HomeListViewModel extends ChangeNotifier {
     setStatus(Status.loading);
     // setLoading(true);
     response = await HomeServices()
-        .updatefield(homeId: id, field: fieldName, newValue: newValue);
+        .updateHomeField(homeId: id, field: fieldName, newValue: newValue);
 
     if (response.code == 200) {
       setStatus(Status.completed);

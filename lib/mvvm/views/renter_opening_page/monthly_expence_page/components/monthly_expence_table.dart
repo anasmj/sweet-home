@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
+import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/components/meter_reading_dialog.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/components/shared_widgets.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 
 import '../../../../../../mvvm/models/flat_model.dart';
@@ -27,6 +29,8 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
 
   @override
   Widget build(BuildContext context) {
+    // Formatter.toBn(value: context.read<FlatViewModel>().electricBill);
+
     //*use this to show data .
     //*after confirmed by user, make a month detail object which will
     //*be later used to show previoufs month details
@@ -143,6 +147,7 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
 
   Row getElectricityRow(
       double? prevReading, BuildContext context, double? currentReading) {
+    FlatViewModel viewModel = context.watch<FlatViewModel>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -176,10 +181,13 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
                     )
                   : const SizedBox(),
         ),
-        Text(
-          Formatter.toBn(value: context.watch<RenterViewModel>().electricBill),
-          style: TextStyle(fontSize: _fontSize),
-        ),
+        viewModel.isLoading
+            ? billLoadingIndocator
+            : Text(
+                Formatter.toBn(
+                    value: context.read<FlatViewModel>().electricBill ?? 0),
+                style: TextStyle(fontSize: _fontSize),
+              ),
       ],
     );
   }

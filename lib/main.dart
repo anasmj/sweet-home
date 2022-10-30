@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/providers/theme_provider.dart';
+import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/home_stepper_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/new_renter_view_model.dart';
@@ -49,6 +50,20 @@ class MyApp extends StatelessWidget {
                 Provider.of<SelectedFlatProvider>(context, listen: false),
             // selectedFlatName:
             //     context.watch<SelectedFlatProvider>().selectedFlat?.flatName,
+          ),
+        ),
+        ChangeNotifierProxyProvider2<SelectedFlatProvider, CurrentHomeProvider,
+            FlatViewModel>(
+          update: (context, flatProvider, homeProvider, viewModel) =>
+              FlatViewModel(
+                  selectedFlat: flatProvider.selectedFlat,
+                  currentHomeId: homeProvider.currentHome?.homeId),
+          create: (context) => FlatViewModel(
+            currentHomeId:
+                context.read<CurrentHomeProvider>().currentHome?.homeId,
+            selectedFlat:
+                Provider.of<SelectedFlatProvider>(context, listen: false)
+                    .selectedFlat,
           ),
         ),
         // ChangeNotifierProvider(
