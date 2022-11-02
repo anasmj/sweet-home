@@ -12,7 +12,7 @@ class BillsProvider extends ChangeNotifier {
 
   BillsProvider({required this.flatProvider}) {
     _previousReading = flatProvider!.selectedFlat?.previousMeterReading ?? 0;
-    _currentReading = flatProvider!.selectedFlat?.currentMeterReading;
+    _currentReading = flatProvider!.selectedFlat?.presentMeterReading;
   }
   final double CONST_FACTOR = 0.6;
 

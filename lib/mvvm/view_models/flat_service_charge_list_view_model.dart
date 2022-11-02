@@ -53,7 +53,7 @@ class FlatServiceChargeListViewModel extends ChangeNotifier {
     if (homeId == null) return;
     setStatus(Status.loading);
     Response response = await ServiceChargeService()
-        .readServiceCharges(domain: _scope, homeId: homeId, flatId: flatName);
+        .readServiceCharges(scope: _scope, homeId: homeId, flatId: flatName);
     if (response.code != 200) {
       setStatus(Status.error);
       return;

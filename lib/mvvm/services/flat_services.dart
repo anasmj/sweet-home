@@ -79,21 +79,21 @@ class FlatService {
 
     //try: assign last month meter reading to previous reading field in flat document
     try {
-      flatsSnapshot.docs.map((flat) async {
-        final previousMonthRecordDocRef = await flatsCollectionRef
-            .doc(flat.get('flatName'))
-            .collection('records')
-            .doc(previousMonthRecordId)
-            .get();
+      // flatsSnapshot.docs.map((flat) async {
+      //   final previousMonthRecordDocRef = await flatsCollectionRef
+      //       .doc(flat.get('flatName'))
+      //       .collection('records')
+      //       .doc(previousMonthRecordId)
+      //       .get();
 
-        if (previousMonthRecordDocRef.get('meterReading') != null) {
-          double previousReading =
-              previousMonthRecordDocRef.get('meterReading') as double;
-          flatsCollectionRef
-              .doc(flat.get('flatName'))
-              .update({'previousMeterReading': previousReading});
-        }
-      }).toList();
+      //   if (previousMonthRecordDocRef.get('meterReading') != null) {
+      //     double previousReading =
+      //         previousMonthRecordDocRef.get('meterReading') as double;
+      //     flatsCollectionRef
+      //         .doc(flat.get('flatName'))
+      //         .update({'previousMeterReading': previousReading});
+      //   }
+      // }).toList();
       final flatList = flatsSnapshot.docs.map((flat) {
         return Flat.fromJson(flat.data() as Map<String, dynamic>);
       }).toList();
@@ -200,7 +200,7 @@ class FlatService {
       // });
     } else {
       if (updateTime != null) {
-        if (fieldName == 'currentMeterReading') {
+        if (fieldName == 'presentMeterReading') {
           await flatCollecntionRef.doc(flatName).update({
             fieldName: newValue,
             'presentMeterReadingUpdateTime': updateTime.toIso8601String(),

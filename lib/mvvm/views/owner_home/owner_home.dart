@@ -15,16 +15,13 @@ class OwnerHome extends StatelessWidget {
   Widget build(BuildContext context) {
     // AppWidget.taka;
     final provider = Provider.of<HomeListViewModel>(context);
-    if (provider.status == Status.loading) {
+    if (provider.isLoading) {
       return const CircularIndicator();
     }
     if (provider.status == Status.error) return const ErrorPage();
-    if (provider.status == Status.empty) return const EmptyHomePage();
-    if (provider.status == Status.completed) {
-      return provider.homeList.length > 1
-          ? OwnerHomeListPage(userHomes: provider.homeList)
-          : HomeInfoPage(home: provider.homeList.first);
-    }
-    return const ErrorPage();
+    if (provider.homeList.isEmpty) return const EmptyHomePage();
+    return provider.homeList.length > 1
+        ? OwnerHomeListPage(userHomes: provider.homeList)
+        : HomeInfoPage(home: provider.homeList.first);
   }
 }

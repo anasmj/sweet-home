@@ -8,7 +8,7 @@ import 'package:sweet_home/mvvm/views/renter_opening_page/components/renter_popu
 
 // ignore: must_be_immutable
 class RenterAppBar extends StatelessWidget {
-  RenterAppBar({super.key});
+  const RenterAppBar({super.key});
 
   final double _tabBarFontSize = 18;
   @override

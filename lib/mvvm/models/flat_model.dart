@@ -14,8 +14,7 @@ class Flat {
   double flatGasBill;
   double flatWaterBill;
   double monthlyDue;
-  //TODO: make it 'present meter reading'
-  double? currentMeterReading;
+  double? presentMeterReading;
   double? previousMeterReading;
   DateTime? previousMeterReadingUpdateTime, presentMeterReadingUpdateTime;
 
@@ -27,7 +26,7 @@ class Flat {
     this.flatRentAmount = 0.00,
     this.flatGasBill = 0.00,
     this.flatWaterBill = 0.00,
-    this.currentMeterReading,
+    this.presentMeterReading,
     this.previousMeterReading,
     this.previousMeterReadingUpdateTime,
     this.presentMeterReadingUpdateTime,
@@ -52,7 +51,7 @@ class Flat {
       flatWaterBill: json['waterBill'] ?? 0.00,
       monthlyDue: json['monthlyDue'],
       // serviceCharges : json['serviceCharges'],
-      currentMeterReading: json['currentMeterReading'],
+      presentMeterReading: json['presentMeterReading'],
       presentMeterReadingUpdateTime:
           json['presentMeterReadingUpdateTime'] != null
               ? DateTime.parse(json['presentMeterReadingUpdateTime'])
@@ -79,7 +78,7 @@ class Flat {
         'rentAmount': rentAmount,
         'gasBill': gasBill,
         'waterBill': waterBill,
-        'currentMeterReading': currentMeterReading,
+        'presentMeterReading': presentMeterReading,
         'previousMeterReading': previousMeterReading,
         'previousMeterReadingUpdateTime': previousMeterReadingUpdateTime,
         'presentMeterReadingUpdateTime': presentMeterReadingUpdateTime,

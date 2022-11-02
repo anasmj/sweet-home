@@ -27,7 +27,7 @@ class EditTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      // autovalidateMode: AutovalidateMode.onUserInteraction,
       enabled: isEnabled,
       controller: editingController,
       validator: validationFunciton,

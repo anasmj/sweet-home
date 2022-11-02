@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/models/monthly_record.dart';
-
 import '../models/flat_model.dart';
 import '../models/home_model.dart';
 import '../models/service_charges.dart';
-import '../utils/formatter.dart';
 
 class HomeServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -118,9 +115,6 @@ class HomeServices {
     double? waterBill,
     List<ServiceCharge>? seviceCharges,
   }) async {
-    DateTime currentDate = DateTime.now();
-    DateTime lastMonthDate =
-        DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
     //adding new home to the collection
     CollectionReference users = _db.collection('users');
     DocumentReference docReferencer = users.doc(_auth.currentUser!.uid);

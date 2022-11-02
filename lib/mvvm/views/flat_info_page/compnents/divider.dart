@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/providers/theme_provider.dart';
 
 // ignore: must_be_immutable
-class FlatInfoDIvider extends StatelessWidget {
+class FlatInfoDivider extends StatelessWidget {
   final dividerColorDark = Colors.grey.shade300;
   final dividerColorLight = Colors.grey.shade600;
-  FlatInfoDIvider(
+  FlatInfoDivider(
       {this.title, this.iconColor = Colors.grey, this.icon, super.key});
   IconData? icon;
   Color iconColor;

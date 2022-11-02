@@ -126,10 +126,10 @@ class ServiceChargeService {
   Future<Response> readServiceCharges({
     required String homeId,
     String? flatId,
-    required domain,
+    required Scope scope,
   }) async {
     List<ServiceCharge> defaultList = [];
-    switch (domain) {
+    switch (scope) {
       case Scope.home:
         try {
           DocumentSnapshot snapshot = await _db

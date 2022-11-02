@@ -3,15 +3,16 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/services/flat_services.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/views/error_pages/error_page.dart';
 import 'package:sweet_home/mvvm/views/flat_info_page/compnents/divider.dart';
+import 'package:sweet_home/mvvm/views/flat_info_page/compnents/meter_reading_list_using_vm.dart';
+import 'package:sweet_home/mvvm/views/shared_widgets/general_bill_list_new.dart';
 import '../../providers/selected_flat_provider.dart';
-import 'compnents/general_bill_list.dart';
-import 'compnents/meter_reading_list.dart';
 
 // ignore: must_be_immutable
-class SelectedFlatInfo extends StatelessWidget {
-  const SelectedFlatInfo({super.key});
+class SelectedFlatBills extends StatelessWidget {
+  const SelectedFlatBills({super.key});
   final double dividerHorizontalSpacing = 16;
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class SelectedFlatInfo extends StatelessWidget {
     String? homeId =
         Provider.of<CurrentHomeProvider>(context).currentHome?.homeId;
     if (selectedFlat == null || homeId == null) return const ErrorPage();
+
     return StreamBuilder<Flat>(
       stream: FlatService()
           .selectedFlatSteram(homeId: homeId, flatId: selectedFlat),
@@ -31,34 +33,26 @@ class SelectedFlatInfo extends StatelessWidget {
         if (snapshot.hasData) {
           Flat? flat = snapshot.data;
           if (flat == null) return const ErrorPage();
-          return optionList(flat);
+          return ListView(
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 20),
+              MeterReadingList(flat: flat),
+              const SizedBox(height: 10),
+              getDivider('বিল সমূহ'),
+              GeneralBillsListNew(flat: flat, scope: Scope.flat),
+            ],
+          );
         }
         return const SizedBox.shrink();
       },
     );
   }
 
-  ListView optionList(Flat flat) {
-    return ListView(
-      children: [
-        const SizedBox(height: 20),
-        MeterReadingList(flat: flat),
-
-        // flat.renter != null
-        //     ? MeterReadingList(flat: flat)
-        //     : const SizedBox.shrink(),
-        const SizedBox(height: 10),
-        getDivider('বিল সমূহ'),
-        GeneralBillsList(flat: flat),
-        const SizedBox(height: 40),
-      ],
-    );
-  }
-
   Padding getDivider(String title) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: dividerHorizontalSpacing),
-      child: FlatInfoDIvider(
+      child: FlatInfoDivider(
         title: title,
       ),
     );

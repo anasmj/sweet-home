@@ -18,15 +18,23 @@ class HomeServiceChargeListViewModel extends ChangeNotifier {
 
   CurrentHomeProvider? homeProvider;
   FlatListViewModel? flatListVM;
+  bool _isLoading = false;
 
   TextEditingController chargeEditingController = TextEditingController();
   GlobalKey<FormState> chargeEditingFormKey = GlobalKey();
   Status _status = Status.empty;
+
   List<ServiceCharge> _serviceChargeList = [];
 
   Status get status => _status;
   setStatus(Status status) async {
     _status = status;
+    notifyListeners();
+  }
+
+  bool get isLoading => _isLoading;
+  void setLoading(bool loading) {
+    _isLoading = loading;
     notifyListeners();
   }
 
@@ -43,9 +51,10 @@ class HomeServiceChargeListViewModel extends ChangeNotifier {
   Future<void> readServiceCharges() async {
     String? homeId = homeProvider?.currentHome?.homeId;
     if (homeId == null) return;
-    setStatus(Status.loading);
+    // setStatus(Status.loading);
+    setLoading(true);
     Response response = await ServiceChargeService()
-        .readServiceCharges(homeId: homeId, domain: _scope);
+        .readServiceCharges(homeId: homeId, scope: _scope);
 
     if (response.code != 200) {
       setStatus(Status.error);
@@ -54,10 +63,11 @@ class HomeServiceChargeListViewModel extends ChangeNotifier {
     setChargeList(response.content);
 
     if (_serviceChargeList.isEmpty) {
-      setStatus(Status.empty);
+      // setStatus(Status.empty);
     } else {
-      setStatus(Status.completed);
+      // setStatus(Status.completed);
     }
+    setLoading(false);
   }
 
   //add new service charge

@@ -7,17 +7,14 @@ import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/services/record_services.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
-import 'package:sweet_home/mvvm/views/app_widgets.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/components/meter_reading_dialog.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/electricity_table/meter_reading_dialog.dart';
 
 // ignore: must_be_immutable
 class ConfirmCalculationButton extends StatelessWidget {
-  ConfirmCalculationButton({
-    required this.text,
+  const ConfirmCalculationButton({
     Key? key,
   }) : super(key: key);
 
-  String text;
   @override
   Widget build(BuildContext context) {
     String? homeId = context.watch<CurrentHomeProvider>().currentHome?.homeId;
@@ -26,37 +23,48 @@ class ConfirmCalculationButton extends StatelessWidget {
 
     // double? meterReading = context.watch<RenterOpeningViewModel>().meterReading;
 
-    return MaterialButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      minWidth: MediaQuery.of(context).size.width * 0.8,
-      height: 50,
-      color: Theme.of(context).secondaryHeaderColor,
-      disabledColor: Colors.grey,
-      onPressed: flat!.renter != null
-          ? () async {
-              Response res;
-              if (flat.currentMeterReading == null) {
-                showElectricityUnitDialog(
-                    context: context, unitType: UnitType.present);
-              }
-              if (homeId != null && flat.currentMeterReading != null) {
-                if (context.read<RenterViewModel>().totalBill != null) {
-                  res = await RecordService().createMonthlyRecord(
-                    homeId: homeId,
-                    flat: flat,
-                    issueDate: issueDate,
-                    meterReading: flat.currentMeterReading!,
-                    renterPayable: context.read<RenterViewModel>().totalBill!,
-                  );
-                  if (res.code == 200) {}
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          '* হিসাবটি আপডেট করতে ক্লিক করুন',
+          style: TextStyle(color: Colors.red.shade700),
+        ),
+        MaterialButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          minWidth: MediaQuery.of(context).size.width * 0.8,
+          height: 50,
+          color: Theme.of(context).secondaryHeaderColor,
+          disabledColor: Colors.grey,
+          onPressed: flat!.renter != null
+              ? () async {
+                  Response res;
+                  if (flat.presentMeterReading == null) {
+                    showElectricityUnitDialog(
+                        context: context, unitType: UnitType.present);
+                  }
+                  if (homeId != null && flat.presentMeterReading != null) {
+                    if (context.read<RenterViewModel>().totalBill != null) {
+                      res = await RecordService().createMonthlyRecord(
+                        homeId: homeId,
+                        flat: flat,
+                        issueDate: issueDate,
+                        meterReading: flat.presentMeterReading!,
+                        renterPayable:
+                            context.read<RenterViewModel>().totalBill!,
+                      );
+                      if (res.code == 200) {}
+                    }
+                  }
                 }
-              }
-            }
-          : null,
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
+              : null,
+          child: Text(
+            'হিসাবটি নিশ্চিত করি',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+      ],
     );
   }
 }

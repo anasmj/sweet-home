@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
-
 import 'components/bottom_banner.dart';
-import 'components/monthly_expence_table.dart';
+import 'monthly_expence_table/monthly_expence_table.dart';
 
 // ignore: must_be_immutable
-class MonthlyExpencePage extends StatelessWidget {
-  const MonthlyExpencePage({
+class MonthlyExpence extends StatelessWidget {
+  const MonthlyExpence({
     Key? key,
   }) : super(key: key);
 
@@ -65,10 +64,7 @@ class MonthlyExpencePage extends StatelessWidget {
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: const [
-                SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: MonthlyExpenceTable(),
-                ),
+                MonthlyExpenceTable(),
                 Padding(
                   padding: EdgeInsets.only(bottom: 20),
                   child: BottomBanner(),

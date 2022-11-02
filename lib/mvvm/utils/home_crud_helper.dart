@@ -16,6 +16,8 @@ String getFirebaseFieldName({required String title}) {
     'ফ্লোরে ফ্ল্যাট সংখ্যা': 'flatPerFloor',
     'গ্যাস': 'gasBill',
     'পানি': 'waterBill',
+    'বর্তমান রিডিং': 'presentMeterReading',
+    'পূর্বের রিডিং': 'previousMeterReading',
     'অন্যান্য': 'serviceCharges',
     // 'অন্যান্য' : 'Others'
   };

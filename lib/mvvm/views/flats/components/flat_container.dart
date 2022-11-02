@@ -18,8 +18,9 @@ class FlatContainer extends StatelessWidget {
   FlatContainer({required this.flat, super.key});
 
   Widget getMeterReadingMsg(Flat falt) {
+    //how meter reading only for falt
     if (flat.previousMeterReading != null) {
-      if (flat.currentMeterReading != null) {
+      if (flat.presentMeterReading != null) {
         // all readings are okay
         return const SizedBox.shrink();
       }
@@ -113,8 +114,7 @@ class FlatContainer extends StatelessWidget {
       children: [
         InkWell(
           onTap: () async {
-            Provider.of<SelectedFlatProvider>(context, listen: false)
-                .newSelectedFlat = flat;
+            context.read<SelectedFlatProvider>().setSelectedFlat = flat;
 
             flat.renter == null
                 ? AppRoute.newRenterStepper(
@@ -128,7 +128,7 @@ class FlatContainer extends StatelessWidget {
           },
           onLongPress: () {
             Provider.of<SelectedFlatProvider>(context, listen: false)
-                .newSelectedFlat = flat;
+                .setSelectedFlat = flat;
 
             AppWidget.getModalSheet(
                 context: context, modalSheetContent: const FlatOptions());
@@ -179,7 +179,7 @@ class FlatContainer extends StatelessWidget {
                     bottom: -30,
                     child: noPreviousReadingText(),
                   )
-                : flat.currentMeterReading == null
+                : flat.presentMeterReading == null
                     ? Positioned(
                         left: 10,
                         bottom: -30,

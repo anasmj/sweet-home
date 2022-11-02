@@ -129,8 +129,11 @@ class HomeInfoPage extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (ctx) => const HomeServiceChargePage()));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => const HomeServiceChargePage(),
+                ),
+              );
             },
             title: const Text('অন্যান্য'),
             leading: const Icon(FontAwesomeIcons.ellipsis),

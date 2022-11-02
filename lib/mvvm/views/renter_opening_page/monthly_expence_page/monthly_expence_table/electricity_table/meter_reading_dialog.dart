@@ -49,8 +49,8 @@ Future<void> showElectricityUnitDialog(
                   }
                   break;
                 case UnitType.previous:
-                  if (flat!.currentMeterReading != null) {
-                    if (double.parse(value) > flat.currentMeterReading!) {
+                  if (flat!.presentMeterReading != null) {
+                    if (double.parse(value) > flat.presentMeterReading!) {
                       return 'বর্তমান রিডিং এর চেয়ে বেশি';
                     }
                   }

@@ -9,12 +9,13 @@ import '../services/record_services.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 
 //* CONTAINS ALL LOGIC RELATED TO RENTER
+//TODO: clean up this class
 class RenterViewModel extends ChangeNotifier {
   RenterViewModel({this.currentHomeProvider, this.selectedFlatProvider}) {
     _payerName = selectedFlatProvider?.selectedFlat?.renter?.renterName ?? '';
     _previousReading =
         selectedFlatProvider?.selectedFlat?.previousMeterReading ?? 0;
-    _currentReading = selectedFlatProvider?.selectedFlat?.currentMeterReading;
+    _currentReading = selectedFlatProvider?.selectedFlat?.presentMeterReading;
   }
 
   SelectedFlatProvider? selectedFlatProvider;

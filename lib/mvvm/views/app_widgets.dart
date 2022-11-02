@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/providers/bills_provider.dart';
 import 'package:sweet_home/mvvm/providers/theme_provider.dart';
-import 'package:sweet_home/mvvm/utils/enums.dart';
-import '../models/flat_model.dart';
-import '../models/response.dart';
-import '../providers/current_home.dart';
-import '../providers/selected_flat_provider.dart';
-import '../services/flat_services.dart';
-import '../view_models/renter_view_model.dart';
 
 class AppWidget {
   static void showToast(String message) {

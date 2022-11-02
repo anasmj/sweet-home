@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/components/renter_app_bar.dart';
-import '../../../../mvvm/models/flat_model.dart';
 import 'monthly_expence_page/monthly_expence_page.dart';
 import 'transaction_entry_page/transaction_entry_page.dart';
 import 'transactoin_list_page/renter_transaction_list.dart';
@@ -33,13 +30,13 @@ class RenterOpeningPage extends StatelessWidget {
             true, //to avoid overflow error while opening keyboard in payer name dialog
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(_appBarHeight),
-          child: RenterAppBar(),
+          child: const RenterAppBar(),
         ),
         body: const TabBarView(
           children: [
             // SizedBox(),
 
-            MonthlyExpencePage(),
+            MonthlyExpence(),
             TransactionEntryPage(),
             RenterTransactions(),
             // TransactionList(),

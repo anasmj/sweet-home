@@ -17,7 +17,14 @@ class HomeListViewModel extends ChangeNotifier {
   Response response = Response();
   Status _status = Status.empty;
   CurrentHomeProvider? currentHomeProvider;
-  // Home? currentHome;
+
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  void setLoading(bool status) {
+    _isLoading = status;
+    notifyListeners();
+  }
+
   List<Home> _homeList = [];
 
   Status get status => _status;
@@ -33,15 +40,12 @@ class HomeListViewModel extends ChangeNotifier {
   }
 
   Future<void> getUserHomes() async {
-    // setHomeList([]);
-    setStatus(Status.loading);
-
+    setLoading(true);
     Response response = await HomeServices().getAllHomeVM();
     if (response.code != 200) {
       setStatus(Status.error);
       return;
     }
-
     setHomeList(response.content as List<Home>);
 
     if (_homeList.isEmpty) {
@@ -52,8 +56,8 @@ class HomeListViewModel extends ChangeNotifier {
       if (currentHomeProvider!.currentHome == null) {
         await currentHomeProvider?.setUserHome(userHomes: _homeList);
       }
-      setStatus(Status.completed);
     }
+    setLoading(false);
   }
 
   Future<Response> deleteHome() async {
@@ -78,23 +82,11 @@ class HomeListViewModel extends ChangeNotifier {
 
     if (response.code == 200) {
       setStatus(Status.completed);
+      await Future.delayed(const Duration(seconds: 2));
+      setStatus(Status.empty);
     } else {
       setStatus(Status.error);
     }
-    // setLoading(false);
+    setLoading(false);
   }
-
-  // Future<void> setUserHome() async {
-  //   setStatus(Status.loading);
-  //   Response homeRes = await HomeServices().getAllHomeVM();
-  //   if (response.code != 200) return;
-  //   List<Home> homeList = homeRes.content;
-  //   if (homeList.isEmpty) {
-  //     setStatus(Status.completed);
-  //     return;
-  //   }
-
-  //   currentHomeProvider?.setCurrentHome = homeList.first;
-  //   setStatus(Status.completed);
-  // }
 }

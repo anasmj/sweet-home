@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/providers/theme_provider.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/views/shared_widgets/edit_textfield.dart';
 import 'package:sweet_home/mvvm/views/shared_widgets/update_button.dart';
 
@@ -17,8 +18,8 @@ class EditModalSheet extends StatelessWidget {
     required this.onUpdated,
     this.formKey,
     this.controller,
+    required this.scope,
   });
-
   String sheetTitle;
   String? textFieldLabel;
   String? Function(String?)? validationFunciton;
@@ -27,13 +28,14 @@ class EditModalSheet extends StatelessWidget {
   VoidCallback onUpdated;
   Key? formKey;
   TextEditingController? controller;
+  Scope scope;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.75,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        // mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 20.0, bottom: 30),
@@ -61,9 +63,11 @@ class EditModalSheet extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          UpdateButton(
+          DynamicUpdateButton(
             buttonTitle: 'আপডেট',
             onPressed: onUpdated,
+            scope: scope,
+            //? if not passeed, it will take homeList view model
           ),
         ],
       ),

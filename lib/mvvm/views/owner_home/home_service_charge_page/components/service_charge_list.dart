@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/service_charges.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/form_validators.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
@@ -25,6 +26,7 @@ class ServiceChargeList extends StatelessWidget {
             AppWidget.getModalSheet(
               context: context,
               modalSheetContent: EditModalSheet(
+                scope: Scope.home,
                 controller: provider.chargeEditingController,
                 formKey: provider.chargeEditingFormKey,
                 onUpdated: () async {
