@@ -14,7 +14,7 @@ class Renter {
   String? union;
   String? subDistrict;
   String? district;
-  double dueAmount;
+  double dueAmount; //TODO: change it to: renterDue
   RenterTransaction? renterTransaction;
 
   // double? advance;
@@ -43,10 +43,12 @@ class Renter {
 
   static Renter fromJson(Map<String, dynamic> json) {
     List<RenterTransaction> transactionList = [];
-    final transactionMap = json['transactions'];
-    transactionMap.forEach((transaction) {
-      transactionList
-          .add(RenterTransaction.fromJson(transaction as Map<String, dynamic>));
+
+    final transactionMapList = json['transactions'];
+    transactionMapList.forEach((item) {
+      RenterTransaction transaction =
+          RenterTransaction.fromJson(item as Map<String, dynamic>);
+      transactionList.add(transaction);
     });
     Renter renter;
 
@@ -63,11 +65,9 @@ class Renter {
       union: json['union'] ?? '',
       subDistrict: json['subDistrict'] ?? '',
       district: json['district'] ?? '',
-      // advance: json['advance'] ?? 0.0,
       nIdNumber: json['nIdNumber'],
       dueAmount: json['dueAmount'] ?? 0.00,
       transactions: transactionList,
-      // unitConsumed: json['unitConsumed'] ?? 0.0,
     );
     // renter.transactions = transactionList;
     return renter;

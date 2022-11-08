@@ -30,7 +30,7 @@ class RenterOpeningPage extends StatelessWidget {
             true, //to avoid overflow error while opening keyboard in payer name dialog
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(_appBarHeight),
-          child: const RenterAppBar(),
+          child: RenterAppBar(),
         ),
         body: const TabBarView(
           children: [

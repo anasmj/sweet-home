@@ -12,7 +12,7 @@ class Home {
   final String location;
   final double? gasBill;
   final double? waterBill;
-  final List<ServiceCharge>? serviceCharges;
+  final List<Utility>? utilities;
   Home({
     this.homeId = '',
     required this.homeName,
@@ -22,7 +22,7 @@ class Home {
     required this.flatPerFloor,
     this.gasBill,
     this.waterBill,
-    this.serviceCharges,
+    this.utilities,
   });
 
   //returns a map
@@ -35,7 +35,7 @@ class Home {
         'rentAmount': rentAmount,
         'gasBill': gasBill ?? 0.00,
         'waterBill': waterBill ?? 0.00,
-        'serviceCharges': serviceCharges,
+        'utilities': utilities,
       };
   static Home fromJson(Map<String, dynamic> data) => Home(
         homeName: data['homeName'] ?? '',

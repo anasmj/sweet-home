@@ -1,14 +1,14 @@
-class ServiceCharge {
+class Utility {
   String purpose;
   double amount;
 
-  ServiceCharge({required this.purpose, required this.amount});
+  Utility({required this.purpose, required this.amount});
 
   Map<String, dynamic> toJson() => {
         'purpose': purpose,
         'amount': amount,
       };
-  static ServiceCharge fromJson(Map<String, dynamic> json) => ServiceCharge(
+  static Utility fromJson(Map<String, dynamic> json) => Utility(
       purpose: json['purpose'] ?? '',
       amount: double.parse(json['amount'].toString()));
 }

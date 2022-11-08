@@ -15,7 +15,7 @@ class TransactionEntryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = Provider.of<RenterViewModel>(context);
     if (viewModel.status == Status.completed) {
-      countDown(viewModel);
+      countDown(context, viewModel);
     }
 
     return Column(
@@ -26,19 +26,12 @@ class TransactionEntryPage extends StatelessWidget {
           padding: EdgeInsets.only(top: 30.0),
           child: InputTransaction(),
         ),
-        viewModel.status == Status.completed
-            ? Lottie.asset(
-                AppIcons.successWallet,
-                height: 120,
-                repeat: false,
-              )
-            : const SizedBox.shrink(),
-        viewModel.isLoading
-            ? const Padding(
-                padding: EdgeInsets.symmetric(vertical: 18.0),
-                child: CircularProgressIndicator(),
-              )
-            : const SizedBox.shrink(),
+        if (viewModel.status == Status.completed) successWidget(context),
+        if (viewModel.isLoading)
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 18.0),
+            child: CircularProgressIndicator(),
+          ),
         viewModel.status == Status.completed
             ? const SizedBox.shrink()
             : TransactionSubmitButton(transactionPageContext: context),
@@ -46,7 +39,22 @@ class TransactionEntryPage extends StatelessWidget {
     );
   }
 
-  void countDown(RenterViewModel viewModel) async {
+  Column successWidget(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Lottie.asset(
+          AppIcons.successWallet,
+          height: 120,
+          repeat: false,
+        ),
+        Text('লেনদেনটি সফলভাবে যুক্ত করা হয়েছে',
+            style: Theme.of(context).textTheme.titleLarge),
+      ],
+    );
+  }
+
+  void countDown(BuildContext context, RenterViewModel viewModel) async {
     const int waitingSecond = 3;
     await Future.delayed(const Duration(seconds: waitingSecond));
     viewModel.setStatus(Status.empty);

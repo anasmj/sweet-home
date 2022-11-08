@@ -18,7 +18,6 @@ String getFirebaseFieldName({required String title}) {
     'পানি': 'waterBill',
     'বর্তমান রিডিং': 'presentMeterReading',
     'পূর্বের রিডিং': 'previousMeterReading',
-    'অন্যান্য': 'serviceCharges',
     // 'অন্যান্য' : 'Others'
   };
 

@@ -5,7 +5,7 @@ import 'package:sweet_home/mvvm/models/service_charges.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/services/flat_services.dart';
-import 'package:sweet_home/mvvm/services/service_charge_service.dart';
+import 'package:sweet_home/mvvm/services/utility_services.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 
 import 'flat_list_view_model.dart';
@@ -27,7 +27,7 @@ class FlatServiceChargeListViewModel extends ChangeNotifier {
   TextEditingController chargeEditingController = TextEditingController();
   GlobalKey<FormState> chargeEditingFormKey = GlobalKey();
   Status _status = Status.empty;
-  List<ServiceCharge> _serviceChargeList = [];
+  List<Utility> _serviceChargeList = [];
 
   Status get status => _status;
   setStatus(Status status) async {
@@ -35,15 +35,14 @@ class FlatServiceChargeListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<ServiceCharge> get serviceChargeList => _serviceChargeList;
-  setChargeList(List<ServiceCharge> chargeList) {
+  List<Utility> get serviceChargeList => _serviceChargeList;
+  setChargeList(List<Utility> chargeList) {
     _serviceChargeList = chargeList;
   }
 
-  ServiceCharge? _selectedServiceCharge;
-  ServiceCharge? get selectedServiceCharge => _selectedServiceCharge;
-  set setServiceCharge(ServiceCharge? charge) =>
-      _selectedServiceCharge = charge;
+  Utility? _selectedServiceCharge;
+  Utility? get selectedServiceCharge => _selectedServiceCharge;
+  set setServiceCharge(Utility? charge) => _selectedServiceCharge = charge;
   //READ
   Future<void> readServiceCharges() async {
     String? homeId = homeProvider?.currentHome?.homeId;
@@ -52,8 +51,8 @@ class FlatServiceChargeListViewModel extends ChangeNotifier {
     if (flatName == null) return;
     if (homeId == null) return;
     setStatus(Status.loading);
-    Response response = await ServiceChargeService()
-        .readServiceCharges(scope: _scope, homeId: homeId, flatId: flatName);
+    Response response = await UtilityServices()
+        .readUtilities(scope: _scope, homeId: homeId, flatId: flatName);
     if (response.code != 200) {
       setStatus(Status.error);
       return;
@@ -72,9 +71,9 @@ class FlatServiceChargeListViewModel extends ChangeNotifier {
       {required String title, required double amount}) async {
     List<Flat>? flatList = flatListVM?.flatList;
     if (homeProvider!.currentHome != null) {
-      response = await ServiceChargeService().addNweServiceCharge(
+      response = await UtilityServices().addNewUtility(
           homeId: homeProvider!.currentHome!.homeId,
-          serviceCharge: ServiceCharge(purpose: title, amount: amount));
+          serviceCharge: Utility(purpose: title, amount: amount));
       if (flatList!.isNotEmpty) {
         String? homeId = homeProvider?.currentHome?.homeId;
         if (homeId != null) {
@@ -84,7 +83,7 @@ class FlatServiceChargeListViewModel extends ChangeNotifier {
                   homeId: homeId,
                   flatName: flat.flatName,
                   fieldName: 'serviceCharges',
-                  newValue: ServiceCharge(purpose: title, amount: amount));
+                  newValue: Utility(purpose: title, amount: amount));
             }
             response.code = 200;
           } catch (e) {
@@ -101,8 +100,7 @@ class FlatServiceChargeListViewModel extends ChangeNotifier {
   }
 
   //delete a service charge
-  Future<Response> deleteServiceCharge(
-      {required ServiceCharge serviceCharge}) async {
+  Future<Response> deleteServiceCharge({required Utility serviceCharge}) async {
     String? flatName = selectedFlatProvider?.selectedFlat?.flatName;
     List<Flat>? flatList = flatListVM?.flatList;
     String? id = homeProvider?.currentHome?.homeId;
@@ -110,7 +108,7 @@ class FlatServiceChargeListViewModel extends ChangeNotifier {
       response.code = 404;
       response.body = 'home not found';
     } else {
-      response = await ServiceChargeService().deleteServiceCharge(
+      response = await UtilityServices().deleteUtility(
         homeId: homeProvider!.currentHome!.homeId,
         flatId: flatName,
         scope: Scope.flat,
@@ -143,10 +141,10 @@ class FlatServiceChargeListViewModel extends ChangeNotifier {
   }
 
   Future<Response?> updateHomeServiceCharge(
-      {required ServiceCharge oldObj, required ServiceCharge newObj}) async {
+      {required Utility oldObj, required Utility newObj}) async {
     String? homeId = homeProvider?.currentHome?.homeId;
     if (homeId != null) {
-      response = await ServiceChargeService().updateServiceCharge(
+      response = await UtilityServices().updateUtility(
         homeId: homeId,
         oldServiceCharge: oldObj,
         newServiceCharge: newObj,

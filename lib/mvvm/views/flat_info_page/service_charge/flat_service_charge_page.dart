@@ -36,16 +36,6 @@ class FlatServiceChargePage extends StatelessWidget {
         title: const Text('অন্যান্য'),
         centerTitle: true,
       ),
-      //? MAKE IT VISIBLE IF YOU WANT USER TO ADD SERVICE CHARGE FOR INDIVIDUAL FLAT
-      // floatingActionButtonLocation:
-      //     FloatingActionButtonLocation.miniCenterFloat,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     AppWidget.getModalSheet(
-      //         context: context, modalSheetContent: AddExpenceSheetContent());
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
       body: ui,
     );
   }

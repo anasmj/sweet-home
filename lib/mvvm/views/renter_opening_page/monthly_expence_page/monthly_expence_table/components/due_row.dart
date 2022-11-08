@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
+import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 
+// ignore: must_be_immutable
 class DueRow extends StatelessWidget {
-  DueRow({super.key, required this.textTheme, required this.account});
+  const DueRow({super.key, required this.textTheme});
 
   final TextTheme textTheme;
-  double account;
+
   @override
   Widget build(BuildContext context) {
+    double? dueAmount =
+        context.watch<FlatViewModel>().userFlat?.renter?.dueAmount;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -16,9 +22,10 @@ class DueRow extends StatelessWidget {
           style: textTheme.titleMedium,
         ),
         Text(
-          Formatter.toBn(value: account.abs()),
-          style: textTheme.titleMedium!
-              .copyWith(fontWeight: FontWeight.bold, color: Colors.red[900]),
+          Formatter.toBn(value: dueAmount),
+          style: textTheme.titleMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+              color: dueAmount! <= 0 ? Colors.green[900] : Colors.red[900]),
         ),
       ],
     );

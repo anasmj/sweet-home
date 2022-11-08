@@ -18,31 +18,16 @@ class HomeServiceChargePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<HomeServiceChargeListViewModel>(context);
     Widget ui;
-    if (provider.isLoading) {
+    if (!provider.isLoading) {
+      if (provider.status == Status.error) {
+        ui = const ErrorPage();
+      }
+      provider.serviceChargeList.isEmpty
+          ? ui = const EmptyServiceChargePage()
+          : ui = const ServiceChargeList();
+    } else {
       ui = const CircularIndicator();
     }
-    if (provider.status == Status.error) {
-      ui = const ErrorPage();
-    }
-    if (provider.serviceChargeList.isEmpty) {
-      ui = const EmptyServiceChargePage();
-    } else {
-      ui = const ServiceChargeList();
-    }
-    // switch (provider.status) {
-    //   case Status.loading:
-    //     ui = const CircularIndicator();
-    //     break;
-    //   case Status.error:
-    //     ui = const ErrorPage();
-    //     break;
-    //   case Status.empty:
-    //     ui = const EmptyServiceChargePage();
-    //     break;
-    //   case Status.completed:
-    //     ui = const ServiceChargeList();
-    //     break;
-    // }
 
     return Scaffold(
       appBar: AppBar(

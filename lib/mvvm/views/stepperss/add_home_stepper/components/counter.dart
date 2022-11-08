@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 
 import '../../../../view_models/home_stepper_view_model.dart';
 
@@ -38,14 +39,16 @@ class FlatFloorCounter extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
               child: Text(
                 isFlatCounter
-                    ? context
-                        .watch<HomeStepperProviderViewModel>()
-                        .flatLength
-                        .toString()
-                    : context
-                        .watch<HomeStepperProviderViewModel>()
-                        .floorLength
-                        .toString(),
+                    ? Formatter.toBn(
+                        value: context
+                            .watch<HomeStepperProviderViewModel>()
+                            .flatLength,
+                        includeSymbol: false)
+                    : Formatter.toBn(
+                        value: context
+                            .watch<HomeStepperProviderViewModel>()
+                            .floorLength,
+                        includeSymbol: false),
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),

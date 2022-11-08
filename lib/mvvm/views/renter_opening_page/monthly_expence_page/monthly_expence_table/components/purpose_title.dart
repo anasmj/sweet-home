@@ -16,6 +16,6 @@ Widget getPurposeTitle(
           title,
           style: const TextStyle(fontSize: 18),
         ),
-        widget ?? const SizedBox()
+        widget ?? const SizedBox.shrink()
       ],
     );

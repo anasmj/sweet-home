@@ -67,10 +67,10 @@ class FlatService {
   }
 
   Future<Response> getAllFlatsForVm({required String homeId}) async {
-    DateTime currentDate = DateTime.now();
-    DateTime lastMonthDate =
-        DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
-    String previousMonthRecordId = Formatter().makeId(date: lastMonthDate);
+    // DateTime currentDate = DateTime.now();
+    // DateTime lastMonthDate =
+    //     DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
+    // String previousMonthRecordId = Formatter().makeId(date: lastMonthDate);
 
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
@@ -172,7 +172,7 @@ class FlatService {
   }) async {
     CollectionReference flatCollecntionRef =
         await getFlatsCollectionRef(homeId: homeId);
-    if (fieldName == 'serviceCharges' && newValue is ServiceCharge) {
+    if (fieldName == 'serviceCharges' && newValue is Utility) {
       //remove service charge
       //! should not be deleted for further modification
       // if (removeServiceCharge) {
@@ -216,6 +216,18 @@ class FlatService {
           await flatCollecntionRef.doc(flatName).update({
             fieldName: newValue,
             'previousMeterReadingUpdateTime': updateTime.toIso8601String(),
+          }).whenComplete(() {
+            response.code = 200;
+            response.body = 'successfull';
+          }).catchError((e) {
+            response.code = 300;
+            response.body = e.toString();
+          });
+        }
+        if (fieldName == 'monthlyDue') {
+          await flatCollecntionRef.doc(flatName).update({
+            fieldName: newValue,
+            'confirmDate': updateTime.toIso8601String(),
           }).whenComplete(() {
             response.code = 200;
             response.body = 'successfull';

@@ -4,7 +4,7 @@ import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/service_charges.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 
-class ServiceChargeService {
+class UtilityServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   Response response = Response();
@@ -30,11 +30,11 @@ class ServiceChargeService {
   }
 
   //ADD to home
-  Future<Response> addNweServiceCharge(
-      {required String homeId, required ServiceCharge serviceCharge}) async {
+  Future<Response> addNewUtility(
+      {required String homeId, required Utility serviceCharge}) async {
     DocumentReference homeDocRef = await getHomeDocRef(homeId: homeId);
     await homeDocRef.update({
-      'serviceCharges': FieldValue.arrayUnion([serviceCharge.toJson()])
+      'utilities': FieldValue.arrayUnion([serviceCharge.toJson()])
     }).whenComplete(() {
       response.code = 200;
       response.body = 'ok';
@@ -46,10 +46,10 @@ class ServiceChargeService {
   }
 
   //UPDATE
-  Future<Response> updateServiceCharge(
+  Future<Response> updateUtility(
       {required String homeId,
-      required ServiceCharge oldServiceCharge,
-      required ServiceCharge newServiceCharge}) async {
+      required Utility oldServiceCharge,
+      required Utility newServiceCharge}) async {
     Map<String, dynamic> itemMap;
     try {
       DocumentReference homeDocRef = await getHomeDocRef(homeId: homeId);
@@ -59,16 +59,15 @@ class ServiceChargeService {
           .collection('homes')
           .doc(homeId)
           .get();
-      final serviceChargeList = await snapshot.get('serviceCharges');
+      final serviceChargeList = await snapshot.get('utilities');
       serviceChargeList.forEach((item) {
         itemMap = item as Map<String, dynamic>;
         if (itemMap['purpose'] == newServiceCharge.purpose) {
           homeDocRef.update({
-            'serviceCharges':
-                FieldValue.arrayRemove([oldServiceCharge.toJson()])
+            'utilities': FieldValue.arrayRemove([oldServiceCharge.toJson()])
           });
           homeDocRef.update({
-            'serviceCharges': FieldValue.arrayUnion([newServiceCharge.toJson()])
+            'utilities': FieldValue.arrayUnion([newServiceCharge.toJson()])
           });
         }
       });
@@ -82,16 +81,16 @@ class ServiceChargeService {
   }
 
   //DELETE
-  Future<Response> deleteServiceCharge(
+  Future<Response> deleteUtility(
       {required String homeId,
       String? flatId,
       required scope,
-      required ServiceCharge serviceCharge}) async {
+      required Utility serviceCharge}) async {
     switch (scope) {
       case Scope.home:
         DocumentReference homeDocRef = await getHomeDocRef(homeId: homeId);
         await homeDocRef.update({
-          'serviceCharges': FieldValue.arrayRemove([serviceCharge.toJson()])
+          'utilities': FieldValue.arrayRemove([serviceCharge.toJson()])
         }).whenComplete(() {
           response.code = 200;
           response.body = 'deleted';
@@ -107,7 +106,7 @@ class ServiceChargeService {
         DocumentReference flatDocRef =
             await getFlatDocRef(homeId: homeId, flatId: flatId);
         await flatDocRef.update({
-          'serviceCharges': FieldValue.arrayRemove([serviceCharge.toJson()])
+          'utilities': FieldValue.arrayRemove([serviceCharge.toJson()])
         }).whenComplete(() {
           response.code = 200;
           response.body = 'deleted';
@@ -123,12 +122,12 @@ class ServiceChargeService {
   }
 
   //READ || BOTH
-  Future<Response> readServiceCharges({
+  Future<Response> readUtilities({
     required String homeId,
     String? flatId,
     required Scope scope,
   }) async {
-    List<ServiceCharge> defaultList = [];
+    List<Utility> defaultList = [];
     switch (scope) {
       case Scope.home:
         try {
@@ -139,7 +138,7 @@ class ServiceChargeService {
               .doc(homeId)
               .get();
 
-          final serviceChargeList = await snapshot.get('serviceCharges');
+          final serviceChargeList = await snapshot.get('utilities');
           if (serviceChargeList.isEmpty) {
             response.code = 200;
             response.body = 'empty list';
@@ -147,8 +146,7 @@ class ServiceChargeService {
           } else {
             serviceChargeList.forEach(
               (item) {
-                defaultList
-                    .add(ServiceCharge.fromJson(item as Map<String, dynamic>));
+                defaultList.add(Utility.fromJson(item as Map<String, dynamic>));
                 response.code = 200;
                 response.body = 'ok';
                 response.content = defaultList;
@@ -175,7 +173,7 @@ class ServiceChargeService {
           //     .collection('flats')
           //     .doc(flatId)
           //     .get();
-          final serviceChargeList = await snapshot.get('serviceCharges');
+          final serviceChargeList = await snapshot.get('utilities');
           if (serviceChargeList.isEmpty) {
             response.code = 200;
             response.body = 'empty list';
@@ -183,8 +181,7 @@ class ServiceChargeService {
           } else {
             serviceChargeList.forEach(
               (item) {
-                defaultList
-                    .add(ServiceCharge.fromJson(item as Map<String, dynamic>));
+                defaultList.add(Utility.fromJson(item as Map<String, dynamic>));
                 response.code = 200;
                 response.body = 'ok';
                 response.content = defaultList;

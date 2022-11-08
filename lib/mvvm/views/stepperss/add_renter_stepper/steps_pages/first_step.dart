@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 
 import '../../../../models/flat_model.dart';
 import '../../../../providers/selected_flat_provider.dart';
@@ -133,7 +134,8 @@ class RenterInfoStep extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      provider.memberNo.toString(),
+                      Formatter.toBn(
+                          value: provider.memberNo, includeSymbol: false),
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     IconButton(

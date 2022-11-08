@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
-import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/providers/current_home.dart';
-import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
-import 'package:sweet_home/mvvm/services/flat_services.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
-import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 
 Future<void> showElectricityUnitDialog(
     {required BuildContext context, required UnitType unitType}) async {
   GlobalKey<FormState>? formKey = GlobalKey();
   TextEditingController unitController = TextEditingController();
-  Flat? flat = context.read<SelectedFlatProvider>().selectedFlat;
-  String homeId = context.read<CurrentHomeProvider>().currentHome!.homeId;
+  Flat? flat = context.read<FlatViewModel>().userFlat;
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
-      final viewModel = context.read<RenterViewModel>();
+      // final viewModel = context.read<RenterViewModel>();
+      final flatViewModel = context.watch<FlatViewModel>();
       return AlertDialog(
         iconColor: Colors.red,
         icon: const Icon(
@@ -81,22 +77,37 @@ Future<void> showElectricityUnitDialog(
             ),
             onPressed: () async {
               if (formKey.currentState!.validate()) {
-                viewModel.setMeterReading = double.parse(unitController.text);
+                flatViewModel.setMeterReading =
+                    double.parse(unitController.text);
 
-                Response res = await FlatService().updateFlat(
-                  homeId: homeId,
-                  flatName: flat!.flatName,
-                  fieldName: unitType == UnitType.present
-                      ? 'currentMeterReading'
-                      : 'previousMeterReading',
-                  newValue: viewModel.meterReading,
-                  updateTime: DateTime.now(),
-                );
-                if (res.code == 200) {
-                  // ignore: use_build_context_synchronously
-                  // context.read<RenterViewModel>().setCurrentReading =
-                  //     providerRead.meterReading ?? 0;
-                }
+                flatViewModel.updateField(
+                    fieldName: unitType == UnitType.present
+                        ? 'presentMeterReading'
+                        : 'previousMeterReading',
+                    newValue: flatViewModel.meterReading,
+                    updateTime: DateTime.now());
+
+                // viewModel.setMeterReading = double.parse(unitController.text);
+
+                // flatViewModel.updateField(
+                //     fieldName: unitType == UnitType.present
+                //         ? 'currentMeterReading'
+                //         : 'previousMeterReading',
+                //     newValue: viewModel.meterReading);
+                // Response res = await FlatService().updateFlat(
+                //   homeId: homeId,
+                //   flatName: flat!.flatName,
+                //   fieldName: unitType == UnitType.present
+                //       ? 'currentMeterReading'
+                //       : 'previousMeterReading',
+                //   newValue: flatViewModel.meterReading,
+                //   updateTime: DateTime.now(),
+                // );
+                // if (res.code == 200) {
+                //   // ignore: use_build_context_synchronously
+                //   // context.read<RenterViewModel>().setCurrentReading =
+                //   //     providerRead.meterReading ?? 0;
+                // }
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
               }

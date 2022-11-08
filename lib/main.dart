@@ -52,22 +52,24 @@ class MyApp extends StatelessWidget {
                   selectedFlatProvider: selectedFlat,
                 ),
             create: ((context) => FlatListViewModel())),
-
-        ChangeNotifierProxyProvider2<SelectedFlatProvider, CurrentHomeProvider,
-            FlatViewModel>(
-          update: (context, flatProvider, homeProvider, viewModel) {
+        ChangeNotifierProxyProvider<CurrentHomeProvider,
+            HomeServiceChargeListViewModel>(
+          update: (context, currentHomeProvider, viewModel) =>
+              HomeServiceChargeListViewModel(
+                  currentHomeProvider: currentHomeProvider),
+          create: (context) => HomeServiceChargeListViewModel(),
+        ),
+        ChangeNotifierProxyProvider3<SelectedFlatProvider, CurrentHomeProvider,
+            HomeServiceChargeListViewModel, FlatViewModel>(
+          update: (context, flatProvider, homeProvider, serviceChargeViewModel,
+              viewModel) {
             return FlatViewModel(
                 selectedFlat: flatProvider.selectedFlat,
-                currentHomeId: homeProvider.currentHome?.homeId);
+                currentHomeProvider: homeProvider,
+                homeServiceChargeListViewModel: serviceChargeViewModel);
           },
           create: (context) {
-            return FlatViewModel(
-              currentHomeId:
-                  context.read<CurrentHomeProvider>().currentHome?.homeId,
-              selectedFlat:
-                  Provider.of<SelectedFlatProvider>(context, listen: false)
-                      .selectedFlat,
-            );
+            return FlatViewModel();
           },
         ),
 
@@ -76,15 +78,6 @@ class MyApp extends StatelessWidget {
               (context, currentHomeProvider, HomeListViewModel? viewModel) =>
                   HomeListViewModel(currentHomeProvider: currentHomeProvider),
           create: (context) => HomeListViewModel(),
-        ),
-
-        ChangeNotifierProxyProvider2<CurrentHomeProvider, FlatListViewModel,
-            HomeServiceChargeListViewModel>(
-          update: (context, currentHomeProvider, FlatListViewModel? flatListVM,
-                  HomeServiceChargeListViewModel? viewModel) =>
-              HomeServiceChargeListViewModel(
-                  homeProvider: currentHomeProvider, flatListVM: flatListVM),
-          create: (context) => HomeServiceChargeListViewModel(),
         ),
 
         ChangeNotifierProxyProvider<SelectedFlatProvider, NewRenterViewModel>(
@@ -113,12 +106,12 @@ class MyApp extends StatelessWidget {
         //         ),
         //     create: ((context) => UserTransactionListViewModel())),
 
-        ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatProvider,
+        ChangeNotifierProxyProvider2<CurrentHomeProvider, FlatViewModel,
             RenterViewModel>(
-          update: (context, currentHome, currentFlat, prevRenterOpeningVM) =>
+          update: (context, currentHome, flatViewModel, prevRenterOpeningVM) =>
               RenterViewModel(
                   currentHomeProvider: currentHome,
-                  selectedFlatProvider: currentFlat),
+                  flatViewModel: flatViewModel),
           create: (context) => RenterViewModel(),
         ),
 

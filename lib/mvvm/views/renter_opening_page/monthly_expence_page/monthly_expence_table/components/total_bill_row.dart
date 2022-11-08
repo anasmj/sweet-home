@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
-import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 
 class TotaBilllRow extends StatelessWidget {
   const TotaBilllRow({
@@ -21,8 +21,7 @@ class TotaBilllRow extends StatelessWidget {
           style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
         ),
         Text(
-          Formatter.toBn(
-              value: context.watch<RenterViewModel>().totalBill ?? 0.0),
+          Formatter.toBn(value: context.watch<FlatViewModel>().total ?? 0.0),
           style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
         ),
       ],

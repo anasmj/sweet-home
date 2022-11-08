@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/electricity_table/bill_loading_indicator.dart';
+
+import '../components/loading_indicator.dart';
 
 // ignore: must_be_immutable
 class ElectricityTable extends StatelessWidget {
@@ -28,16 +29,6 @@ class ElectricityTable extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('বর্তমান ইউনিট'),
-              Text(viewModel.userFlat?.presentMeterReading != null
-                  ? Formatter.toBn(
-                      value: flat.presentMeterReading, includeSymbol: false)
-                  : '-'),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
               const Text('পূর্বের ইউনিট'),
               Text(
                 viewModel.userFlat?.previousMeterReading != null
@@ -46,6 +37,16 @@ class ElectricityTable extends StatelessWidget {
                         includeSymbol: false)
                     : '-',
               ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('বর্তমান ইউনিট'),
+              Text(viewModel.userFlat?.presentMeterReading != null
+                  ? Formatter.toBn(
+                      value: flat.presentMeterReading, includeSymbol: false)
+                  : '-'),
             ],
           ),
           Row(

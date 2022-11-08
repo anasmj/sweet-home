@@ -7,7 +7,6 @@ import 'package:sweet_home/mvvm/views/app_widgets.dart';
 import 'package:sweet_home/mvvm/views/error_pages/error_page.dart';
 import 'package:sweet_home/mvvm/views/flats/components/flat_container.dart';
 import 'package:sweet_home/mvvm/views/waiting_pages/searching_indicator.dart';
-
 import '../empty_pages/empty_flat_page.dart';
 
 class UserFlats extends StatelessWidget {

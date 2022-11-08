@@ -5,6 +5,7 @@ import 'package:sweet_home/mvvm/models/transaction.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
 import 'package:sweet_home/mvvm/services/flat_services.dart';
+import 'package:sweet_home/mvvm/views/empty_pages/empty_tarnsaction.dart';
 import 'package:sweet_home/mvvm/views/error_pages/error_page.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/transactoin_list_page/components/transaction_card.dart';
 
@@ -32,6 +33,7 @@ class RenterTransactions extends StatelessWidget {
           List<RenterTransaction>? transactionList = flat?.renter?.transactions;
           if (transactionList == null) {
           } else {
+            if (transactionList.isEmpty) return const EmptyTransaction();
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: transactionList.length,

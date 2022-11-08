@@ -113,7 +113,7 @@ class HomeServices {
     double? meterReading,
     double? gasBill,
     double? waterBill,
-    List<ServiceCharge>? seviceCharges,
+    List<Utility>? utilities,
   }) async {
     //adding new home to the collection
     CollectionReference users = _db.collection('users');
@@ -162,7 +162,7 @@ class HomeServices {
       location: location,
       gasBill: gasBill,
       waterBill: waterBill,
-      serviceCharges: seviceCharges ?? [],
+      utilities: utilities ?? [],
     );
     final json = data.toJson();
 

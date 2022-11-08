@@ -33,7 +33,7 @@ class ServiceChargeList extends StatelessWidget {
                   Navigator.of(context).pop();
                   Response? res = await provider.updateHomeServiceCharge(
                       oldObj: item,
-                      newObj: ServiceCharge(
+                      newObj: Utility(
                           purpose: item.purpose,
                           amount: double.parse(
                               provider.chargeEditingController.text)));
