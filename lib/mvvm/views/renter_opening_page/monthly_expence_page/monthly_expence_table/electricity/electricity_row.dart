@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
-import 'package:sweet_home/mvvm/utils/formatter.dart';
-import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/components/loading_indicator.dart';
+
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/components/table_widgets.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/electricity/alert_icon.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/components/purpose_title.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 
-class ElectricityRow extends StatelessWidget {
-  const ElectricityRow({
+class ElectricityBillRow extends StatelessWidget {
+  ElectricityBillRow({
     super.key,
+    required this.showAlert,
+    required this.prevReading,
+    required this.presentReading,
+    required this.bill,
+    // required this.isLoading,
     required double fontSize,
   }) : _fontSize = fontSize;
 
+  final bool showAlert;
+  final double? prevReading;
+  // final bool isLoading;
+  final double? presentReading;
+  String bill;
+
   final double _fontSize;
 
-  //TODO: should update in real time
   @override
   Widget build(BuildContext context) {
-    FlatViewModel viewModel = Provider.of<FlatViewModel>(context);
-    double? prevReading = viewModel.userFlat?.previousMeterReading;
-    double? presentReading = viewModel.selectedFlat?.presentMeterReading;
-    bool showAlert = prevReading == null || presentReading == null;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -39,13 +42,10 @@ class ElectricityRow extends StatelessWidget {
                       : const SizedBox.shrink()
               : const SizedBox.shrink(),
         ),
-        viewModel.isLoading
-            ? billLoadingIndocator
-            : Text(
-                Formatter.toBn(
-                    value: context.read<FlatViewModel>().electricBill ?? 0),
-                style: TextStyle(fontSize: _fontSize),
-              ),
+        Text(
+          bill,
+          style: TextStyle(fontSize: _fontSize),
+        ),
       ],
     );
   }

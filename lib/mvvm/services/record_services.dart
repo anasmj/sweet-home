@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/models/monthly_record.dart';
-
-import '../models/flat_model.dart';
 import '../models/response.dart';
 
 class RecordService {
@@ -34,15 +33,15 @@ class RecordService {
     required String homeId,
     required String flatName,
     required String fieldName,
-    required dynamic newReading,
-    required DateTime recordDate,
+    required dynamic value,
+    required DateTime datetime,
   }) async {
-    String recordDocId = Formatter().makeId(date: recordDate);
+    String recordDocId = Formatter().makeId(date: datetime);
     final recordCollectionRef =
         await getRecordCollectionRef(homeId: homeId, flatName: flatName);
     await recordCollectionRef
         .doc(recordDocId)
-        .update({fieldName: newReading}).whenComplete(() {
+        .update({fieldName: value}).whenComplete(() {
       response.code = 200;
       response.body = 'updated';
     }).catchError((e) {
@@ -54,18 +53,18 @@ class RecordService {
 
   //RECORD IS CREATED FOR EACH FLAT DURING CREATION OF HOME
   //READ A RECORD
-  Future<Response> readMonthlyRecord(
-      {required String homeId,
-      required String flatName,
-      required String idMonth}) async {
-    late MonthlyRecord monthlyRecord;
+  Future<Response> readMonthlyRecord({
+    required String homeId,
+    required String flatName,
+    required String idMonth,
+  }) async {
+    late Record monthlyRecord;
     final recordCollecRef =
         await getRecordCollectionRef(homeId: homeId, flatName: flatName);
     DocumentReference monthyRecordDocRef = recordCollecRef.doc(idMonth);
     await monthyRecordDocRef.get().then((data) {
       if (data.exists) {
-        monthlyRecord =
-            MonthlyRecord.fromJson(data.data() as Map<String, dynamic>);
+        monthlyRecord = Record.fromJson(data.data() as Map<String, dynamic>);
         response.code = 200;
         response.body = 'record found';
         response.monthlyRecord = monthlyRecord;
@@ -81,36 +80,77 @@ class RecordService {
     // print(docQuerySnap.data());
   }
 
-  //CREATE RECORD INTO FLAT IF NOT EXISTS
-  Future<Response> createMonthlyRecord({
+  Future<RecordResponse> checIfRecordExists({
     required String homeId,
-    required Flat flat,
+    required String flatName,
+    required String idMonth,
+  }) async {
+    print(idMonth);
+    final recordCollecRef =
+        await getRecordCollectionRef(homeId: homeId, flatName: flatName);
+    DocumentReference monthyRecordDocRef = recordCollecRef.doc(idMonth);
+    RecordResponse recordResponse = RecordResponse.error;
+    await monthyRecordDocRef.get().then((data) {
+      if (data.exists) {
+        recordResponse = RecordResponse.exists;
+      } else {
+        recordResponse = RecordResponse.notExists;
+      }
+    }).catchError((e) {
+      recordResponse = RecordResponse.error;
+    });
+    return recordResponse;
+  }
+
+  //CREATE RECORD INTO FLAT IF NOT EXISTS
+  Future<bool> createMonthlyRecord({
+    required String homeId,
+    required String flatId,
+    required Record record,
+    required String monthID,
     required DateTime issueDate,
-    required double meterReading,
-    required double renterPayable,
+    // required double meterReading,
+    // required double renterPayable,
     // Renter? renter,
   }) async {
+    bool isSuccess = false;
     CollectionReference recordCollectionRef =
-        await getRecordCollectionRef(homeId: homeId, flatName: flat.flatName);
-    String customId = Formatter().makeId(date: issueDate);
-    recordCollectionRef.doc(customId).get().then((docSnapshot) {
-      // if (!docSnapshot.exists) {}
-      recordCollectionRef.doc(customId).set(MonthlyRecord(
-            issueDate: issueDate,
-            rentAmount: flat.flatRentAmount,
-            meterReading: meterReading,
-            renterPayable: renterPayable,
-            // usedElectricityUnit: 200,
-            gasBill: flat.flatGasBill,
-            waterBill: flat.flatWaterBill,
-            renter: flat.renter,
-          ).toJson());
-      response.code = 200;
-      response.body = 'Record created Successfully';
-    }).catchError((e) {
-      response.code = 300;
-      response.body = e.toString();
+        await getRecordCollectionRef(homeId: homeId, flatName: flatId);
+
+    //create record if not exists
+    recordCollectionRef.limit(1).get().then((snapshot) {
+      if (snapshot.size == 0) {
+        //create new collection
+
+        recordCollectionRef.doc(monthID).set(record.toJson()).whenComplete(() {
+          isSuccess = true;
+        }).catchError((e) {
+          isSuccess = false;
+        });
+      } else {
+        //collection already exists
+      }
     });
-    return response;
+
+    // recordCollectionRef.doc(dateId).get().then((docSnapshot) {
+    //   // if (!docSnapshot.exists) {}
+    //   recordCollectionRef.doc(dateId).set(record.toJson());
+    //   recordCollectionRef.doc(dateId).set(MonthlyRecord(
+    //         issueDate: issueDate,
+    //         rentAmount: flat.flatRentAmount,
+    //         meterReading: meterReading,
+    //         renterPayable: renterPayable,
+    //         // usedElectricityUnit: 200,
+    //         gasBill: flat.flatGasBill,
+    //         waterBill: flat.flatWaterBill,
+    //         renter: flat.renter,
+    //       ).toJson());
+    //   response.code = 200;
+    //   response.body = 'Record created Successfully';
+    // }).catchError((e) {
+    //   response.code = 300;
+    //   response.body = e.toString();
+    // });
+    return isSuccess;
   }
 }

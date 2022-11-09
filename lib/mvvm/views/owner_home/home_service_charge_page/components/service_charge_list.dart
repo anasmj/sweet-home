@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/models/service_charges.dart';
+import 'package:sweet_home/mvvm/models/utility.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/form_validators.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';

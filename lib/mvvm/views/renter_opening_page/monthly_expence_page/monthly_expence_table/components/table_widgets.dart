@@ -19,3 +19,10 @@ Widget getPurposeTitle(
         widget ?? const SizedBox.shrink()
       ],
     );
+const Widget billLoadingIndocator = SizedBox(
+  width: 10,
+  height: 10,
+  child: CircularProgressIndicator(
+    strokeWidth: 2,
+  ),
+);

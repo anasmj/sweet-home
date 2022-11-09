@@ -5,7 +5,7 @@ class Response {
   int? code;
   String? body;
   AppUser? user;
-  MonthlyRecord? monthlyRecord;
+  Record? monthlyRecord;
   dynamic content;
   Response({this.code, this.body, this.user, this.monthlyRecord});
 }

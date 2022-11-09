@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/models/service_charges.dart';
+import 'package:sweet_home/mvvm/models/utility.dart';
 import '../models/flat_model.dart';
 import '../utils/formatter.dart';
 

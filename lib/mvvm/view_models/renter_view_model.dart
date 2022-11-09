@@ -3,6 +3,7 @@ import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/transaction.dart';
 import 'package:sweet_home/mvvm/services/flat_services.dart';
+import 'package:sweet_home/mvvm/services/record_services.dart';
 import 'package:sweet_home/mvvm/services/renter_service.dart';
 import 'package:sweet_home/mvvm/services/transaction_service.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
@@ -58,6 +59,7 @@ class RenterViewModel extends ChangeNotifier {
     //! expences will be added to monthlyDue
     Response transferResponse,
         monthlyDueUpdateResponse,
+        updateRecordResponse,
         renterDueUpdateResponse;
     double transactionAmount = double.parse(paymentController.text);
 
@@ -102,6 +104,18 @@ class RenterViewModel extends ChangeNotifier {
       if (monthlyDueUpdateResponse.code != 200) {
         response.code = 320;
         response.body = 'monthly due update failed';
+        return;
+      }
+      //*UPDATE CURRENT MONTH RECORD
+      updateRecordResponse = await RecordService().updateRecord(
+          homeId: homeId,
+          flatName: flat.flatName,
+          fieldName: 'monthlyDue',
+          value: newMonthlyDue,
+          datetime: DateTime.now());
+      if (updateRecordResponse.code != 200) {
+        response.code = 320;
+        response.body = 'record update failed';
         return;
       }
       //*UPDATE RENTER DUE

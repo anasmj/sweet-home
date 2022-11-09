@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
-import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
-
-import '../components/loading_indicator.dart';
 
 // ignore: must_be_immutable
 class ElectricityTable extends StatelessWidget {
-  const ElectricityTable({super.key});
+  ElectricityTable({
+    super.key,
+    this.presentReading,
+    this.prevReading,
+    this.usedUnit,
+    this.bill,
+    required this.unitPrice,
+  });
+  double? prevReading, presentReading, usedUnit, bill;
+  double unitPrice;
 
   @override
   Widget build(BuildContext context) {
-    FlatViewModel viewModel = context.watch<FlatViewModel>();
-
-    if (viewModel.isLoading) {
-      return billLoadingIndocator;
-    }
-    if (viewModel.userFlat == null) {
-      return const Text('❌');
-    }
-
-    Flat flat = viewModel.userFlat!;
     return SizedBox(
       width: 200,
       child: Column(
@@ -30,42 +24,38 @@ class ElectricityTable extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('পূর্বের ইউনিট'),
-              Text(
-                viewModel.userFlat?.previousMeterReading != null
-                    ? Formatter.toBn(
-                        value: flat.previousMeterReading ?? 0.00,
-                        includeSymbol: false)
-                    : '-',
-              ),
+              Text(Formatter.toBn(
+                  value: prevReading ?? 0.00, includeSymbol: false)),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('বর্তমান ইউনিট'),
-              Text(viewModel.userFlat?.presentMeterReading != null
-                  ? Formatter.toBn(
-                      value: flat.presentMeterReading, includeSymbol: false)
-                  : '-'),
+              Text(
+                Formatter.toBn(
+                    value: presentReading ?? 0.00, includeSymbol: false),
+              ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text("ব্যাবহৃত ইউনিট"),
-              Text(viewModel.usedUnit != null
-                  ? Formatter.toBn(
-                      value: viewModel.usedUnit, includeSymbol: false)
-                  : '-'),
+              Text(
+                Formatter.toBn(value: usedUnit ?? 0.00, includeSymbol: false),
+              ),
             ],
           ),
-          viewModel.usedUnit != null
+          usedUnit != null
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        '${Formatter.toBn(value: viewModel.usedUnit, includeSymbol: false)} x ${Formatter.toBn(value: viewModel.unitPrice, includeSymbol: false)} '),
-                    Text(Formatter.toBn(value: viewModel.electricBill)),
+                        '${Formatter.toBn(value: usedUnit, includeSymbol: false)} x ${Formatter.toBn(value: unitPrice, includeSymbol: false)} '),
+                    Text(
+                      Formatter.toBn(value: bill ?? 0.00, includeSymbol: false),
+                    ),
                   ],
                 )
               : const SizedBox.shrink(),

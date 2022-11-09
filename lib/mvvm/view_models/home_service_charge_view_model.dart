@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/models/service_charges.dart';
+import 'package:sweet_home/mvvm/models/utility.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/services/utility_services.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';

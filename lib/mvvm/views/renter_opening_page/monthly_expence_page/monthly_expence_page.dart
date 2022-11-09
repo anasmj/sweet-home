@@ -16,13 +16,14 @@ class MonthlyExpence extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         children: [
-          //BUTTON
           Row(
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
                 child: Text(
-                  Formatter().currentMonthYear(),
+                  // Formatter().currentMonthYear(),
+                  Formatter().previousMonthYear(),
+
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),

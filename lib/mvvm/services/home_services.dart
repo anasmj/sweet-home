@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sweet_home/mvvm/models/monthly_record.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import '../models/flat_model.dart';
 import '../models/home_model.dart';
-import '../models/service_charges.dart';
+import '../models/utility.dart';
 
 class HomeServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -134,25 +136,14 @@ class HomeServices {
             ),
           ),
     );
-
-    //CREATING MONTHLY RECORD FOR PREVIOUS MONTH FOR EACH FLAT
-    // String previousMonthlRecordId = Formatter().makeId(date: lastMonthDate);
-    // String currentMonthlRecordId = CustomFormatter().makeId(date: currentDate);
-    // ignore: avoid_function_literals_in_foreach_calls
-    // flatNames.forEach((flat) {
-    //   //creating record for last month
-    //   CollectionReference recordCollectionRef =
-    //       flatCollectionRef.doc(flat).collection('records');
-    //   recordCollectionRef.doc(previousMonthlRecordId).set(MonthlyRecord(
-    //         issueDate: lastMonthDate,
-    //         rentAmount: rentAmount,
-    //         renterPayable: 0,
-    //         meterReading: null,
-    //         // usedElectricityUnit: 0.0,
-    //         gasBill: gasBill,
-    //         waterBill: waterBill,
-    //       ).toJson());
-    // });
+    //create monthly record
+    // for (var flat in flatNames) {
+    //   flatCollectionRef
+    //       .doc(flat)
+    //       .collection('records')
+    //       .doc(Formatter().makeId(date: DateTime.now()))
+    //       .set(MonthlyRecord().toJson());
+    // }
     final data = Home(
       homeId: homeDocRef.id, // assign auto generated doc id to home id
       homeName: homeName,

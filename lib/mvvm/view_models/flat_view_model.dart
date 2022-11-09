@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
+import 'package:sweet_home/mvvm/models/monthly_record.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/models/service_charges.dart';
+import 'package:sweet_home/mvvm/models/utility.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/services/flat_services.dart';
+import 'package:sweet_home/mvvm/services/record_services.dart';
+import 'package:sweet_home/mvvm/services/utility_services.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
 
 class FlatViewModel extends ChangeNotifier {
@@ -34,6 +38,7 @@ class FlatViewModel extends ChangeNotifier {
 
   TextEditingController previousMeterController = TextEditingController();
   TextEditingController currentMeterController = TextEditingController();
+  List<Utility> utilityList = [];
 
   GlobalKey<FormState> meterReadingKey = GlobalKey();
   TextEditingController displayTextController = TextEditingController();
@@ -42,6 +47,9 @@ class FlatViewModel extends ChangeNotifier {
   double _electricityUnitPrice = 1; //TODO: MOVE IT TO HOME PROPERTY
   Status _status = Status.empty;
   Flat? get userFlat => _userFlat;
+
+  DateTime prevMonthDate = DateTime(
+      DateTime.now().year, DateTime.now().month - 1, DateTime.now().day);
 
   bool get isLoading => _isLoading;
   void setLoading(bool loading) {
@@ -122,10 +130,9 @@ class FlatViewModel extends ChangeNotifier {
     double sum = 0;
 
     if (!homeServiceChargeListViewModel!.isLoading) {
-      List<Utility>? serviceChargeList =
-          homeServiceChargeListViewModel?.serviceChargeList;
-      if (serviceChargeList!.isNotEmpty) {
-        for (var utility in serviceChargeList) {
+      utilityList = homeServiceChargeListViewModel!.serviceChargeList;
+      if (utilityList.isNotEmpty) {
+        for (var utility in utilityList) {
           sum += utility.amount;
         }
       }
@@ -146,12 +153,11 @@ class FlatViewModel extends ChangeNotifier {
   void setElectricBill(Flat flat) {
     if (flat.presentMeterReading != null && flat.previousMeterReading != null) {
       _electricBill =
-          flat.presentMeterReading! - flat.previousMeterReading! * 1;
-      notifyListeners();
+          flat.presentMeterReading! - flat.previousMeterReading! * unitPrice;
     }
   }
 
-  Future<bool> updateField({
+  Future<bool> updateFlatField({
     required String fieldName,
     required dynamic newValue,
     DateTime? updateTime,
@@ -182,26 +188,60 @@ class FlatViewModel extends ChangeNotifier {
     setLoading(false);
     return status;
   }
-
-  Future<void> updateFlat() async {
-    // setLoading(true);
-    String? homeId = currentHomeProvider?.currentHome?.homeId;
-    if (homeId == null || _userFlat == null) return;
-    Response res = await FlatService()
-        .getSingleFlat(homeId: homeId, flatName: _userFlat!.flatName);
-    if (res.content is Flat) {
-      setUserFlat(res.content);
-    } else {
-      setStatus(Status.error);
-    }
-    // setLoading(false);
-  }
+  //update is made everytime a field is changed
+  // Future<void> updateFlat() async {
+  //   setLoading(true);
+  //   String? homeId = currentHomeProvider?.currentHome?.homeId;
+  //   if (homeId == null || _userFlat == null) return;
+  //   Response res = await FlatService()
+  //       .getSingleFlat(homeId: homeId, flatName: _userFlat!.flatName);
+  //   if (res.content is Flat) {
+  //     setUserFlat(res.content);
+  //   } else {
+  //     setStatus(Status.error);
+  //   }
+  //   setLoading(false);
+  // }
 
   Future<bool> confirmMonthlyExpence() async {
     if (total == 0) return false;
 
-    bool status = await updateField(
+    bool isFlatUpdated = await updateFlatField(
         fieldName: 'monthlyDue', newValue: _total, updateTime: DateTime.now());
-    return status;
+    // create monthly record
+
+    bool isRecordCreated = await RecordService().createMonthlyRecord(
+      monthID: Formatter().makeId(date: prevMonthDate),
+      homeId: currentHomeProvider!.currentHome!.homeId,
+      flatId: _userFlat!.flatName,
+      issueDate: DateTime.now(),
+      record: Record(
+        flatRent: _userFlat!.flatRentAmount,
+        renterPhone: _userFlat!.renter!.phoneNo,
+        renterPhone2: _userFlat!.renter!.alternatePhoneNo ?? '',
+        gasBill: _userFlat!.flatGasBill,
+        waterBill: _userFlat!.flatWaterBill,
+        presentMeterReading: _userFlat!.presentMeterReading,
+        previousMeterReading: _userFlat!.previousMeterReading,
+        unitPrice: _electricityUnitPrice,
+        monthlyDue: monthlyDue ?? 0,
+        renterName: _userFlat!.renter!.renterName,
+        total: total,
+        grandTotal: _grandTotal,
+        utilities: utilityList,
+      ),
+    );
+    // return false;
+    return isFlatUpdated && isRecordCreated;
+  }
+
+  Future<RecordResponse> checkLastMonthRecord() async {
+    setLoading(true);
+    RecordResponse res = await RecordService().checIfRecordExists(
+        homeId: currentHomeProvider!.currentHome!.homeId,
+        flatName: _userFlat!.flatName,
+        idMonth: Formatter().makeId(date: prevMonthDate));
+    setLoading(false);
+    return res;
   }
 }

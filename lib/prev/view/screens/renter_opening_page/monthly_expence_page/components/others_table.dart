@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/mvvm/models/service_charges.dart';
+import 'package:sweet_home/mvvm/models/utility.dart';
 
 // ignore: must_be_immutable
 class OthersTable extends StatelessWidget {

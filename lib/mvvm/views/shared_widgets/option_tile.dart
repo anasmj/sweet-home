@@ -118,7 +118,7 @@ class OptionTile extends StatelessWidget {
                 //TODO: keyboard needs to be dissapeared
                 // FocusScope.of(context).unfocus();
 
-                await flatViewModel!.updateField(
+                await flatViewModel!.updateFlatField(
                   fieldName: getFirebaseFieldName(title: sheetTitle),
                   newValue: castToDbFieldValue(
                     value: flatViewModel!.displayTextController.text,

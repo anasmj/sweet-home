@@ -1,7 +1,7 @@
 // import 'package:rent_home/models/others_model.dart';
 // import 'flat_model.dart';
 
-import 'package:sweet_home/mvvm/models/service_charges.dart';
+import 'package:sweet_home/mvvm/models/utility.dart';
 
 class Home {
   String homeId;

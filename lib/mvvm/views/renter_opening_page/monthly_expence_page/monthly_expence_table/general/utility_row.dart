@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/components/purpose_title.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/components/table_widgets.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 
 // ignore: must_be_immutable

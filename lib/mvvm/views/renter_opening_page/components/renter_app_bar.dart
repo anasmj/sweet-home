@@ -27,9 +27,8 @@ class RenterAppBar extends StatelessWidget {
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           Flat? flat = snapshot.data as Flat;
-
           renterDue = flat.renter?.dueAmount ?? 0;
-          monthlyDue = flat.monthlyDue;
+          monthlyDue = flat.confirmDate != null ? 0 : flat.monthlyDue;
           if (flat.renter != null) {
             if (flat.renter!.transactions!.isNotEmpty) {
               lastTransactionTime =

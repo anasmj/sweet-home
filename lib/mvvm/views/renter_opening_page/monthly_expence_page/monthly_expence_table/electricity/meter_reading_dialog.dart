@@ -80,35 +80,13 @@ Future<void> showElectricityUnitDialog(
                 flatViewModel.setMeterReading =
                     double.parse(unitController.text);
 
-                flatViewModel.updateField(
+                flatViewModel.updateFlatField(
                     fieldName: unitType == UnitType.present
                         ? 'presentMeterReading'
                         : 'previousMeterReading',
                     newValue: flatViewModel.meterReading,
                     updateTime: DateTime.now());
 
-                // viewModel.setMeterReading = double.parse(unitController.text);
-
-                // flatViewModel.updateField(
-                //     fieldName: unitType == UnitType.present
-                //         ? 'currentMeterReading'
-                //         : 'previousMeterReading',
-                //     newValue: viewModel.meterReading);
-                // Response res = await FlatService().updateFlat(
-                //   homeId: homeId,
-                //   flatName: flat!.flatName,
-                //   fieldName: unitType == UnitType.present
-                //       ? 'currentMeterReading'
-                //       : 'previousMeterReading',
-                //   newValue: flatViewModel.meterReading,
-                //   updateTime: DateTime.now(),
-                // );
-                // if (res.code == 200) {
-                //   // ignore: use_build_context_synchronously
-                //   // context.read<RenterViewModel>().setCurrentReading =
-                //   //     providerRead.meterReading ?? 0;
-                // }
-                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
               }
             },

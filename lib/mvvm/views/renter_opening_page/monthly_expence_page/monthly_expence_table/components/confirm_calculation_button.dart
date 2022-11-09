@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/monthly_record.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 import 'dialogs.dart';
 
@@ -42,16 +43,6 @@ class ConfirmCalculationButton extends StatelessWidget {
                     }
                   }
                 }
-
-              // res = await RecordService().createMonthlyRecord(
-              //   homeId: homeId,
-              //   flat: flat,
-              //   issueDate: issueDate,
-              //   meterReading: flat.presentMeterReading!,
-              //   renterPayable: context.read<FlatViewModel>().total!,
-              // );
-              // if (res.code == 200) {}
-
               : null,
           child: flatViewModel.isLoading
               ? loadingWidget()
