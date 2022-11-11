@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
@@ -13,7 +12,7 @@ class DueRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double? dueAmount =
-        context.watch<FlatViewModel>().userFlat?.renter?.dueAmount;
+        context.watch<FlatViewModel>().userFlat?.renter?.renterDue;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,7 +44,7 @@ class RecievedRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('বুঝে পেলাম', style: style),
+        Text('পেয়েছি', style: style),
         Text(
           '23421',
           style: style,
@@ -97,7 +96,7 @@ class GrandTotalRow extends StatelessWidget {
           style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
         ),
         Text(
-          Formatter.toBn(value: context.watch<FlatViewModel>().total ?? 0),
+          Formatter.toBn(value: context.watch<FlatViewModel>().total),
           style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
         ),
       ],
@@ -123,7 +122,7 @@ class TotaBilllRow extends StatelessWidget {
           style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
         ),
         Text(
-          Formatter.toBn(value: context.watch<FlatViewModel>().total ?? 0.0),
+          Formatter.toBn(value: context.watch<FlatViewModel>().total),
           style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
         ),
       ],

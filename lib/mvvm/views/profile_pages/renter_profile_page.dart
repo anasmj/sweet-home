@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/services/renter_service.dart';
+import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 
 import '../../models/renter.dart';
 import '../../providers/current_home.dart';
@@ -104,14 +105,21 @@ class RenterProfile extends StatelessWidget {
             entryDateStamp(context),
             TextButton(
               onPressed: () async {
-                Response res = await RenterService()
-                    .deleteRenterFromFlat(homeId: homeId, flatId: flatName);
-                if (res.code != 200) {
+                bool? isConfirmed = await context
+                    .read<RenterViewModel>()
+                    .deleteRenterFromFlat();
+                if (isConfirmed == null) {
                   // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('দুঃখিত, একটু পরে আবার চেষ্টা করুন')));
                 } else {
-                  AppWidget.showToast('গ্রাহক মুছে ফেলা হয়েছে');
+                  if (!isConfirmed) {
+                    // ignore: use_build_context_synchronously
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('দুঃখিত, একটু পরে আবার চেষ্টা করুন')));
+                  } else {
+                    AppWidget.showToast('গ্রাহক মুছে ফেলা হয়েছে');
+                  }
                 }
               },
               child: const Text(

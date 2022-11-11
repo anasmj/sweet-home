@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sweet_home/mvvm/models/monthly_record.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/utils/formatter.dart';
 import '../models/flat_model.dart';
 import '../models/home_model.dart';
 import '../models/utility.dart';
@@ -43,35 +41,6 @@ class HomeServices {
     }).toList();
 
     return allHome;
-  }
-
-  //GET SINGLE HOME
-  // it doesnt update in real time
-  Stream<Home?> getHomeByIdStream({required String homeId}) async* {
-    Home? home;
-    DocumentReference currentUserDocRef =
-        _db.collection('users').doc(_auth.currentUser!.uid);
-    CollectionReference userHomeCollection =
-        currentUserDocRef.collection('homes');
-    DocumentSnapshot homeSnapshot = await userHomeCollection.doc(homeId).get();
-    if (homeSnapshot.exists) {
-      home = Home.fromJson(homeSnapshot.data() as Map<String, dynamic>);
-    }
-    yield home;
-  }
-
-  //another try to update real time
-
-  Future<Home?> getHomeById({required String homeId}) async {
-    DocumentReference currentUserDocRef =
-        _db.collection('users').doc(_auth.currentUser!.uid);
-    CollectionReference userHomeCollection =
-        currentUserDocRef.collection('homes');
-    DocumentSnapshot homeSnapshot = await userHomeCollection.doc(homeId).get();
-    if (homeSnapshot.exists) {
-      return Home.fromJson(homeSnapshot.data() as Map<String, dynamic>);
-    }
-    return null;
   }
 
   //DELETE HOME

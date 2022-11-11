@@ -57,6 +57,7 @@ class RenterViewModel extends ChangeNotifier {
   Future<void> addTransactionToRenter({required String homeId}) async {
     //! renterDue = renterDue + (monthlyDue-transactionAmount)
     //! expences will be added to monthlyDue
+    // ignore: unused_local_variable
     Response transferResponse,
         monthlyDueUpdateResponse,
         updateRecordResponse,
@@ -64,7 +65,7 @@ class RenterViewModel extends ChangeNotifier {
     double transactionAmount = double.parse(paymentController.text);
 
     double monthlyDue = flatViewModel!.userFlat!.monthlyDue;
-    double renterDue = flatViewModel?.userFlat?.renter?.dueAmount ?? 0;
+    double renterDue = flatViewModel?.userFlat?.renter?.renterDue ?? 0;
 
     double newMonthlyDue = monthlyDue - transactionAmount; //CAN BE NEGATIVE
     double newRenterDue = renterDue + newMonthlyDue;
@@ -160,5 +161,18 @@ class RenterViewModel extends ChangeNotifier {
       );
     }
     return response;
+  }
+
+  Future<bool?> deleteRenterFromFlat() async {
+    String? homeId = currentHomeProvider?.currentHome?.homeId;
+    String? flatName = flatViewModel?.userFlat?.flatName;
+
+    if (homeId == null || flatName == null) return false;
+    bool res = await FlatService()
+        .updateMultiple(homeId: homeId, flatName: flatName, map: {
+      'confirmDate': null,
+      'monthlyDue': 0,
+    });
+    return res;
   }
 }

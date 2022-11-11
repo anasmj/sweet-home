@@ -14,7 +14,7 @@ class Renter {
   String? union;
   String? subDistrict;
   String? district;
-  double dueAmount; //TODO: change it to: renterDue
+  double renterDue;
   RenterTransaction? renterTransaction;
 
   // double? advance;
@@ -37,7 +37,7 @@ class Renter {
     // this.advance,
     this.nIdNumber,
     this.transactions,
-    this.dueAmount = 0,
+    this.renterDue = 0,
     // this.renterTransaction,
   });
 
@@ -66,7 +66,7 @@ class Renter {
       subDistrict: json['subDistrict'] ?? '',
       district: json['district'] ?? '',
       nIdNumber: json['nIdNumber'],
-      dueAmount: json['dueAmount'] ?? 0.00,
+      renterDue: json['renterDue'] ?? 0.00,
       transactions: transactionList,
     );
     // renter.transactions = transactionList;
@@ -91,7 +91,7 @@ class Renter {
       'nIdNumber': nIdNumber,
       'transactions':
           renterTransaction != null ? [renterTransaction.toJson()] : [],
-      'dueAmount': dueAmount,
+      'renterDue': renterDue,
       // 'transaction': [renterTransaction.toJson()]
     };
   }

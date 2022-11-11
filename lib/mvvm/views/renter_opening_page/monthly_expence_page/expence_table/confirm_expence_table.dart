@@ -4,27 +4,23 @@ import 'package:sweet_home/mvvm/models/flat_model.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/components/confirm_calculation_button.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/electricity/electricity_table.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/electricity/electricity_row.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/utility_bill_table/utility_bill_table.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/expence_table/components/confirm_calculation_button.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/expence_table/electricity/electricity_table.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/expence_table/electricity/electricity_row.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/expence_table/utility_bill_table/utility_bill_table.dart';
 import 'components/table_rows.dart';
 import 'components/table_widgets.dart';
 import 'general/general_bill_rows.dart';
 import 'general/utility_row.dart';
 
 // ignore: must_be_immutable
-class MonthlyExpenceTable extends StatefulWidget {
-  const MonthlyExpenceTable({super.key});
+class ConfirmExpenceTable extends StatelessWidget {
+  ConfirmExpenceTable({super.key});
 
-  @override
-  State<MonthlyExpenceTable> createState() => _MonthlyExpenceTableState();
-}
-
-class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
   get home => null;
-  final double _fontSize = 16;
+
   bool canUpdate = true;
+
   Widget transactionDivider = Divider(
     thickness: 2,
     color: Colors.black.withOpacity(0.6),
@@ -65,7 +61,6 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
             bill: viewModel.isLoading
                 ? ''
                 : Formatter.toBn(value: viewModel.electricBill ?? 0),
-            fontSize: _fontSize,
           ),
 
           // ElectricityRow(
@@ -75,7 +70,7 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
           Padding(
             padding: const EdgeInsets.only(left: 40.0),
             child: viewModel.isLoading
-                ? billLoadingIndocator
+                ? tableCircularIndicator
                 : viewModel.userFlat == null
                     ? const Text('❌')
                     : ElectricityTable(
@@ -89,7 +84,10 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
           UtilityRow(viewModel: context.watch<FlatViewModel>()),
           Padding(
             padding: const EdgeInsets.only(left: 40.0),
-            child: UtilityTable(viewModel: utilityListViewModel),
+            child: utilityListViewModel.isLoading
+                ? tableCircularIndicator
+                : UtilityTable(
+                    utilityList: utilityListViewModel.serviceChargeList),
           ),
           transactionDivider,
           TotaBilllRow(textTheme: textTheme),
@@ -97,8 +95,8 @@ class _MonthlyExpenceTableState extends State<MonthlyExpenceTable> {
           DueRow(textTheme: textTheme),
           transactionDivider,
           GrandTotalRow(textTheme: textTheme),
-          const RecievedRow(),
-          const MonthlyDueRow(),
+          // const RecievedRow(),
+          // const MonthlyDueRow(),
           Visibility(
             visible: canUpdate,
             child: const Padding(

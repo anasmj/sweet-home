@@ -11,5 +11,3 @@ enum UnitType { previous, present }
 enum Bills { home, flat }
 
 enum ButtonState { normal, loading, updated }
-
-enum RecordResponse { exists, notExists, error }

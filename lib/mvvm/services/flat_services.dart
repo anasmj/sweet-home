@@ -161,6 +161,27 @@ class FlatService {
     return flatList;
   }
 
+  //update multiple field of a flat
+  Future<bool> updateMultiple({
+    required String homeId,
+    required String flatName,
+    required Map<String, dynamic> map,
+  }) async {
+    bool status = false;
+    CollectionReference flatCollecntionRef =
+        await getFlatsCollectionRef(homeId: homeId);
+    map.forEach((firebaseField, newValue) async {
+      await flatCollecntionRef
+          .doc(flatName)
+          .update({
+            firebaseField: newValue,
+          })
+          .whenComplete(() => status = true)
+          .catchError((e) => status = false);
+    });
+    return status;
+  }
+
   //update flat
   Future<Response> updateFlat({
     required String homeId,

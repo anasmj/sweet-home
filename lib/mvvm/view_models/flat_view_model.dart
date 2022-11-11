@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sweet_home/mvvm/models/flat_model.dart';
-import 'package:sweet_home/mvvm/models/monthly_record.dart';
+import 'package:sweet_home/mvvm/models/record.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/models/utility.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/services/flat_services.dart';
 import 'package:sweet_home/mvvm/services/record_services.dart';
-import 'package:sweet_home/mvvm/services/utility_services.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
@@ -85,22 +84,14 @@ class FlatViewModel extends ChangeNotifier {
     _electricityUnitPrice = price;
   }
 
-  double? get total => _total;
+  double get total => _total ?? 0;
   void setTotal() {
-    double? rent = _userFlat?.flatRentAmount;
-    double? gas = _userFlat?.flatGasBill;
-    double? water = _userFlat?.flatWaterBill;
-    double? electricBill = _electricBill;
-    double? utility = _utilityBill;
-    if (rent != null &&
-        gas != null &&
-        water != null &&
-        electricBill != null &&
-        utility != null) {
-      _total = rent + gas + water + electricBill + utility;
-    } else {
-      _total = null;
-    }
+    double rent = _userFlat?.flatRentAmount ?? 0;
+    double gas = _userFlat?.flatGasBill ?? 0;
+    double water = _userFlat?.flatWaterBill ?? 0;
+    double electricBill = _electricBill ?? 0;
+    double utility = _utilityBill ?? 0;
+    _total = rent + gas + water + electricBill + utility;
   }
 
   double? get grandTotal => _grandTotal;
@@ -108,7 +99,7 @@ class FlatViewModel extends ChangeNotifier {
     if (_total != null) {
       if (_userFlat != null) {
         if (userFlat!.renter != null) {
-          _grandTotal = _total! + _userFlat!.renter!.dueAmount;
+          _grandTotal = _total! + _userFlat!.renter!.renterDue;
         }
       }
     }
@@ -155,6 +146,12 @@ class FlatViewModel extends ChangeNotifier {
       _electricBill =
           flat.presentMeterReading! - flat.previousMeterReading! * unitPrice;
     }
+  }
+
+  Response? _response;
+  Response get response => _response ?? Response();
+  setResponse(Response res) {
+    _response = res;
   }
 
   Future<bool> updateFlatField({
@@ -216,7 +213,7 @@ class FlatViewModel extends ChangeNotifier {
       flatId: _userFlat!.flatName,
       issueDate: DateTime.now(),
       record: Record(
-        flatRent: _userFlat!.flatRentAmount,
+        rent: _userFlat!.flatRentAmount,
         renterPhone: _userFlat!.renter!.phoneNo,
         renterPhone2: _userFlat!.renter!.alternatePhoneNo ?? '',
         gasBill: _userFlat!.flatGasBill,
@@ -224,6 +221,7 @@ class FlatViewModel extends ChangeNotifier {
         presentMeterReading: _userFlat!.presentMeterReading,
         previousMeterReading: _userFlat!.previousMeterReading,
         unitPrice: _electricityUnitPrice,
+        electricBill: _electricBill,
         monthlyDue: monthlyDue ?? 0,
         renterName: _userFlat!.renter!.renterName,
         total: total,
@@ -235,13 +233,24 @@ class FlatViewModel extends ChangeNotifier {
     return isFlatUpdated && isRecordCreated;
   }
 
-  Future<RecordResponse> checkLastMonthRecord() async {
-    setLoading(true);
-    RecordResponse res = await RecordService().checIfRecordExists(
-        homeId: currentHomeProvider!.currentHome!.homeId,
-        flatName: _userFlat!.flatName,
-        idMonth: Formatter().makeId(date: prevMonthDate));
-    setLoading(false);
+  // Future<RecordResponse> checkLastMonthRecord() async {
+  //   setLoading(true);
+  //   RecordResponse res = await RecordService().checIfRecordExists(
+  //       homeId: currentHomeProvider!.currentHome!.homeId,
+  //       flatName: _userFlat!.flatName,
+  //       idMonth: Formatter().makeId(date: prevMonthDate));
+  //   setLoading(false);
+  //   return res;
+  // }
+  Future<Response> getLastMonthRecord() async {
+    Response res;
+    String? homeId = currentHomeProvider?.currentHome?.homeId;
+    String? flatName = _userFlat?.flatName;
+    String previousMonthRecordId = Formatter().makeId(
+        date: DateTime(
+            DateTime.now().year, DateTime.now().month - 1, DateTime.now().day));
+    res = await RecordService().fetchRecord(
+        homeId: homeId!, flatName: flatName!, idMonth: previousMonthRecordId);
     return res;
   }
 }

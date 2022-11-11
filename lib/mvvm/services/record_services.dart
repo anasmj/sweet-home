@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
-import 'package:sweet_home/mvvm/models/monthly_record.dart';
+import 'package:sweet_home/mvvm/models/record.dart';
 import '../models/response.dart';
 
 class RecordService {
@@ -80,26 +80,28 @@ class RecordService {
     // print(docQuerySnap.data());
   }
 
-  Future<RecordResponse> checIfRecordExists({
+  Future<Response> fetchRecord({
     required String homeId,
     required String flatName,
     required String idMonth,
   }) async {
-    print(idMonth);
     final recordCollecRef =
         await getRecordCollectionRef(homeId: homeId, flatName: flatName);
     DocumentReference monthyRecordDocRef = recordCollecRef.doc(idMonth);
-    RecordResponse recordResponse = RecordResponse.error;
-    await monthyRecordDocRef.get().then((data) {
-      if (data.exists) {
-        recordResponse = RecordResponse.exists;
+    await monthyRecordDocRef.get().then((snapshot) {
+      if (snapshot.exists) {
+        response.content =
+            Record.fromJson(snapshot.data() as Map<String, dynamic>);
+        response.code = 200;
       } else {
-        recordResponse = RecordResponse.notExists;
+        response.code = 201;
+        response.body = 'not exists';
       }
     }).catchError((e) {
-      recordResponse = RecordResponse.error;
+      response.code = 301;
+      response.body = e.toString();
     });
-    return recordResponse;
+    return response;
   }
 
   //CREATE RECORD INTO FLAT IF NOT EXISTS

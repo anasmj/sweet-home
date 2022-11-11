@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
-import 'components/bottom_banner.dart';
-import 'monthly_expence_table/monthly_expence_table.dart';
 
 // ignore: must_be_immutable
 class MonthlyExpence extends StatelessWidget {
-  const MonthlyExpence({
+  MonthlyExpence({
     Key? key,
+    required this.table,
   }) : super(key: key);
+  Widget table;
 
   @override
   Widget build(BuildContext context) {
     TextStyle colTitleText = Theme.of(context).textTheme.titleLarge!;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
@@ -64,12 +65,12 @@ class MonthlyExpence extends StatelessWidget {
           Expanded(
             child: Stack(
               alignment: Alignment.bottomCenter,
-              children: const [
-                MonthlyExpenceTable(),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: BottomBanner(),
-                ),
+              children: [
+                table,
+                // const Padding(
+                //   padding: EdgeInsets.only(bottom: 20),
+                //   child: BottomBanner(),
+                // ),
               ],
             ),
           ),

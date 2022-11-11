@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/components/table_widgets.dart';
-import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/monthly_expence_table/electricity/alert_icon.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/expence_table/components/table_widgets.dart';
+import 'package:sweet_home/mvvm/views/renter_opening_page/monthly_expence_page/expence_table/electricity/alert_icon.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 
+// ignore: must_be_immutable
 class ElectricityBillRow extends StatelessWidget {
   ElectricityBillRow({
     super.key,
@@ -13,16 +14,14 @@ class ElectricityBillRow extends StatelessWidget {
     required this.presentReading,
     required this.bill,
     // required this.isLoading,
-    required double fontSize,
-  }) : _fontSize = fontSize;
+  });
 
   final bool showAlert;
   final double? prevReading;
   // final bool isLoading;
   final double? presentReading;
   String bill;
-
-  final double _fontSize;
+  final double _fontSize = 16;
 
   @override
   Widget build(BuildContext context) {

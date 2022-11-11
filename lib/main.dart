@@ -22,6 +22,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SettingPrefence.init();
+
   runApp(
     const MyApp(),
   );

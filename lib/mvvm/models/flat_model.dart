@@ -43,8 +43,9 @@ class Flat {
       flatRentAmount: json['rentAmount'] ?? 0.00,
       flatGasBill: json['gasBill'] ?? 0.00,
       flatWaterBill: json['waterBill'] ?? 0.00,
-      monthlyDue: json['monthlyDue'],
-      confirmDate: DateTime.tryParse(json['confirmDate'].toString()),
+      confirmDate: json['confirmDate'] != null
+          ? DateTime.parse(json['confirmDate'])
+          : null,
       presentMeterReading: json['presentMeterReading'],
       presentMeterReadingUpdateTime:
           json['presentMeterReadingUpdateTime'] != null
@@ -57,6 +58,7 @@ class Flat {
           json['previousMeterReadingUpdateTime'] != null
               ? DateTime.parse(json['previousMeterReadingUpdateTime'])
               : null,
+      monthlyDue: json['monthlyDue'],
     );
   }
 

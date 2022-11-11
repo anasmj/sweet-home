@@ -1,13 +1,13 @@
 import 'package:sweet_home/mvvm/models/utility.dart';
 
-import 'renter.dart';
-
 //!SUPPORTING FIREBASE
 class Record {
-  double gasBill, monthlyDue, waterBill;
+  double gasBill, monthlyDue, waterBill, rent;
+
   double? previousMeterReading,
       presentMeterReading,
       flatRent,
+      electricBill,
       unitPrice,
       total,
       grandTotal;
@@ -18,7 +18,8 @@ class Record {
   List<Utility>? utilities;
 
   Record(
-      {this.renterName = '',
+      {required this.rent,
+      this.renterName = '',
       this.renterPhone = '',
       this.renterPhone2 = '',
       this.flatRent = 0.00,
@@ -31,29 +32,42 @@ class Record {
       this.monthlyDue = 0.00,
       this.total,
       this.grandTotal,
+      this.electricBill,
       thi});
 
-  static fromJson(Map<String, dynamic> json) {
-    return Record(
+  static Record fromJson(Map<String, dynamic> json) {
+    Record record;
+    List<Utility> utilies = [];
+    final utilityMapList = json['utilities'];
+    utilityMapList.forEach((item) {
+      Utility utility = Utility.fromJson(item as Map<String, dynamic>);
+      utilies.add(utility);
+    });
+
+    // Utility.fromJson(json['utilities']);
+    record = Record(
+      rent: json['rent'],
       renterName: json['renterName'] ?? '',
       renterPhone: json['renterPhone'],
       renterPhone2: json['renterPhone2'],
       // renter:
-      //     Renter.fromJson(json['renter']), //TODO: saving name should be enough
+      //     Renter.fromJson(json['renter']),
       flatRent: json['flatRent'],
       gasBill: json['gasBill'],
       waterBill: json['waterBill'],
       presentMeterReading: json['presentMeterReading'],
       previousMeterReading: json['previousMeterReading'],
+      electricBill: json['electricBill'],
       unitPrice: json['unitPrice'],
       total: json['total'],
-
       grandTotal: json['grandTotal'],
-
       //utilities
       monthlyDue: json['monthlyDue'],
-      // usedElectricityUnit: json['usedElectricityUnit'],
+      // utilities: utilies,
     );
+
+    // print(record);
+    return record;
   }
 
   Map<String, dynamic> toJson() {
@@ -66,10 +80,11 @@ class Record {
     }
     return {
       // 'renter': renter != null ? renter!.toJson() : null,
+      'electricBill': electricBill,
       'renterName': renterName,
       'renterPhone': renterPhone,
       'renterPhone2': renterPhone2,
-      'flatRent': flatRent,
+      'rent': rent,
       'gasBill': gasBill,
       'waterBill': waterBill,
       'previousMeterReading': previousMeterReading,
@@ -82,55 +97,3 @@ class Record {
     };
   }
 }
-// import 'renter.dart';
-
-// //!SUPPORTING FIREBASE
-// class Record {
-//   DateTime issueDate;
-//   double? rentAmount;
-//   double? gasBill;
-//   double? waterBill;
-//   double? meterReading;
-//   double? renterPayable;
-//   Renter? renter;
-
-//   Record({
-//     required this.issueDate,
-//     required this.rentAmount,
-//     required this.renterPayable,
-//     this.gasBill,
-//     this.waterBill,
-//     this.meterReading,
-//     // required this.usedElectricityUnit,
-//     this.renter,
-//   });
-
-//   static fromJson(Map<String, dynamic> json) {
-//     Renter renter;
-//     Map<String, dynamic> renterJson = json['renter'];
-//     renter = Renter.fromJson(renterJson);
-//     return Record(
-//       issueDate: DateTime.parse(json['issueDate']),
-//       rentAmount: json['rentAmount'],
-//       renterPayable: json['renterPayable'],
-//       // usedElectricityUnit: json['usedElectricityUnit'],
-//       meterReading: json['meterReading'],
-//       waterBill: json['waterBill'],
-//       gasBill: json['gasBill'],
-//       renter: renter,
-//     );
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     return {
-//       'issueDate': issueDate.toIso8601String(),
-//       'rentAmount': rentAmount,
-//       'gasBill': gasBill,
-//       'waterBill': waterBill,
-//       'renterPayable': renterPayable,
-//       // 'usedElectricityUnit': usedElectricityUnit,
-//       'meterReading': meterReading,
-//       'renter': renter != null ? renter!.toJson() : null,
-//     };
-//   }
-// }

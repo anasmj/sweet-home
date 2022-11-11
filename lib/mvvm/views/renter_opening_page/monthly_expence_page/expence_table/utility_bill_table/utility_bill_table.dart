@@ -7,26 +7,19 @@ import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart'
 class UtilityTable extends StatelessWidget {
   UtilityTable({
     super.key,
-    this.viewModel,
+    required this.utilityList,
   });
-  List<Utility>? othersList;
-  HomeServiceChargeListViewModel? viewModel;
+  List<Utility> utilityList;
+
   @override
   Widget build(BuildContext context) {
-    if (viewModel != null) {
-      if (!viewModel!.isLoading) {
-        return SizedBox(
-          width: 200,
-          child: Column(
-            children:
-                viewModel!.serviceChargeList.map((e) => buildRow(e)).toList(),
-          ),
-        );
-      } else {
-        return const CircularProgressIndicator();
-      }
-    }
-    return const SizedBox.shrink();
+    if (utilityList.isEmpty) return const SizedBox.shrink();
+    return SizedBox(
+      width: 200,
+      child: Column(
+        children: utilityList.map((e) => buildRow(e)).toList(),
+      ),
+    );
   }
 
   Widget buildRow(Utility obj) => Row(
