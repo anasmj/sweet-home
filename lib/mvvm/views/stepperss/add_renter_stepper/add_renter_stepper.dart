@@ -5,7 +5,7 @@ import 'package:sweet_home/mvvm/views/stepperss/add_renter_stepper/steps_pages/f
 import 'package:sweet_home/mvvm/views/stepperss/add_renter_stepper/steps_pages/second_step.dart';
 import 'package:sweet_home/mvvm/views/stepperss/add_renter_stepper/steps_pages/third_step.dart';
 import '../../../providers/current_home.dart';
-import '../../../view_models/new_renter_view_model.dart';
+import '../../../view_models/add_renter_view_model.dart';
 import '../../app_widgets.dart';
 import '../../successful_pages/renter_add_successful.dart';
 import '../../../../prev/view/screens/waiting_pages/adding_renter_indicator.dart';
@@ -29,7 +29,7 @@ class _AddAddRenterStepperState extends State<AddRenterStepper> {
     String homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
         .currentHome!
         .homeId;
-    final viewModel = Provider.of<NewRenterViewModel>(context);
+    final viewModel = Provider.of<AddRenterViewModel>(context);
     final bool isLastStep = getSteps().length - 1 == _currentStep;
 
     return Scaffold(

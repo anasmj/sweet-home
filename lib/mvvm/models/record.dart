@@ -13,27 +13,28 @@ class Record {
       grandTotal;
 
   // Renter? renter;
-  String renterName, renterPhone, renterPhone2;
+  String renterName, renterId, renterPhone, renterPhone2;
 
   List<Utility>? utilities;
 
-  Record(
-      {required this.rent,
-      this.renterName = '',
-      this.renterPhone = '',
-      this.renterPhone2 = '',
-      this.flatRent = 0.00,
-      this.gasBill = 0.00,
-      this.waterBill = 0.00,
-      this.presentMeterReading,
-      this.previousMeterReading,
-      this.unitPrice,
-      this.utilities,
-      this.monthlyDue = 0.00,
-      this.total,
-      this.grandTotal,
-      this.electricBill,
-      thi});
+  Record({
+    this.rent = 0.0,
+    required this.renterId,
+    this.renterName = '',
+    this.renterPhone = '',
+    this.renterPhone2 = '',
+    this.flatRent = 0.00,
+    this.gasBill = 0.00,
+    this.waterBill = 0.00,
+    this.presentMeterReading,
+    this.previousMeterReading,
+    this.unitPrice,
+    this.utilities,
+    this.monthlyDue = 0.00,
+    this.total,
+    this.grandTotal,
+    this.electricBill,
+  });
 
   static Record fromJson(Map<String, dynamic> json) {
     Record record;
@@ -46,6 +47,7 @@ class Record {
 
     // Utility.fromJson(json['utilities']);
     record = Record(
+      renterId: json['renterId'],
       rent: json['rent'],
       renterName: json['renterName'] ?? '',
       renterPhone: json['renterPhone'],
@@ -82,6 +84,8 @@ class Record {
       // 'renter': renter != null ? renter!.toJson() : null,
       'electricBill': electricBill,
       'renterName': renterName,
+      'renterId': renterId,
+
       'renterPhone': renterPhone,
       'renterPhone2': renterPhone2,
       'rent': rent,

@@ -38,6 +38,7 @@ class ConfirmCalculationButton extends StatelessWidget {
                     var status = await flatViewModel.confirmMonthlyExpence();
                     if (status == true) {
                       // ignore: use_build_context_synchronously
+
                       showMonthlyCostConfirmDialog(context);
                     }
                   }

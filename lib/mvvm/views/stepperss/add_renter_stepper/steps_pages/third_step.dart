@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../view_models/new_renter_view_model.dart';
+import '../../../../view_models/add_renter_view_model.dart';
 import '../../../resources/app_icons.dart';
 import 'components/entry_date_picker.dart';
 
@@ -9,7 +9,7 @@ class ThirdStepPage extends StatelessWidget {
   final advanceAmountTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    NewRenterViewModel provider = Provider.of<NewRenterViewModel>(context);
+    AddRenterViewModel provider = Provider.of<AddRenterViewModel>(context);
 
     return Column(
       children: [
@@ -38,7 +38,7 @@ class ThirdStepPage extends StatelessWidget {
 
   Widget getAdvanceTextField(
       BuildContext context, TextEditingController controller) {
-    final provider = context.watch<NewRenterViewModel>();
+    final provider = context.watch<AddRenterViewModel>();
 
     return SizedBox(
       width: 120,

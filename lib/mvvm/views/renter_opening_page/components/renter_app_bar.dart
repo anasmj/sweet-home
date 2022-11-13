@@ -21,7 +21,7 @@ class RenterAppBar extends StatelessWidget {
     String? homeId = context.read<CurrentHomeProvider>().currentHome?.homeId;
     double totalDue = flat!.confirmDate != null
         ? flat.renter!.renterDue + flat.monthlyDue
-        : flatViewModel.total;
+        : flatViewModel.total ?? 0;
 
     return StreamBuilder(
       stream: FlatService()

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 import 'package:sweet_home/mvvm/views/resources/app_icons.dart';
 import '../resources/image_urls.dart';
+import 'components/download_icon.dart';
 import 'components/remind_button.dart';
 
 // ignore: must_be_immutable
@@ -61,7 +62,7 @@ class AllPendingPage extends StatelessWidget {
                         //SEARCH BOX
                         child: AppWidget.appSearchBar(context: context),
                       ),
-                      downloadIcon(context),
+                      const DownloadIcon(),
                     ],
                   ),
                 ]
@@ -151,28 +152,6 @@ class AllPendingPage extends StatelessWidget {
       subtitle: Text(
         'সর্বশেষ লেনদেনঃ ${renter.time}',
         style: Theme.of(context).textTheme.titleMedium,
-      ),
-    );
-  }
-
-  IconButton downloadIcon(BuildContext context) {
-    // final homeId = Provider.of<CurrentHomeProvider>(context, listen: false)
-    //     .currentHome!
-    //     .homeId;
-    // final flatName = Provider.of<SelectedFlatProvider>(context, listen: false)
-    //     .selectedFlat
-    //     ?.flatName;
-    // final viewModel = Provider.of<RenterViewModel>(context, listen: false);
-    return IconButton(
-      onPressed: () async {
-        // Response res =
-        //     await FlatService().getSingleFlat(homeId: homeId, flatName: '1A');
-        // print(res.code);
-      },
-      icon: SvgPicture.asset(
-        AppIcons.downloadUrl,
-        height: 20,
-        width: 20,
       ),
     );
   }

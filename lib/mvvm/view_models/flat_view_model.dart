@@ -7,6 +7,7 @@ import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/services/flat_services.dart';
 import 'package:sweet_home/mvvm/services/record_services.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
+import 'package:sweet_home/mvvm/utils/fields.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
 
@@ -49,6 +50,7 @@ class FlatViewModel extends ChangeNotifier {
 
   DateTime prevMonthDate = DateTime(
       DateTime.now().year, DateTime.now().month - 1, DateTime.now().day);
+  Record? _monthRecord;
 
   bool get isLoading => _isLoading;
   void setLoading(bool loading) {
@@ -84,7 +86,7 @@ class FlatViewModel extends ChangeNotifier {
     _electricityUnitPrice = price;
   }
 
-  double get total => _total ?? 0;
+  double? get total => _total;
   void setTotal() {
     double rent = _userFlat?.flatRentAmount ?? 0;
     double gas = _userFlat?.flatGasBill ?? 0;
@@ -148,6 +150,9 @@ class FlatViewModel extends ChangeNotifier {
     }
   }
 
+  Record? get record => _monthRecord;
+  set setRecord(Record? record) => _monthRecord = record;
+
   Response? _response;
   Response get response => _response ?? Response();
   setResponse(Response res) {
@@ -185,26 +190,11 @@ class FlatViewModel extends ChangeNotifier {
     setLoading(false);
     return status;
   }
-  //update is made everytime a field is changed
-  // Future<void> updateFlat() async {
-  //   setLoading(true);
-  //   String? homeId = currentHomeProvider?.currentHome?.homeId;
-  //   if (homeId == null || _userFlat == null) return;
-  //   Response res = await FlatService()
-  //       .getSingleFlat(homeId: homeId, flatName: _userFlat!.flatName);
-  //   if (res.content is Flat) {
-  //     setUserFlat(res.content);
-  //   } else {
-  //     setStatus(Status.error);
-  //   }
-  //   setLoading(false);
-  // }
 
   Future<bool> confirmMonthlyExpence() async {
-    if (total == 0) return false;
-
+    if (total == null) return false;
     bool isFlatUpdated = await updateFlatField(
-        fieldName: 'monthlyDue', newValue: _total, updateTime: DateTime.now());
+        fieldName: FlatField.due, newValue: _total, updateTime: DateTime.now());
     // create monthly record
 
     bool isRecordCreated = await RecordService().createMonthlyRecord(
@@ -214,7 +204,8 @@ class FlatViewModel extends ChangeNotifier {
       issueDate: DateTime.now(),
       record: Record(
         rent: _userFlat!.flatRentAmount,
-        renterPhone: _userFlat!.renter!.phoneNo,
+        renterId: _userFlat!.renter!.id,
+        renterPhone: _userFlat!.renter!.phone,
         renterPhone2: _userFlat!.renter!.alternatePhoneNo ?? '',
         gasBill: _userFlat!.flatGasBill,
         waterBill: _userFlat!.flatWaterBill,
@@ -229,19 +220,21 @@ class FlatViewModel extends ChangeNotifier {
         utilities: utilityList,
       ),
     );
-    // return false;
+
     return isFlatUpdated && isRecordCreated;
+
+    // if (isFlatUpdated && isRecordCreated) {
+    //   Response response = await getLastMonthRecord();
+    //   if (response.code == 200) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // } else {
+    //   return false;
+    // }
   }
 
-  // Future<RecordResponse> checkLastMonthRecord() async {
-  //   setLoading(true);
-  //   RecordResponse res = await RecordService().checIfRecordExists(
-  //       homeId: currentHomeProvider!.currentHome!.homeId,
-  //       flatName: _userFlat!.flatName,
-  //       idMonth: Formatter().makeId(date: prevMonthDate));
-  //   setLoading(false);
-  //   return res;
-  // }
   Future<Response> getLastMonthRecord() async {
     Response res;
     String? homeId = currentHomeProvider?.currentHome?.homeId;
@@ -251,6 +244,22 @@ class FlatViewModel extends ChangeNotifier {
             DateTime.now().year, DateTime.now().month - 1, DateTime.now().day));
     res = await RecordService().fetchRecord(
         homeId: homeId!, flatName: flatName!, idMonth: previousMonthRecordId);
+    if (res.code != 200) {
+      return res;
+    } else {
+      Record? record = res.content;
+      if (record == null) {
+        setRecord = null;
+      } else {
+        //record found
+        if (record.renterId == _userFlat!.renter!.id) {
+          setRecord = record;
+        } else {
+          //record exists but belogns to another renter
+          res.content = null;
+        }
+      }
+    }
     return res;
   }
 }

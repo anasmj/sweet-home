@@ -97,6 +97,7 @@ class ConfirmExpenceTable extends StatelessWidget {
           GrandTotalRow(textTheme: textTheme),
           // const RecievedRow(),
           // const MonthlyDueRow(),
+
           Visibility(
             visible: canUpdate,
             child: const Padding(

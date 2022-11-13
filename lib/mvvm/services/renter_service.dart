@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/mvvm/models/transaction.dart';
+import 'package:sweet_home/mvvm/utils/fields.dart';
 
 import '../models/renter.dart';
 import '../models/response.dart';
@@ -27,6 +28,7 @@ class RenterService {
     required String homeId,
     required String flatId,
     required String renterName,
+    required String renterId,
     required String phoneNo,
     String? alternatePhoneNo = '',
     String? occupation = ' ',
@@ -53,9 +55,10 @@ class RenterService {
           isAdvance: true);
     }
     await flatDocRef.update({
-      'renter': Renter(
+      FlatField.renter: Renter(
         renterName: renterName,
-        phoneNo: phoneNo,
+        id: renterId,
+        phone: phoneNo,
         alternatePhoneNo: alternatePhoneNo,
         occupation: occupation,
         numOfPerson: noOfPerson,
@@ -81,13 +84,13 @@ class RenterService {
   }
 
   //REMOVE RENTR FROM FLAT
-  Future<Response> deleteRenterFromFlat(
+  Future<Response> removeRenterFromFlat(
       {required String homeId, required String flatId}) async {
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
     await flatsCollectionRef
         .doc(flatId)
-        .update({'renter': FieldValue.delete()}).whenComplete(() {
+        .update({FlatField.renter: FieldValue.delete()}).whenComplete(() {
       response.code = 200;
       response.body = 'deleted successfully';
     }).catchError((e) {
@@ -108,7 +111,7 @@ class RenterService {
     final flatCollecRef = await getFlatsCollectionRef(homeId: homeId);
     await flatCollecRef
         .doc(flatName)
-        .update({'renter.$fieldName': newValue}).whenComplete(() {
+        .update({'${FlatField.renter}.$fieldName': newValue}).whenComplete(() {
       response.code = 200;
       response.body = 'successful';
     }).catchError((e) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../view_models/new_renter_view_model.dart';
+import '../../../../../view_models/add_renter_view_model.dart';
 import '../../../../../utils/formatter.dart';
 
 class EntryDatePicker extends StatelessWidget {
@@ -11,7 +11,7 @@ class EntryDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NewRenterViewModel>(context, listen: false);
+    final provider = Provider.of<AddRenterViewModel>(context, listen: false);
 
     return OutlinedButton(
       onPressed: () async {
@@ -30,7 +30,7 @@ class EntryDatePicker extends StatelessWidget {
           const Icon(Icons.calendar_month_outlined),
           const SizedBox(width: 8),
           Text(Formatter()
-              .buttonFormat(context.watch<NewRenterViewModel>().entryDate)),
+              .buttonFormat(context.watch<AddRenterViewModel>().entryDate)),
         ],
       ),
     );

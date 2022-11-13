@@ -4,7 +4,7 @@ import 'package:sweet_home/mvvm/utils/formatter.dart';
 
 import '../../../../models/flat_model.dart';
 import '../../../../providers/selected_flat_provider.dart';
-import '../../../../view_models/new_renter_view_model.dart';
+import '../../../../view_models/add_renter_view_model.dart';
 import '../../../../utils/form_validators.dart';
 import '../../components/stepper_textfield.dart';
 import 'components/occupation_dropdown.dart';
@@ -24,7 +24,7 @@ class RenterInfoStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NewRenterViewModel>(context);
+    final provider = Provider.of<AddRenterViewModel>(context);
     Flat? flat = context.watch<SelectedFlatProvider>().selectedFlat;
 
     // nameController.text = provider.getRenterName;
@@ -127,7 +127,7 @@ class RenterInfoStep extends StatelessWidget {
                     IconButton(
                       iconSize: 22,
                       onPressed: () {
-                        context.read<NewRenterViewModel>().incrementMember();
+                        context.read<AddRenterViewModel>().incrementMember();
                       },
                       icon: const Icon(
                         Icons.add,
@@ -141,7 +141,7 @@ class RenterInfoStep extends StatelessWidget {
                     IconButton(
                       iconSize: 22,
                       onPressed: () {
-                        context.read<NewRenterViewModel>().decrementMember();
+                        context.read<AddRenterViewModel>().decrementMember();
                       },
                       icon: const Icon(
                         Icons.remove,

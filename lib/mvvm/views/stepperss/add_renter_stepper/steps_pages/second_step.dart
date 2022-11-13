@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/providers/theme_provider.dart';
-import '../../../../view_models/new_renter_view_model.dart';
+import '../../../../view_models/add_renter_view_model.dart';
 import '../../components/stepper_textfield.dart';
 import 'components/location_radio.dart';
 
@@ -22,7 +22,7 @@ class AddressStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NewRenterViewModel>(context);
+    final provider = Provider.of<AddRenterViewModel>(context);
     return Form(
       //Nothnig to validate
       child: Column(

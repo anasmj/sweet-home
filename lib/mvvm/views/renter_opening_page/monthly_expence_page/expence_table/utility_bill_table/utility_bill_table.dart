@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/mvvm/models/utility.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
-import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
 
 // ignore: must_be_immutable
 class UtilityTable extends StatelessWidget {

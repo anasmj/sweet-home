@@ -1,8 +1,10 @@
 import 'package:sweet_home/mvvm/models/transaction.dart';
+import 'package:sweet_home/mvvm/utils/fields.dart';
 
 class Renter {
   String renterName;
-  String phoneNo;
+  String id;
+  String phone;
   String? alternatePhoneNo;
   String? occupation;
   int? numOfPerson;
@@ -23,7 +25,8 @@ class Renter {
 
   Renter({
     required this.renterName,
-    required this.phoneNo,
+    required this.id,
+    required this.phone,
     this.alternatePhoneNo = '',
     this.occupation = '',
     this.entryDate,
@@ -53,20 +56,21 @@ class Renter {
     Renter renter;
 
     renter = Renter(
-      renterName: json['renterName'],
-      phoneNo: json['phoneNo'],
-      alternatePhoneNo: json['alternatePhoneNo'] ?? '',
-      occupation: json['occupation'] ?? '',
-      entryDate: DateTime.parse(json['entryDate']),
-      numOfPerson: json['noOfPerson'] ?? 1,
-      previousLocation: json['previousLocation'] ?? '',
-      village: json['village'] ?? '',
-      policeStation: json['policeStation'] ?? '',
-      union: json['union'] ?? '',
-      subDistrict: json['subDistrict'] ?? '',
-      district: json['district'] ?? '',
-      nIdNumber: json['nIdNumber'],
-      renterDue: json['renterDue'] ?? 0.00,
+      renterName: json[RenterField.name],
+      id: json[RenterField.id],
+      phone: json[RenterField.ph],
+      alternatePhoneNo: json[RenterField.ph2] ?? '',
+      occupation: json[RenterField.occupation_] ?? '',
+      entryDate: DateTime.parse(json[RenterField.entryDate_]),
+      numOfPerson: json[RenterField.numOfPerson_] ?? 1,
+      previousLocation: json[RenterField.previousLocation_] ?? '',
+      village: json[RenterField.vill] ?? '',
+      policeStation: json[RenterField.policeSt] ?? '',
+      union: json[RenterField.union_] ?? '',
+      subDistrict: json[RenterField.subDistrict_] ?? '',
+      district: json[RenterField.dist_] ?? '',
+      nIdNumber: json[RenterField.nId],
+      renterDue: json[RenterField.due_] ?? 0.00,
       transactions: transactionList,
     );
     // renter.transactions = transactionList;
@@ -75,23 +79,23 @@ class Renter {
 
   Map<String, dynamic> toJson({RenterTransaction? renterTransaction}) {
     return {
-      'renterName': renterName,
-      'phoneNo': phoneNo,
-      'alternatePhoneNo': alternatePhoneNo ?? '',
-      'occupation': occupation ?? '',
-      'noOfPerson': numOfPerson ?? 1,
-      'entryDate': entryDate.toString(),
-      'previousLocation': previousLocation ?? '',
-      'village': village ?? '',
-      'policeStation:': policeStation ?? '',
-      'union:': union ?? '',
-      'subDistrict ': subDistrict ?? '',
-      'district': district ?? '',
-      // 'advance': advance ?? 0.0,
-      'nIdNumber': nIdNumber,
-      'transactions':
+      RenterField.name: renterName,
+      RenterField.id: id,
+      RenterField.ph: phone,
+      RenterField.ph2: alternatePhoneNo ?? '',
+      RenterField.occupation_: occupation ?? '',
+      RenterField.numOfPerson_: numOfPerson ?? 1,
+      RenterField.entryDate_: entryDate.toString(),
+      RenterField.previousLocation_: previousLocation ?? '',
+      RenterField.vill: village ?? '',
+      RenterField.policeSt: policeStation ?? '',
+      RenterField.union_: union ?? '',
+      RenterField.subDistrict_: subDistrict ?? '',
+      RenterField.dist_: district ?? '',
+      RenterField.nId: nIdNumber,
+      RenterField.transactions_:
           renterTransaction != null ? [renterTransaction.toJson()] : [],
-      'renterDue': renterDue,
+      RenterField.due_: renterDue,
       // 'transaction': [renterTransaction.toJson()]
     };
   }

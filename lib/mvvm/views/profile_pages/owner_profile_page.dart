@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../view_models/new_renter_view_model.dart';
+import '../../view_models/add_renter_view_model.dart';
 import 'components/profile_app_bar.dart';
 import 'components/profile_textfield.dart';
 
@@ -12,7 +12,7 @@ class OwnerProfilePage extends StatelessWidget {
   final double containerHeight = 180;
   @override
   Widget build(BuildContext context) {
-    final renterProvider = context.read<NewRenterViewModel>();
+    final renterProvider = context.read<AddRenterViewModel>();
 
     return Scaffold(
       body: SingleChildScrollView(

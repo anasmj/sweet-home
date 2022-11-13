@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../view_models/new_renter_view_model.dart';
+import '../../../view_models/add_renter_view_model.dart';
 
 class ProfileBackButton extends StatelessWidget {
   const ProfileBackButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final renterProvider = context.read<NewRenterViewModel>();
+    final renterProvider = context.read<AddRenterViewModel>();
 
     return IconButton(
       onPressed: () {

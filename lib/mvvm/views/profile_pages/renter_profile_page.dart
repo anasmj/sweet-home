@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/response.dart';
-import 'package:sweet_home/mvvm/services/renter_service.dart';
 import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
-
 import '../../models/renter.dart';
-import '../../providers/current_home.dart';
-import '../../providers/selected_flat_provider.dart';
-import '../../view_models/new_renter_view_model.dart';
+import '../../view_models/add_renter_view_model.dart';
 import '../../utils/formatter.dart';
 import '../app_widgets.dart';
 import 'components/profile_app_bar.dart';
@@ -39,9 +34,9 @@ class RenterProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final renterProvider = context.read<NewRenterViewModel>();
+    final renterProvider = context.read<AddRenterViewModel>();
     renterProvider.renterNameController.text = renter.renterName;
-    renterProvider.phoneController.text = renter.phoneNo;
+    renterProvider.phoneController.text = renter.phone;
     renterProvider.altPhoneController.text = renter.alternatePhoneNo ?? '';
     renterProvider.previousLocationController.text =
         renter.previousLocation ?? '';
@@ -51,10 +46,6 @@ class RenterProfile extends StatelessWidget {
     renterProvider.occupationController.text = renter.occupation ?? '';
     renterProvider.noOfMemberController.text = renter.numOfPerson.toString();
     renterProvider.nIdController.text = renter.nIdNumber.toString();
-
-    String flatName =
-        context.watch<SelectedFlatProvider>().selectedFlat!.flatName;
-    String homeId = context.watch<CurrentHomeProvider>().currentHome!.homeId;
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -105,21 +96,15 @@ class RenterProfile extends StatelessWidget {
             entryDateStamp(context),
             TextButton(
               onPressed: () async {
-                bool? isConfirmed = await context
+                bool isConfirmed = await context
                     .read<RenterViewModel>()
-                    .deleteRenterFromFlat();
-                if (isConfirmed == null) {
+                    .removeRenterFromFlat();
+                if (!isConfirmed) {
                   // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('দুঃখিত, একটু পরে আবার চেষ্টা করুন')));
                 } else {
-                  if (!isConfirmed) {
-                    // ignore: use_build_context_synchronously
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('দুঃখিত, একটু পরে আবার চেষ্টা করুন')));
-                  } else {
-                    AppWidget.showToast('গ্রাহক মুছে ফেলা হয়েছে');
-                  }
+                  AppWidget.showToast('গ্রাহক মুছে ফেলা হয়েছে');
                 }
               },
               child: const Text(

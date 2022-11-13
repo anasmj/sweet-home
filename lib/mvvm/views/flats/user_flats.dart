@@ -48,10 +48,8 @@ class UserFlats extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 //childAspectRatio: (itemWidth / itemHeight),
                 itemCount: flatList.length,
-                itemBuilder: (context, index) {
-                  Flat flat = flatList[index];
-                  return FlatContainer(flat: flat);
-                },
+                itemBuilder: (context, index) =>
+                    FlatContainer(flat: flatList[index]),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 60,

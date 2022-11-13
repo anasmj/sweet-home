@@ -8,7 +8,7 @@ import 'package:sweet_home/mvvm/providers/theme_provider.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/home_service_charge_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/home_stepper_view_model.dart';
-import 'package:sweet_home/mvvm/view_models/new_renter_view_model.dart';
+import 'package:sweet_home/mvvm/view_models/add_renter_view_model.dart';
 import 'package:sweet_home/mvvm/services/auth_service.dart';
 import 'package:sweet_home/mvvm/utils/shared_pref.dart';
 import 'package:sweet_home/prev/view/dismiss_keyboard.dart';
@@ -81,11 +81,11 @@ class MyApp extends StatelessWidget {
           create: (context) => HomeListViewModel(),
         ),
 
-        ChangeNotifierProxyProvider<SelectedFlatProvider, NewRenterViewModel>(
-          update: (context, flatProvider, viewModel) => NewRenterViewModel(
+        ChangeNotifierProxyProvider<SelectedFlatProvider, AddRenterViewModel>(
+          update: (context, flatProvider, viewModel) => AddRenterViewModel(
               selectedFlatProvider: flatProvider,
               selectedFlatName: flatProvider.selectedFlat?.flatName),
-          create: (context) => NewRenterViewModel(
+          create: (context) => AddRenterViewModel(
             selectedFlatProvider:
                 Provider.of<SelectedFlatProvider>(context, listen: false),
             // selectedFlatName:

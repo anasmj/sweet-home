@@ -6,6 +6,8 @@ import 'package:sweet_home/mvvm/services/flat_services.dart';
 import 'package:sweet_home/mvvm/services/record_services.dart';
 import 'package:sweet_home/mvvm/services/renter_service.dart';
 import 'package:sweet_home/mvvm/services/transaction_service.dart';
+import 'package:sweet_home/mvvm/utils/fields.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 import '../providers/current_home.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
@@ -163,16 +165,36 @@ class RenterViewModel extends ChangeNotifier {
     return response;
   }
 
-  Future<bool?> deleteRenterFromFlat() async {
+  Future<bool> removeRenterFromFlat() async {
     String? homeId = currentHomeProvider?.currentHome?.homeId;
     String? flatName = flatViewModel?.userFlat?.flatName;
+    double? presentReading = flatViewModel!.userFlat?.presentMeterReading;
+    String previousMonthRecordId = Formatter().makeId(
+        date: DateTime(
+            DateTime.now().year, DateTime.now().month - 1, DateTime.now().day));
 
+    bool flatUpdateStatus = false;
+    bool isLastMonthRecordDeleted = false;
     if (homeId == null || flatName == null) return false;
-    bool res = await FlatService()
-        .updateMultiple(homeId: homeId, flatName: flatName, map: {
-      'confirmDate': null,
-      'monthlyDue': 0,
+    RenterService()
+        .removeRenterFromFlat(homeId: homeId, flatId: flatName)
+        .whenComplete(() async {
+      // await FlatService()
+      //     .updateMultiple(homeId: homeId, flatName: flatName, map: {
+      //   FlatField.confirmDate: null,
+      //   FlatField.due: 0.00,
+      //   FlatField.previousReading: presentReading,
+      //   FlatField.previousTime: DateTime.now().toIso8601String(),
+      //   FlatField.presentReading: null,
+      //   FlatField.presentTime: DateTime.now().toIso8601String(),
+      // }).whenComplete(() async {
+      //   isLastMonthRecordDeleted = await RecordService().deleteRecord(
+      //       homeId: homeId,
+      //       flatName: flatName,
+      //       recordId: previousMonthRecordId);
+      // });
     });
-    return res;
+
+    return isLastMonthRecordDeleted;
   }
 }

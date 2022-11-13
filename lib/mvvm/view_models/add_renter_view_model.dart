@@ -6,8 +6,8 @@ import 'package:sweet_home/mvvm/services/renter_service.dart';
 import 'package:sweet_home/mvvm/services/transaction_service.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 
-class NewRenterViewModel extends ChangeNotifier {
-  NewRenterViewModel({this.selectedFlatProvider, this.selectedFlatName});
+class AddRenterViewModel extends ChangeNotifier {
+  AddRenterViewModel({this.selectedFlatProvider, this.selectedFlatName});
 
   SelectedFlatProvider? selectedFlatProvider;
   String? selectedFlatName;
@@ -103,10 +103,12 @@ class NewRenterViewModel extends ChangeNotifier {
 
   Future<void> addRenter({required String homeId}) async {
     if (selectedFlatName == null) return;
+    String renterId = DateTime.now().microsecondsSinceEpoch.toString();
     Response res = await RenterService().addRenterToFlat(
       //1st page
       homeId: homeId,
       flatId: selectedFlatName!,
+      renterId: renterId,
       renterName: renterNameController.text,
       phoneNo: phoneController.text,
       alternatePhoneNo: altPhoneController.text,
@@ -126,22 +128,21 @@ class NewRenterViewModel extends ChangeNotifier {
     );
     if (res.code != 200) {
       setDataStatus(DataStatus.error);
-    } else {
-      renterNameController.clear();
-      phoneController.clear();
-      altPhoneController.clear();
-      setOccupation();
-      setMemberNo = 2;
-      nIdController.clear();
-      previousLocationController.clear();
-      villageController.clear();
-      thanaController.clear();
-      unionController.clear();
-      subDistrictController.clear();
-      districtController.clear();
-      advanceController.clear();
-      setEntryDate(DateTime.now());
-      setDataStatus(DataStatus.completed);
     }
+    renterNameController.clear();
+    phoneController.clear();
+    altPhoneController.clear();
+    setOccupation();
+    setMemberNo = 2;
+    nIdController.clear();
+    previousLocationController.clear();
+    villageController.clear();
+    thanaController.clear();
+    unionController.clear();
+    subDistrictController.clear();
+    districtController.clear();
+    advanceController.clear();
+    setEntryDate(DateTime.now());
+    setDataStatus(DataStatus.completed);
   }
 }

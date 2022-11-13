@@ -24,27 +24,27 @@ class ElectricityTable extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('পূর্বের ইউনিট'),
-              Text(Formatter.toBn(
-                  value: prevReading ?? 0.00, includeSymbol: false)),
+              Text(prevReading != null
+                  ? Formatter.toBn(value: prevReading, includeSymbol: false)
+                  : '-')
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('বর্তমান ইউনিট'),
-              Text(
-                Formatter.toBn(
-                    value: presentReading ?? 0.00, includeSymbol: false),
-              ),
+              Text(presentReading != null
+                  ? Formatter.toBn(value: presentReading, includeSymbol: false)
+                  : '-')
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("ব্যাবহৃত ইউনিট"),
-              Text(
-                Formatter.toBn(value: usedUnit ?? 0.00, includeSymbol: false),
-              ),
+              const Text('ব্যাবহৃত ইউনিট'),
+              Text(usedUnit != null
+                  ? Formatter.toBn(value: usedUnit, includeSymbol: false)
+                  : '-')
             ],
           ),
           usedUnit != null

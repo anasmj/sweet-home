@@ -170,14 +170,15 @@ class FlatService {
     bool status = false;
     CollectionReference flatCollecntionRef =
         await getFlatsCollectionRef(homeId: homeId);
+
     map.forEach((firebaseField, newValue) async {
-      await flatCollecntionRef
-          .doc(flatName)
-          .update({
-            firebaseField: newValue,
-          })
-          .whenComplete(() => status = true)
-          .catchError((e) => status = false);
+      await flatCollecntionRef.doc(flatName).update({
+        firebaseField: newValue,
+      }).whenComplete(() {
+        status = true;
+      }).catchError((e) {
+        status = false;
+      });
     });
     return status;
   }

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:sweet_home/mvvm/models/record.dart';
-import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
-import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
-import 'package:sweet_home/mvvm/views/error_pages/error_page.dart';
 import 'package:sweet_home/mvvm/views/flats/components/meter_image.dart';
 import 'package:sweet_home/mvvm/views/flats/components/profile_avatar.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/renter_opening_page.dart';
@@ -75,7 +71,7 @@ class FlatContainer extends StatelessWidget {
         ),
         SizedBox(width: 4),
         Text(
-          'পূর্বের রিডিং ঠিক নেই',
+          'পূর্বের রিডিং দেয়া নেই',
           style: TextStyle(color: Colors.red),
         )
       ],
@@ -116,8 +112,16 @@ class FlatContainer extends StatelessWidget {
     // await context.read<FlatViewModel>().getLastMonthRsecord();
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: ((builder) => RenterOpeningPage()),
+        builder: ((builder) => const RenterOpeningPage()),
       ),
+    );
+  }
+
+  void addRenter(BuildContext context) {
+    Provider.of<SelectedFlatProvider>(context, listen: false).setSelectedFlat =
+        flat;
+    AppRoute.newRenterStepper(
+      context: context,
     );
   }
 
@@ -129,11 +133,7 @@ class FlatContainer extends StatelessWidget {
       children: [
         InkWell(
           onTap: () async {
-            flat.renter == null
-                ? AppRoute.newRenterStepper(
-                    context: context,
-                  )
-                : openRenterPage(context);
+            flat.renter == null ? addRenter(context) : openRenterPage(context);
           },
           onLongPress: () {
             Provider.of<SelectedFlatProvider>(context, listen: false)

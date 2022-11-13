@@ -1,4 +1,5 @@
 import 'package:sweet_home/mvvm/models/renter.dart';
+import 'package:sweet_home/mvvm/utils/fields.dart';
 
 class Flat {
   //detail info of flat
@@ -38,27 +39,27 @@ class Flat {
   });
   static Flat fromJson(Map<String, dynamic> json) {
     return Flat(
-      flatName: json['flatName'] ?? '',
-      renter: json['renter'] != null ? Renter.fromJson(json['renter']) : null,
-      flatRentAmount: json['rentAmount'] ?? 0.00,
-      flatGasBill: json['gasBill'] ?? 0.00,
-      flatWaterBill: json['waterBill'] ?? 0.00,
-      confirmDate: json['confirmDate'] != null
-          ? DateTime.parse(json['confirmDate'])
+      flatName: json[FlatField.name] ?? '',
+      renter: json[FlatField.renter] != null
+          ? Renter.fromJson(json[FlatField.renter])
           : null,
-      presentMeterReading: json['presentMeterReading'],
-      presentMeterReadingUpdateTime:
-          json['presentMeterReadingUpdateTime'] != null
-              ? DateTime.parse(json['presentMeterReadingUpdateTime'])
-              : null,
-      previousMeterReading: json['previousMeterReading'] != null
-          ? double.parse(json['previousMeterReading'].toString())
+      flatRentAmount: json[FlatField.rent] ?? 0.00,
+      flatGasBill: json[FlatField.gas] ?? 0.00,
+      flatWaterBill: json[FlatField.water] ?? 0.00,
+      confirmDate: json[FlatField.confirmDate] != null
+          ? DateTime.parse(json[FlatField.confirmDate])
           : null,
-      previousMeterReadingUpdateTime:
-          json['previousMeterReadingUpdateTime'] != null
-              ? DateTime.parse(json['previousMeterReadingUpdateTime'])
-              : null,
-      monthlyDue: json['monthlyDue'],
+      presentMeterReading: json[FlatField.presentReading],
+      presentMeterReadingUpdateTime: json[FlatField.presentTime] != null
+          ? DateTime.parse(json[FlatField.presentTime])
+          : null,
+      previousMeterReading: json[FlatField.previousReading] != null
+          ? double.parse(json[FlatField.previousReading].toString())
+          : null,
+      previousMeterReadingUpdateTime: json[FlatField.previousTime] != null
+          ? DateTime.parse(json[FlatField.previousTime])
+          : null,
+      monthlyDue: json[FlatField.due],
     );
   }
 
@@ -70,16 +71,16 @@ class Flat {
     double? previousMeterReading,
   }) =>
       {
-        'flatName': flatName,
-        'rentAmount': rentAmount,
-        'gasBill': gasBill,
-        'waterBill': waterBill,
-        'presentMeterReading': presentMeterReading,
-        'previousMeterReading': previousMeterReading,
-        'previousMeterReadingUpdateTime': previousMeterReadingUpdateTime,
-        'presentMeterReadingUpdateTime': presentMeterReadingUpdateTime,
-        'monthlyDue': monthlyDue,
-        'confirmDate': confirmDate,
+        FlatField.name: flatName,
+        FlatField.rent: rentAmount,
+        FlatField.gas: gasBill,
+        FlatField.water: waterBill,
+        FlatField.presentReading: presentMeterReading,
+        FlatField.previousReading: previousMeterReading,
+        FlatField.previousTime: previousMeterReadingUpdateTime,
+        FlatField.presentTime: presentMeterReadingUpdateTime,
+        FlatField.due: monthlyDue,
+        FlatField.confirmDate: confirmDate,
         // 'serviceCharges': serviceCharges ?? [],
       };
 }

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/models/record.dart';
 import '../models/response.dart';
@@ -26,6 +25,23 @@ class RecordService {
     // final recordsSnapshot = await recordCollectionRef.get();
     // print(recordsSnapshot.docs.length);s
     return recordCollectionRef;
+  }
+
+  Future<bool> deleteRecord(
+      {required String homeId,
+      required String flatName,
+      required String recordId}) async {
+    CollectionReference recordCollectionRef =
+        await getRecordCollectionRef(homeId: homeId, flatName: flatName);
+    bool result = false;
+    await recordCollectionRef
+        .doc(recordId)
+        .delete()
+        .whenComplete(() => result = true)
+        .catchError((e) {
+      result = false;
+    });
+    return result;
   }
 
   //UPDATE RECORD
@@ -90,12 +106,12 @@ class RecordService {
     DocumentReference monthyRecordDocRef = recordCollecRef.doc(idMonth);
     await monthyRecordDocRef.get().then((snapshot) {
       if (snapshot.exists) {
+        //found last month record
         response.content =
             Record.fromJson(snapshot.data() as Map<String, dynamic>);
         response.code = 200;
       } else {
-        response.code = 201;
-        response.body = 'not exists';
+        response.code = 200;
       }
     }).catchError((e) {
       response.code = 301;
@@ -110,7 +126,7 @@ class RecordService {
     required String flatId,
     required Record record,
     required String monthID,
-    required DateTime issueDate,
+    DateTime? issueDate,
     // required double meterReading,
     // required double renterPayable,
     // Renter? renter,
@@ -120,39 +136,16 @@ class RecordService {
         await getRecordCollectionRef(homeId: homeId, flatName: flatId);
 
     //create record if not exists
-    recordCollectionRef.limit(1).get().then((snapshot) {
-      if (snapshot.size == 0) {
-        //create new collection
-
-        recordCollectionRef.doc(monthID).set(record.toJson()).whenComplete(() {
-          isSuccess = true;
-        }).catchError((e) {
-          isSuccess = false;
-        });
-      } else {
-        //collection already exists
-      }
+    var lastMonthDocument = await recordCollectionRef.doc(monthID).get();
+    if (lastMonthDocument.data() != null) return isSuccess;
+    await recordCollectionRef
+        .doc(monthID)
+        .set(record.toJson())
+        .whenComplete(() {
+      isSuccess = true;
+    }).catchError((e) {
+      isSuccess = false;
     });
-
-    // recordCollectionRef.doc(dateId).get().then((docSnapshot) {
-    //   // if (!docSnapshot.exists) {}
-    //   recordCollectionRef.doc(dateId).set(record.toJson());
-    //   recordCollectionRef.doc(dateId).set(MonthlyRecord(
-    //         issueDate: issueDate,
-    //         rentAmount: flat.flatRentAmount,
-    //         meterReading: meterReading,
-    //         renterPayable: renterPayable,
-    //         // usedElectricityUnit: 200,
-    //         gasBill: flat.flatGasBill,
-    //         waterBill: flat.flatWaterBill,
-    //         renter: flat.renter,
-    //       ).toJson());
-    //   response.code = 200;
-    //   response.body = 'Record created Successfully';
-    // }).catchError((e) {
-    //   response.code = 300;
-    //   response.body = e.toString();
-    // });
     return isSuccess;
   }
 }
