@@ -7,7 +7,6 @@ import 'package:sweet_home/mvvm/services/record_services.dart';
 import 'package:sweet_home/mvvm/services/renter_service.dart';
 import 'package:sweet_home/mvvm/services/transaction_service.dart';
 import 'package:sweet_home/mvvm/utils/fields.dart';
-import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 import '../providers/current_home.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
@@ -165,36 +164,46 @@ class RenterViewModel extends ChangeNotifier {
     return response;
   }
 
-  Future<bool> removeRenterFromFlat() async {
+  Future<Response> removeRenterFromFlat() async {
     String? homeId = currentHomeProvider?.currentHome?.homeId;
     String? flatName = flatViewModel?.userFlat?.flatName;
     double? presentReading = flatViewModel!.userFlat?.presentMeterReading;
-    String previousMonthRecordId = Formatter().makeId(
-        date: DateTime(
-            DateTime.now().year, DateTime.now().month - 1, DateTime.now().day));
 
-    bool flatUpdateStatus = false;
-    bool isLastMonthRecordDeleted = false;
-    if (homeId == null || flatName == null) return false;
-    RenterService()
+    if (homeId == null || flatName == null) {
+      response.code = 203;
+      response.body = 'null found in homeId or FlatNam';
+      return response;
+    }
+    await RenterService()
         .removeRenterFromFlat(homeId: homeId, flatId: flatName)
         .whenComplete(() async {
-      // await FlatService()
-      //     .updateMultiple(homeId: homeId, flatName: flatName, map: {
-      //   FlatField.confirmDate: null,
-      //   FlatField.due: 0.00,
-      //   FlatField.previousReading: presentReading,
-      //   FlatField.previousTime: DateTime.now().toIso8601String(),
-      //   FlatField.presentReading: null,
-      //   FlatField.presentTime: DateTime.now().toIso8601String(),
-      // }).whenComplete(() async {
-      //   isLastMonthRecordDeleted = await RecordService().deleteRecord(
-      //       homeId: homeId,
-      //       flatName: flatName,
-      //       recordId: previousMonthRecordId);
-      // });
+      await FlatService()
+          .updateMultiple(homeId: homeId, flatName: flatName, map: {
+        FlatField.confirmDate: null,
+        FlatField.due: 0.00,
+        FlatField.previousReading: presentReading,
+        // FlatField.previousTime: DateTime.now().toIso8601String(),
+        // FlatField.presentReading: null,
+        FlatField.presentTime: null,
+      }).whenComplete(() async {
+        // await RecordService()
+        //     .deleteRecord(
+        //         homeId: homeId,
+        //         flatName: flatName,
+        //         recordId: previousMonthRecordId)
+        //     .whenComplete(() {
+        //   response.code = 200;
+        //   response.body = 'ok';
+        // }).catchError((e) {
+        //   response.code = 412;
+        //   response.body = e.toString();
+        // });
+      });
+    }).catchError((e) {
+      response.code = 232;
+      response.body = e.toString();
     });
 
-    return isLastMonthRecordDeleted;
+    return response;
   }
 }

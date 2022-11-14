@@ -21,6 +21,9 @@ class Formatter {
 
   DateTime now = DateTime.now();
   //convert to bengali number
+  static DateTime get previousDate => DateTime(
+      DateTime.now().year, DateTime.now().month - 1, DateTime.now().day);
+
   static dynamic toBn({dynamic value, bool includeSymbol = true}) {
     dynamic res = NumberFormat.currency(
       locale: 'bn-IN',
@@ -39,7 +42,7 @@ class Formatter {
       "'${date.year.toString().substring(2, 4)}";
 
   //convert date in 2022-09-20 format
-  String makeId({required DateTime date}) => DateFormat('yyyy-MM').format(date);
+  static String makeId(DateTime date) => DateFormat('yyyy-MM').format(date);
 
   //2022-09-20 currentDate
   String yearMonthDate() => DateFormat('yyyy-MM-dd').format(DateTime.now());

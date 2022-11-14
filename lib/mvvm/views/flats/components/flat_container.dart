@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/views/flats/components/meter_image.dart';
 import 'package:sweet_home/mvvm/views/flats/components/profile_avatar.dart';
 import 'package:sweet_home/mvvm/views/renter_opening_page/renter_opening_page.dart';
@@ -15,19 +16,37 @@ import 'flat_options.dart';
 // ignore: must_be_immutable
 class FlatContainer extends StatelessWidget {
   Flat flat;
+  String presentDate = Formatter.makeId(DateTime.now());
   FlatContainer({required this.flat, super.key});
 
   Widget getMeterReadingMsg(Flat falt) {
-    //how meter reading only for falt
-    if (flat.previousMeterReading != null) {
-      if (flat.presentMeterReading != null) {
-        // all readings are okay
-        return const SizedBox.shrink();
-      }
+    if (flat.presentMeterReading == null) {
+      return MeterImage(meterIndicatorType: MeterIndicatorType.previousReading);
+    }
+    if (flat.presentMeterReadingUpdateTime == null) {
       return MeterImage(meterIndicatorType: MeterIndicatorType.currentReading);
     }
-    return MeterImage(meterIndicatorType: MeterIndicatorType.previousReading);
+    if (Formatter.makeId(flat.presentMeterReadingUpdateTime!) !=
+        Formatter.makeId(DateTime.now())) {
+      return MeterImage(meterIndicatorType: MeterIndicatorType.currentReading);
+    }
+    return const SizedBox.shrink();
   }
+  //trying another way
+  // Widget getMeterReadingMsg(Flat falt) {
+  //   if (flat.previousMeterReading != null) {
+  //     if (flat.confirmDate == null) return const SizedBox.shrink();
+
+  //     if (Formatter.makeId(flat.confirmDate!) == presentDate) {
+  //       return const SizedBox.shrink();
+  //     } else {
+  //       return MeterImage(
+  //           meterIndicatorType: MeterIndicatorType.currentReading);
+  //     }
+  //   } else {
+  //     return MeterImage(meterIndicatorType: MeterIndicatorType.previousReading);
+  //   }
+  // }
 
   Widget footer(Flat flat) {
     if (flat.renter == null) {
@@ -88,7 +107,7 @@ class FlatContainer extends StatelessWidget {
         ),
         SizedBox(width: 4),
         Text(
-          'বর্তমান রিডিং দেয়া নেই',
+          'বর্তমান রিডিং আপডেট করুন',
           style: TextStyle(color: Colors.red),
         )
       ],

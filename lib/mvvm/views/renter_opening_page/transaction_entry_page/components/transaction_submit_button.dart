@@ -12,7 +12,7 @@ class TransactionSubmitButton extends StatelessWidget {
     required this.transactionPageContext,
   });
 
-  final recordId = Formatter().makeId(date: DateTime.now());
+  final recordId = Formatter.makeId(DateTime.now());
   BuildContext transactionPageContext;
   final String buttonText = 'বুঝে পেলাম';
   Response response = Response();

@@ -108,8 +108,8 @@ class AddRenterViewModel extends ChangeNotifier {
       //1st page
       homeId: homeId,
       flatId: selectedFlatName!,
-      renterId: renterId,
       renterName: renterNameController.text,
+      renterId: renterId,
       phoneNo: phoneController.text,
       alternatePhoneNo: altPhoneController.text,
       occupation: occupation,
@@ -128,6 +128,22 @@ class AddRenterViewModel extends ChangeNotifier {
     );
     if (res.code != 200) {
       setDataStatus(DataStatus.error);
+    } else {
+      //success
+      //create previous month record for renter
+      // FlatService()
+      //     .updateMultiple(homeId: homeId, flatName: selectedFlatName!, map: {
+      //   FlatField.confirmDate: DateTime.now().toString(),
+      // });
+      // RecordService().createMonthlyRecord(
+      //   homeId: homeId,
+      //   flatId: selectedFlatName!,
+      //   record: Record(
+      //       renterName: renterNameController.text,
+      //       renterPhone: phoneController.text,
+      //       renterPhone2: altPhoneController.text),
+      //   monthID: Formatter.makeId(Formatter.previousDate),
+      // );
     }
     renterNameController.clear();
     phoneController.clear();

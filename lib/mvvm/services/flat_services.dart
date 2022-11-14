@@ -112,7 +112,7 @@ class FlatService {
     DateTime currentDate = DateTime.now();
     DateTime lastMonthDate =
         DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
-    String previousMonthRecordId = Formatter().makeId(date: lastMonthDate);
+    String previousMonthRecordId = Formatter.makeId(lastMonthDate);
 
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
@@ -170,16 +170,27 @@ class FlatService {
     bool status = false;
     CollectionReference flatCollecntionRef =
         await getFlatsCollectionRef(homeId: homeId);
-
-    map.forEach((firebaseField, newValue) async {
-      await flatCollecntionRef.doc(flatName).update({
-        firebaseField: newValue,
-      }).whenComplete(() {
-        status = true;
-      }).catchError((e) {
-        status = false;
+    try {
+      map.forEach((firebaseField, newValue) async {
+        await flatCollecntionRef.doc(flatName).update({
+          firebaseField: newValue,
+        });
       });
-    });
+      status = true;
+    } catch (e) {
+      //
+    }
+
+    // map.forEach((firebaseField, newValue) async {
+    //   await flatCollecntionRef.doc(flatName).update({
+    //     firebaseField: newValue,
+    //   }).whenComplete(() {
+    //     status = true;
+    //   }).catchError((e) {
+    //     print('flat service: ${e.toString()}');
+    //     status = false;
+    //   });
+    // });
     return status;
   }
 

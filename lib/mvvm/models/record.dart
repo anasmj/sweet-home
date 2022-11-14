@@ -19,7 +19,7 @@ class Record {
 
   Record({
     this.rent = 0.0,
-    required this.renterId,
+    this.renterId = '',
     this.renterName = '',
     this.renterPhone = '',
     this.renterPhone2 = '',

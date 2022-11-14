@@ -192,19 +192,26 @@ class FlatViewModel extends ChangeNotifier {
   }
 
   Future<bool> confirmMonthlyExpence() async {
-    if (total == null) return false;
-    bool isFlatUpdated = await updateFlatField(
-        fieldName: FlatField.due, newValue: _total, updateTime: DateTime.now());
+    if (electricBill == null) return false;
+    // bool isFlatUpdated = await updateFlatField(
+    //     fieldName: FlatField.due, newValue: _total, updateTime: DateTime.now());
+    bool isFlatUpdated = await FlatService().updateMultiple(
+        homeId: currentHomeProvider!.currentHome!.homeId,
+        flatName: _userFlat!.flatName,
+        map: {
+          FlatField.due: _total,
+          FlatField.confirmDate: DateTime.now().toIso8601String(),
+        });
+
     // create monthly record
 
     bool isRecordCreated = await RecordService().createMonthlyRecord(
-      monthID: Formatter().makeId(date: prevMonthDate),
+      monthID: Formatter.makeId(prevMonthDate),
       homeId: currentHomeProvider!.currentHome!.homeId,
       flatId: _userFlat!.flatName,
       issueDate: DateTime.now(),
       record: Record(
         rent: _userFlat!.flatRentAmount,
-        renterId: _userFlat!.renter!.id,
         renterPhone: _userFlat!.renter!.phone,
         renterPhone2: _userFlat!.renter!.alternatePhoneNo ?? '',
         gasBill: _userFlat!.flatGasBill,
@@ -213,7 +220,7 @@ class FlatViewModel extends ChangeNotifier {
         previousMeterReading: _userFlat!.previousMeterReading,
         unitPrice: _electricityUnitPrice,
         electricBill: _electricBill,
-        monthlyDue: monthlyDue ?? 0,
+        monthlyDue: _total ?? 0,
         renterName: _userFlat!.renter!.renterName,
         total: total,
         grandTotal: _grandTotal,
@@ -239,27 +246,24 @@ class FlatViewModel extends ChangeNotifier {
     Response res;
     String? homeId = currentHomeProvider?.currentHome?.homeId;
     String? flatName = _userFlat?.flatName;
-    String previousMonthRecordId = Formatter().makeId(
-        date: DateTime(
-            DateTime.now().year, DateTime.now().month - 1, DateTime.now().day));
+    String previousMonthRecordId = Formatter.makeId(DateTime(
+        DateTime.now().year, DateTime.now().month - 1, DateTime.now().day));
     res = await RecordService().fetchRecord(
         homeId: homeId!, flatName: flatName!, idMonth: previousMonthRecordId);
-    if (res.code != 200) {
-      return res;
-    } else {
-      Record? record = res.content;
-      if (record == null) {
-        setRecord = null;
-      } else {
-        //record found
-        if (record.renterId == _userFlat!.renter!.id) {
-          setRecord = record;
-        } else {
-          //record exists but belogns to another renter
-          res.content = null;
-        }
-      }
-    }
+    // if (res.code != 200) {
+    //   return res;
+    // } else {
+    //   Record? record = res.content;
+    //   if (record == null) {
+    //     setRecord = null;
+    //   } else {
+    //     //record found
+    //     setRecord = record;
+
+    //     //record exists but belogns to another renter
+    //     res.content = null;
+    //   }
+    // }
     return res;
   }
 }

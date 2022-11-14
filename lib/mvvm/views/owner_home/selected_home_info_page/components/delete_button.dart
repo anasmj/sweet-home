@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sweet_home/mvvm/models/response.dart';
+import 'package:sweet_home/mvvm/utils/dialogs.dart';
 import 'package:sweet_home/mvvm/view_models/home_list_view_model.dart';
 import 'package:sweet_home/mvvm/views/app_widgets.dart';
 
@@ -23,9 +24,15 @@ class DeleteButton extends StatelessWidget {
     final provider = Provider.of<HomeListViewModel>(context);
     return TextButton(
       onPressed: () async {
+        AppDialog().showLoadingDialog(
+            context: context, msg: 'বাড়ীটি সরিয়ে ফেলা হচ্ছে . . ');
         response = await provider.deleteHome();
-        if (response.code == 200) {
-          AppWidget.showSnackBarWithMsg(msg: 'বাড়ীটি মুছে ফেলা হয়েছে');
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
+
+        if (response.code != 200) {
+          AppWidget.showSnackBarWithMsg(
+              msg: 'কোনও একটি সমস্যা হয়েছে\nError: ${response.body}');
           // ignore: use_build_context_synchronously
           if (honeInfoPageContext != null) {
             Navigator.pop(honeInfoPageContext!);

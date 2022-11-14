@@ -26,61 +26,66 @@ Future<dynamic> noPrevReadingAlert(BuildContext context, String msg) {
 
 Future<void> showMonthlyCostConfirmDialog(BuildContext context) async {
   await showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-            shape: dialogBorder,
-            icon: Lottie.asset(AppIcons.doneLottie,
-                width: 120, height: 120, repeat: false),
-            content: const Text('হিসাবটি তালিকাভুক্ত করা হয়েছে'),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'ঠিক আছে',
-                    style: TextStyle(fontSize: 18),
-                  )),
-            ],
-          ));
+    context: context,
+    builder: (_) {
+      return AlertDialog(
+        shape: dialogBorder,
+        icon: Lottie.asset(AppIcons.doneLottie,
+            width: 120, height: 120, repeat: false),
+        content: const Text('হিসাবটি তালিকাভুক্ত করা হয়েছে'),
+
+        // actions: [
+        //   TextButton(
+        //       onPressed: () {
+        //         Navigator.pop(context);
+        //       },
+        //       child: const Text(
+        //         'ঠিক আছে',
+        //         style: TextStyle(fontSize: 18),
+        //       )),
+        // ],
+      );
+    },
+  );
 }
 
 Future<void> notReadyDialog(BuildContext context) async {
   await showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          shape: dialogBorder,
-          icon: const Text(
-            'দুঃক্ষিত !',
-            style: TextStyle(fontSize: 24),
-            textAlign: TextAlign.center,
+    context: context,
+    builder: (_) {
+      return AlertDialog(
+        shape: dialogBorder,
+        icon: const Text(
+          'দুঃক্ষিত !',
+          style: TextStyle(fontSize: 24),
+          textAlign: TextAlign.center,
+        ),
+        title: const Text(
+          'তালিকাভূক্ত করার জন্য হিসাবটি এখনও প্রস্তুত হয়নি',
+          textAlign: TextAlign.center,
+        ),
+        content: const Text(
+          'মিটারের রিডিং যাচাই করে আবার চেষ্টা করুন',
+          style: TextStyle(
+            fontSize: 16,
           ),
-          title: const Text(
-            'তালিকাভূক্ত করার জন্য হিসাবটি এখনও প্রস্তুত হয়নি',
-            textAlign: TextAlign.center,
-          ),
-          content: const Text(
-            'মিটারের রিডিং যাচাই করে আবার চেষ্টা করুন',
-            style: TextStyle(
-              fontSize: 16,
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'ঠিক আছে',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text(
+              'ঠিক আছে',
+              style: TextStyle(
+                fontSize: 16,
               ),
-            )
-          ],
-        );
-      });
+            ),
+          )
+        ],
+      );
+    },
+  );
 }
 
 

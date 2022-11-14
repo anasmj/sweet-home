@@ -52,7 +52,7 @@ class RecordService {
     required dynamic value,
     required DateTime datetime,
   }) async {
-    String recordDocId = Formatter().makeId(date: datetime);
+    String recordDocId = Formatter.makeId(datetime);
     final recordCollectionRef =
         await getRecordCollectionRef(homeId: homeId, flatName: flatName);
     await recordCollectionRef
@@ -89,11 +89,7 @@ class RecordService {
       response.code = 300;
       response.body = e.toString();
     });
-
     return response;
-
-    // final docQuerySnap = await docRef.get();
-    // print(docQuerySnap.data());
   }
 
   Future<Response> fetchRecord({
@@ -112,6 +108,7 @@ class RecordService {
         response.code = 200;
       } else {
         response.code = 200;
+        response.content = null;
       }
     }).catchError((e) {
       response.code = 301;

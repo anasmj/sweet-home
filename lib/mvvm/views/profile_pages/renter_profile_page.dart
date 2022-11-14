@@ -1,5 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/models/response.dart';
+import 'package:sweet_home/mvvm/utils/dialogs.dart';
 import 'package:sweet_home/mvvm/view_models/renter_view_model.dart';
 import '../../models/renter.dart';
 import '../../view_models/add_renter_view_model.dart';
@@ -9,10 +13,17 @@ import 'components/profile_app_bar.dart';
 import 'components/profile_textfield.dart';
 
 // ignore: must_be_immutable
-class RenterProfile extends StatelessWidget {
+class RenterProfile extends StatefulWidget {
   RenterProfile({required this.renter, super.key});
   Renter renter;
+
+  @override
+  State<RenterProfile> createState() => _RenterProfileState();
+}
+
+class _RenterProfileState extends State<RenterProfile> {
   final double profileImageRadius = 60;
+
   final double containerHeight = 180;
 
   Widget entryDateStamp(BuildContext context) {
@@ -24,7 +35,7 @@ class RenterProfile extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
             child: Text(
-              '${Formatter().monthYear(renter.entryDate!)} থেকে আছেন',
+              '${Formatter().monthYear(widget.renter.entryDate!)} থেকে আছেন',
             ),
           ),
         ),
@@ -32,20 +43,24 @@ class RenterProfile extends StatelessWidget {
     );
   }
 
+  void configureRenterInfo(AddRenterViewModel vm) {
+    vm.renterNameController.text = widget.renter.renterName;
+    vm.phoneController.text = widget.renter.phone;
+    vm.altPhoneController.text = widget.renter.alternatePhoneNo ?? '';
+    vm.previousLocationController.text = widget.renter.previousLocation ?? '';
+    vm.villageController.text = widget.renter.village ?? '';
+    vm.subDistrictController.text = widget.renter.subDistrict ?? '';
+    vm.districtController.text = widget.renter.district ?? '';
+    vm.occupationController.text = widget.renter.occupation ?? '';
+    vm.noOfMemberController.text = widget.renter.numOfPerson.toString();
+    vm.nIdController.text = widget.renter.nIdNumber.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     final renterProvider = context.read<AddRenterViewModel>();
-    renterProvider.renterNameController.text = renter.renterName;
-    renterProvider.phoneController.text = renter.phone;
-    renterProvider.altPhoneController.text = renter.alternatePhoneNo ?? '';
-    renterProvider.previousLocationController.text =
-        renter.previousLocation ?? '';
-    renterProvider.villageController.text = renter.village ?? '';
-    renterProvider.subDistrictController.text = renter.subDistrict ?? '';
-    renterProvider.districtController.text = renter.district ?? '';
-    renterProvider.occupationController.text = renter.occupation ?? '';
-    renterProvider.noOfMemberController.text = renter.numOfPerson.toString();
-    renterProvider.nIdController.text = renter.nIdNumber.toString();
+    configureRenterInfo(renterProvider);
+
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -96,13 +111,20 @@ class RenterProfile extends StatelessWidget {
             entryDateStamp(context),
             TextButton(
               onPressed: () async {
-                bool isConfirmed = await context
+                AppDialog().showLoadingDialog(
+                    context: context, msg: 'গ্রাহক মুছে ফেলা হচ্ছে . .');
+
+                Response res = await context
                     .read<RenterViewModel>()
                     .removeRenterFromFlat();
-                if (!isConfirmed) {
-                  // ignore: use_build_context_synchronously
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('দুঃখিত, একটু পরে আবার চেষ্টা করুন')));
+
+                Navigator.pop(context); // remove dialog
+                Navigator.pop(context); //pop renter profile page
+                Navigator.pop(context); //pop month detail page
+                if (res.code != 200) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                          'দুঃখিত, একটু পরে আবার চেষ্টা করুন\n error: ${res.body}')));
                 } else {
                   AppWidget.showToast('গ্রাহক মুছে ফেলা হয়েছে');
                 }

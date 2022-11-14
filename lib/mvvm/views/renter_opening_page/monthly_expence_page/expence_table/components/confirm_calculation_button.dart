@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/utils/dialogs.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
+import 'package:sweet_home/mvvm/views/app_widgets.dart';
 import 'dialogs.dart';
 
 // ignore: must_be_immutable
@@ -32,14 +34,26 @@ class ConfirmCalculationButton extends StatelessWidget {
           disabledColor: Colors.grey,
           onPressed: flatViewModel.userFlat!.renter != null
               ? () async {
-                  if (flatViewModel.total == null) {
+                  final navigator = Navigator.of(context);
+                  if (flatViewModel.electricBill == null) {
                     notReadyDialog(context);
                   } else {
-                    var status = await flatViewModel.confirmMonthlyExpence();
-                    if (status == true) {
-                      // ignore: use_build_context_synchronously
+                    AppDialog().showLoadingDialog(
+                        context: context, msg: 'আপডেট করা হচ্ছে');
 
+                    bool status = await flatViewModel.confirmMonthlyExpence();
+
+                    // var status = true;
+                    navigator.pop(); //popping loading dialog
+                    if (status) {
+                      // ignore: use_build_context_synchronously
                       showMonthlyCostConfirmDialog(context);
+                      await Future.delayed(const Duration(seconds: 2));
+                      navigator.pop(); //poping confirm dialog;
+                    }
+                    if (!status) {
+                      AppWidget.showSnackBarWithMsg(
+                          msg: 'কোনও একটি সমস্যা হয়েছে');
                     }
                   }
                 }

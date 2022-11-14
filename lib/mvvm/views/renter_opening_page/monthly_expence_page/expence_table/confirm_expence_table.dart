@@ -18,9 +18,6 @@ class ConfirmExpenceTable extends StatelessWidget {
   ConfirmExpenceTable({super.key});
 
   get home => null;
-
-  bool canUpdate = true;
-
   Widget transactionDivider = Divider(
     thickness: 2,
     color: Colors.black.withOpacity(0.6),
@@ -98,13 +95,10 @@ class ConfirmExpenceTable extends StatelessWidget {
           // const RecievedRow(),
           // const MonthlyDueRow(),
 
-          Visibility(
-            visible: canUpdate,
-            child: const Padding(
-              padding: EdgeInsets.only(top: 10.0),
-              child: Center(
-                child: ConfirmCalculationButton(),
-              ),
+          const Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: Center(
+              child: ConfirmCalculationButton(),
             ),
           ),
           const SizedBox(
