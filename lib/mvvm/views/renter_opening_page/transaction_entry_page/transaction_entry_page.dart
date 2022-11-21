@@ -32,9 +32,15 @@ class TransactionEntryPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 18.0),
             child: CircularProgressIndicator(),
           ),
-        viewModel.status == Status.completed
-            ? const SizedBox.shrink()
-            : TransactionSubmitButton(transactionPageContext: context),
+        if (viewModel.status == Status.completed)
+          const SizedBox.shrink()
+        else
+          Visibility(
+              visible: !viewModel.isLoading,
+              child: TransactionSubmitButton(transactionPageContext: context)),
+        // viewModel.status == Status.completed
+        //     ? const SizedBox.shrink()
+        //     : TransactionSubmitButton(transactionPageContext: context),
       ],
     );
   }
@@ -48,7 +54,7 @@ class TransactionEntryPage extends StatelessWidget {
           height: 120,
           repeat: false,
         ),
-        Text('লেনদেনটি সফলভাবে যুক্ত করা হয়েছে',
+        Text('লেনদেনটি যুক্ত করা হয়েছে',
             style: Theme.of(context).textTheme.titleLarge),
       ],
     );

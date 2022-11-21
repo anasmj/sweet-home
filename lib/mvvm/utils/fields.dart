@@ -1,4 +1,3 @@
-//!CAUTION: COPY DB FIELDS ONLY
 class FlatField {
   static String get name => 'flatName';
   static String get rent => 'rentAmount';
@@ -30,4 +29,25 @@ class RenterField {
   static String get nId => 'nIdNumber';
   static String get transactions_ => 'transactions';
   static String get due_ => 'renterDue';
+}
+
+class RecordField {
+  static String get renterId => 'renterId';
+  static String get id => 'recordId';
+  static String get renterDue => 'renterDue';
+  static String get paid => 'paid';
+  static String get utilities => 'utilities';
+  static String get flatRent => 'flatRent';
+  static String get renterName => 'renterName';
+  static String get renterPhone => 'renterPhone';
+  static String get renterPhone2 => 'renterPhone2';
+  static String get gasBill => 'gasBill';
+  static String get waterBill => 'waterBill';
+  static String get presentMeterReading => 'presentMeterReading';
+  static String get previousMeterReading => 'previousMeterReading';
+  static String get electricBill => 'electricBill';
+  static String get unitPrice => 'unitPrice';
+  static String get total => 'total';
+  static String get grandTotal => 'grandTotal';
+  static String get monthlyDue => 'monthlyDue';
 }

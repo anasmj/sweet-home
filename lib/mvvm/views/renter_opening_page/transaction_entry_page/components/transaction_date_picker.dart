@@ -30,7 +30,7 @@ class TransactionDatePicker extends StatelessWidget {
           const Icon(Icons.calendar_month_outlined),
           const SizedBox(width: 8),
           Text(
-            Formatter().buttonFormat(viewModel.transactionTime),
+            Formatter().appDateTime(viewModel.transactionTime),
           ),
         ],
       ),

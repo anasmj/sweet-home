@@ -86,7 +86,7 @@ class TimeStampWidget extends StatelessWidget {
         elevation: 2,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4),
-          child: Text(Formatter().transactionTime(transaction.time)),
+          child: Text(Formatter().appDateTime(transaction.time)),
         ),
       ),
     );

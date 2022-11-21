@@ -206,14 +206,15 @@ class FlatViewModel extends ChangeNotifier {
     // create monthly record
 
     bool isRecordCreated = await RecordService().createMonthlyRecord(
-      monthID: Formatter.makeId(prevMonthDate),
+      monthID: Formatter.toYearMonth(prevMonthDate),
       homeId: currentHomeProvider!.currentHome!.homeId,
       flatId: _userFlat!.flatName,
-      issueDate: DateTime.now(),
       record: Record(
-        rent: _userFlat!.flatRentAmount,
+        recordId: Formatter().previousMonthYearBn(),
+        flatRent: _userFlat!.flatRentAmount,
         renterPhone: _userFlat!.renter!.phone,
         renterPhone2: _userFlat!.renter!.alternatePhoneNo ?? '',
+        renterId: _userFlat!.renter!.id,
         gasBill: _userFlat!.flatGasBill,
         waterBill: _userFlat!.flatWaterBill,
         presentMeterReading: _userFlat!.presentMeterReading,
@@ -246,7 +247,7 @@ class FlatViewModel extends ChangeNotifier {
     Response res;
     String? homeId = currentHomeProvider?.currentHome?.homeId;
     String? flatName = _userFlat?.flatName;
-    String previousMonthRecordId = Formatter.makeId(DateTime(
+    String previousMonthRecordId = Formatter.toYearMonth(DateTime(
         DateTime.now().year, DateTime.now().month - 1, DateTime.now().day));
     res = await RecordService().fetchRecord(
         homeId: homeId!, flatName: flatName!, idMonth: previousMonthRecordId);

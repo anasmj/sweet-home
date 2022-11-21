@@ -7,6 +7,7 @@ import 'package:sweet_home/mvvm/services/record_services.dart';
 import 'package:sweet_home/mvvm/services/renter_service.dart';
 import 'package:sweet_home/mvvm/services/transaction_service.dart';
 import 'package:sweet_home/mvvm/utils/fields.dart';
+import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 import '../providers/current_home.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
@@ -59,27 +60,33 @@ class RenterViewModel extends ChangeNotifier {
     //! renterDue = renterDue + (monthlyDue-transactionAmount)
     //! expences will be added to monthlyDue
     // ignore: unused_local_variable
-    Response transferResponse,
-        monthlyDueUpdateResponse,
-        updateRecordResponse,
-        renterDueUpdateResponse;
-    double transactionAmount = double.parse(paymentController.text);
+    Response transferResponse = Response();
+    Response monthlyDueUpdateResponse = Response();
+    Response updateRecordResponse = Response();
+    Response renterDueUpdateResponse = Response();
 
+    double transactionAmount = double.parse(paymentController.text);
     double monthlyDue = flatViewModel!.userFlat!.monthlyDue;
     double renterDue = flatViewModel?.userFlat?.renter?.renterDue ?? 0;
 
+    double newRenterDue = renterDue + transactionAmount;
+
     double newMonthlyDue = monthlyDue - transactionAmount; //CAN BE NEGATIVE
-    double newRenterDue = renterDue + newMonthlyDue;
+    newRenterDue = renterDue + newMonthlyDue;
 
     Flat flat = flatViewModel!.userFlat!;
     setLoading(true);
     setStatus(Status.loading);
-    // print('monthlyDue: $monthlyDue');
-    // print('renterDue: $renterDue');
+    // print('****previous****');
 
-    // print('transfer amount : $transactionAmount');
+    // print('monthlyDue $monthlyDue');
+    // print('renterDue : $renterDue\n\n');
+
+    // print('after adding ৳$transactionAmount: ');
+    // print('*************');
     // print('newMonthlyDue $newMonthlyDue');
     // print('newRenterDue : $newRenterDue');
+
     try {
       //*ADD TO TRANSACTIONS
       Response transferResponse =
@@ -97,32 +104,9 @@ class RenterViewModel extends ChangeNotifier {
         response.body = 'transaction failed';
         return;
       }
-      //*UPDATE MONTHLY DUE
-      monthlyDueUpdateResponse = await FlatService().updateFlat(
-          homeId: homeId,
-          flatName: flat.flatName,
-          fieldName: 'monthlyDue',
-          newValue: newMonthlyDue);
-      if (monthlyDueUpdateResponse.code != 200) {
-        response.code = 320;
-        response.body = 'monthly due update failed';
-        return;
-      }
-      //*UPDATE CURRENT MONTH RECORD
-      updateRecordResponse = await RecordService().updateRecord(
-          homeId: homeId,
-          flatName: flat.flatName,
-          fieldName: 'monthlyDue',
-          value: newMonthlyDue,
-          datetime: DateTime.now());
-      if (updateRecordResponse.code != 200) {
-        response.code = 320;
-        response.body = 'record update failed';
-        return;
-      }
       //*UPDATE RENTER DUE
       renterDueUpdateResponse =
-          await updateRenter(field: 'dueAmount', value: newRenterDue);
+          await updateRenter(field: RenterField.due_, value: newRenterDue);
       if (renterDueUpdateResponse.code != 200) {
         response.code = 320;
         response.body = 'renter due update failed';
@@ -136,13 +120,43 @@ class RenterViewModel extends ChangeNotifier {
       setTransactionTime(DateTime.now());
       //updating data
       paymentController.clear();
-      setStatus(Status.completed);
     } else {
       // response.code = 201;
       response.body = 'error occured ';
       setStatus(Status.error);
     }
+    //*UPDATE MONTHLY DUE
+    monthlyDueUpdateResponse = await FlatService().updateFlat(
+        homeId: homeId,
+        flatName: flat.flatName,
+        fieldName: FlatField.due,
+        newValue: newMonthlyDue);
+    if (monthlyDueUpdateResponse.code != 200) {
+      response.code = 320;
+      response.body = 'monthly due update failed';
+      return;
+    }
+    //*UPDATE PREVIOUS MONTH RECORD
+    updateRecordResponse = await RecordService().updateRecord(
+        homeId: homeId,
+        flatName: flat.flatName,
+        map: {
+          // RecordField.monthlyDue: newMonthlyDue,
+
+          // RecordField.renterDue: newRenterDue,
+          RecordField.paid: transactionAmount,
+        },
+        recordDate: Formatter.previousDate);
+    if (updateRecordResponse.code != 200 && updateRecordResponse.code != 201) {
+      response.body = 'record update failed';
+      return;
+    }
+    // print('transferResponse ${transferResponse.code}');
+    // print('renterDueUpdateResponse ${renterDueUpdateResponse.code}');
+    // print('monthlyDueUpdateResponse ${monthlyDueUpdateResponse.code}');
+    // print('updateRecordResponse ${updateRecordResponse.code}');
     setLoading(false);
+    setStatus(Status.completed);
   }
 
   Future<Response> updateRenter(
@@ -185,20 +199,14 @@ class RenterViewModel extends ChangeNotifier {
         // FlatField.previousTime: DateTime.now().toIso8601String(),
         // FlatField.presentReading: null,
         FlatField.presentTime: null,
-      }).whenComplete(() async {
-        // await RecordService()
-        //     .deleteRecord(
-        //         homeId: homeId,
-        //         flatName: flatName,
-        //         recordId: previousMonthRecordId)
-        //     .whenComplete(() {
-        //   response.code = 200;
-        //   response.body = 'ok';
-        // }).catchError((e) {
-        //   response.code = 412;
-        //   response.body = e.toString();
-        // });
+      }).whenComplete(() {
+        RecordService().deleteRecord(
+            homeId: homeId,
+            flatName: flatName,
+            recordId: Formatter.toYearMonth(Formatter.previousDate));
       });
+      response.code = 200;
+      response.body = 'ok';
     }).catchError((e) {
       response.code = 232;
       response.body = e.toString();

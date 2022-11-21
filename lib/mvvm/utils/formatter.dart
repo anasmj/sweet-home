@@ -18,6 +18,20 @@ class Formatter {
     "Nov",
     "Dec"
   ];
+  var monthsBn = [
+    "জানু",
+    "ফেব্রু",
+    "মার্চ",
+    "এপ্রিল",
+    "মে",
+    "জুন",
+    "জুলাই",
+    "আগস্ট",
+    "সেপ্টেম্বর",
+    "অক্টোবর",
+    "নভেম্বর",
+    "ডিসেম্বর"
+  ];
 
   DateTime now = DateTime.now();
   //convert to bengali number
@@ -33,33 +47,29 @@ class Formatter {
     return includeSymbol ? '৳$res' : res;
   }
 
-  //23 Jan '22
-  String buttonFormat(DateTime timeStamp) =>
-      '${timeStamp.day} ${months[timeStamp.month - 1]} ${timeStamp.year.toString().substring(2, 4)}';
-
   //Oct '22
   String monthYear(DateTime date) => "${months[date.month - 1]} "
       "'${date.year.toString().substring(2, 4)}";
 
-  //convert date in 2022-09-20 format
-  static String makeId(DateTime date) => DateFormat('yyyy-MM').format(date);
+  //2022-09
+  static String toYearMonth(DateTime date) =>
+      DateFormat('yyyy-MM').format(date);
 
-  //2022-09-20 currentDate
-  String yearMonthDate() => DateFormat('yyyy-MM-dd').format(DateTime.now());
-
-  //Oct '22
-  String previousMonthYear() => "${months[DateTime.now().month - 2]} "
-      "'${DateTime.now().year.toString().substring(2, 4)}";
+  //অক্টোবর '২২
+  String previousMonthYearBn() => "${monthsBn[DateTime.now().month - 2]} "
+      " '${Formatter.toBn(value: int.parse(DateTime.now().year.toString().substring(2, 4)), includeSymbol: false)}";
 
   //Oct '22
-  String currentMonthYear() => "${months[DateTime.now().month - 1]} "
-      "'${DateTime.now().year.toString().substring(2, 4)}";
+  String currentMonthYearBn() => "${monthsBn[DateTime.now().month - 1]} "
+      "'${Formatter.toBn(value: int.parse(DateTime.now().year.toString().substring(2, 4)), includeSymbol: false)}";
 
   //23 Jan '22 03:20pm
-  String transactionTime(DateTime timeStamp) =>
-      '${timeStamp.day} ${months[timeStamp.month - 1]} \'${DateTime.now().year.toString().substring(2, 4)} ${DateFormat.jm().format(timeStamp)}';
-  String appDateTime(DateTime timeStamp) =>
-      '${timeStamp.day} ${months[timeStamp.month - 1]} ${DateFormat.jm().format(timeStamp)}';
+  // String transactionTime(DateTime timeStamp) =>
+  //     '${timeStamp.day} ${monthsBn[timeStamp.month - 1]} \'${DateTime.now().year.toString().substring(2, 4)}'; // ${DateFormat.jm().format(timeStamp)}';
+
+  //১১ নভেম্বর '২২
+  String appDateTime(DateTime dateTime) =>
+      '${Formatter.toBn(value: dateTime.day, includeSymbol: false)} ${monthsBn[dateTime.month - 1]}  \'${Formatter.toBn(value: int.parse(dateTime.year.toString().substring(2, 4)), includeSymbol: false)}'; //${DateFormat.jm().format(timeStamp)}';
 
   // String transactionTime(DateTime timeStamp) =>
   //     "${timeStamp.day} ${months[timeStamp.month - 1]}";

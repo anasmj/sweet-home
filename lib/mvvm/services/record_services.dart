@@ -44,54 +44,55 @@ class RecordService {
     return result;
   }
 
-  //UPDATE RECORD
+  //UPDATE
   Future<Response> updateRecord({
     required String homeId,
     required String flatName,
-    required String fieldName,
-    required dynamic value,
-    required DateTime datetime,
+    required Map<String, dynamic> map,
+    required DateTime recordDate,
   }) async {
-    String recordDocId = Formatter.makeId(datetime);
+    String recordDocId = Formatter.toYearMonth(recordDate);
+
     final recordCollectionRef =
         await getRecordCollectionRef(homeId: homeId, flatName: flatName);
-    await recordCollectionRef
-        .doc(recordDocId)
-        .update({fieldName: value}).whenComplete(() {
-      response.code = 200;
-      response.body = 'updated';
-    }).catchError((e) {
-      response.code = 300;
-      response.body = e.toString();
+
+    await recordCollectionRef.doc(recordDocId).get().then((snapshot) async {
+      if (snapshot.exists) {
+        try {
+          map.forEach((firebaseField, newValue) async {
+            await recordCollectionRef.doc(recordDocId).update({
+              firebaseField: newValue,
+            });
+          });
+        } catch (e) {
+          response.code = 230;
+          response.body = e.toString();
+        }
+      } else {
+        //document does not exists
+        response.code = 201;
+        response.body = 'no such document exists yet';
+      }
     });
     return response;
   }
 
-  //RECORD IS CREATED FOR EACH FLAT DURING CREATION OF HOME
-  //READ A RECORD
-  Future<Response> readMonthlyRecord({
+  //READ ALL
+  Future<Iterable<Record>> getAll({
     required String homeId,
     required String flatName,
-    required String idMonth,
   }) async {
-    late Record monthlyRecord;
+    Iterable<Record> records = [];
     final recordCollecRef =
         await getRecordCollectionRef(homeId: homeId, flatName: flatName);
-    DocumentReference monthyRecordDocRef = recordCollecRef.doc(idMonth);
-    await monthyRecordDocRef.get().then((data) {
-      if (data.exists) {
-        monthlyRecord = Record.fromJson(data.data() as Map<String, dynamic>);
-        response.code = 200;
-        response.body = 'record found';
-        response.monthlyRecord = monthlyRecord;
-      }
-    }).catchError((e) {
-      response.code = 300;
-      response.body = e.toString();
-    });
-    return response;
+    QuerySnapshot recordsSnapshot = await recordCollecRef.get();
+    records = recordsSnapshot.docs.map(
+        (docSnap) => Record.fromJson(docSnap.data() as Map<String, dynamic>));
+
+    return records;
   }
 
+  //READ SINGLE
   Future<Response> fetchRecord({
     required String homeId,
     required String flatName,
@@ -117,13 +118,12 @@ class RecordService {
     return response;
   }
 
-  //CREATE RECORD INTO FLAT IF NOT EXISTS
+  //CREATE IF NOT EXISTS
   Future<bool> createMonthlyRecord({
     required String homeId,
     required String flatId,
     required Record record,
     required String monthID,
-    DateTime? issueDate,
     // required double meterReading,
     // required double renterPayable,
     // Renter? renter,

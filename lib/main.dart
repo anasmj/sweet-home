@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sweet_home/mvvm/providers/current_home.dart';
 import 'package:sweet_home/mvvm/providers/selected_flat_provider.dart';
@@ -11,6 +10,7 @@ import 'package:sweet_home/mvvm/view_models/home_stepper_view_model.dart';
 import 'package:sweet_home/mvvm/view_models/add_renter_view_model.dart';
 import 'package:sweet_home/mvvm/services/auth_service.dart';
 import 'package:sweet_home/mvvm/utils/shared_pref.dart';
+import 'package:sweet_home/mvvm/view_models/record_view_model.dart';
 import 'package:sweet_home/prev/view/dismiss_keyboard.dart';
 import 'package:sweet_home/mvvm/views/resources/app_theme.dart';
 import 'package:sweet_home/wrapper.dart';
@@ -53,6 +53,15 @@ class MyApp extends StatelessWidget {
                   selectedFlatProvider: selectedFlat,
                 ),
             create: ((context) => FlatListViewModel())),
+        ChangeNotifierProxyProvider2<CurrentHomeProvider, SelectedFlatProvider,
+                RecordViewModel>(
+            update: (context, currentHomeProvider, selectedFlatProvider,
+                    RecordViewModel? viewModel) =>
+                RecordViewModel(
+                  home: currentHomeProvider.currentHome,
+                  flat: selectedFlatProvider.selectedFlat,
+                ),
+            create: ((context) => RecordViewModel())),
         ChangeNotifierProxyProvider<CurrentHomeProvider,
             HomeServiceChargeListViewModel>(
           update: (context, currentHomeProvider, viewModel) =>

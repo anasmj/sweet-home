@@ -5,6 +5,7 @@ import 'package:sweet_home/mvvm/models/response.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/view_models/flat_view_model.dart';
 import 'package:sweet_home/mvvm/views/error_pages/error_page.dart';
+import 'package:sweet_home/mvvm/views/records_page/records_page.dart';
 import 'expence_table/confirm_expence_table.dart';
 import 'expence_table/record_expence_table.dart';
 
@@ -51,16 +52,22 @@ class _MonthlyExpenceNewState extends State<MonthlyExpence> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
-                        Formatter().previousMonthYear(),
+                        Formatter().previousMonthYearBn(),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                     const Spacer(),
                     TextButton(
                       onPressed: () {
-                        setState(() {
-                          _response = getRecord(context);
-                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  RecordsPage(record: record)),
+                        );
+                        // setState(() {
+                        //   _response = getRecord(context);
+                        // });
                       },
                       child: Row(
                         children: const [
@@ -103,19 +110,58 @@ class _MonthlyExpenceNewState extends State<MonthlyExpence> {
     );
   }
 
-  Row tableHeader(TextStyle colTitleText) {
+  Row tableHeader(TextStyle colTitleTextStyle) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           'বিবরণ',
-          style: colTitleText,
+          style: colTitleTextStyle,
         ),
         Text(
           'টাকার পরিমাণ',
-          style: colTitleText,
+          style: colTitleTextStyle,
         ),
       ],
+    );
+  }
+}
+
+class BottomBanner extends StatelessWidget {
+  const BottomBanner({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            blurRadius: 1,
+            spreadRadius: 1,
+            offset: const Offset(0, 2),
+          )
+        ],
+        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).secondaryHeaderColor,
+      ),
+      height: 50,
+      width: 180,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'বুঝে পেয়েছি ৳ 2355 ',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Text(
+            '23 Aug \'22',
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+        ],
+      ),
     );
   }
 }

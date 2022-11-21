@@ -37,7 +37,7 @@ class CurrentMonthContent extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: MonthlyDataTable(
                       title: 'চলতি মাসের হিসাব',
-                      date: Formatter().currentMonthYear(),
+                      date: Formatter().currentMonthYearBn(),
                     ),
                   ),
                   const SizedBox(height: 40),
@@ -45,7 +45,7 @@ class CurrentMonthContent extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: MonthlyDataTable(
                       title: "আগের মাসের হিসাব",
-                      date: Formatter().previousMonthYear(),
+                      date: Formatter().previousMonthYearBn(),
                     ),
                   ),
                   const SizedBox(

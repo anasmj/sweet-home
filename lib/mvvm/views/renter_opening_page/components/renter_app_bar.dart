@@ -18,10 +18,14 @@ class RenterAppBar extends StatelessWidget {
     TextTheme appTextTheme = Theme.of(context).textTheme;
     FlatViewModel flatViewModel = context.watch<FlatViewModel>();
     Flat? flat = context.watch<FlatViewModel>().userFlat;
+    double monthlyTotal = flatViewModel.total ?? 0;
     String? homeId = context.read<CurrentHomeProvider>().currentHome?.homeId;
     double totalDue = flat!.confirmDate != null
         ? flat.renter!.renterDue + flat.monthlyDue
-        : flatViewModel.total ?? 0;
+        : monthlyTotal + flat.renter!.renterDue;
+    // double totalDue = flat!.confirmDate != null
+    //     ? flat.renter!.renterDue + flat.monthlyDue
+    //     : flatViewModel.total ?? 0;
 
     return StreamBuilder(
       stream: FlatService()

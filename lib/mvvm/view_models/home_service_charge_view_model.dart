@@ -35,7 +35,7 @@ class HomeServiceChargeListViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   void setLoading(bool loading) {
     _isLoading = loading;
-    // notifyListeners();
+    notifyListeners();
   }
 
   List<Utility> get serviceChargeList => _serviceChargeList;

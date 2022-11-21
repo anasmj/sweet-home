@@ -12,7 +12,7 @@ class TransactionSubmitButton extends StatelessWidget {
     required this.transactionPageContext,
   });
 
-  final recordId = Formatter.makeId(DateTime.now());
+  final recordId = Formatter.toYearMonth(DateTime.now());
   BuildContext transactionPageContext;
   final String buttonText = 'বুঝে পেলাম';
   Response response = Response();
@@ -20,10 +20,8 @@ class TransactionSubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // final provider = context.read<TransactionProvider>();
     final viewModel = context.read<RenterViewModel>();
-    final String? homeId = context
-        .watch<CurrentHomeProvider>()
-        .currentHome
-        ?.homeId; //todo: check this line out
+    final String? homeId =
+        context.watch<CurrentHomeProvider>().currentHome?.homeId;
 
     return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

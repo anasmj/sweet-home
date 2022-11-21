@@ -32,9 +32,10 @@ class DueRow extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class RecievedRow extends StatelessWidget {
-  const RecievedRow({super.key});
-
+  RecievedRow({super.key, required this.amount});
+  double? amount;
   @override
   Widget build(BuildContext context) {
     TextStyle style = Theme.of(context)
@@ -46,8 +47,10 @@ class RecievedRow extends StatelessWidget {
       children: [
         Text('পেয়েছি', style: style),
         Text(
-          '23421',
-          style: style,
+          amount != null ? Formatter.toBn(value: amount) : '-',
+          style: style.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );
@@ -55,9 +58,8 @@ class RecievedRow extends StatelessWidget {
 }
 
 class MonthlyDueRow extends StatelessWidget {
-  const MonthlyDueRow({
-    super.key,
-  });
+  const MonthlyDueRow({super.key, required this.amount});
+  final double amount;
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +70,12 @@ class MonthlyDueRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('বাকি', style: style),
+        Text('মাসিক বকেয়া', style: style),
         Text(
-          '23421',
-          style: style,
+          Formatter.toBn(value: amount),
+          style: style.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );

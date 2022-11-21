@@ -8,7 +8,7 @@ class Renter {
   String? alternatePhoneNo;
   String? occupation;
   int? numOfPerson;
-  DateTime? entryDate;
+  DateTime entryDate;
   int? nIdNumber;
   String? previousLocation;
   String? village;
@@ -29,7 +29,7 @@ class Renter {
     required this.phone,
     this.alternatePhoneNo = '',
     this.occupation = '',
-    this.entryDate,
+    required this.entryDate,
     this.numOfPerson,
     this.previousLocation,
     this.village,

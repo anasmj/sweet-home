@@ -26,14 +26,18 @@ class RecordExpenceTable extends StatelessWidget {
         record.previousMeterReading != null) {
       _usedUnit = record.presentMeterReading! - record.previousMeterReading!;
     }
+    double monthlyDue = 0;
     TextTheme textTheme = Theme.of(context).textTheme;
+    if (record.paid != null && record.grandTotal != null) {
+      monthlyDue = record.grandTotal! - record.paid!;
+    }
 
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          flatRentRow(Formatter.toBn(value: record.rent)),
+          flatRentRow(Formatter.toBn(value: record.flatRent)),
           // flatRentRow(flat),
           gasBillRow(Formatter.toBn(value: record.gasBill)),
           waterBillRow(Formatter.toBn(value: record.waterBill)),
@@ -41,7 +45,7 @@ class RecordExpenceTable extends StatelessWidget {
             prevReading: record.previousMeterReading,
             presentReading: record.presentMeterReading,
             bill: Formatter.toBn(value: record.electricBill ?? 0),
-            showAlert: false,
+            // showAlert: false,
           ),
 
           Padding(
@@ -67,11 +71,11 @@ class RecordExpenceTable extends StatelessWidget {
           DueRow(textTheme: textTheme),
           transactionDivider,
           GrandTotalRow(textTheme: textTheme),
-          const RecievedRow(),
-          const MonthlyDueRow(),
-
+          RecievedRow(amount: record.paid),
+          transactionDivider,
+          MonthlyDueRow(amount: monthlyDue),
           const SizedBox(
-            height: 70,
+            height: 10,
           ),
         ]
             .map((e) => Padding(

@@ -30,7 +30,7 @@ class EntryDatePicker extends StatelessWidget {
           const Icon(Icons.calendar_month_outlined),
           const SizedBox(width: 8),
           Text(Formatter()
-              .buttonFormat(context.watch<AddRenterViewModel>().entryDate)),
+              .appDateTime(context.watch<AddRenterViewModel>().entryDate)),
         ],
       ),
     );

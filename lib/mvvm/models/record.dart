@@ -1,28 +1,29 @@
 import 'package:sweet_home/mvvm/models/utility.dart';
+import 'package:sweet_home/mvvm/utils/fields.dart';
 
-//!SUPPORTING FIREBASE
 class Record {
-  double gasBill, monthlyDue, waterBill, rent;
-
+  double gasBill, monthlyDue, waterBill;
   double? previousMeterReading,
       presentMeterReading,
       flatRent,
       electricBill,
       unitPrice,
       total,
+      renterDue,
+      paid,
       grandTotal;
 
-  // Renter? renter;
-  String renterName, renterId, renterPhone, renterPhone2;
+  String renterName, renterId, renterPhone, renterPhone2, recordId;
 
   List<Utility>? utilities;
 
   Record({
-    this.rent = 0.0,
     this.renterId = '',
+    required this.recordId,
     this.renterName = '',
     this.renterPhone = '',
     this.renterPhone2 = '',
+    this.renterDue = 0.00,
     this.flatRent = 0.00,
     this.gasBill = 0.00,
     this.waterBill = 0.00,
@@ -32,6 +33,7 @@ class Record {
     this.utilities,
     this.monthlyDue = 0.00,
     this.total,
+    this.paid = 0,
     this.grandTotal,
     this.electricBill,
   });
@@ -39,36 +41,31 @@ class Record {
   static Record fromJson(Map<String, dynamic> json) {
     Record record;
     List<Utility> utilies = [];
-    final utilityMapList = json['utilities'];
+    final utilityMapList = json[RecordField.utilities];
     utilityMapList.forEach((item) {
       Utility utility = Utility.fromJson(item as Map<String, dynamic>);
       utilies.add(utility);
     });
-
-    // Utility.fromJson(json['utilities']);
     record = Record(
-      renterId: json['renterId'],
-      rent: json['rent'],
-      renterName: json['renterName'] ?? '',
-      renterPhone: json['renterPhone'],
-      renterPhone2: json['renterPhone2'],
-      // renter:
-      //     Renter.fromJson(json['renter']),
-      flatRent: json['flatRent'],
-      gasBill: json['gasBill'],
-      waterBill: json['waterBill'],
-      presentMeterReading: json['presentMeterReading'],
-      previousMeterReading: json['previousMeterReading'],
-      electricBill: json['electricBill'],
-      unitPrice: json['unitPrice'],
-      total: json['total'],
-      grandTotal: json['grandTotal'],
-      //utilities
-      monthlyDue: json['monthlyDue'],
-      // utilities: utilies,
+      renterId: json[RecordField.renterId],
+      recordId: json[RecordField.id] ?? '',
+      renterDue: json[RecordField.renterDue],
+      renterName: json[RecordField.renterName] ?? '',
+      renterPhone: json[RecordField.renterPhone],
+      renterPhone2: json[RecordField.renterPhone2],
+      flatRent: json[RecordField.flatRent],
+      gasBill: json[RecordField.gasBill],
+      waterBill: json[RecordField.waterBill],
+      presentMeterReading: json[RecordField.presentMeterReading],
+      previousMeterReading: json[RecordField.previousMeterReading],
+      electricBill: json[RecordField.electricBill],
+      unitPrice: json[RecordField.unitPrice],
+      total: json[RecordField.total],
+      paid: json[RecordField.paid],
+      grandTotal: json[RecordField.grandTotal],
+      monthlyDue: json[RecordField.monthlyDue],
     );
 
-    // print(record);
     return record;
   }
 
@@ -78,26 +75,27 @@ class Record {
       utilitiesMap = utilities!.map((utility) {
         return utility.toJson();
       }).toList();
-      // print(utilitiesMap);
     }
     return {
       // 'renter': renter != null ? renter!.toJson() : null,
-      'electricBill': electricBill,
-      'renterName': renterName,
-      'renterId': renterId,
-
-      'renterPhone': renterPhone,
-      'renterPhone2': renterPhone2,
-      'rent': rent,
-      'gasBill': gasBill,
-      'waterBill': waterBill,
-      'previousMeterReading': previousMeterReading,
-      'presentMeterReading': presentMeterReading,
-      'monthlyDue': monthlyDue,
-      'unitPrice': unitPrice,
-      'total': total,
-      'grandTotal': grandTotal,
-      'utilities': utilitiesMap,
+      RecordField.electricBill: electricBill,
+      RecordField.flatRent: flatRent,
+      RecordField.id: recordId,
+      RecordField.renterName: renterName,
+      RecordField.renterId: renterId,
+      RecordField.renterDue: renterDue,
+      RecordField.paid: paid ?? 0,
+      RecordField.renterPhone: renterPhone,
+      RecordField.renterPhone2: renterPhone2,
+      RecordField.gasBill: gasBill,
+      RecordField.waterBill: waterBill,
+      RecordField.previousMeterReading: previousMeterReading,
+      RecordField.presentMeterReading: presentMeterReading,
+      RecordField.monthlyDue: monthlyDue,
+      RecordField.unitPrice: unitPrice,
+      RecordField.total: total,
+      RecordField.grandTotal: grandTotal,
+      RecordField.utilities: utilitiesMap,
     };
   }
 }

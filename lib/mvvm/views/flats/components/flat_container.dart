@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sweet_home/mvvm/providers/theme_provider.dart';
 import 'package:sweet_home/mvvm/utils/enums.dart';
 import 'package:sweet_home/mvvm/utils/formatter.dart';
 import 'package:sweet_home/mvvm/views/flats/components/meter_image.dart';
@@ -16,37 +17,20 @@ import 'flat_options.dart';
 // ignore: must_be_immutable
 class FlatContainer extends StatelessWidget {
   Flat flat;
-  String presentDate = Formatter.makeId(DateTime.now());
+  String presentDate = Formatter.toYearMonth(DateTime.now());
   FlatContainer({required this.flat, super.key});
+  bool showPreviousReadingAlert = false;
+  bool showPresentReadingAlert = false;
 
   Widget getMeterReadingMsg(Flat falt) {
-    if (flat.presentMeterReading == null) {
+    if (showPreviousReadingAlert) {
       return MeterImage(meterIndicatorType: MeterIndicatorType.previousReading);
     }
-    if (flat.presentMeterReadingUpdateTime == null) {
-      return MeterImage(meterIndicatorType: MeterIndicatorType.currentReading);
-    }
-    if (Formatter.makeId(flat.presentMeterReadingUpdateTime!) !=
-        Formatter.makeId(DateTime.now())) {
+    if (showPresentReadingAlert) {
       return MeterImage(meterIndicatorType: MeterIndicatorType.currentReading);
     }
     return const SizedBox.shrink();
   }
-  //trying another way
-  // Widget getMeterReadingMsg(Flat falt) {
-  //   if (flat.previousMeterReading != null) {
-  //     if (flat.confirmDate == null) return const SizedBox.shrink();
-
-  //     if (Formatter.makeId(flat.confirmDate!) == presentDate) {
-  //       return const SizedBox.shrink();
-  //     } else {
-  //       return MeterImage(
-  //           meterIndicatorType: MeterIndicatorType.currentReading);
-  //     }
-  //   } else {
-  //     return MeterImage(meterIndicatorType: MeterIndicatorType.previousReading);
-  //   }
-  // }
 
   Widget footer(Flat flat) {
     if (flat.renter == null) {
@@ -80,39 +64,35 @@ class FlatContainer extends StatelessWidget {
     });
   }
 
-  Row noPreviousReadingText() {
-    return Row(
-      children: const [
-        Icon(
-          Icons.info_outline_rounded,
-          color: Colors.red,
-          size: 16,
-        ),
-        SizedBox(width: 4),
-        Text(
-          'পূর্বের রিডিং দেয়া নেই',
-          style: TextStyle(color: Colors.red),
-        )
-      ],
-    );
-  }
+  Widget noPreviousReadingText = Row(
+    children: const [
+      Icon(
+        Icons.info_outline_rounded,
+        color: Colors.red,
+        size: 16,
+      ),
+      SizedBox(width: 4),
+      Text(
+        'পূর্বের রিডিং ঠিক নেই',
+        style: TextStyle(color: Colors.red),
+      )
+    ],
+  );
 
-  Row noCurrentReadingText() {
-    return Row(
-      children: const [
-        Icon(
-          Icons.info_outline_rounded,
-          color: Colors.red,
-          size: 16,
-        ),
-        SizedBox(width: 4),
-        Text(
-          'বর্তমান রিডিং আপডেট করুন',
-          style: TextStyle(color: Colors.red),
-        )
-      ],
-    );
-  }
+  Widget noCurrentReadingText = Row(
+    children: const [
+      Icon(
+        Icons.info_outline_rounded,
+        color: Colors.red,
+        size: 16,
+      ),
+      SizedBox(width: 4),
+      Text(
+        'বর্তমান রিডিং ঠিক নেই',
+        style: TextStyle(color: Colors.red),
+      )
+    ],
+  );
 
   SvgPicture personAddIcon(bool isDark) {
     return SvgPicture.asset(
@@ -146,7 +126,19 @@ class FlatContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = false;
+    if (flat.presentMeterReading == null) {
+      showPresentReadingAlert = true;
+    }
+    if (flat.previousMeterReading == null) {
+      showPreviousReadingAlert = true;
+    }
+    if (flat.renter != null) {
+      if (Formatter.toYearMonth(flat.renter!.entryDate) ==
+          Formatter.toYearMonth(DateTime.now())) {
+        showPresentReadingAlert = false;
+      }
+    }
+    bool isDark = context.watch<ThemeProvider>().isDarkMode;
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -161,7 +153,6 @@ class FlatContainer extends StatelessWidget {
             AppWidget.getModalSheet(
                 context: context, modalSheetContent: const FlatOptions());
           },
-          // flatOptionModalSheet(context: context, isDark: isDark),
           child: Material(
             //shadowing
             shape: RoundedRectangleBorder(
@@ -201,17 +192,17 @@ class FlatContainer extends StatelessWidget {
           ),
         ),
         flat.renter != null
-            ? flat.previousMeterReading == null
+            ? showPreviousReadingAlert
                 ? Positioned(
                     left: 10,
                     bottom: -30,
-                    child: noPreviousReadingText(),
+                    child: noPreviousReadingText,
                   )
-                : flat.presentMeterReading == null
+                : showPresentReadingAlert
                     ? Positioned(
                         left: 10,
                         bottom: -30,
-                        child: noCurrentReadingText(),
+                        child: noCurrentReadingText,
                       )
                     : const SizedBox.shrink()
             : const SizedBox.shrink(),

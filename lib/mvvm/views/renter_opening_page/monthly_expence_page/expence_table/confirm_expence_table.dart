@@ -32,7 +32,7 @@ class ConfirmExpenceTable extends StatelessWidget {
     }
     double? prevReading = flat.previousMeterReading;
     double? presentReading = flat.presentMeterReading;
-    bool showAlert = prevReading == null || presentReading == null;
+    // bool showAlert = prevReading == null || presentReading == null;
 
     HomeServiceChargeListViewModel utilityListViewModel =
         context.watch<HomeServiceChargeListViewModel>();
@@ -52,7 +52,7 @@ class ConfirmExpenceTable extends StatelessWidget {
           gasBillRow(Formatter.toBn(value: flat.flatGasBill)),
           waterBillRow(Formatter.toBn(value: flat.flatWaterBill)),
           ElectricityBillRow(
-            showAlert: showAlert,
+            // showAlert: showAlert,
             prevReading: prevReading,
             presentReading: presentReading,
             bill: viewModel.isLoading

@@ -108,11 +108,12 @@ class FlatService {
     return response;
   }
 
-  Future<List<Flat>> getAllFlats({required String homeId}) async {
+  //! discarted
+  Future<List<Flat>> getAllFlatss({required String homeId}) async {
     DateTime currentDate = DateTime.now();
     DateTime lastMonthDate =
         DateTime(currentDate.year, currentDate.month - 1, currentDate.day);
-    String previousMonthRecordId = Formatter.makeId(lastMonthDate);
+    String previousMonthRecordId = Formatter.toYearMonth(lastMonthDate);
 
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);

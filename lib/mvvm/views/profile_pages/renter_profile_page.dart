@@ -35,7 +35,7 @@ class _RenterProfileState extends State<RenterProfile> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
             child: Text(
-              '${Formatter().monthYear(widget.renter.entryDate!)} থেকে আছেন',
+              '${Formatter().monthYear(widget.renter.entryDate)} থেকে আছেন',
             ),
           ),
         ),
@@ -122,11 +122,10 @@ class _RenterProfileState extends State<RenterProfile> {
                 Navigator.pop(context); //pop renter profile page
                 Navigator.pop(context); //pop month detail page
                 if (res.code != 200) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                          'দুঃখিত, একটু পরে আবার চেষ্টা করুন\n error: ${res.body}')));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error: ${res.body}')));
                 } else {
-                  AppWidget.showToast('গ্রাহক মুছে ফেলা হয়েছে');
+                  AppWidget.showToast('ফ্ল্যাটটি খালি করা হয়েছে');
                 }
               },
               child: const Text(
