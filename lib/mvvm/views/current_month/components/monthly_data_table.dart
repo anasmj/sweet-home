@@ -9,7 +9,7 @@ class MonthlyDataTable extends StatelessWidget {
       : super(key: key);
   String title;
   String? date;
-
+  final TextStyle tableFont = const TextStyle(fontSize: 16);
   @override
   Widget build(BuildContext context) {
     final mode = context.watch<ThemeProvider>();
@@ -48,11 +48,19 @@ class MonthlyDataTable extends StatelessWidget {
                           Center(child: Text('1A')),
                         ),
                         DataCell(
-                          Center(child: Text(Formatter.toBn(value: 26450))),
+                          Center(
+                              child: Text(
+                            Formatter.toBn(value: 26450),
+                            style: tableFont,
+                          )),
                         ),
 
-                        const DataCell(
-                          Center(child: Text('৳ 64')),
+                        DataCell(
+                          Center(
+                              child: Text(
+                            Formatter.toBn(value: 215),
+                            style: tableFont,
+                          )),
                         ),
                         const DataCell(
                           Center(
@@ -82,12 +90,20 @@ class MonthlyDataTable extends StatelessWidget {
                         const DataCell(
                           Center(child: Text('1B')),
                         ),
-                        const DataCell(
-                          Center(child: Text('৳ 0')),
+                        DataCell(
+                          Center(
+                              child: Text(
+                            Formatter.toBn(value: 0),
+                            style: tableFont,
+                          )),
                         ),
 
                         DataCell(
-                          Center(child: Text(Formatter.toBn(value: 27420))),
+                          Center(
+                              child: Text(
+                            Formatter.toBn(value: 27420),
+                            style: tableFont,
+                          )),
                         ),
                         const DataCell(
                           Center(
@@ -96,6 +112,7 @@ class MonthlyDataTable extends StatelessWidget {
                               child: Text(
                                 'মনজরুল আলম ',
                                 maxLines: 2,
+                                style: TextStyle(fontSize: 14),
                                 overflow: TextOverflow.fade,
                                 softWrap: true,
                               ),
@@ -118,11 +135,19 @@ class MonthlyDataTable extends StatelessWidget {
                           Center(child: Text('3A')),
                         ),
                         DataCell(
-                          Center(child: Text(Formatter.toBn(value: 26420))),
+                          Center(
+                              child: Text(
+                            Formatter.toBn(value: 26420),
+                            style: tableFont,
+                          )),
                         ),
 
                         DataCell(
-                          Center(child: Text(Formatter.toBn(value: 20))),
+                          Center(
+                              child: Text(
+                            Formatter.toBn(value: 20),
+                            style: tableFont,
+                          )),
                         ),
                         const DataCell(
                           Center(
