@@ -14,9 +14,9 @@ class AppHomePage extends StatefulWidget {
 }
 
 class _AppHomePage extends State<AppHomePage> {
-  int _defaultTabIndex = 0;
+  int _defaultTabIndex = 2;
   SelectedPage selectedPage =
-      SelectedPage.currentMonth; //! change if default index modified
+      SelectedPage.pendings; //! change if default index modified
 
   final double _appBarHeight = 280;
   bool isInitialState = false;
@@ -26,36 +26,33 @@ class _AppHomePage extends State<AppHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const AppDrawer(),
-      bottomNavigationBar: getBottomNavBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _defaultTabIndex,
+        onTap: (newIndex) {
+          setState(() {
+            switch (newIndex) {
+              case 0:
+                selectedPage = SelectedPage.currentMonth;
+                break;
+              case 1:
+                selectedPage = SelectedPage.flats;
+                break;
+              case 2:
+                selectedPage = SelectedPage.pendings;
+                break;
+            }
+          });
+          _defaultTabIndex = newIndex;
+        },
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month), label: 'চলতি মাস '),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ফ্ল্যাটগুলি'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.pending), label: 'বকেয়া সমূহ'),
+        ],
+      ),
       body: getUserSelectedPage(context),
-    );
-  }
-
-  BottomNavigationBar getBottomNavBar() {
-    return BottomNavigationBar(
-      currentIndex: _defaultTabIndex,
-      onTap: (newIndex) {
-        setState(() {
-          switch (newIndex) {
-            case 0:
-              selectedPage = SelectedPage.currentMonth;
-              break;
-            case 1:
-              selectedPage = SelectedPage.flats;
-              break;
-            case 2:
-              selectedPage = SelectedPage.pendings;
-              break;
-          }
-        });
-        _defaultTabIndex = newIndex;
-      },
-      items: const [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month), label: 'চলতি মাস '),
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ফ্ল্যাটগুলি'),
-        BottomNavigationBarItem(icon: Icon(Icons.pending), label: 'বকেয়া সমূহ'),
-      ],
     );
   }
 

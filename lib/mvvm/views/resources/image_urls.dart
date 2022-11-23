@@ -16,4 +16,6 @@ class ImageUrl {
     'https://images.unsplash.com/photo-1663042980180-f404c284c75a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
     'https://images.unsplash.com/photo-1624022350493-d4e94190775b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
   ];
+  static String emptyImage = "assets/images/empty.png";
+  static String emptyBox = "assets/images/empty_box.png";
 }

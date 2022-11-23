@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/mvvm/views/resources/image_url.dart';
+import '../resources/image_urls.dart';
 
 class EmptyServiceChargePage extends StatelessWidget {
   const EmptyServiceChargePage({super.key});
