@@ -12,3 +12,5 @@
 5. See all transaction with their details at one place, so no mistake anymore!  
 
 <h3>Let's have a look on app itself</h2><br>
+ 
+![](/readMeResources/monthDetail.png)  ![](/readMeResources/drawer.png) ![](/readMeResources/allFlats.png)  ![](/readMeResources/monthlyExpences.png)   ![](/readMeResources/allFlats.png) ![](/readMeResources/transaction.png) ![](/readMeResources/empty_transaction.png)  ![](/readMeResources/flatInfo.png)  ![](/readMeResources/menu.png)   ![](/readMeResources/settings.png)   ![](/readMeResources/transactionList.png)  
