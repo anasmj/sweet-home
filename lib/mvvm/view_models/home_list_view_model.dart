@@ -46,6 +46,7 @@ class HomeListViewModel extends ChangeNotifier {
       setStatus(Status.error);
       return;
     }
+    print(response.content);
     setHomeList(response.content as List<Home>);
 
     if (_homeList.isEmpty) {

@@ -14,9 +14,9 @@ class AppHomePage extends StatefulWidget {
 }
 
 class _AppHomePage extends State<AppHomePage> {
-  int _defaultTabIndex = 2;
+  int _defaultTabIndex = 1;
   SelectedPage selectedPage =
-      SelectedPage.pendings; //! change if default index modified
+      SelectedPage.currentMonth; //! change if default index modified
 
   final double _appBarHeight = 280;
   bool isInitialState = false;
@@ -48,8 +48,8 @@ class _AppHomePage extends State<AppHomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.calendar_month), label: 'চলতি মাস '),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ফ্ল্যাটগুলি'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.pending), label: 'বকেয়া সমূহ'),
+          // BottomNavigationBarItem(
+          //     icon: Icon(Icons.pending), label: 'বকেয়া সমূহ'),
         ],
       ),
       body: getUserSelectedPage(context),

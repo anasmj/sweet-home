@@ -20,7 +20,11 @@ class HomeServices {
   //READ HOMES
   Future<Response> getAllHomeVM() async {
     try {
+      print('before try');
       final homeSnapshots = await getHomesCollectionRef().get();
+      print('getting home');
+      print('READ HOMES $homeSnapshots');
+
       List<Home> allHome = homeSnapshots.docs.map((homeDoc) {
         return Home.fromJson(homeDoc.data() as Map<String, dynamic>);
       }).toList();
