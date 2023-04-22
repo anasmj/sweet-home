@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import '../model/app.user.dart';
+import 'package:sweet_home/src/model/response.dart';
+import 'package:sweet_home/src/services/auth.service.dart';
+import '../../../model/app.user.dart';
 
 final authNotifier =
     NotifierProvider<AppUserNotifier, Stream<AppUser?>>(AppUserNotifier.new);
@@ -32,21 +34,16 @@ class AppUserNotifier extends Notifier<Stream<AppUser?>> {
   GoogleSignInAccount? get user => _user;
 
   Future<void> googeLogin() async {
-    final googleUser = await googleSignIn.signIn();
-    if (googleUser == null) return;
-    _user = googleUser;
+    // final googleUser = await googleSignIn.signIn();
+    // if (googleUser == null) return;
+    // _user = googleUser;
 
-    final googleAuth = await googleUser.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    await _auth.signInWithCredential(credential);
-  }
-
-  Future<void> logout() async {
-    googleSignIn.disconnect();
-    _auth.signOut();
+    // final googleAuth = await googleUser.authentication;
+    // final credential = GoogleAuthProvider.credential(
+    //   accessToken: googleAuth.accessToken,
+    //   idToken: googleAuth.idToken,
+    // );
+    // await _auth.signInWithCredential(credential);
   }
 
   void onNameChange(String s) {
@@ -54,30 +51,25 @@ class AppUserNotifier extends Notifier<Stream<AppUser?>> {
   }
 
   void onEmailChange(String s) {
-    newAppUser.name = s;
+    newAppUser.email = s;
   }
 
   void onPassChange(String s) {
-    newAppUser.name = s;
+    newAppUser.password = s;
   }
 
   Future<void> register() async {
-    print(newAppUser.email);
-    print(newAppUser.name);
-    // if (registrationFormKey.currentState!.validate()) {
-    // Response response =
-    //     await AuthService().registerWithEmailAndPass(
-    //   email: _emailController.text,
-    //   password: _passController.text,
-    //   userName: _nameController.text,
-    // );
-    // if (response.code != 200) {
-    //   // ignore: use_build_context_synchronously
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     AppWidget.showSnackBarWithMsg(
-    //         msg: response.body ??
-    //             'Unknown error occured '),
-    //   );
-    // }
+    if (registrationFormKey.currentState!.validate()) {
+      // print(newAppUser.name);
+      // print(newAppUser.email);
+      // print(newAppUser.password);
+
+      Response response = await AuthService().registerWithEmailAndPass(
+        email: newAppUser.email!,
+        password: newAppUser.password!,
+        userName: newAppUser.name,
+      );
+    
+    }
   }
 }

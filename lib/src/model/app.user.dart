@@ -1,3 +1,4 @@
+
 class AppUser {
   String? userId, email, name, iamgeUrl,password;
 

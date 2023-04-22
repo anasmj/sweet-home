@@ -4,6 +4,7 @@ import 'package:sweet_home/src/modules/authentication/compontents/button.dart';
 import 'package:sweet_home/src/modules/authentication/provider/auth.notifier.dart';
 import 'package:sweet_home/src/modules/authentication/provider/login.notifier.dart';
 import 'package:sweet_home/src/components/app.textfield.dart';
+import 'package:sweet_home/src/utils/validators.dart';
 
 class RegistrationPage extends ConsumerWidget {
   const RegistrationPage({super.key});
@@ -40,6 +41,7 @@ class RegistrationPage extends ConsumerWidget {
               AppTextField(
                 label: 'ইমেইল',
                 onChanged: ref.read(authNotifier.notifier).onEmailChange,
+                validationFunciton: Validator.checkEmpty,
                 inputType: TextInputType.emailAddress,
               ),
               const SizedBox(
@@ -48,6 +50,7 @@ class RegistrationPage extends ConsumerWidget {
               AppTextField(
                 onChanged: ref.read(authNotifier.notifier).onPassChange,
                 label: 'পাসওয়ার্ড',
+                validationFunciton: Validator.password,
                 inputType: TextInputType.visiblePassword,
               ),
               const SizedBox(

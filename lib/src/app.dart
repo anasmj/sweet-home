@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/src/modules/authentication/view/authentication.dart';
+import 'modules/authentication/view/wrapper.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -7,8 +7,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
-      home: const AuthenticatePages(),
+      theme: ThemeData(
+        useMaterial3: true,
+        primaryColor: Colors.lightBlue,
+      ),
+      home: const Wrapper(),
     );
   }
 }

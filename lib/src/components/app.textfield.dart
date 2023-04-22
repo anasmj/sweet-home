@@ -24,11 +24,13 @@ class AppTextField extends StatelessWidget {
           color: Colors.black.withOpacity(0.8),
         );
     return TextFormField(
+      
       controller: textEditingController,
       validator: validationFunciton,
       cursorHeight: _cursorHeight,
       keyboardType: inputType,
       onChanged: onChanged,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
         contentPadding:
             const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
