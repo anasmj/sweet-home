@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../components/empty.pages/no.flat.page/no.flat.dart';
 import '../current.month/view/current.month.page.dart';
 import 'components/drawer.dart';
 
@@ -14,7 +15,7 @@ class AppHomePage extends StatefulWidget {
 class _AppHomePage extends State<AppHomePage> {
   int _defaultTabIndex = 1;
   SelectedPage selectedPage =
-      SelectedPage.currentMonth; //! change if default index modified
+      SelectedPage.flats; //! change if default index modified
 
   final double _appBarHeight = 280;
   bool isInitialState = false;
@@ -67,7 +68,7 @@ class _AppHomePage extends State<AppHomePage> {
     if (selectedPage == SelectedPage.flats) {
       // return const UserFlats();
       // return AllFlat();
-      return Container();
+      return const NoFlatPage();
     }
     if (selectedPage == SelectedPage.pendings) {
       return Container();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sweet_home/src/extensions/extensions.dart';
+import '../../user.house/view/user.house.dart';
 import 'drawer_header.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -11,8 +12,6 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now();
-    print(now.formatted());
     return Drawer(
       width: 300,
       elevation: 3.0,
@@ -22,9 +21,10 @@ class AppDrawer extends StatelessWidget {
           // drawerHeader(context),
           ListTile(
             onTap: () {
+              context.push(const UserHome());
               // Navigator.of(context)
               //     .push(MaterialPageRoute(builder: (BuildContext context) {
-              //   return const OwnerHome();
+              //   return const UserHome();
               // }));
             },
             // onTap: () => AppRoute.toCurrentHomeDetail(context),

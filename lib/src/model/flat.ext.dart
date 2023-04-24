@@ -30,8 +30,8 @@ extension FlatExtension on Flat {
   Map<String, dynamic> toJson({
     required String flatName,
     required double rentAmount,
-    double gasBill = 0.00,
-    double waterBill = 0.00,
+    int gasBill = 0,
+    int waterBill = 0,
     double? previousMeterReading,
   }) =>
       {

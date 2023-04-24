@@ -1,0 +1,1 @@
+enum Scope { home, flat }

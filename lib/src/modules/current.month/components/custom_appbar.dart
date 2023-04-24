@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'monthly_summary_card.dart';
 import 'summary_container.dart';

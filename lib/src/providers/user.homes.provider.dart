@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sweet_home/src/model/home_model.dart';
+import 'package:sweet_home/src/model/home.dart';
 import 'package:sweet_home/src/services/home.services.dart';
 
-final userHomesProvider = AsyncNotifierProvider<UserHomesProvider, List<Home>?>(
+final homesProvider = AsyncNotifierProvider<UserHomesProvider, List<Home>?>(
   UserHomesProvider.new,
 );
 

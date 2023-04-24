@@ -2,9 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/src/model/flat.dart';
 import 'package:sweet_home/src/model/response.dart';
-import 'package:sweet_home/src/model/utility.dart';
 
-import '../model/home_model.dart';
+import '../model/home.dart';
 
 class HomeServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -23,7 +22,7 @@ class HomeServices {
     try {
       final homeSnapshots = await getHomesCollectionRef().get();
       return homeSnapshots.docs.map((homeDoc) {
-        return Home.fromJson(homeDoc.data() as Map<String, dynamic>);
+        return HomeExtension.fromJson(homeDoc.data() as Map<String, dynamic>);
       }).toList();
     } catch (e) {
       return null;
@@ -43,10 +42,11 @@ class HomeServices {
   }
 
   //UPDATE HOME
-  Future<Response> updateHomeField(
-      {required String homeId,
-      required String field,
-      required dynamic newValue}) async {
+  Future<Response> updateHomeField({
+    required String homeId,
+    required String field,
+    required dynamic newValue,
+  }) async {
     await getHomesCollectionRef()
         .doc(homeId)
         .update({field: newValue}).whenComplete(() {
@@ -60,19 +60,7 @@ class HomeServices {
   }
 
   //CREATE NEW HOME
-  Future<Response> addHome({
-    String? userId,
-    required String homeName,
-    required double rentAmount,
-    required String location,
-    required int numOfFloor,
-    required int flatPerFloor,
-    required List<String> flatNames,
-    double? meterReading,
-    double? gasBill,
-    double? waterBill,
-    List<Utility>? utilities,
-  }) async {
+  Future<Response> addHome({required Home home}) async {
     //adding new home to the collection
     CollectionReference users = _db.collection('users');
     DocumentReference docReferencer = users.doc(_auth.currentUser!.uid);
@@ -81,29 +69,22 @@ class HomeServices {
 
     //create flats colection, where doc id = flat name
     CollectionReference flatCollectionRef = homeDocRef.collection('flats');
-    // ignore: avoid_function_literals_in_foreach_calls
-    flatNames.forEach(
-      (flatName) => flatCollectionRef.doc(flatName).set(
+    final flatNames = home.getFlatsAsList(
+      floorRange: home.floor!,
+      flatRange: home.flatPerFloor!,
+    );
+    for (var flatName in flatNames) {
+      flatCollectionRef.doc(flatName).set(
             Flat().toJson(
               flatName: flatName,
-              rentAmount: rentAmount,
-              gasBill: gasBill ?? 0.00,
-              waterBill: waterBill ?? 0.00,
+              rentAmount: home.rentAmount ?? 0,
+              gasBill: home.gasBill ?? 0,
+              waterBill: home.waterBill ?? 0,
             ),
-          ),
-    );
+          );
+    }
 
-    final data = Home(
-      homeId: homeDocRef.id, // assign auto generated doc id to home id
-      homeName: homeName,
-      rentAmount: rentAmount,
-      floor: numOfFloor,
-      flatPerFloor: flatPerFloor,
-      location: location,
-      gasBill: gasBill,
-      waterBill: waterBill,
-      utilities: utilities ?? [],
-    );
+    final data = home.copyWith(homeId: homeDocRef.id);
     final json = data.toJson();
 
     await homeDocRef.set(json).whenComplete(() {

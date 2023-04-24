@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../providers/current.home.provider.dart';
+import '../../../providers/user.homes.provider.dart';
 
 class Drawerheader extends ConsumerWidget {
   const Drawerheader({super.key});
@@ -25,11 +25,11 @@ class Drawerheader extends ConsumerWidget {
             ),
           ),
           // const Spacer(),
-          ref.watch(userHomesProvider).when(
+          ref.watch(homesProvider).when(
               data: (data) {
                 return Text(data.toString());
               },
-              error: (e, s) => Text('data not found'),
+              error: (e, s) => const Text('data not found'),
               loading: () => const CircularProgressIndicator()),
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
@@ -55,11 +55,11 @@ class Drawerheader extends ConsumerWidget {
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: const [
           Text(
             // Profile.userName ?? 'Name not found',
             'Profile name',
-            style: const TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: 18),
           ),
           Text(
             // Profile.email ?? 'no email',

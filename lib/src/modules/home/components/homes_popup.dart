@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sweet_home/src/model/home_model.dart';
+import 'package:sweet_home/src/model/home.dart';
 
 // ignore: must_be_immutable
 class HomesPopupButton extends StatelessWidget {
@@ -35,7 +34,7 @@ class HomesPopupButton extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      homeObj.homeName,
+                      homeObj.homeName ?? '',
                     ),
                     // currentHome!.homeId == homeObj.homeId
                     //     ? getCheckIcon()
@@ -50,11 +49,10 @@ class HomesPopupButton extends StatelessWidget {
 
   Widget getCheckIcon() {
     return Builder(builder: (context) {
-      bool isDark = false;
       // Provider.of<ThemeProvider>(context, listen: false).isDarkMode;
-      return Icon(
+      return const Icon(
         Icons.check_circle,
-        color: isDark ? Colors.grey.shade900 : Colors.blue,
+        color: Colors.blue,
         size: 22,
       );
     });

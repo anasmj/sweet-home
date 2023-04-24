@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sweet_home/src/utils/formatter.dart';
 
 // ignore: must_be_immutable
