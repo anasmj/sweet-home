@@ -1,6 +1,5 @@
-
 class AppUser {
-  String? userId, email, name, iamgeUrl,password;
+  String? userId, email, name, iamgeUrl, password;
 
   AppUser({
     this.userId,

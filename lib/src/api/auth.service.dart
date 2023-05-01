@@ -27,10 +27,11 @@ class AuthService {
   }
 
   // CREATE NEW USER
-  Future<Response> registerWithEmailAndPass(
-      {required String email,
-      required String password,
-      String? userName = 'Unnamed'}) async {
+  Future<Response> registerWithEmailAndPass({
+    required String email,
+    required String password,
+    String? userName = 'Unnamed',
+  }) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -51,7 +52,6 @@ class AuthService {
       response.code = 400;
       response.body = e.toString();
     }
-
     return response;
   }
 
@@ -80,15 +80,20 @@ class AuthService {
   }
 
   //sign in with email and pass
-  Future<Response> signInWithEmailAndPass(String email, String password) async {
+  Future<Response> signInWithEmailAndPass({
+    required String email,
+    required String password,
+  }) async {
     try {
-      // UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-      //     email: email, password: password);
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
 
-      // User? firebaseUser = userCredential.user;
+      User? firebaseUser = userCredential.user;
+      print(firebaseUser?.email);
       response.code = 200;
       response.body = 'New user created ';
-      // response.user = toAppUserModel(firebaseUser);
+      //return this somehow
+      toAppUserModel(firebaseUser);
     } catch (e) {
       response.code = 400;
       response.body = e.toString();
@@ -97,7 +102,7 @@ class AuthService {
   }
 
   //sign out
-  Future<Response> signOut() async {
+  Future<Response> logOut() async {
     try {
       await _auth.signOut();
       response.code = 200;

@@ -41,7 +41,7 @@ class RegistrationPage extends ConsumerWidget {
               AppTextField(
                 label: 'ইমেইল',
                 onChanged: ref.read(authNotifier.notifier).onEmailChange,
-                validationFunciton: Validator.checkEmpty,
+                validator: Validator.checkEmpty,
                 inputType: TextInputType.emailAddress,
               ),
               const SizedBox(
@@ -50,7 +50,7 @@ class RegistrationPage extends ConsumerWidget {
               AppTextField(
                 onChanged: ref.read(authNotifier.notifier).onPassChange,
                 label: 'পাসওয়ার্ড',
-                validationFunciton: Validator.password,
+                validator: Validator.password,
                 inputType: TextInputType.visiblePassword,
               ),
               const SizedBox(

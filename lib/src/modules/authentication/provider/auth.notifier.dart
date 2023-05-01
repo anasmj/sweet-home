@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sweet_home/src/model/response.dart';
-import 'package:sweet_home/src/services/auth.service.dart';
+import 'package:sweet_home/src/api/auth.service.dart';
 import '../../../model/app.user.dart';
 
 final authNotifier =
     NotifierProvider<AppUserNotifier, Stream<AppUser?>>(AppUserNotifier.new);
 
 class AppUserNotifier extends Notifier<Stream<AppUser?>> {
+  GlobalKey<FormState> loginFormKey = GlobalKey();
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool showLogin = true;
   AppUser newAppUser = AppUser();
@@ -33,7 +35,19 @@ class AppUserNotifier extends Notifier<Stream<AppUser?>> {
   GoogleSignInAccount? _user;
   GoogleSignInAccount? get user => _user;
 
-  Future<void> googeLogin() async {
+  Future<bool> onLogin() async {
+    if (loginFormKey.currentState != null) {
+      if (!loginFormKey.currentState!.validate()) return false;
+    }
+    final res = await AuthService().signInWithEmailAndPass(
+      email: newAppUser.email!,
+      password: newAppUser.password!,
+    );
+    return res.code == 200;
+  }
+
+  Future<void> signInWithGoogle() async {
+    // await AuthService().signInWithEmailAndPass();
     // final googleUser = await googleSignIn.signIn();
     // if (googleUser == null) return;
     // _user = googleUser;
@@ -44,6 +58,9 @@ class AppUserNotifier extends Notifier<Stream<AppUser?>> {
     //   idToken: googleAuth.idToken,
     // );
     // await _auth.signInWithCredential(credential);
+  }
+  Future<void> onLogout() async {
+    await AuthService().logOut();
   }
 
   void onNameChange(String s) {
@@ -69,7 +86,6 @@ class AppUserNotifier extends Notifier<Stream<AppUser?>> {
         password: newAppUser.password!,
         userName: newAppUser.name,
       );
-    
     }
   }
 }

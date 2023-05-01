@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../components/empty.pages/no.flat.page/no.flat.dart';
+import 'package:sweet_home/src/components/empty.pages/no.flat.page/no.flat.dart';
 import '../current.month/view/current.month.page.dart';
 import 'components/drawer.dart';
 
@@ -14,8 +14,7 @@ class AppHomePage extends StatefulWidget {
 
 class _AppHomePage extends State<AppHomePage> {
   int _defaultTabIndex = 1;
-  SelectedPage selectedPage =
-      SelectedPage.flats; //! change if default index modified
+  SelectedPage selectedPage = SelectedPage.flats;
 
   final double _appBarHeight = 280;
   bool isInitialState = false;
@@ -25,6 +24,7 @@ class _AppHomePage extends State<AppHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const AppDrawer(),
+      appBar: _defaultTabIndex != 0 ? AppBar() : null,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _defaultTabIndex,
         onTap: (newIndex) {
@@ -52,8 +52,10 @@ class _AppHomePage extends State<AppHomePage> {
             icon: Icon(Icons.home),
             label: 'ফ্ল্যাটগুলি',
           ),
-          // BottomNavigationBarItem(
-          //     icon: Icon(Icons.pending), label: 'বকেয়া সমূহ'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pending),
+            label: 'বকেয়া সমূহ',
+          ),
         ],
       ),
       body: getUserSelectedPage(context),

@@ -5,14 +5,14 @@ class AppTextField extends StatelessWidget {
   AppTextField({
     this.textEditingController,
     this.label,
-    this.validationFunciton,
+    this.validator,
     this.inputType,
     this.onChanged,
     super.key,
   });
 
   String? label;
-  String? Function(String?)? validationFunciton;
+  String? Function(String?)? validator;
   final double _cursorHeight = 22;
   TextInputType? inputType;
   TextEditingController? textEditingController;
@@ -26,7 +26,7 @@ class AppTextField extends StatelessWidget {
     return TextFormField(
       
       controller: textEditingController,
-      validator: validationFunciton,
+      validator: validator,
       cursorHeight: _cursorHeight,
       keyboardType: inputType,
       onChanged: onChanged,
