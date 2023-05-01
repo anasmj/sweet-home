@@ -7,28 +7,34 @@ import 'package:sweet_home/src/model/response.dart';
 import 'package:sweet_home/src/api/auth.service.dart';
 import '../../../model/app.user.dart';
 
-final authNotifier =
-    NotifierProvider<AppUserNotifier, Stream<AppUser?>>(AppUserNotifier.new);
+final appUserNotifier = NotifierProvider<AppUserProvider, Stream<AppUser?>>(
+  AppUserProvider.new,
+);
 
-class AppUserNotifier extends Notifier<Stream<AppUser?>> {
+class AppUserProvider extends Notifier<Stream<AppUser?>> {
   GlobalKey<FormState> loginFormKey = GlobalKey();
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool showLogin = true;
   AppUser newAppUser = AppUser();
+  AppUser? currentUser;
   final registrationFormKey = GlobalKey<FormState>();
+
   @override
-  Stream<AppUser?> build() => _auth.userChanges().map(toAppUserModel);
+  Stream<AppUser?> build() {
+    return _auth.userChanges().map(toAppUserModel);
+  }
 
   AppUser? toAppUserModel(User? user) {
     if (user != null) {
-      return AppUser(
+      currentUser = AppUser(
         userId: user.uid,
         email: user.email,
         name: _auth.currentUser!.displayName,
       );
+      return currentUser;
+    } else {
+      return null;
     }
-    return null;
   }
 
   final googleSignIn = GoogleSignIn();

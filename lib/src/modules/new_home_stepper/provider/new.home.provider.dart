@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sweet_home/src/api/home.services.dart';
 import 'package:sweet_home/src/model/home.dart';
 
 import '../../user.house/provider/isLoading.provider.dart';
@@ -20,11 +21,14 @@ class NewHomeProvider extends Notifier<Home> {
     );
   }
 
-  void onAddHome() async {
+  Future<bool> onAddHome() async {
     // final res = await HomeServices().addHome(home: state);
     ref.read(isLoadingNotifier.notifier).toggleLoading();
-    await Future.delayed(const Duration(seconds: 2));
+    final res = await HomeServices().addHome(home: state);
+
+    ref.invalidate(newHomeNotifier);
     ref.read(isLoadingNotifier.notifier).toggleLoading();
+    return res.code == 200;
   }
 
   void onHomeNameChange(String s) {

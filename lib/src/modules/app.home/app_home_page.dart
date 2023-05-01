@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/src/components/empty.pages/no.flat.page/no.flat.dart';
+import 'package:sweet_home/src/modules/flats/no.flat.dart';
 import '../current.month/view/current.month.page.dart';
+import '../flats/flats.page.dart';
 import 'components/drawer.dart';
 
 enum SelectedPage { currentMonth, flats, pendings }
@@ -68,9 +69,7 @@ class _AppHomePage extends State<AppHomePage> {
       return CurrentMonth(appBarHeight: _appBarHeight);
     }
     if (selectedPage == SelectedPage.flats) {
-      // return const UserFlats();
-      // return AllFlat();
-      return const NoFlatPage();
+      return const FlatsPage();
     }
     if (selectedPage == SelectedPage.pendings) {
       return Container();

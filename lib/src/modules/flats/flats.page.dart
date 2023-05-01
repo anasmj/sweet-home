@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/src/components/empty.pages/empty.home.page/empty.home.page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sweet_home/src/modules/flats/no.flat.dart';
+import 'package:sweet_home/src/providers/selected.home.provider.dart';
 
-class FlatsPage extends StatelessWidget {
+class FlatsPage extends ConsumerWidget {
   const FlatsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const EmptyHomePage();
+  Widget build(BuildContext context, ref) {
+    final home = ref.watch(selectedHomeNotifier);
+    if (home == null) return const NoFlatPage();
+    return Container();
   }
 }

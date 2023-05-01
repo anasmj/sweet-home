@@ -20,7 +20,7 @@ class LoginPage extends ConsumerWidget {
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
-          key: ref.watch(authNotifier.notifier).loginFormKey,
+          key: ref.watch(appUserNotifier.notifier).loginFormKey,
           child: ListView(
             children: [
               const SizedBox(
@@ -34,7 +34,7 @@ class LoginPage extends ConsumerWidget {
                 label: 'ইমেইল',
                 inputType: TextInputType.emailAddress,
                 validator: Validator.email,
-                onChanged: ref.read(authNotifier.notifier).onEmailChange,
+                onChanged: ref.read(appUserNotifier.notifier).onEmailChange,
               ),
               const SizedBox(
                 height: 20,
@@ -43,7 +43,7 @@ class LoginPage extends ConsumerWidget {
                 label: 'পাসওয়ার্ড',
                 inputType: TextInputType.visiblePassword,
                 validator: Validator.password,
-                onChanged: ref.read(authNotifier.notifier).onPassChange,
+                onChanged: ref.read(appUserNotifier.notifier).onPassChange,
               ),
               const SizedBox(
                 height: 20,
@@ -55,7 +55,7 @@ class LoginPage extends ConsumerWidget {
                   onPressed: () async {
                     transparentLoadIndicator(context);
                     final success =
-                        await ref.read(authNotifier.notifier).onLogin();
+                        await ref.read(appUserNotifier.notifier).onLogin();
                     if (context.mounted) {
                       Navigator.pop(context);
                     }
@@ -70,7 +70,7 @@ class LoginPage extends ConsumerWidget {
                 builder: (context, ref, child) => AuthenticateButton(
                   onPressed: () async {
                     transparentLoadIndicator(context);
-                    // await ref.read(authNotifier.notifier).signInWithGoogle();
+                    // await ref.read(appUserNotifier.notifier).signInWithGoogle();
                   },
                   buttonText: 'Sign in with google',
                   faIcon: const FaIcon(

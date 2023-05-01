@@ -41,7 +41,7 @@ class AppDrawer extends ConsumerWidget {
             ),
           ),
           ListTile(
-            onTap: () {
+            onTap: () async {
               // Navigator.push(
               //     context,
               //     MaterialPageRoute(
@@ -89,7 +89,10 @@ class AppDrawer extends ConsumerWidget {
           ListTile(
             onTap: () async {
               transparentLoadIndicator(context);
-              await ref.read(authNotifier.notifier).onLogout();
+              await ref.read(appUserNotifier.notifier).onLogout();
+              if (context.mounted) {
+                Navigator.pop(context);
+              }
               // ScaffoldMessenger
             },
             leading: const Icon(

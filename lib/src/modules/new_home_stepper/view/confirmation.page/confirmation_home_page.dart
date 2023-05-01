@@ -11,13 +11,13 @@ class ConfirmPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(top: 100.0, bottom: 50),
+        padding: const EdgeInsets.only(top: 50.0, bottom: 50),
         child: Column(
           children: [
             Lottie.asset(
               AssetPath.createHome,
               height: 350,
-              repeat: true,
+              repeat: false,
             ),
             Text(
               'বাড়ীটি যুক্ত করা হয়েছে',
@@ -33,18 +33,13 @@ class ConfirmPage extends StatelessWidget {
               )),
               onPressed: () {
                 Navigator.pop(context);
-
-                //todo: set State of the app
               },
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6),
                 child: Text(
                   'ফিরে যাই',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(color: Colors.white),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
             ),

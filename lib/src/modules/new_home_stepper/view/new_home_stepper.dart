@@ -16,14 +16,16 @@ class AddHomeStepper extends ConsumerWidget {
     int currentStep = ref.watch(currentStepNotifier);
     bool isLoading = ref.watch(isLoadingNotifier);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'নতুন বাড়ি যুক্ত',
-        ),
-        centerTitle: true,
-        // disable back button when user not in first page
-        automaticallyImplyLeading: currentStep != 0 ? false : true,
-      ),
+      appBar: !isCompleted
+          ? AppBar(
+              title: const Text(
+                'নতুন বাড়ি যুক্ত',
+              ),
+              centerTitle: true,
+              // disable back button when user not in first page
+              automaticallyImplyLeading: currentStep != 0 ? false : true,
+            )
+          : null,
       body: !isCompleted
           ? isLoading
               ? const MakingHomeIndicator()

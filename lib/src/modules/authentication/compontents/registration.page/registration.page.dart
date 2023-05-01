@@ -16,7 +16,7 @@ class RegistrationPage extends ConsumerWidget {
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
-          key: ref.read(authNotifier.notifier).registrationFormKey,
+          key: ref.read(appUserNotifier.notifier).registrationFormKey,
           child: ListView(
             children: [
               const SizedBox(
@@ -32,7 +32,7 @@ class RegistrationPage extends ConsumerWidget {
               ),
               AppTextField(
                 label: 'নাম',
-                onChanged: ref.read(authNotifier.notifier).onNameChange,
+                onChanged: ref.read(appUserNotifier.notifier).onNameChange,
                 inputType: TextInputType.emailAddress,
               ),
               const SizedBox(
@@ -40,7 +40,7 @@ class RegistrationPage extends ConsumerWidget {
               ),
               AppTextField(
                 label: 'ইমেইল',
-                onChanged: ref.read(authNotifier.notifier).onEmailChange,
+                onChanged: ref.read(appUserNotifier.notifier).onEmailChange,
                 validator: Validator.checkEmpty,
                 inputType: TextInputType.emailAddress,
               ),
@@ -48,7 +48,7 @@ class RegistrationPage extends ConsumerWidget {
                 height: 20,
               ),
               AppTextField(
-                onChanged: ref.read(authNotifier.notifier).onPassChange,
+                onChanged: ref.read(appUserNotifier.notifier).onPassChange,
                 label: 'পাসওয়ার্ড',
                 validator: Validator.password,
                 inputType: TextInputType.visiblePassword,
@@ -62,7 +62,7 @@ class RegistrationPage extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(30),
                   child: AuthenticateButton(
                     onPressed: () async {
-                      ref.read(authNotifier.notifier).register();
+                      ref.read(appUserNotifier.notifier).register();
                     },
                     buttonText: 'রেজিস্ট্রেশন',
                   ),

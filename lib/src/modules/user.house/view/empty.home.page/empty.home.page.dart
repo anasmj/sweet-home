@@ -14,15 +14,20 @@ class EmptyHomePage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          const Text('No home available'),
           Lottie.asset(
             AssetPath.homePopUp,
             height: 300,
             repeat: false,
           ),
-          const Text('Add new home from here'),
+          Text(
+            'Add new home from here',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           Padding(
-            padding: EdgeInsets.only(bottom: 100.0, left: arrowIconFromLeft),
+            padding: EdgeInsets.only(
+              bottom: 100.0,
+              left: arrowIconFromLeft,
+            ),
             child: Lottie.asset(
               AssetPath.arrowDown,
               height: 150,

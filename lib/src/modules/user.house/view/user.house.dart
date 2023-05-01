@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sweet_home/src/components/empty.pages/empty.home.page/empty.home.page.dart';
+import 'package:sweet_home/src/modules/user.house/view/empty.home.page/empty.home.page.dart';
 import 'package:sweet_home/src/components/error.page/error_page.dart';
 import 'package:sweet_home/src/providers/user.homes.provider.dart';
 

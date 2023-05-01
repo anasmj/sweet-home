@@ -8,8 +8,8 @@ extension HomeExtension on Home {
     int? floor,
     flatPerFloor,
     rentAmount,
-    gasBill,
-    waterBill,
+    int? gasBill,
+    int? waterBill,
     List<Utility>? utilities,
   }) =>
       Home(
@@ -29,21 +29,23 @@ extension HomeExtension on Home {
         'floor': floor,
         'flatPerFloor': flatPerFloor,
         'rentAmount': rentAmount,
-        'gasBill': gasBill ?? 0.00,
-        'waterBill': waterBill ?? 0.00,
+        'gasBill': gasBill ?? 0,
+        'waterBill': waterBill ?? 0,
         'utilities': utilities,
       };
-  static Home fromJson(Map<String, dynamic> data) => Home(
-        homeName: data['homeName'] ?? '',
-        homeId: data['homeId'] ?? '',
-        rentAmount: data['rentAmount'] ?? 0.00,
-        location: data['location'] ?? '',
-        flatPerFloor: data['flatPerFloor'] ?? 0,
-        floor: data['floor'] ?? 0,
-        gasBill: data['gasBill'] ?? 0.00,
-        waterBill: data['waterBill'] ?? 0.00,
-        // serviceCharges:
-      );
+  static Home fromJson(Map<String, dynamic> data) {
+    return Home(
+      homeName: data['homeName'] ?? '',
+      homeId: data['homeId'] ?? '',
+      rentAmount: data['rentAmount'] ?? 0,
+      location: data['location'] ?? '',
+      flatPerFloor: data['flatPerFloor'] ?? 0,
+      floor: data['floor'] ?? 0,
+      gasBill: data['gasBill'],
+      waterBill: data['waterBill'] ?? 0,
+      // serviceCharges:
+    );
+  }
 
   List<String> getFlatsAsList({
     required int floorRange,

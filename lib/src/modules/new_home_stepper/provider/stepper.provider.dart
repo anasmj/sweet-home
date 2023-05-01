@@ -25,7 +25,8 @@ class CurrentStepperProvider extends Notifier<int> {
     final bool isLastStep = steps().length - 1 == state;
 
     if (isLastStep) {
-      ref.read(newHomeNotifier.notifier).onAddHome();
+      if (!await ref.read(newHomeNotifier.notifier).onAddHome()) return;
+      isCompleted = true;
       return;
     }
 
