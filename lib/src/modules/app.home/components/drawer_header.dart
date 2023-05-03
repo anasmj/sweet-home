@@ -48,7 +48,7 @@ class Drawerheader extends ConsumerWidget {
                     onHomeDelete: () {
                       Navigator.of(context).pop();
                     },
-                    userHomes: userHomes!,
+                    userHomes: userHomes,
                   )
               ],
             ),

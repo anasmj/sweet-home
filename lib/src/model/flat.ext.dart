@@ -1,15 +1,15 @@
 part of 'flat.dart';
 
-extension FlatExtension on Flat {
-  Flat fromJson(Map<String, dynamic> json) {
+extension FlatExt on Flat {
+  static Flat fromJson(Map<String, dynamic> json) {
     return Flat(
       flatName: json[FlatField.name] ?? '',
       renter: json[FlatField.renter] != null
           ? Renter.fromJson(json[FlatField.renter])
           : null,
-      flatRentAmount: json[FlatField.rent] ?? 0.00,
-      flatGasBill: json[FlatField.gas] ?? 0.00,
-      flatWaterBill: json[FlatField.water] ?? 0.00,
+      flatRentAmount: json[FlatField.rent] ?? 0,
+      flatGasBill: json[FlatField.gas] ?? 0,
+      flatWaterBill: json[FlatField.water] ?? 0,
       confirmDate: json[FlatField.confirmDate] != null
           ? DateTime.parse(json[FlatField.confirmDate])
           : null,
@@ -29,7 +29,7 @@ extension FlatExtension on Flat {
 
   Map<String, dynamic> toJson({
     required String flatName,
-    required double rentAmount,
+    required int rentAmount,
     int gasBill = 0,
     int waterBill = 0,
     double? previousMeterReading,

@@ -1,7 +1,6 @@
 // import 'package:rent_home/models/others_model.dart';
 // import 'flat_model.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sweet_home/src/model/utility.dart';
 part 'home.ext.dart';
 
@@ -10,7 +9,7 @@ class Home {
   String? homeName;
   int? floor;
   int? flatPerFloor;
-  double? rentAmount;
+  int? rentAmount;
   String? location;
   int? gasBill;
   int? waterBill;

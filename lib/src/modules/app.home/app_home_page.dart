@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/src/modules/flats/no.flat.dart';
 import '../current.month/view/current.month.page.dart';
-import '../flats/flats.page.dart';
+import '../flats/view/all.flats.page/flats.page.dart';
 import 'components/drawer.dart';
 
 enum SelectedPage { currentMonth, flats, pendings }

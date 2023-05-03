@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sweet_home/src/model/response.dart';
 import 'package:sweet_home/src/api/auth.service.dart';
+import 'package:sweet_home/src/providers/selected.home.provider.dart';
 import '../../../model/app.user.dart';
 
 final appUserNotifier = NotifierProvider<AppUserProvider, Stream<AppUser?>>(
@@ -21,7 +22,11 @@ class AppUserProvider extends Notifier<Stream<AppUser?>> {
 
   @override
   Stream<AppUser?> build() {
-    return _auth.userChanges().map(toAppUserModel);
+    Stream<AppUser?> userStream = _auth.userChanges().map(toAppUserModel);
+    userStream.first.then((appUser) {
+      ref.read(selectedHomeNotifier.notifier).searchAndSetUserHome();
+    });
+    return userStream;
   }
 
   AppUser? toAppUserModel(User? user) {
