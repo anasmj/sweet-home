@@ -98,11 +98,11 @@ class BackNavButton extends StatelessWidget {
         // backgroundColor: Colors.grey,
       ),
       onPressed: details?.onStepCancel,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
+      child: const Padding(
+        padding: EdgeInsets.all(10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Icon(
               Icons.arrow_back_rounded,
             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sweet_home/src/constants/asset.path.dart';
+import 'package:sweet_home/src/constants/constants.dart';
 import 'package:sweet_home/src/utils/formatter.dart';
 
 import 'monthly_data_table.dart';

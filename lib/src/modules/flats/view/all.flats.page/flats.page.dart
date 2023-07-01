@@ -7,7 +7,8 @@ import 'package:sweet_home/src/components/searching.indicator/searching_indicato
 import 'package:sweet_home/src/model/flat.dart';
 import 'package:sweet_home/src/modules/flats/provider/selected.flat.provider.dart';
 import 'package:sweet_home/src/modules/flats/view/no.flat.page/no.flat.dart';
-import 'package:sweet_home/src/providers/selected.home.provider.dart'; 
+import 'package:sweet_home/src/providers/selected.home.provider.dart';
+
 import '../../components/flat.container/flat_container.dart';
 
 class FlatsPage extends ConsumerWidget {
@@ -15,9 +16,8 @@ class FlatsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final home = ref.watch(selectedHomeNotifier);
-    if (home == null) return const NoFlatPage();
-    if (home.homeId == null) return const NoFlatPage();
+    final home = ref.watch(selectedHomeProvider);
+    if (home == null || home.homeId == null) return const NoFlatPage();
     return StreamBuilder<List<Flat>>(
       stream: FlatService().flatsStream(homeId: home.homeId!),
       builder: (context, snapshot) {
@@ -26,7 +26,7 @@ class FlatsPage extends ConsumerWidget {
         if (snapshot.hasData) {
           List<Flat>? flats = snapshot.data;
           if (flats == null || flats.isEmpty) return const NoFlatPage();
-          // return showFlats(flats);
+
           return Builder(
             builder: (context) {
               return Padding(
@@ -44,14 +44,18 @@ class FlatsPage extends ConsumerWidget {
                         //childAspectRatio: (itemWidth / itemHeight),
                         itemCount: flats.length,
                         itemBuilder: (context, index) {
+                          final flat = flats[index];
                           return FlatContainer(
-                            flat: flats[index],
-                            onFlatTap: () => ref
-                                .read(selectedFlatNotifier.notifier)
-                                .onSelect(
-                                  context,
-                                  flat: flats[index],
-                                ),
+                            flat: flat,
+                            onFlatTap: () {
+                              ref.read(selectedFlatNotifier.notifier).set(flat);
+                              if (flat.renter == null) {
+                                //add renter
+                                //new renter page
+                              } else {
+                                //RenterOpeningPage()
+                              }
+                            },
                             onFlatLongPress: () => ref
                                 .read(selectedFlatNotifier.notifier)
                                 .onLongPress(

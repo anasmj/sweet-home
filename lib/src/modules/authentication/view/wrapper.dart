@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sweet_home/src/model/app.user.dart';
 import 'package:sweet_home/src/modules/app.home/app_home_page.dart';
 import 'package:sweet_home/src/modules/authentication/provider/auth.notifier.dart';
-import 'package:sweet_home/src/providers/selected.home.provider.dart';
 
 import '../compontents/authenticate.dart';
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sweet_home/src/modules/new_home_stepper/provider/new.home.provider.dart';
+
 import '../view/fist.page/first_page.dart';
 import '../view/second.page/second_page.dart';
 
@@ -25,7 +26,7 @@ class CurrentStepperProvider extends Notifier<int> {
     final bool isLastStep = steps().length - 1 == state;
 
     if (isLastStep) {
-      if (!await ref.read(newHomeNotifier.notifier).onAddHome()) return;
+      if (!await ref.read(newHomeProvider.notifier).onAddHome()) return;
       isCompleted = true;
       return;
     }

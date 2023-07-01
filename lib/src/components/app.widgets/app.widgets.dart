@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 
 class AppWidget {
   static void showToast(String message) {
@@ -55,10 +54,7 @@ class AppWidget {
     required BuildContext context,
     required Widget modalSheetContent,
   }) {
-    final Color modalSheetBgDark = Colors.grey.shade900;
     const Color modalSheetBgLight = Colors.white;
-    bool isDark = false;
-
     return showModalBottomSheet(
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -67,7 +63,7 @@ class AppWidget {
             topRight: Radius.circular(20),
           ),
         ),
-        backgroundColor: isDark ? modalSheetBgDark : modalSheetBgLight,
+        backgroundColor: modalSheetBgLight,
         context: context,
         builder: (context) {
           return modalSheetContent;

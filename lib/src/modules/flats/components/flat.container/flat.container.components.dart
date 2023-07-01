@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sweet_home/src/constants/asset.path.dart';
-import 'package:sweet_home/src/constants/enums.dart';
+import 'package:sweet_home/src/constants/constants.dart';
 import 'package:sweet_home/src/model/renter.dart';
 
 class ProfileAvatar extends StatelessWidget {
@@ -46,7 +45,7 @@ class Footer extends StatelessWidget {
       builder: (context) {
         return ListTile(
           title: Text(
-            renter!.renterName,
+            renter?.renterName ?? '',
             maxLines: 1,
             overflow: TextOverflow.fade,
             softWrap: true,

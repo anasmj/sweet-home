@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sweet_home/src/constants/asset.path.dart';
-import 'package:sweet_home/src/constants/enums.dart';
+import 'package:sweet_home/src/constants/constants.dart';
 import 'package:sweet_home/src/model/flat.dart';
 import 'package:sweet_home/src/utils/formatter.dart';
 
@@ -75,8 +74,8 @@ class FlatContainer extends StatelessWidget {
     showPresentReadingAlert = flat.presentMeterReading == null;
     showPreviousReadingAlert = flat.previousMeterReading == null;
 
-    if (flat.renter != null) {
-      if (Formatter.toYearMonth(flat.renter!.entryDate) ==
+    if (flat.renter?.entryDate != null) {
+      if (Formatter.toYearMonth(flat.renter!.entryDate!) ==
           Formatter.toYearMonth(DateTime.now())) {
         showPresentReadingAlert = false;
       }

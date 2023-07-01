@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sweet_home/src/model/response.dart';
 import 'package:sweet_home/src/api/auth.service.dart';
 import 'package:sweet_home/src/providers/selected.home.provider.dart';
+
 import '../../../model/app.user.dart';
 
 final appUserNotifier = NotifierProvider<AppUserProvider, Stream<AppUser?>>(
@@ -24,7 +24,7 @@ class AppUserProvider extends Notifier<Stream<AppUser?>> {
   Stream<AppUser?> build() {
     Stream<AppUser?> userStream = _auth.userChanges().map(toAppUserModel);
     userStream.first.then((appUser) {
-      ref.read(selectedHomeNotifier.notifier).searchAndSetUserHome();
+      ref.read(selectedHomeProvider.notifier).searchAndSetUserHome();
     });
     return userStream;
   }
@@ -92,7 +92,7 @@ class AppUserProvider extends Notifier<Stream<AppUser?>> {
       // print(newAppUser.email);
       // print(newAppUser.password);
 
-      Response response = await AuthService().registerWithEmailAndPass(
+      await AuthService().registerWithEmailAndPass(
         email: newAppUser.email!,
         password: newAppUser.password!,
         userName: newAppUser.name,

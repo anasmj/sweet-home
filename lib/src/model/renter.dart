@@ -2,13 +2,13 @@ import 'package:sweet_home/src/model/transaction.dart';
 import 'package:sweet_home/src/utils/db.fields.dart';
 
 class Renter {
-  String renterName;
-  String id;
-  String phone;
+  String? renterName;
+  String? id;
+  String? phone;
   String? alternatePhoneNo;
   String? occupation;
   int? numOfPerson;
-  DateTime entryDate;
+  DateTime? entryDate;
   int? nIdNumber;
   String? previousLocation;
   String? village;
@@ -24,12 +24,12 @@ class Renter {
   List<RenterTransaction>? transactions;
 
   Renter({
-    required this.renterName,
-    required this.id,
-    required this.phone,
+    this.renterName,
+    this.id,
+    this.phone,
     this.alternatePhoneNo = '',
     this.occupation = '',
-    required this.entryDate,
+    this.entryDate,
     this.numOfPerson,
     this.previousLocation,
     this.village,

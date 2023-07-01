@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sweet_home/src/components/update.button/update_button.dart';
-import 'package:sweet_home/src/constants/enums.dart';
 
+import '../../constants/constants.dart';
 import '../edit.textfield/edit_textfield.dart';
 
 // ignore: must_be_immutable
@@ -85,11 +84,10 @@ class EditModalSheet extends StatelessWidget {
 
   Widget modalSheetDivider() {
     return Builder(builder: (context) {
-      bool isDarkMode = false;
       return Container(
         decoration: ShapeDecoration(
           shape: const StadiumBorder(),
-          color: isDarkMode ? Colors.white60 : Colors.grey.shade700,
+          color: Colors.grey.shade700,
         ),
         height: 4,
         width: 20,

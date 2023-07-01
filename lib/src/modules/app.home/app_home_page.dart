@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../current.month/view/current.month.page.dart';
 import '../flats/view/all.flats.page/flats.page.dart';
 import 'components/drawer.dart';
@@ -19,7 +20,6 @@ class _AppHomePage extends State<AppHomePage> {
   final double _appBarHeight = 280;
   bool isInitialState = false;
 
-  //! SETS THE FIRST HOME AS CURRENT HOME IF NO HOME IS SELECTED PREVIOUSLY
   @override
   Widget build(BuildContext context) {
     return Scaffold(

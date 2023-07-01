@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sweet_home/src/constants/asset.path.dart';
+import 'package:sweet_home/src/constants/constants.dart';
 
 class MakingHomeIndicator extends StatelessWidget {
   const MakingHomeIndicator({super.key});

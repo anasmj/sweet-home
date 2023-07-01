@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sweet_home/src/model/home.dart';
+import 'package:sweet_home/src/extensions/extensions.dart';
 import 'package:sweet_home/src/modules/authentication/provider/auth.notifier.dart';
-import '../../../providers/user.homes.provider.dart';
+import 'package:sweet_home/src/providers/selected.home.provider.dart';
+import 'package:sweet_home/src/providers/user.homes.provider.dart';
+
 import 'homes_popup.dart';
 
 class Drawerheader extends ConsumerWidget {
@@ -10,7 +12,7 @@ class Drawerheader extends ConsumerWidget {
   final double containerHeight = 200;
   @override
   Widget build(BuildContext context, ref) {
-    List<Home>? userHomes;
+    final selectedHome = ref.watch(selectedHomeProvider);
     return Container(
       padding: const EdgeInsets.only(left: 20),
       decoration: BoxDecoration(
@@ -20,22 +22,10 @@ class Drawerheader extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: ref.watch(homesProvider).when(
-                  data: (data) {
-                    if (data!.isNotEmpty) {
-                      return Text(
-                        data.first.homeName ?? '',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  },
-                  error: (e, s) => const Text('data not found'),
-                  loading: () => const CircularProgressIndicator(),
-                ),
+          const SizedBox(height: 70),
+          Text(
+            selectedHome?.homeName ?? '',
+            style: context.text.titleLarge,
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
@@ -43,13 +33,22 @@ class Drawerheader extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const NameEmailWidget(),
-                if (userHomes != null)
-                  HomesPopupButton(
-                    onHomeDelete: () {
-                      Navigator.of(context).pop();
-                    },
-                    userHomes: userHomes,
-                  )
+                ref.watch(homesProvider).when(
+                      data: (homes) {
+                        if (homes != null && homes.length > 1) {
+                          return HomesPopupButton(
+                            onHomeDelete: () {
+                              Navigator.of(context).pop();
+                            },
+                            userHomes: homes,
+                          );
+                        } else {
+                          return emptyWidget;
+                        }
+                      },
+                      error: (e, s) => emptyWidget,
+                      loading: () => emptyWidget,
+                    )
               ],
             ),
           ),

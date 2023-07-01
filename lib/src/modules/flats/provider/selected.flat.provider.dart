@@ -10,10 +10,7 @@ final selectedFlatNotifier =
 class SelectedFlatProvider extends Notifier<Flat?> {
   @override
   Flat? build() => null;
-
-  void onSelect(BuildContext context, {required Flat flat}) {
-    //  flat.renter == null ? addRenter(context) : openRenterPage(context);
-  }
+  set(Flat flat) => state = flat;
 
   void onLongPress(BuildContext context, {required Flat flat}) {
     state = flat;

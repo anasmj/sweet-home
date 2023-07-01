@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sweet_home/src/constants/enums.dart';
+import 'package:sweet_home/src/constants/constants.dart';
 
 // ignore: must_be_immutable
 class DynamicUpdateButton extends StatelessWidget {
@@ -20,9 +20,9 @@ class DynamicUpdateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget updatedContent = Row(
+    Widget updatedContent = const Row(
       mainAxisSize: MainAxisSize.min,
-      children: const [
+      children: [
         Icon(
           Icons.check_circle,
           color: Colors.white,

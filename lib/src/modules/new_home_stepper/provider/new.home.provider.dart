@@ -4,7 +4,7 @@ import 'package:sweet_home/src/model/home.dart';
 
 import '../../user.house/provider/isLoading.provider.dart';
 
-final newHomeNotifier =
+final newHomeProvider =
     NotifierProvider<NewHomeProvider, Home>(NewHomeProvider.new);
 
 class NewHomeProvider extends Notifier<Home> {
@@ -26,7 +26,7 @@ class NewHomeProvider extends Notifier<Home> {
     ref.read(isLoadingNotifier.notifier).toggleLoading();
     final res = await HomeServices().addHome(home: state);
 
-    ref.invalidate(newHomeNotifier);
+    ref.invalidate(newHomeProvider);
     ref.read(isLoadingNotifier.notifier).toggleLoading();
     return res.code == 200;
   }

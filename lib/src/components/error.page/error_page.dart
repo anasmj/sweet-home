@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sweet_home/src/constants/asset.path.dart';
+import 'package:sweet_home/src/constants/constants.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({super.key});

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sweet_home/src/components/stepper.textfield/stepper_textfield.dart';
-import 'package:sweet_home/src/modules/new_home_stepper/provider/new.home.provider.dart';
 import 'package:sweet_home/src/modules/user.house/provider/isLoading.provider.dart';
 import 'package:sweet_home/src/utils/form_validators.dart';
+
+import '../../provider/new.home.provider.dart';
 
 class SecondPage extends ConsumerWidget {
   const SecondPage({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
-    TextStyle? formTextStyle = Theme.of(context).textTheme.titleMedium;
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
@@ -40,7 +40,7 @@ class SecondPage extends ConsumerWidget {
                     hintText: 'Gas',
                   ),
                   keyboardType: TextInputType.number,
-                  onChanged: ref.read(newHomeNotifier.notifier).onGasChange,
+                  onChanged: ref.read(newHomeProvider.notifier).onGasChange,
                 ),
               ),
               const SizedBox(width: 10),
@@ -50,7 +50,7 @@ class SecondPage extends ConsumerWidget {
                     hintText: 'Water',
                   ),
                   keyboardType: TextInputType.number,
-                  onChanged: ref.read(newHomeNotifier.notifier).onWaterChange,
+                  onChanged: ref.read(newHomeProvider.notifier).onWaterChange,
                 ),
               ),
             ],

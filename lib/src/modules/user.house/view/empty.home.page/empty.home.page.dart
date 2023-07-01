@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sweet_home/src/constants/asset.path.dart';
+import 'package:sweet_home/src/constants/constants.dart';
 import 'package:sweet_home/src/extensions/extensions.dart';
 import 'package:sweet_home/src/modules/new_home_stepper/view/new_home_stepper.dart';
 

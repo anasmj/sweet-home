@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sweet_home/src/components/trasparent.loading/transparent.loading.dart';
 import 'package:sweet_home/src/extensions/extensions.dart';
 import 'package:sweet_home/src/modules/authentication/provider/auth.notifier.dart';
+
 import '../../user.house/view/user.house.dart';
 import 'drawer_header.dart';
 
@@ -23,14 +24,7 @@ class AppDrawer extends ConsumerWidget {
           const Drawerheader(),
           // drawerHeader(context),
           ListTile(
-            onTap: () {
-              context.push(const UserHome());
-              // Navigator.of(context)
-              //     .push(MaterialPageRoute(builder: (BuildContext context) {
-              //   return const UserHome();
-              // }));
-            },
-            // onTap: () => AppRoute.toCurrentHomeDetail(context),
+            onTap: () => context.push(const UserHome()),
             leading: const Icon(
               Icons.home,
               color: Colors.pinkAccent,
