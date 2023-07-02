@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sweet_home/src/components/app.widgets/app.widgets.dart';
 import 'package:sweet_home/src/model/flat.dart';
-import 'package:sweet_home/src/modules/flats/components/flat.container/flat.container.components.dart';
+
+import '../components/flat.container.components.dart';
 
 final selectedFlatNotifier =
     NotifierProvider<SelectedFlatProvider, Flat?>(SelectedFlatProvider.new);

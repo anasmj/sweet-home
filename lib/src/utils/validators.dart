@@ -23,8 +23,7 @@ class Validator {
 
   static String? phone(String? value) {
     if (phoneExp.hasMatch(value!)) return null;
-    // if (value!.length > 9) return null;
-    if (value.isEmpty) return 'Please provide that we can connect';
+    if (value.isEmpty) return 'ফোন নম্বর দেয়া হয়নি';
     return '';
   }
 }

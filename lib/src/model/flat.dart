@@ -1,5 +1,8 @@
 import 'package:sweet_home/src/model/renter.dart';
+import 'package:sweet_home/src/model/transaction.dart';
+
 import '../utils/db.fields.dart';
+
 part 'flat.ext.dart';
 
 class Flat {
@@ -15,9 +18,9 @@ class Flat {
   int flatGasBill, flatWaterBill, monthlyDue;
   double? presentMeterReading;
   double? previousMeterReading;
-  DateTime? previousMeterReadingUpdateTime,
-      presentMeterReadingUpdateTime,
-      confirmDate;
+  DateTime? previousMeterReadingUpdateTime, presentMeterReadingUpdateTime;
+
+  List<RenterTransaction>? transactions;
 
   // List<ServiceCharge>? serviceCharges;
 
@@ -32,7 +35,7 @@ class Flat {
     this.previousMeterReadingUpdateTime,
     this.presentMeterReadingUpdateTime,
     this.monthlyDue = 0,
-    this.confirmDate,
+    this.transactions,
     // this.serviceCharges,
   });
 }

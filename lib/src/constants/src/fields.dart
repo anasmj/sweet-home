@@ -5,6 +5,7 @@ class Field {
   static String get renterNid => 'renterNid';
   static String get renterAdvance => 'renterAdvance';
   static String get renterPrevAddress => 'renterPreviousAddress';
+  static String get renterPermenentAddress => 'renterPermenentAddress';
   static String get renterVillage => 'renterVillage';
   static String get renterSubDistrict => 'renterSubDis';
   static String get renterDistrict => 'renterDis';

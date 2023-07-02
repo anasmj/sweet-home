@@ -6,19 +6,22 @@ class StepperTextField extends StatelessWidget {
     this.label = '',
     this.isAstrics = false,
     this.isNumeric = false,
-    this.validationFunciton,
+    this.validation,
     this.isDisabled = true,
     this.textEditingController,
+    this.onChanged,
     this.hint,
+    this.initialValue,
     super.key,
   });
 
-  String? Function(String?)? validationFunciton;
+  String? Function(String?)? validation;
+  String? Function(String?)? onChanged;
 
   String label;
   String? hint;
+  String? initialValue;
   bool isAstrics, isNumeric;
-  final double _fontSize = 14;
   final double _cursorHeight = 22;
   TextEditingController? textEditingController;
   bool isDisabled;
@@ -28,23 +31,24 @@ class StepperTextField extends StatelessWidget {
         ? TextFormField(
             autovalidateMode: AutovalidateMode.onUserInteraction,
             enabled: isDisabled,
+            initialValue: initialValue,
             controller: textEditingController,
-            validator: validationFunciton,
+            validator: validation,
             cursorHeight: _cursorHeight,
+            onChanged: onChanged,
             keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
             decoration: InputDecoration(
-              label: getLabelWithAstrics(
-                context: context,
-                label: label,
-              ),
+              label: LableWithAstrics(label: label),
               hintText: hint,
             ),
           )
         : TextFormField(
             autovalidateMode: AutovalidateMode.onUserInteraction,
             enabled: isDisabled,
+            initialValue: initialValue,
             controller: textEditingController,
-            validator: validationFunciton,
+            validator: validation,
+            onChanged: onChanged,
             cursorHeight: _cursorHeight,
             keyboardType: isNumeric ? TextInputType.number : TextInputType.name,
             decoration: InputDecoration(
@@ -55,18 +59,20 @@ class StepperTextField extends StatelessWidget {
             ),
           );
   }
+}
 
-  RichText getLabelWithAstrics({context, required String label}) {
+class LableWithAstrics extends StatelessWidget {
+  const LableWithAstrics({super.key, this.label});
+  final String? label;
+
+  @override
+  Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        // style: textStyle,
         children: [
           TextSpan(
             text: label,
-            style: Theme.of(context)
-                .inputDecorationTheme
-                .labelStyle!
-                .copyWith(fontSize: _fontSize),
+            style: const TextStyle(color: Colors.black),
           ),
           TextSpan(
             text: ' *',

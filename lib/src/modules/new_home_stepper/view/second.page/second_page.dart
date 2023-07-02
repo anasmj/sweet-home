@@ -100,7 +100,7 @@ class RentAmountField extends StatelessWidget {
         ),
         Expanded(
           child: StepperTextField(
-            validationFunciton: FormValidators.checkRentAmount,
+            validation: FormValidators.checkRentAmount,
             isNumeric: true,
           ),
         ),

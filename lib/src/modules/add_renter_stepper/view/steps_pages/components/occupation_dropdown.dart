@@ -8,10 +8,11 @@ class OccupationDropdown extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final occupations = ref.watch(newRenterProvider.notifier).occupationOptions;
+    final occupation = ref.watch(newRenterProvider.select((v) => v.occupation));
 
     return DropdownButton(
       borderRadius: BorderRadius.circular(10),
-      value: occupations.first,
+      value: occupation,
       elevation: 10,
       onChanged: ref.read(newRenterProvider.notifier).setOccupation,
       items: occupations

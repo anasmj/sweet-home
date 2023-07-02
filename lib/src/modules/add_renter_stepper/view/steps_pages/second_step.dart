@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sweet_home/src/components/stepper.textfield/stepper_textfield.dart';
 import 'package:sweet_home/src/constants/constants.dart';
-import 'package:sweet_home/src/providers/text.controller.provider.dart';
+import 'package:sweet_home/src/modules/add_renter_stepper/provider/new.renter.provider.dart';
 
 // ignore: must_be_immutable
 class AddressStep extends ConsumerWidget {
@@ -21,88 +21,24 @@ class AddressStep extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final notifier = ref.watch(newRenterProvider.notifier);
     return Form(
       //Nothnig to validate
       child: Column(
         children: [
           StepperTextField(
             label: "পূর্বের ঠিকানা",
-            textEditingController:
-                ref.watch(tecProvider(Field.renterPrevAddress)),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          permanentAddressDivider(context),
-          const SizedBox(
-            height: 10,
+            onChanged: notifier.onAddressChanged,
           ),
           StepperTextField(
-              label: 'গ্রাম',
-              textEditingController:
-                  ref.watch(tecProvider(Field.renterVillage))),
-          const SizedBox(
-            width: 10,
+            label: "স্থায়ী ঠিকানা",
+            onChanged: notifier.onPermanentAddressChanged,
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              // const LocationRadio(),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: StepperTextField(
-                  textEditingController:
-                      ref.watch(tecProvider(Field.renterThana)),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          StepperTextField(
-            label: 'উপজেলা',
-            textEditingController:
-                ref.watch(tecProvider(Field.renterSubDistrict)),
-
-            // textEditingController: subDistrictController,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          StepperTextField(
-            label: 'জেলা',
-            textEditingController: ref.watch(tecProvider(Field.renterDistrict)),
-
-            // textEditingController: districtController,
-          ),
+          height10,
+          height10,
         ],
       ),
     );
-  }
-
-  Row permanentAddressDivider(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text(
-        'স্থায়ী ঠিকানা',
-        style: Theme.of(context).textTheme.bodyLarge,
-      ),
-      const SizedBox(
-        width: 10,
-      ),
-      Expanded(
-        child: Divider(
-          color: Colors.grey.shade800,
-        ),
-      )
-    ]);
   }
 }
 

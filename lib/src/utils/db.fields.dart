@@ -10,25 +10,22 @@ class FlatField {
   static String get due => 'monthlyDue';
   static String get confirmDate => 'confirmDate';
   static String get renter => 'renter';
+  static String get transactions => 'transactions';
 }
 
 class RenterField {
   static String get name => 'renterName';
   static String get id => 'id';
   static String get ph => 'phoneNo';
-  static String get ph2 => 'alternatePhoneNo';
+  static String get ph2 => 'phone2';
   static String get occupation_ => 'occupation';
   static String get entryDate_ => 'entryDate';
   static String get numOfPerson_ => 'numOfPerson';
-  static String get previousLocation_ => 'previousLocation';
-  static String get vill => 'village';
-  static String get policeSt => 'policeStation';
-  static String get union_ => 'union';
-  static String get subDistrict_ => 'subDistrict';
-  static String get dist_ => 'district';
+  static String get previousAddress => 'previousAddress';
+  static String get permanentAddress => 'permanentAddress';
   static String get nId => 'nIdNumber';
   static String get transactions_ => 'transactions';
-  static String get due_ => 'renterDue';
+  static String get advance => 'advance';
 }
 
 class RecordField {

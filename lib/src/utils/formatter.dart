@@ -46,7 +46,7 @@ class Formatter {
       locale: 'bn-IN',
       decimalDigits: 0,
       symbol: '',
-    ).format(value);
+    ).format(value ?? 0);
     return includeSymbol ? '৳$res' : res;
   }
 

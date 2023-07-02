@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sweet_home/src/components/stepper.textfield/stepper_textfield.dart';
 import 'package:sweet_home/src/constants/constants.dart';
+import 'package:sweet_home/src/extensions/extensions.dart';
 import 'package:sweet_home/src/modules/add_renter_stepper/provider/new.renter.provider.dart';
-import 'package:sweet_home/src/providers/text.controller.provider.dart';
 
 import 'components/entry_date_picker.dart';
 
@@ -10,7 +11,9 @@ class ThirdStepPage extends ConsumerWidget {
   const ThirdStepPage({super.key});
   @override
   Widget build(BuildContext context, ref) {
-    final notifier = ref.watch(newRenterProvider.notifier);
+    ref.watch(newRenterProvider);
+    final includeAdvance = ref.watch(newRenterProvider.notifier).includeAdvance;
+
     return Column(
       children: [
         const SizedBox(
@@ -19,16 +22,41 @@ class ThirdStepPage extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Checkbox(value: false, onChanged: notifier.setAdvance),
-            const Text('অগ্রীম'),
-            const SizedBox(
-              width: 20,
+            Checkbox(
+              value: includeAdvance,
+              onChanged: ref.watch(newRenterProvider.notifier).setAdvance,
             ),
+            const Text('অগ্রীম'),
+            const SizedBox(width: 20),
             const AdvanceTextField(),
           ],
         ),
-        const SizedBox(height: 20),
+        if (includeAdvance) const PaidBy(),
+        height20,
         const EntryDatePicker(),
+        height30,
+      ],
+    );
+  }
+}
+
+class PaidBy extends ConsumerWidget {
+  const PaidBy({super.key});
+
+  @override
+  Widget build(BuildContext context, ref) {
+    return Column(
+      children: [
+        SizedBox(
+          width: 180,
+          child: StepperTextField(
+            initialValue: ref.watch(newRenterProvider).renterName,
+          ),
+        ),
+        Text(
+          'এর মাধ্যমে',
+          style: context.text.titleLarge,
+        ),
       ],
     );
   }
@@ -39,14 +67,14 @@ class AdvanceTextField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    ref.watch(newRenterProvider);
+    final includeAdvance = ref.watch(newRenterProvider.notifier).includeAdvance;
     return SizedBox(
       width: 120,
       height: 40,
       child: TextFormField(
-        controller: ref.watch(tecProvider(Field.renterAdvance)),
-        // controller: controller,
-        // enabled: provider.advanceStatus,
-        enabled: false,
+        onChanged: ref.watch(newRenterProvider.notifier).onAdvanceChanged,
+        enabled: includeAdvance,
         style: Theme.of(context)
             .textTheme
             .titleLarge!

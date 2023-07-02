@@ -4,12 +4,13 @@ import 'package:sweet_home/src/api/flat_services.dart';
 import 'package:sweet_home/src/components/app.widgets/app.widgets.dart';
 import 'package:sweet_home/src/components/error.page/error_page.dart';
 import 'package:sweet_home/src/components/searching.indicator/searching_indicator.dart';
+import 'package:sweet_home/src/extensions/extensions.dart';
 import 'package:sweet_home/src/model/flat.dart';
+import 'package:sweet_home/src/modules/add_renter_stepper/view/add_renter_stepper.dart';
+import 'package:sweet_home/src/modules/flats/components/flat_container.dart';
 import 'package:sweet_home/src/modules/flats/provider/selected.flat.provider.dart';
 import 'package:sweet_home/src/modules/flats/view/no.flat.page/no.flat.dart';
 import 'package:sweet_home/src/providers/selected.home.provider.dart';
-
-import '../../components/flat.container/flat_container.dart';
 
 class FlatsPage extends ConsumerWidget {
   const FlatsPage({super.key});
@@ -21,7 +22,9 @@ class FlatsPage extends ConsumerWidget {
     return StreamBuilder<List<Flat>>(
       stream: FlatService().flatsStream(homeId: home.homeId!),
       builder: (context, snapshot) {
-        if (snapshot.hasError) return const ErrorPage();
+        if (snapshot.hasError) {
+          return const ErrorPage();
+        }
         if (!snapshot.hasData) return const SearchingIndicator();
         if (snapshot.hasData) {
           List<Flat>? flats = snapshot.data;
@@ -50,8 +53,7 @@ class FlatsPage extends ConsumerWidget {
                             onFlatTap: () {
                               ref.read(selectedFlatNotifier.notifier).set(flat);
                               if (flat.renter == null) {
-                                //add renter
-                                //new renter page
+                                context.push(const AddRenterStepper());
                               } else {
                                 //RenterOpeningPage()
                               }

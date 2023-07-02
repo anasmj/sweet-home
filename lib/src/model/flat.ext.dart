@@ -2,6 +2,14 @@ part of 'flat.dart';
 
 extension FlatExt on Flat {
   static Flat fromJson(Map<String, dynamic> json) {
+    List<RenterTransaction> transactionList = [];
+
+    final transactionMapList = json['transactions'];
+    transactionMapList.forEach((item) {
+      RenterTransaction transaction =
+          RenterTransaction.fromJson(item as Map<String, dynamic>);
+      transactionList.add(transaction);
+    });
     return Flat(
       flatName: json[FlatField.name] ?? '',
       renter: json[FlatField.renter] != null
@@ -10,9 +18,9 @@ extension FlatExt on Flat {
       flatRentAmount: json[FlatField.rent] ?? 0,
       flatGasBill: json[FlatField.gas] ?? 0,
       flatWaterBill: json[FlatField.water] ?? 0,
-      confirmDate: json[FlatField.confirmDate] != null
-          ? DateTime.parse(json[FlatField.confirmDate])
-          : null,
+      // confirmDate: json[FlatField.confirmDate] != null
+      //     ? DateTime.parse(json[FlatField.confirmDate])
+      //     : null,
       presentMeterReading: json[FlatField.presentReading],
       presentMeterReadingUpdateTime: json[FlatField.presentTime] != null
           ? DateTime.parse(json[FlatField.presentTime])
@@ -24,6 +32,7 @@ extension FlatExt on Flat {
           ? DateTime.parse(json[FlatField.previousTime])
           : null,
       monthlyDue: json[FlatField.due],
+      transactions: transactionList,
     );
   }
 
@@ -33,6 +42,7 @@ extension FlatExt on Flat {
     int gasBill = 0,
     int waterBill = 0,
     double? previousMeterReading,
+    RenterTransaction? renterTransaction,
   }) =>
       {
         FlatField.name: flatName,
@@ -44,7 +54,8 @@ extension FlatExt on Flat {
         FlatField.previousTime: previousMeterReadingUpdateTime,
         FlatField.presentTime: presentMeterReadingUpdateTime,
         FlatField.due: monthlyDue,
-        FlatField.confirmDate: confirmDate,
+        FlatField.transactions:
+            renterTransaction != null ? [renterTransaction.toJson()] : [],
         // 'serviceCharges': serviceCharges ?? [],
       };
 }
