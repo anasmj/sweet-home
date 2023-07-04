@@ -65,7 +65,7 @@ class EditModalSheet extends StatelessWidget {
           DynamicUpdateButton(
             buttonTitle: 'আপডেট',
             onPressed: onUpdated,
-            scope: scope,
+
             //? if not passeed, it will take homeList view model
           ),
         ],

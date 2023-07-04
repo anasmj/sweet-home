@@ -1,7 +1,6 @@
+import 'package:sweet_home/src/constants/constants.dart';
 import 'package:sweet_home/src/model/renter.dart';
 import 'package:sweet_home/src/model/transaction.dart';
-
-import '../utils/db.fields.dart';
 
 part 'flat.ext.dart';
 

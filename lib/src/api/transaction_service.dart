@@ -66,33 +66,6 @@ class TransactionService {
     // print(snapShot.docs.first.data());
   }
 
-  //ADD TO RENTER//!UPDATED
-  Future<Response> addTransactionToFlat({
-    required String homeId,
-    required String flatId,
-    required RenterTransaction transaction,
-  }) async {
-    try {
-      await _db
-          .collection('users')
-          .doc(_auth.currentUser!.uid)
-          .collection('homes')
-          .doc(homeId)
-          .collection('flats')
-          .doc(flatId)
-          .update({
-        'transactions': FieldValue.arrayUnion([transaction.toJson()]),
-      });
-
-      response.code = 200;
-      response.body = 'ok';
-    } catch (e) {
-      response.code = 203;
-      response.body = e.toString();
-    }
-    return response;
-  }
-
   Future<Response> addTransactionToRenter({
     required String homeId,
     required String flatId,

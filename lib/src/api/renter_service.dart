@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../constants/src/db.fields.dart';
 import '../model/renter.dart';
 import '../model/response.dart';
-import '../model/transaction.dart';
-import '../utils/db.fields.dart';
 
 class RenterService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -29,14 +28,13 @@ class RenterService {
     required String homeId,
     required Renter renter,
     required String flatId,
-    RenterTransaction? renterTransaction,
   }) async {
     CollectionReference flatsCollectionRef =
         await getFlatsCollectionRef(homeId: homeId);
     DocumentReference flatDocRef = flatsCollectionRef.doc(flatId);
 
     await flatDocRef.update({
-      FlatField.renter: renter.toJson(renterTransaction: renterTransaction),
+      FlatField.renter: renter.toJson(),
     }).whenComplete(() {
       response.code = 200;
       response.body = 'successfully added renter to flat';

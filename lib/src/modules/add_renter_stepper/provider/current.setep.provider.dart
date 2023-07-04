@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sweet_home/src/api/flat_services.dart';
+import 'package:sweet_home/src/api/renter_service.dart';
+import 'package:sweet_home/src/components/error.page/error_page.dart';
 import 'package:sweet_home/src/constants/constants.dart';
+import 'package:sweet_home/src/extensions/extensions.dart';
+import 'package:sweet_home/src/model/transaction.dart';
+import 'package:sweet_home/src/modules/flats/provider/selected.flat.provider.dart';
 import 'package:sweet_home/src/providers/form.key.provider.dart';
+import 'package:sweet_home/src/providers/selected.home.provider.dart';
 
+import '../components/renter_add_successful.dart';
 import '../view/steps_pages/first_step.dart';
 import '../view/steps_pages/second_step.dart';
 import '../view/steps_pages/third_step.dart';
+import 'new.renter.provider.dart';
 
 final newRenterStepProvider = NotifierProvider<CurrentStepperProvider, int>(
   CurrentStepperProvider.new,
@@ -26,43 +35,64 @@ class CurrentStepperProvider extends Notifier<int> {
     hasError = false;
   }
 
-  void onStepContinue() async {
+  void showError(BuildContext context) => context.pushReplacement(
+        ErrorPage(onRetry: () => context.pop()),
+      );
+
+  void showSuccess(BuildContext context) =>
+      context.pushReplacement(const AddRenterSuccessfulPage());
+
+  Future<bool> addRenterToFlat() async {
+    final res = await RenterService().addRenterToFlat(
+      homeId: ref.watch(selectedHomeProvider)!.homeId!,
+      renter: ref.read(newRenterProvider),
+      flatId: ref.watch(selectedFlatNotifier)!.flatName,
+    );
+    return res.code == 200;
+  }
+
+  Future<bool> addTransactionToFlat() async {
+    final transaction = RenterTransaction(
+      paidBy: ref.read(newRenterProvider).renterName ?? '',
+      amount: int.parse(ref.read(newRenterProvider.notifier).advance ?? '0'),
+      time: DateTime.now(),
+      isAdvance: true,
+      renter: ref.read(newRenterProvider),
+    );
+    return await FlatService().addTransactionToFlat(
+      ref.watch(selectedHomeProvider)!.homeId!,
+      ref.watch(selectedFlatNotifier)!.flatName,
+      transaction,
+    );
+  }
+
+  void onStepContinue(BuildContext context) async {
     final bool isLastStep = steps.length - 1 == state;
 
     if (isLastStep) {
       isLoading = true;
       ref.notifyListeners();
-      await Future.delayed(const Duration(seconds: 2));
+      if (!ref.read(newRenterProvider.notifier).includeAdvance) {
+        final isAdded = await addRenterToFlat();
+        if (isAdded && context.mounted) {
+          showSuccess(context);
+        } else {
+          showError(context);
+        }
+      } else {
+        final isTransactionAdded = await addTransactionToFlat();
+        if (isTransactionAdded && context.mounted) {
+          bool isRenterAdded = await addRenterToFlat();
+          if (isRenterAdded && context.mounted) {
+            showSuccess(context);
+          } else {
+            showError(context);
+          }
+        } else {
+          showError(context);
+        }
+      }
       isLoading = false;
-      hasError = true;
-      ref.notifyListeners();
-
-      // final renter = ref.read(newRenterProvider);
-      // RenterTransaction? transaction;
-      // if (ref.read(newRenterProvider.notifier).includeAdvance) {
-      //   transaction = RenterTransaction(
-      //     paidBy: ref.read(newRenterProvider.notifier).advance ?? '',
-      //     amount:
-      //         int.parse(ref.read(newRenterProvider.notifier).advance ?? '0'),
-      //     time: renter.entryDate ?? DateTime.now(),
-      //     isAdvance: true,
-      //   );
-      // }
-      // final transactionRes = await TransactionService().addTransactionToFlat(
-      //   homeId: ref.watch(selectedHomeProvider)!.homeId!,
-      //   flatId: ref.watch(selectedFlatNotifier)!.flatName,
-      //   transaction: transaction!,
-      // );
-      // if (transactionRes.code != 200) {
-      //   return;
-      // }
-      // final res = await RenterService().addRenterToFlat(
-      //   homeId: ref.watch(selectedHomeProvider)!.homeId!,
-      //   renter: renter,
-      //   flatId: ref.watch(selectedFlatNotifier)!.flatName,
-      //   renterTransaction: transaction,
-      // );
-
       return;
     }
     if (state == 0) {
@@ -73,6 +103,7 @@ class CurrentStepperProvider extends Notifier<int> {
     state = state + 1;
   }
 
+  void addRenterWithoutTrasaction() {}
   void onStepCancel() {
     if (state == 0) return;
     state = state - 1;

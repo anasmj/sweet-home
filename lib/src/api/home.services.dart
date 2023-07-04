@@ -64,8 +64,7 @@ class HomeServices {
     //adding new home to the collection
     CollectionReference users = _db.collection('users');
     DocumentReference docReferencer = users.doc(_auth.currentUser!.uid);
-    DocumentReference homeDocRef =
-        docReferencer.collection('homes').doc(); //home doc created
+    DocumentReference homeDocRef = docReferencer.collection('homes').doc();
 
     //create flats colection, where doc id = flat name
     CollectionReference flatCollectionRef = homeDocRef.collection('flats');

@@ -20,15 +20,19 @@ class RenterTransaction {
         'isAdvance': isAdvance,
         'renter': renter?.toJson()
       };
-  static RenterTransaction fromJson(Map<String, dynamic> json) =>
-      RenterTransaction(
-        paidBy: json['paidBy'] ?? '',
-        amount: json['amount'],
-        time: DateTime.parse(json['time']),
-        isAdvance: json['isAdvance'],
-        renter: Renter.fromJson(json['renter']),
-      );
+  static RenterTransaction fromJson(Map<String, dynamic> json) {
+    final transaction = RenterTransaction(
+      paidBy: json['paidBy'] ?? '',
+      amount: json['amount'],
+      time: DateTime.parse(json['time']),
+      isAdvance: json['isAdvance'],
+      renter: json['renter'] != null ? Renter.fromJson(json['renter']) : null,
+    );
+
+    return transaction;
+  }
+
   @override
   String toString() =>
-      'paid by: $paidBy, amount: $amount,time $time, isAdvance: $isAdvance';
+      'paid by: $paidBy, amount: $amount,time $time, isAdvance: $isAdvance, renter: $renter';
 }

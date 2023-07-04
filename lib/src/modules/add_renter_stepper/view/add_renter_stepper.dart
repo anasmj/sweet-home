@@ -6,7 +6,6 @@ import 'package:sweet_home/src/extensions/extensions.dart';
 import 'package:sweet_home/src/providers/selected.home.provider.dart';
 
 import '../components/adding_renter_indicator.dart';
-import '../components/renter_add_successful.dart';
 import '../provider/current.setep.provider.dart';
 import 'steps_pages/components/nav_buttons.dart';
 
@@ -22,9 +21,7 @@ class _AddAddRenterStepperState extends ConsumerState<AddRenterStepper> {
 
   @override
   Widget build(BuildContext context) {
-    final isCompleted = ref.watch(newRenterStepProvider.notifier).isCompleted;
     final isLoading = ref.watch(newRenterStepProvider.notifier).isLoading;
-    final hasError = ref.watch(newRenterStepProvider.notifier).hasError;
     final currentStep = ref.watch(newRenterStepProvider);
     final homeId = ref.watch(selectedHomeProvider)?.homeId;
     final stepNotifier = ref.watch(newRenterStepProvider.notifier);
@@ -38,23 +35,19 @@ class _AddAddRenterStepperState extends ConsumerState<AddRenterStepper> {
             ? false
             : true, //disable back button when user not in first pag
       ),
-      body: !hasError
-          ? !isCompleted
-              ? isLoading
-                  ? const AddingRenterIndicator()
-                  : Stepper(
-                      type: StepperType.horizontal,
-                      currentStep: currentStep,
-                      onStepContinue: stepNotifier.onStepContinue,
-                      onStepCancel: stepNotifier.onStepCancel,
-                      steps: stepNotifier.steps,
-                      controlsBuilder: (context, ControlsDetails detail) {
-                        stepNotifier.setControllerDetail(detail);
-                        return const RenterStepperNavigation();
-                      },
-                    )
-              : const AddRenterSuccessfulPage()
-          : const _ErrorBody(),
+      body: isLoading
+          ? const AddingRenterIndicator()
+          : Stepper(
+              type: StepperType.horizontal,
+              currentStep: currentStep,
+              onStepContinue: () => stepNotifier.onStepContinue(context),
+              onStepCancel: stepNotifier.onStepCancel,
+              steps: stepNotifier.steps,
+              controlsBuilder: (context, ControlsDetails detail) {
+                stepNotifier.setControllerDetail(detail);
+                return const RenterStepperNavigation();
+              },
+            ),
     );
   }
 }

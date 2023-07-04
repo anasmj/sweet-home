@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sweet_home/src/model/response.dart';
 
 import '../model/flat.dart';
+import '../model/transaction.dart';
 import '../model/utility.dart';
 import '../utils/formatter.dart';
 
@@ -21,6 +22,27 @@ class FlatService {
     CollectionReference flatsCollectionRef =
         currentHomeDocRef.collection('flats');
     return flatsCollectionRef;
+  }
+
+  Future<bool> addTransactionToFlat(
+    String homeId,
+    String flatId,
+    RenterTransaction transaction,
+  ) async {
+    try {
+      await _db
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .collection('homes')
+          .doc(homeId)
+          .collection('flats')
+          .doc(flatId)
+          .collection('transactions')
+          .add(transaction.toJson());
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<Response> getSingleFlat(

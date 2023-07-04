@@ -9,6 +9,7 @@ import 'package:sweet_home/src/utils/form_validators.dart';
 import 'package:sweet_home/src/utils/formatter.dart';
 import 'package:sweet_home/src/utils/validators.dart';
 
+import '../../provider/current.setep.provider.dart';
 import '../../provider/new.renter.provider.dart';
 import 'components/occupation_dropdown.dart';
 
@@ -23,6 +24,7 @@ class RenterInfoStep extends ConsumerWidget {
     return WillPopScope(
       onWillPop: () async {
         ref.invalidate(newRenterProvider);
+        ref.invalidate(newRenterStepProvider);
         return true;
       },
       child: Form(

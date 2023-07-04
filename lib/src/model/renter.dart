@@ -1,5 +1,4 @@
-import 'package:sweet_home/src/model/transaction.dart';
-import 'package:sweet_home/src/utils/db.fields.dart';
+import 'package:sweet_home/src/constants/constants.dart';
 
 class Renter {
   String? renterName;
@@ -12,9 +11,6 @@ class Renter {
   String? previousAddress;
   String? permanentAddress;
   double renterDue;
-  // RenterTransaction? renterTransaction;
-
-  // List<RenterTransaction>? transactions;
 
   Renter({
     this.renterName,
@@ -26,23 +22,11 @@ class Renter {
     this.numOfPerson,
     this.previousAddress,
     this.permanentAddress,
-    // this.transactions,
     this.renterDue = 0,
-    // this.renterTransaction,
   });
 
   static Renter fromJson(Map<String, dynamic> json) {
-    // List<RenterTransaction> transactionList = [];
-
-    // final transactionMapList = json['transactions'];
-    // transactionMapList.forEach((item) {
-    //   RenterTransaction transaction =
-    //       RenterTransaction.fromJson(item as Map<String, dynamic>);
-    //   transactionList.add(transaction);
-    // });
-    Renter renter;
-
-    renter = Renter(
+    Renter renter = Renter(
       renterName: json[RenterField.name],
       id: json[RenterField.id],
       phone: json[RenterField.ph],
@@ -52,15 +36,11 @@ class Renter {
       numOfPerson: json[RenterField.numOfPerson_] ?? 1,
       previousAddress: json[RenterField.previousAddress] ?? '',
       permanentAddress: json[RenterField.permanentAddress] ?? '',
-      // transactions: transactionList,
     );
-    // renter.transactions = transactionList;
     return renter;
   }
 
-  Map<String, dynamic> toJson({
-    RenterTransaction? renterTransaction,
-  }) {
+  Map<String, dynamic> toJson() {
     return {
       RenterField.name: renterName,
       RenterField.id: id,
@@ -71,10 +51,6 @@ class Renter {
       RenterField.entryDate_: entryDate.toString(),
       RenterField.previousAddress: previousAddress ?? '',
       RenterField.permanentAddress: permanentAddress ?? '',
-      // RenterField.transactions_:
-      //     renterTransaction != null ? [renterTransaction.toJson()] : [],
-
-      // 'transaction': [renterTransaction.toJson()]
     };
   }
 
@@ -95,7 +71,6 @@ class Renter {
     String? subDistrict,
     String? district,
     String? advance,
-    // List<RenterTransaction>? transactions,
   }) {
     return Renter(
       renterName: renterName ?? this.renterName,
@@ -107,7 +82,6 @@ class Renter {
       entryDate: entryDate ?? this.entryDate,
       previousAddress: previousAddress ?? this.previousAddress,
       permanentAddress: permanentAddress ?? this.permanentAddress,
-      // transactions: transactions ?? this.transactions,
     );
   }
 
