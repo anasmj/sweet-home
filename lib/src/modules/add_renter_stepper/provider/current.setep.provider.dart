@@ -46,7 +46,7 @@ class CurrentStepperProvider extends Notifier<int> {
     final res = await RenterService().addRenterToFlat(
       homeId: ref.watch(selectedHomeProvider)!.homeId!,
       renter: ref.read(newRenterProvider),
-      flatId: ref.watch(selectedFlatNotifier)!.flatName,
+      flatId: ref.watch(selectedFlatProvider)!.flatName,
     );
     return res.code == 200;
   }
@@ -61,7 +61,7 @@ class CurrentStepperProvider extends Notifier<int> {
     );
     return await FlatService().addTransactionToFlat(
       ref.watch(selectedHomeProvider)!.homeId!,
-      ref.watch(selectedFlatNotifier)!.flatName,
+      ref.watch(selectedFlatProvider)!.flatName,
       transaction,
     );
   }

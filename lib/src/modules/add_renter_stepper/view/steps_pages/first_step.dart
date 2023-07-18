@@ -20,7 +20,7 @@ class RenterInfoStep extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    Flat? flat = ref.watch(selectedFlatNotifier);
+    Flat? flat = ref.watch(selectedFlatProvider);
     return WillPopScope(
       onWillPop: () async {
         ref.invalidate(newRenterProvider);

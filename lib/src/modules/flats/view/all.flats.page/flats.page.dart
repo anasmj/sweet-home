@@ -10,6 +10,7 @@ import 'package:sweet_home/src/modules/add_renter_stepper/view/add_renter_steppe
 import 'package:sweet_home/src/modules/flats/components/flat_container.dart';
 import 'package:sweet_home/src/modules/flats/provider/selected.flat.provider.dart';
 import 'package:sweet_home/src/modules/flats/view/no.flat.page/no.flat.dart';
+import 'package:sweet_home/src/modules/renter_opening_page/renter_opening_page.dart';
 import 'package:sweet_home/src/providers/selected.home.provider.dart';
 
 class FlatsPage extends ConsumerWidget {
@@ -51,15 +52,15 @@ class FlatsPage extends ConsumerWidget {
                           return FlatContainer(
                             flat: flat,
                             onFlatTap: () {
-                              ref.read(selectedFlatNotifier.notifier).set(flat);
+                              ref.read(selectedFlatProvider.notifier).set(flat);
                               if (flat.renter == null) {
                                 context.push(const AddRenterStepper());
                               } else {
-                                //RenterOpeningPage()
+                                context.push(const RenterOpeningPage());
                               }
                             },
                             onFlatLongPress: () => ref
-                                .read(selectedFlatNotifier.notifier)
+                                .read(selectedFlatProvider.notifier)
                                 .onLongPress(
                                   context,
                                   flat: flats[index],

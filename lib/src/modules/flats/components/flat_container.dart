@@ -20,8 +20,8 @@ class FlatContainer extends StatelessWidget {
   bool showPreviousReadingAlert = true;
   bool showPresentReadingAlert = true;
 
-  Widget noPreviousReadingText = Row(
-    children: const [
+  Widget noPreviousReadingText = const Row(
+    children: [
       Icon(
         Icons.info_outline_rounded,
         color: Colors.red,
@@ -35,8 +35,8 @@ class FlatContainer extends StatelessWidget {
     ],
   );
 
-  Widget noCurrentReadingText = Row(
-    children: const [
+  Widget noCurrentReadingText = const Row(
+    children: [
       Icon(
         Icons.info_outline_rounded,
         color: Colors.red,
@@ -49,25 +49,6 @@ class FlatContainer extends StatelessWidget {
       )
     ],
   );
-
-  // Future<void> openRenterPage(BuildContext context) async {
-  //   Provider.of<SelectedFlatProvider>(context, listen: false).setSelectedFlat =
-  //       flat;
-  //   // await context.read<FlatViewModel>().getLastMonthRsecord();
-  //   Navigator.of(context).push(
-  //     MaterialPageRoute(
-  //       builder: ((builder) => const RenterOpeningPage()),
-  //     ),
-  //   );
-  // }
-
-  // void addRenter(BuildContext context) {
-  //   Provider.of<SelectedFlatProvider>(context, listen: false).setSelectedFlat =
-  //       flat;
-  //   AppRoute.newRenterStepper(
-  //     context: context,
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {

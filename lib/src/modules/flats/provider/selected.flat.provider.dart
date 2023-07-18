@@ -5,7 +5,7 @@ import 'package:sweet_home/src/model/flat.dart';
 
 import '../components/flat.container.components.dart';
 
-final selectedFlatNotifier =
+final selectedFlatProvider =
     NotifierProvider<SelectedFlatProvider, Flat?>(SelectedFlatProvider.new);
 
 class SelectedFlatProvider extends Notifier<Flat?> {
